@@ -25,7 +25,7 @@ public class Warrior extends GameCharacters {
         setY(200);
         setWidth(100);
         setHeight(200);
-        warriorPic = new Image("WarriorTemp.png", true);
+        //warriorPic = new Image("Warrior.png", true);
     }
 
     public Image getMagePic() {

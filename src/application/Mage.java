@@ -25,7 +25,7 @@ public class Mage extends GameCharacters {
         setY(200);
         setWidth(100);
         setHeight(200);
-        magePic = new Image("MageTemp.png", true);
+        //magePic = new Image("Mage.png", true);
     }
 
     public Image getMagePic() {
