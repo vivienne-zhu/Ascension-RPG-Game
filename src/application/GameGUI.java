@@ -95,9 +95,6 @@ public class GameGUI extends Application {
      * @param primaryStage The primary Stage object of the JavaFX application GUI.
      */
     public void chooseCharacterScreen(Stage primaryStage) {
-	Pane root = new Pane();
-	Scene chooseChar = new Scene(root,1280,720);
-	chooseChar.setFill(Color.CADETBLUE);
 	Text charOption = new Text();
 	charOption.setText("Choose your character type");
 	charOption.setX(180);
@@ -121,13 +118,18 @@ public class GameGUI extends Application {
 	archerBtn.setLayoutY(550);
 	archerBtn.setPrefSize(100, 50);
 	archerBtn.setFont(Font.font(20));
+	
 	Image background = new Image("Tower.jpg");
         BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
         	BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         Background startScreen = new Background(background2);
         
-        root.setBackground(startScreen);
-	root.getChildren().addAll(mageBtn, warriorBtn, archerBtn,charOption);
+	Pane display = new Pane();
+	display.setBackground(startScreen);
+	display.getChildren().addAll(mageBtn, warriorBtn, archerBtn,charOption);
+	
+	Scene chooseChar = new Scene(display,1280,720);
+
 	primaryStage.setScene(chooseChar);
         primaryStage.show();
     }

@@ -39,28 +39,17 @@ public class GameCharacters {
     }
 
     /**
-     * This method takes in an enemy character and makes changes to its stamina when it is attacked by the hero.
+     * This method takes in an game character and makes changes to its stamina when it is attacked by another character.
      * 
-     * @param enemy The enemy character the hero is currently fighting.
+     * @param character The character currently being attacked.
      */
-    public void attackEnemy(GameCharacters enemy){
+    public void attack(GameCharacters character){ 
 	setIsDefending(false);
-	int attackValue = getAttack() - enemy.getDefense();
-	enemy.setCurrentStamina(enemy.getCurrentStamina() - attackValue);
-	//change x coordinate so character moves forward and back when he attacks
+	int attackValue = getAttack() - character.getDefense();
+	character.setCurrentStamina(character.getCurrentStamina() - attackValue);
+	//To Add: change x coordinate so character moves forward and back when he attacks
     }
-    /**
-     * This method takes in an hero character and makes changes to its stamina when it is attacked by the enemy.
-     * 
-     * @param hero The hero character the enemy is currently fighting.
-     */
-    public void attackHero(GameCharacters hero){
-	setIsDefending(false);
-	int attackValue = getAttack() - hero.getDefense();
-	hero.setCurrentStamina(hero.getCurrentStamina() - attackValue);
-	//change x coordinate so character moves forward and back when he attacks
-    }
-
+    
     /**
      * This method changes isDefending to true when the player chooses the option to defend.
      */
