@@ -26,7 +26,7 @@ public class GamePlayController {
      * This method will determine whether the hero has won the fight and can continue to the next floor.
      * 
      * @param hero The chosen hero character being used by the player.
-     * @param enemy The enemy character currently being fought by the hero.
+     * @param allEnemies the array of all enemies f
      * @param floor The current floor of the hero is on.
      */
    public void continueGamePlay(GameCharacters hero, GameCharacters allEnemies[]) { // Floor floor
