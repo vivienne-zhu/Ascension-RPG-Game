@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Thsi class is responsible for controlling game play.
  * 
- * @author sharisinclair
+ * @author sharisinclair and David Cai
  *
  */
 public class GamePlayController {
@@ -29,9 +29,12 @@ public class GamePlayController {
      * @param enemy The enemy character currently being fought by the hero.
      * @param floor The current floor of the hero is on.
      */
-   public void continueGamePlay(GameCharacters hero, GameCharacters enemy) { // Floor floor
+   public void continueGamePlay(GameCharacters hero, GameCharacters allEnemies[]) { // Floor floor
        int heroStam = hero.getCurrentStamina();
-       int enemyStam = enemy.getCurrentStamina();
+       int enemyStam = 0;
+       for (int i = 0; i < allEnemies.length; i++) {
+    	   enemyStam += allEnemies[i].getCurrentStamina();
+       }
        //int floor  = floor.getFloorNumber();
        if ( heroStam == 0 || enemyStam == 0)// && floor < 10 {
 	   continueFighting = false;
