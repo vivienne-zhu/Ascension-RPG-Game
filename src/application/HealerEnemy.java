@@ -21,6 +21,7 @@ public class HealerEnemy extends GameCharacters {
         setAttack(20);
         setDefense(20);
         setStamina(400);
+        setCurrentStamina(400);
         setMana(200);
         setX(1230);
         setY(200);

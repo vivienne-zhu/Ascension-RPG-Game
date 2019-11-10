@@ -21,6 +21,7 @@ public class Archer extends GameCharacters {
         setAttack(100);
         setDefense(60);
         setStamina(400);
+        setCurrentStamina(400);
         setX(50);
         setY(200);
         setWidth(100);

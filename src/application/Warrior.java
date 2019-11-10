@@ -21,6 +21,7 @@ public class Warrior extends GameCharacters {
         setAttack(150);
         setDefense(80);
         setStamina(500);
+        setCurrentStamina(500);
         setX(50);
         setY(200);
         setWidth(100);

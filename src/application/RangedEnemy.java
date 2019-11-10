@@ -21,6 +21,7 @@ public class RangedEnemy extends GameCharacters {
         setAttack(100);
         setDefense(60);
         setStamina(400);
+        setCurrentStamina(400);
         setX(1230);
         setY(200);
         setWidth(100);

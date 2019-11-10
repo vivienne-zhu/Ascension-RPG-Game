@@ -19,8 +19,9 @@ public class MeleeEnemy extends GameCharacters {
     public MeleeEnemy() {
 	//Stat values will be changed
         setAttack(100);
-        setDefense(60);
+        setDefense(30);
         setStamina(400);
+        setCurrentStamina(400);
         setX(1230);
         setY(200);
         setWidth(100);
