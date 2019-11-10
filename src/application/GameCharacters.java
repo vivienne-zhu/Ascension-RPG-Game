@@ -3,7 +3,7 @@ package application;
 /**
  * This class represents the parent class for all characters in the game (both Heros and Enemies).
  * 
- * @author sharisinclair
+ * @author sharisinclair and David Cai
  *
  */
 public class GameCharacters {
@@ -29,33 +29,36 @@ public class GameCharacters {
      * The constructor initializes the necessary instance variables to O and false.
      */
     public GameCharacters(){
-	gold = 0;
-	xp = 0;
-	isDefending = false;
-	x = 0;
-	y = 0;
-	height = 0.0;
-	width = 0.0;
+		gold = 0;
+		xp = 0;
+		isDefending = false;
+		x = 0;
+		y = 0;
+		height = 0.0;
+		width = 0.0;
     }
 
     /**
-     * This method takes in an game character and makes changes to its stamina when it is attacked by another character.
+     * This method takes in a game character and makes changes to its stamina when it is attacked by another character.
      * 
      * @param character The character currently being attacked.
      */
     public void attack(GameCharacters character){ 
-	setIsDefending(false);
-	int attackValue = getAttack() - character.getDefense();
-	character.setCurrentStamina(character.getCurrentStamina() - attackValue);
+		setIsDefending(false);
+		int attackValue = this.getAttack() - character.getDefense();
+		if (character.isDefending()) {
+			attackValue = attackValue / 0;
+		}
+		character.setCurrentStamina(character.getCurrentStamina() - attackValue);
 	//To Add: change x coordinate so character moves forward and back when he attacks
     }
     
     /**
-     * This method changes isDefending to true when the player chooses the option to defend.
+     * This method changes isDefending to true when a game character chooses the option to defend.
      */
     public void defend() { 
-	//When enemy is attacking, if isDefending = true, attack = 0/ no effect
-	setIsDefending(true);
+	//When game character is attacking, if isDefending = true, attack = 0/ no effect
+		this.setIsDefending(true);
     } 
 
     /**
@@ -64,7 +67,7 @@ public class GameCharacters {
      */
     public void heal(int potionValue){
 	//Will be changed to get from Potion ArrayList instead instance variable/ 
-	setCurrentStamina(getCurrentStamina() + potionValue);
+		this.setCurrentStamina(getCurrentStamina() + potionValue);
     }
 
     /**
@@ -72,131 +75,140 @@ public class GameCharacters {
      */
     public void levelUp(){
 	//change increase number
-	int atk = getAttack();
-	atk = atk + 2;
-	int defense = getDefense();
-	defense = defense + 2;
-	int stam = getStamina();
-	stam = stam + 2;
+    //can be changed to get a certain number of stats at a minimum and also a maximum number of stats
+    //so player cannot highroll super high stats or lowroll super bad stats
+		int atk = this.getAttack();
+		int rand = (int)(Math.random() * ((3) + 1));
+		atk = atk + rand;
+		rand = (int)(Math.random() * ((3) + 1));
+		int defense = this.getDefense();
+		defense = defense + rand;
+		rand = (int)(Math.random() * ((3) + 1));
+		int stam = this.getStamina();
+		stam = stam + rand;
+		if (this instanceof Mage) {
+			rand = (int)(Math.random() * ((3) + 1));
+			mana = mana + rand;
+		}
     }
 
     public double getX() {
-	return x;
+    	return x;
     }
     public void setX(double x) {
-	this.x = x;
+    	this.x = x;
     }
 
     public double getY() {
-	return y;
+    	return y;
     }
 
     public void setY(double y) {
-	this.y = y;
+    	this.y = y;
     }
 
     public void setHeight(double height) {
-	this.height = height;
+    	this.height = height;
     }
 
     public void setWidth(double width) {
-	this.width = width;
+    	this.width = width;
     }
 
     public boolean isHasPotion() {
-	return hasPotion;
+    	return hasPotion;
     }
 
     public void setHasPotion(boolean hasPotion) {
-	this.hasPotion = hasPotion;
+    	this.hasPotion = hasPotion;
     }
 
     public boolean isHasRevive() {
-	return hasRevive;
+    	return hasRevive;
     }
 
     public void setHasRevive(boolean hasRevive) {
-	this.hasRevive = hasRevive;
+    	this.hasRevive = hasRevive;
     }
 
     public String getName() {
-	return name;
+    	return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+    	this.name = name;
     }
 
     public int getAttack() {
-	return attack;
+    	return attack;
     }
 
     public void setAttack(int attack) {
-	this.attack = attack;
+    	this.attack = attack;
     }
 
     public int getDefense() {
-	return defense;
+    	return defense;
     }
 
     public void setDefense(int defense) {
-	this.defense = defense;
+    	this.defense = defense;
     }
 
     public int getStamina() {
-	return stamina;
+    	return stamina;
     }
 
     public void setStamina(int stamina) {
-	this.stamina = stamina;
+    	this.stamina = stamina;
     }
 
     public int getCurrentStamina() {
-	return currentStamina;
+    	return currentStamina;
     }
 
     public void setCurrentStamina(int currentStamina) {
-	this.currentStamina = currentStamina;
+    	this.currentStamina = currentStamina;
     }
 
     public double getHeight() {
-	return height;
+    	return height;
     }
 
     public double getWidth() {
-	return width;
+    	return width;
     }
 
     public int getGold() {
-	return gold;
+    	return gold;
     }
 
     public void setGold(int gold) {
-	this.gold = gold;
+    	this.gold = gold;
     }
 
     public int getXp() {
-	return xp;
+    	return xp;
     }
 
     public void setXp(int xp) {
-	this.xp = xp;
+    	this.xp = xp;
     }
 
     public boolean isDefending() {
-	return isDefending;
+    	return isDefending;
     }
 
     public void setIsDefending(boolean isDefending) {
-	this.isDefending = isDefending;
+    	this.isDefending = isDefending;
     }
 
     public int getMana() {
-	return mana;
+    	return mana;
     }
 
     public void setMana(int mana) {
-	this.mana = mana;
+    	this.mana = mana;
     }
 
 

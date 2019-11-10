@@ -28,11 +28,11 @@ public class Warrior extends GameCharacters {
         //warriorPic = new Image("Warrior.png", true);
     }
 
-    public Image getMagePic() {
+    public Image getWarriorPic() {
         return warriorPic;
     }
 
-    public void setMagePic(Image warrior) {
+    public void setWarriorPic(Image warrior) {
         this.warriorPic = warrior;
     }
 
