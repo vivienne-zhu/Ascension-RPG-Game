@@ -16,13 +16,14 @@ public class HealerEnemy extends GameCharacters {
      * The constructor sets the stats(attack,defense and stamina) of the Archer object,
      * and also sets the values needed to display the image instance variable in the GUI.
      */
-    public HealerEnemy() {
+    public HealerEnemy(int floor) {
 	//Stat values will be changed
-        setAttack(20);
-        setDefense(20);
-        setStamina(400);
-        setCurrentStamina(400);
-        setMana(200);
+        setAttack(20 + (int)(Math.random() * ((5) + 1)) * floor);
+        setDefense(20 + (int)(Math.random() * ((3) + 1)) * floor);
+        int startStam = 400 + (int)(Math.random() * ((10) + 1)) * floor;
+        setStamina(startStam);
+        setCurrentStamina(startStam);
+        setMana(200 + (int)(Math.random() * ((10) + 1)) * floor);
         setX(1230);
         setY(200);
         setWidth(100);
