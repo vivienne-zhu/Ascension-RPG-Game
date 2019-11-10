@@ -47,7 +47,7 @@ public class GameCharacters {
 		setIsDefending(false);
 		int attackValue = this.getAttack() - character.getDefense();
 		if (character.isDefending()) {
-			attackValue = attackValue / 0;
+			attackValue = attackValue / 2;
 		}
 		character.setCurrentStamina(character.getCurrentStamina() - attackValue);
 	//To Add: change x coordinate so character moves forward and back when he attacks
