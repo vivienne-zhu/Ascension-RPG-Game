@@ -1,9 +1,11 @@
 package application;
 
+import java.util.HashMap;
+
 /**
  * This class represents the parent class for all characters in the game (both Heros and Enemies).
  * 
- * @author sharisinclair and David Cai
+ * @author sharisinclair, David Cai and Jiayu Zhu
  *
  */
 public class GameCharacters {
@@ -12,15 +14,14 @@ public class GameCharacters {
     private int defense;
     private int stamina;
     private int currentStamina;
-    private boolean hasPotion;
     private boolean hasRevive;
     private boolean isDefending;
     private int gold;
     private int xp;
     private int mana;
-    // Will be changed according to whether we use a Bag class/arraylist of items
-    //private ArrayList<Items>;
-    private double x;
+    private HashMap<Potion, Integer> potionMap;
+
+	private double x;
     private double y;
     private double height;
     private double width;
@@ -62,13 +63,62 @@ public class GameCharacters {
     } 
 
     /**
-     * This method takes in the potion with a set value and adds that value to the currentStamina of the hero.
-     * @param potionValue
+     * This method takes a potion object, let the character restore the stamina,
+     * and removes the potion from the potion list.
+     * @param potion
      */
-    public void heal(int potionValue){
-	//Will be changed to get from Potion ArrayList instead instance variable/ 
-		this.setCurrentStamina(getCurrentStamina() + potionValue);
+    public void usePotion(Potion potion){
+    	setCurrentStamina(currentStamina + potion.getRestorePoint());   	
+    	getPotionMap().put(potion, getPotionMap().get(potion) - 1);      	
     }
+    
+    /** 
+     * This method allows the character to revive
+     * if the character has a revive 
+     */
+    public void revive() {
+    	setCurrentStamina(this.getStamina());
+    	setHasRevive(false);
+    }
+    
+    /**
+     * This method allows the player to buy potions from the shop
+     * using gold. The potion bought will be added to the potion list.
+     * @param potion
+     * @param quantity
+     */
+	public void buyPotion(Potion potion, int quantity){
+		setGold(getGold() - potion.getPrice() * quantity);
+		getPotionMap().put(potion, getPotionMap().get(potion) + quantity);	
+	}
+	
+	/**
+	 * This method allows the player to sell potion for half of the buying price to the shop.
+	 * The potions he sells will be removed from the potion list.
+	 * @param potion
+	 * @param quantity
+	 */
+	public void sellPotion(Potion potion, int quantity) {
+		setGold(getGold() + potion.getPrice()/2 * quantity);
+		getPotionMap().put(potion, getPotionMap().get(potion) - quantity);	
+	}
+	
+	/**
+	 * This method allows the player to buy revive from the shop for 200 gold. 
+	 */
+	public void buyRevive() {
+		setGold(getGold() - 200);
+		setHasRevive(true);		
+	}
+	
+	/**
+	 * This method allows the player to sell revive for 150 gold. 
+	 */
+	public void sellRevive() {
+		setGold(getGold() + 150);
+		setHasRevive(false);
+		
+	}
 
     /**
      * This method increases the attack, defense and stamina of the hero when certain conditions are met.
@@ -113,14 +163,6 @@ public class GameCharacters {
 
     public void setWidth(double width) {
     	this.width = width;
-    }
-
-    public boolean isHasPotion() {
-    	return hasPotion;
-    }
-
-    public void setHasPotion(boolean hasPotion) {
-    	this.hasPotion = hasPotion;
     }
 
     public boolean isHasRevive() {
@@ -210,6 +252,22 @@ public class GameCharacters {
     public void setMana(int mana) {
     	this.mana = mana;
     }
+
+	/**
+	 * @return the potionList
+	 */
+	public HashMap<Potion, Integer> getPotionMap() {
+		return potionMap;
+	}
+
+	/**
+	 * @param potionMap the potionMap to set
+	 */
+	public void setPotionList(HashMap<Potion, Integer> potionMap) {
+		this.potionMap = potionMap;
+	}
+    
+    
 
 
 }

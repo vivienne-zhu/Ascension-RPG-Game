@@ -51,11 +51,4 @@ public class Floor {
 	public String toString() {
 		return "Floor " + floor;
 	}
-	
-	public static void main(String[] args) {
-		Floor f = new Floor();
-		System.out.println(f);
-		f.incrementFloor();
-		System.out.println(f);
-	}
 }

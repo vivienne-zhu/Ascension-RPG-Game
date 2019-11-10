@@ -142,6 +142,12 @@ public class GameGUI extends Application {
 	Label charName = new Label("Character Name: ");
     }
     
+    /**
+     * This will generate the shop screen, 
+     * where player is able to shop and sell item.
+     */
+    public void shop() {  	
+    }
 
     public static void main(String[] args) {
         launch(args);
