@@ -31,6 +31,7 @@ public class GameCharacters {
      * The constructor initializes the necessary instance variables to O and false.
      */
     public GameCharacters() {
+	potionMap = new HashMap<>();
 	gold = 0;
 	xp = 0;
 	isDefending = false;
@@ -94,13 +95,18 @@ public class GameCharacters {
      * This method allows the player to buy potions from the shop using gold. The
      * potion bought will be added to the potionMap.
      * 
-     * @param potion
-     * @param quantity
+     * @param potion  The type of potion being bought.
+     * @param quantity The amount of that type of potions being bought.
      */
     public void buyPotion(Potion potion, int quantity) {
 	if (getGold() >= (potion.getPrice() * quantity)) {
 	setGold(getGold() - potion.getPrice() * quantity);
-	getPotionMap().put(potion, getPotionMap().get(potion) + quantity);
+	if (getPotionMap().keySet().contains(potion)) {
+	    getPotionMap().put(potion, getPotionMap().get(potion) + quantity);
+	} else {
+	    getPotionMap().put(potion, quantity);
+	}
+	
 	}
     }
 
@@ -108,8 +114,8 @@ public class GameCharacters {
      * This method allows the player to sell potion for half of the buying price to
      * the shop. The potions he sells will be removed from the potionMap.
      * 
-     * @param potion
-     * @param quantity
+     * @param potion The type of potion being sold.
+     * @param quantity The amount of that potion being sold.
      */
     public void sellPotion(Potion potion, int quantity) {
 	if (getPotionMap().get(potion) >= quantity) {

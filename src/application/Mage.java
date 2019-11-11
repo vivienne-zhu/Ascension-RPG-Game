@@ -20,7 +20,7 @@ public class Mage extends GameCharacters {
      */
     public Mage() {
 	// Stat values will be changed
-	setAttack(50);
+	setAttack(80);
 	setDefense(40);
 	setStamina(300);
 	setCurrentStamina(300);
