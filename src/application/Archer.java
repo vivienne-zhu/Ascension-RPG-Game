@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
  * This class is an extension of the GameCharacters class. It represents a
  * Archer game character.
  * 
- * @author sharisinclair
+ * @author Shari Sinclair
  *
  */
 public class Archer extends GameCharacters {
@@ -28,7 +28,7 @@ public class Archer extends GameCharacters {
 	setY(200);
 	setWidth(100);
 	setHeight(200);
-	// archerPic = new Image("Archer.png", 100, 200, false, false);
+	archerPic = new Image("Archer.png", 100, 200, false, false);
     }
 
     /**

@@ -35,19 +35,73 @@ public class GamePlayController {
 	for (int i = 0; i < allEnemies.length; i++) {
 	    enemyStam += allEnemies[i].getCurrentStamina();
 	}
-	// int floor = floor.getFloorNumber();
-	if (heroStam == 0 || enemyStam == 0)// && floor < 10 {
+
+	if (heroStam == 0 || enemyStam == 0 && floor.getFloor() < 10) {
 	    continueFighting = false;
-	if (enemyStam <= 0) {
-	    goToNextLevel = true;
-	} else if (heroStam <= 0) {
-	    // floor.setFloorNumber(0)
+	    if (enemyStam <= 0) {
+		goToNextLevel = true;
+		floor.incrementFloor();
+	    } else if (heroStam <= 0) {
+		floor.setFloor(1);
+		endGamePlay = true;
+	    }
 	}
     }
 
-    public void determineEndOfGame(GameCharacters hero, GameCharacters enemy) { // Floor floor
-	// Method - if floor number = 10 and enemy stamina <= 0, hero > 0, set
-	// endGamePlay to true.
+    /**
+     * This method will determine whether to end the game or not.
+     * 
+     * @param hero The chosen hero character being used by the player.
+     * @param enemy The enemy the hero is fighting
+     * @param floor The floor the hero is on.
+     */
+    public void determineEndOfGame(GameCharacters hero, GameCharacters enemy, Floor floor) { 
+	if (floor.getFloor() == 10 && enemy.getCurrentStamina() == 0 && hero.getCurrentStamina() >0) {
+	    endGamePlay = true;
+	}
     }
 
+    /**
+     * @return the continueFighting
+     */
+    public boolean isContinueFighting() {
+        return continueFighting;
+    }
+
+    /**
+     * @param continueFighting the continueFighting to set
+     */
+    public void setContinueFighting(boolean continueFighting) {
+        this.continueFighting = continueFighting;
+    }
+
+    /**
+     * @return the goToNextLevel
+     */
+    public boolean isGoToNextLevel() {
+        return goToNextLevel;
+    }
+
+    /**
+     * @param goToNextLevel the goToNextLevel to set
+     */
+    public void setGoToNextLevel(boolean goToNextLevel) {
+        this.goToNextLevel = goToNextLevel;
+    }
+
+    /**
+     * @return the endGamePlay 
+     */
+    public boolean isEndGamePlay() {
+        return endGamePlay;
+    }
+
+    /**
+     * @param endGamePlay the endGamePlay to set
+     */
+    public void setEndGamePlay(boolean endGamePlay) {
+        this.endGamePlay = endGamePlay;
+    }
+
+    
 }
