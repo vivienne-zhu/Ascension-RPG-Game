@@ -1,6 +1,11 @@
 package application;
 import java.util.*;
 
+/**
+ * @author David Cai
+ * This Runner class is for testing purposes only. It allows us to test the game
+ * in console before the completion of the GUI interface.
+ */
 public class Runner {
 	public static void main(String[] args) {
 		int floor = 1;
