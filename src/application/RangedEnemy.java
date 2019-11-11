@@ -22,7 +22,7 @@ public class RangedEnemy extends GameCharacters {
 	// Stat values will be changed
 	setAttack(100 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
 	setDefense(60 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
-	int startStam = 400 + 20 * floor;
+	int startStam = 325 + 20 * floor;
 	setStamina(startStam);
 	setCurrentStamina(startStam);
 	setX(1230);
