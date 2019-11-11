@@ -52,56 +52,63 @@ public class Runner {
 			
 			
 			//player turn
-			Boolean playerTurn = true;
-			Boolean enemyTurn = false;
-			while (player.getCurrentStamina() > 0 && numEnemies > 0) {
-				while (playerTurn) {
-					System.out.println("\nThis is floor: " + floor);
-					System.out.println("\nYour health: " + player.getCurrentStamina());
-					System.out.println("\nYou are facing these enemies: ");
-					for (int i = 0; i < numEnemies; i++) {
-						System.out.println(enemyList.get(i).getType() + " - Health: " + enemyList.get(i).getCurrentStamina());
-					}
-					System.out.println("\nIt is your turn. Do you want to:\n1. Attack\n2. Defend\n3. Use item\nOnly attack works now");
-					int choice = scan.nextInt();
-					if (choice == 1) { //only attack available
-						System.out.println("\nWho do want to attack?");
-						for (int i = 0; i < numEnemies; i++) {
-							System.out.println(i + 1 + ". " + enemyList.get(i).getType());
-						}
-						int attackChoice = scan.nextInt();
-					
-						int attackAmount = player.attack(enemyList.get(attackChoice - 1));
-						System.out.println("\nYou dealt " + attackAmount + " damage. Target enemy health: " + enemyList.get(attackChoice - 1).getCurrentStamina());
-						if (enemyList.get(attackChoice - 1).getCurrentStamina() <= 0) {
-							System.out.println("You have killed the enemy.");
-							enemyList.remove(attackChoice - 1);
-							numEnemies--;
-						}
-					}
-					playerTurn = false;
-					enemyTurn = true;
+			while (player.getCurrentStamina() > 0 && numEnemies > 0 && gameOn) {
+				//player turn
+				System.out.println("\nThis is floor: " + floor);
+				System.out.println("\nYour health: " + player.getCurrentStamina());
+				System.out.println("\nYou are facing these enemies: ");
+				for (int i = 0; i < numEnemies; i++) {
+					System.out.println(enemyList.get(i).getType() + " - Health: " + enemyList.get(i).getCurrentStamina());
 				}
+				System.out.println("\nIt is your turn. Do you want to:\n1. Attack\n2. Defend\n3. Use item\nOnly attack and defense work now");
+				int choice = scan.nextInt();
+				if (choice == 1) { //attack
+					System.out.println("\nWho do want to attack?");
+					for (int i = 0; i < numEnemies; i++) {
+						System.out.println(i + 1 + ". " + enemyList.get(i).getType());
+					}
+					int attackChoice = scan.nextInt();
 				
-				while (enemyTurn) {
-					System.out.println("\nIt is the enemy's turn.");
-					for (int i = 0; i < numEnemies; i++) {
-						enemyList.get(i).attack(player);
-						System.out.println("The enemy attacked you!");
-						System.out.println("Your health is now " + player.getCurrentStamina());
+					int attackAmount = player.attack(enemyList.get(attackChoice - 1));
+					System.out.println("\nYou dealt " + attackAmount + " damage. Target enemy health: " + enemyList.get(attackChoice - 1).getCurrentStamina());
+					if (enemyList.get(attackChoice - 1).getCurrentStamina() <= 0) {
+						System.out.println("You have killed the enemy.");
+						enemyList.remove(attackChoice - 1);
+						numEnemies--;
 					}
-					enemyTurn = false;
-					playerTurn = true;
+				} else if (choice == 2) { //defend
+					player.setIsDefending(true);
+					
+				}
+
+
+				//enemy turn
+				System.out.println("\nIt is the enemy's turn.");
+				for (int i = 0; i < numEnemies; i++) {
+					int attackAmount = enemyList.get(i).attack(player);
+					System.out.println("The " + enemyList.get(i).getType() + " enemy attacked you!");
+					if (attackAmount <= 0) {
+						System.out.println("The enemy's attack had no effect on you!");
+					} else {
+						System.out.println("Your health is now " + player.getCurrentStamina() + ".");
+						if (player.isDefending()) {
+							System.out.println("Your defense blocked " + attackAmount / 2 + " health!");
+						}
+					}
+				}
+				player.setIsDefending(false);
+				if (player.getCurrentStamina() <= 0) {
+					System.out.println("\nGame Over.");
+					gameOn = false;
+				}
+				if (numEnemies == 0) {
+					System.out.println("\nCongratulations, you have advanced to the next floor!");
+					floor++;
+					gameOn = true;
 				}
 			}
-			if (player.getCurrentStamina() <= 0) {
-				System.out.println("Game Over.");
-				gameOn = false;
-			} else {
-				System.out.println("Congratulations, you have advanced to the next floor!");
-				floor++;
-				gameOn = true;
-			}
+			
+
 		}
 	}
 }
