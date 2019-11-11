@@ -20,16 +20,17 @@ public class HealerEnemy extends GameCharacters {
      */
     public HealerEnemy(int floor) {
 	// Stat values will be changed
-	setAttack(20 + (int) (Math.random() * ((5) + 1)) * floor);
-	setDefense(20 + (int) (Math.random() * ((3) + 1)) * floor);
-	int startStam = 400 + (int) (Math.random() * ((10) + 1)) * floor;
+	setAttack(20 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
+	setDefense(20 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
+	int startStam = 400 + 20 * floor;
 	setStamina(startStam);
 	setCurrentStamina(startStam);
-	setMana(200 + (int) (Math.random() * ((10) + 1)) * floor);
+	setMana(200 + 20 * floor);
 	setX(1230);
 	setY(200);
 	setWidth(100);
 	setHeight(200);
+	setType("Healer");
 
     }
 
@@ -50,5 +51,6 @@ public class HealerEnemy extends GameCharacters {
     public void setEnemyPic(Image enemy) {
 	this.healerEnemyPic = enemy;
     }
+
 
 }
