@@ -92,7 +92,7 @@ public class Runner {
 					} else {
 						System.out.println("Your health is now " + player.getCurrentStamina() + ".");
 						if (player.isDefending()) {
-							System.out.println("Your defense blocked " + attackAmount / 2 + " health!");
+							System.out.println("Your defense blocked " + attackAmount / 2 + " damage!");
 						}
 					}
 				}
