@@ -1,6 +1,9 @@
 package application;
 import java.util.*;
 
+import javafx.embed.swing.JFXPanel;
+
+
 /**
  * @author David Cai
  * This Runner class is for testing purposes only. It allows us to test the game
@@ -8,6 +11,7 @@ import java.util.*;
  */
 public class Runner {
 	public static void main(String[] args) {
+		JFXPanel jfxPanel = new JFXPanel();
 		int floor = 1;
 		Boolean gameOn = true;
 		Scanner scan = new Scanner(System.in);
