@@ -11,7 +11,6 @@ import javafx.scene.canvas.GraphicsContext;
  *
  */
 public class MeleeEnemy extends GameCharacters {
-	private Image meleeEnemyPic;
 
 	/**
 	 * The constructor sets the stats(attack,defense and stamina) of the MeleeEnemy
@@ -32,24 +31,6 @@ public class MeleeEnemy extends GameCharacters {
 		setType("Melee");
 		setCharacterImage(new Image("meleeEnemyOrc.png", getWidth(), getHeight(), false, false));
 
-	}
-
-	/**
-	 * The method allows us to get the image instance variable of the MeleeEnemy.
-	 * 
-	 * @return meleeEnemyPic Image of the MeleeEnemy character object.
-	 */
-	public Image getEnemyPic() {
-		return meleeEnemyPic;
-	}
-
-	/**
-	 * This method sets the image of the MeleeEnemy character.
-	 * 
-	 * @param enemy Image of the MeleeEnemy character.
-	 */
-	public void setEnemyPic(Image enemy) {
-		this.meleeEnemyPic = enemy;
 	}
 
 }

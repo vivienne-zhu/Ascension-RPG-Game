@@ -11,7 +11,6 @@ import javafx.scene.canvas.GraphicsContext;
  *
  */
 public class HealerEnemy extends GameCharacters {
-	private Image healerEnemyPic;
 
 	/**
 	 * The constructor sets the stats(attack,defense and stamina) of the HealerEnemy
@@ -33,24 +32,5 @@ public class HealerEnemy extends GameCharacters {
 		setType("Healer");
 
 	}
-
-	/**
-	 * The method allows us to get the image instance variable of the HealerEnemy.
-	 * 
-	 * @return healerEnemyPic Image of the HealerEnemy character object.
-	 */
-	public Image getEnemyPic() {
-		return healerEnemyPic;
-	}
-
-	/**
-	 * This method sets the image of the HealerEnemy character.
-	 * 
-	 * @param enemy Image of the HealerEnemy character.
-	 */
-	public void setEnemyPic(Image enemy) {
-		this.healerEnemyPic = enemy;
-	}
-
 
 }
