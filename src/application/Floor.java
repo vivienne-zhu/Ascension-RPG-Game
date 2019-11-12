@@ -15,28 +15,28 @@ public class Floor {
      * first floor.
      */
     public Floor() {
-	this.floor = 1;
+    	this.floor = 1;
     }
 
     /**
      * This method increments the floor by 1
      */
     public void incrementFloor() {
-	this.floor++;
+    	this.floor++;
     }
 
     /**
      * This method decrements the floor by 1
      */
     public void decrementFloor() {
-	this.floor--;
+    	this.floor--;
     }
 
     /**
      * @return the floor
      */
     public int getFloor() {
-	return this.floor;
+    	return this.floor;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Floor {
      */
 
     public void setFloor(int floor) {
-	this.floor = floor;
+    	this.floor = floor;
     }
 
     /**
@@ -52,6 +52,6 @@ public class Floor {
      */
     @Override
     public String toString() {
-	return "Floor " + floor;
+    	return "Floor " + floor;
     }
 }

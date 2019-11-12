@@ -19,17 +19,17 @@ public class Archer extends GameCharacters {
      * variable in the GUI.
      */
     public Archer() {
-	// Stat values will be changed
-	setAttack(150);
-	setDefense(60);
-	setStamina(400);
-	setCurrentStamina(400);
-	setX(50);
-	setY(200);
-	setWidth(100);
-	setHeight(200);
-	setLevel(1);
-	archerPic = new Image("Archer.png", 100, 200, false, false);
+		// Stat values will be changed
+		setAttack(150);
+		setDefense(60);
+		setStamina(400);
+		setCurrentStamina(400);
+		setX(50);
+		setY(200);
+		setWidth(100);
+		setHeight(200);
+		setLevel(1);
+		archerPic = new Image("Archer.png", 100, 200, false, false);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Archer extends GameCharacters {
      * @return acherPic Image of the Archer character object.
      */
     public Image getArcherPic() {
-	return archerPic;
+		return archerPic;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Archer extends GameCharacters {
      * @param archer Image of the Archer character.
      */
     public void setArcherPic(Image archer) {
-	this.archerPic = archer;
+		this.archerPic = archer;
     }
 
 }

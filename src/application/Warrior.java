@@ -11,43 +11,43 @@ import javafx.scene.canvas.GraphicsContext;
  *
  */
 public class Warrior extends GameCharacters {
-    private Image warriorPic;
+	private Image warriorPic;
 
-    /**
-     * The constructor sets the stats(attack,defense and stamina) of the Warrior
-     * object, and also sets the values needed to display the image instance
-     * variable in the GUI.
-     */
-    public Warrior() {
-	// Stat values will be changed
-	setAttack(175);
-	setDefense(80);
-	setStamina(500);
-	setCurrentStamina(500);
-	setX(50);
-	setY(200);
-	setWidth(100);
-	setHeight(200);
-	setLevel(1);
-	warriorPic = new Image("Warrior.png",100, 200, false, false);
-    }
+	/**
+	 * The constructor sets the stats(attack,defense and stamina) of the Warrior
+	 * object, and also sets the values needed to display the image instance
+	 * variable in the GUI.
+	 */
+	public Warrior() {
+		// Stat values will be changed
+		setAttack(175);
+		setDefense(80);
+		setStamina(500);
+		setCurrentStamina(500);
+		setX(50);
+		setY(200);
+		setWidth(100);
+		setHeight(200);
+		setLevel(1);
+		warriorPic = new Image("Warrior.png",100, 200, false, false);
+	}
 
-    /**
-     * The method allows us to get the image instance variable of the Warrior.
-     * 
-     * @return warriorPic Image of the Warrior character object.
-     */
-    public Image getWarriorPic() {
-	return warriorPic;
-    }
+	/**
+	 * The method allows us to get the image instance variable of the Warrior.
+	 * 
+	 * @return warriorPic Image of the Warrior character object.
+	 */
+	public Image getWarriorPic() {
+		return warriorPic;
+	}
 
-    /**
-     * This method sets the image of the Warrior character.
-     * 
-     * @param warrior Image of the Warrior character.
-     */
-    public void setWarriorPic(Image warrior) {
-	this.warriorPic = warrior;
-    }
+	/**
+	 * This method sets the image of the Warrior character.
+	 * 
+	 * @param warrior Image of the Warrior character.
+	 */
+	public void setWarriorPic(Image warrior) {
+		this.warriorPic = warrior;
+	}
 
 }

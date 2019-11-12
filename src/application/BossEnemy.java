@@ -19,18 +19,17 @@ public class BossEnemy extends GameCharacters {
      * variable in the GUI.
      */
     public BossEnemy(int floor) {
-	// Stat values will be changed
-	setAttack(150 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
-	setDefense(60 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
-	int startStam = 500 + 20 * floor;
-	setStamina(startStam);
-	setCurrentStamina(startStam);
-	setX(1230);
-	setY(200);
-	setWidth(100);
-	setHeight(200);
-	setType("Boss");
-
+		// Stat values will be changed
+		setAttack(150 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
+		setDefense(60 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
+		int startStam = 500 + 20 * floor;
+		setStamina(startStam);
+		setCurrentStamina(startStam);
+		setX(1230);
+		setY(200);
+		setWidth(100);
+		setHeight(200);
+		setType("Boss");
     }
 
     /**
@@ -39,7 +38,7 @@ public class BossEnemy extends GameCharacters {
      * @return meleeEnemyPic Image of the MeleeEnemy character object.
      */
     public Image getEnemyPic() {
-	return bossEnemyPic;
+    	return bossEnemyPic;
     }
 
     /**
@@ -48,7 +47,7 @@ public class BossEnemy extends GameCharacters {
      * @param enemy Image of the MeleeEnemy character.
      */
     public void setEnemyPic(Image enemy) {
-	this.bossEnemyPic = enemy;
+    	this.bossEnemyPic = enemy;
     }
 
 }

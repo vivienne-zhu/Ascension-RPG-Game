@@ -14,8 +14,8 @@ public class CheapPotion extends Potion {
      * The constructor of the cheap potion class sets the restore points and price.
      */
     public CheapPotion() {
-	this.restorePoint = 100;
-	this.price = 50;
+		this.restorePoint = 100;
+		this.price = 50;
     }
 
 }
