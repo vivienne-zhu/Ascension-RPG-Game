@@ -2,6 +2,9 @@ package application;
 
 import java.util.HashMap;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
 /**
  * This class represents the parent class for all characters in the game (both
  * Heros and Enemies).
@@ -22,12 +25,11 @@ public class GameCharacters {
 	private int mana;
 	private int level;
 	private HashMap<Potion, Integer> potionMap;
-
 	private double x;
 	private double y;
 	private double height;
 	private double width;
-
+	private Image characterImage;
 	private String type;
 
 	/**
@@ -176,6 +178,16 @@ public class GameCharacters {
 		this.setLevel(this.getLevel() + 1);
 		return gains;
 	}
+	
+	/**
+	 * This method allows us to display the game character image in the GUI.
+	 * 
+	 * @param g GraphicsContext needed to draw the image in the GUI.
+	 */
+	public void displayCharacter(GraphicsContext g) {
+	    g.drawImage(getCharacterImage(), getX(), getY());
+	}
+	
 
 	/**
 	 * 
@@ -421,6 +433,18 @@ public class GameCharacters {
 		this.level = level;
 	}
 
+	/**
+	 * @return the characterImage
+	 */
+	public Image getCharacterImage() {
+	    return characterImage;
+	}
 
+	/**
+	 * @param characterImage the characterImage to set
+	 */
+	public void setCharacterImage(Image characterImage) {
+	    this.characterImage = characterImage;
+	}
 
 }

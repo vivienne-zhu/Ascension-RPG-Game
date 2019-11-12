@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * The class tests several of the methods in the GameCharacters Class.
+ * 
+ * @author Shari Sinclair
+ *
+ */
 class GameCharactersTest {
 
 
@@ -40,7 +46,7 @@ class GameCharactersTest {
 
 		aragorn.defend();
 		boromir.attack(aragorn);
-		assertEquals(465, aragorn.getCurrentStamina());
+		assertEquals(448, aragorn.getCurrentStamina());
 	}
 
 	@Test

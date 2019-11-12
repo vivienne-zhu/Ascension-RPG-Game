@@ -355,18 +355,21 @@ public class GameGUI extends Application {
 	GraphicsContext gc = canvas.getGraphicsContext2D();
 
 	// To display current stamina of hero and enemy.
-	Text heroName = new Text("Hero: " + this.heroName);
+	Text heroName = new Text(hero.getType() + ": " + this.heroName);
 	heroName.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	heroName.setFill(Color.DODGERBLUE);
 	Text heroStam = new Text("Stamina: " + this.hero.getCurrentStamina());
-	heroStam.setFill(Color.GHOSTWHITE);
+	heroStam.setFill(Color.DODGERBLUE);
 	heroStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	Text enemyName = new Text("Enemy Type: " + this.allEnemies[0].getType());
 	enemyName.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	enemyName.setFill(Color.DARKRED);
 	Text enemyStam = new Text("Stamina: " + this.allEnemies[0].getCurrentStamina());
 	enemyStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
-	enemyStam.setFill(Color.GHOSTWHITE);
+	enemyStam.setFill(Color.DARKRED);
+	
+	//Adding hero image
+	hero.displayCharacter(gc);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
@@ -383,16 +386,16 @@ public class GameGUI extends Application {
 	GridPane grid = new GridPane();
 	grid.add(heroName, 0, 0);
 	grid.add(heroStam, 0, 1);
-	grid.add(enemyName, 15, 0);
-	grid.add(enemyStam, 15, 1);
+	grid.add(enemyName, 18, 0);
+	grid.add(enemyStam, 18, 1);
 	grid.setVgap(15);
 	grid.setHgap(20);
 	grid.setPadding(new Insets(10, 10, 10, 10));
 	grid.setAlignment(Pos.TOP_CENTER);
 	grid.setLayoutX(80);
-	grid.setLayoutY(100);
+	grid.setLayoutY(60);
 	grid.setMinSize(1100, 700);
-	grid.add(hbBtn, 0, 4);
+	grid.add(hbBtn, 0, 3);
 
 	towerLevels.setBackground(insideTowerBackground);
 	towerLevels.getChildren().add(grid);
