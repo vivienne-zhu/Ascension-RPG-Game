@@ -72,6 +72,7 @@ public class Runner {
 				//player turn
 				System.out.println("\nThis is floor: " + floor);
 				System.out.println("\nYour health: " + player.getCurrentStamina());
+				System.out.println("\nYour level: " + player.getLevel());
 				System.out.println("\nYou are facing these enemies: ");
 				for (int i = 0; i < numEnemies; i++) {
 					System.out.println(enemyList.get(i).getType() + " - Health: " + enemyList.get(i).getCurrentStamina());
