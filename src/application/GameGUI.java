@@ -36,7 +36,7 @@ import java.io.FileNotFoundException;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
- * needed to capture user input and run the game. an be run to see preliminary phases of GUI 
+ * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
  * (Start scene, Character selection and naming, incomplete floor 1 of the tower). 
  * Currently this class is only to begin testing GUI elements and its design will be 
  * revived heavily before final submission.
