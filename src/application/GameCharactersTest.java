@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.embed.swing.JFXPanel;
+
 /**
  * The class tests several of the methods in the GameCharacters Class.
  * 
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.Test;
  */
 class GameCharactersTest {
 
+	JFXPanel jfxPanel = new JFXPanel();
 
 
 	@Test
