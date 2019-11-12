@@ -90,10 +90,10 @@ public class Runner {
 					System.out.println("\nYou dealt " + attackAmount + " damage. Target enemy health: " + enemyList.get(attackChoice - 1).getCurrentStamina());
 					if (enemyList.get(attackChoice - 1).getCurrentStamina() <= 0) {
 						System.out.println("\nYou have killed the enemy.");
-						int xpGain = floor * 20;
+						int xpGain = 20 + floor * 10;
 						player.setXp(player.getXp() + xpGain);
 						System.out.println("\nYou have gained " + xpGain + " experience points!");
-						System.out.println("Experience: " + player.getXp() + "/" + (50 + player.getLevel() * 50));
+						System.out.println("Experience: " + player.getXp() + "/" + (40 + player.getLevel() * 60));
 						if ((player.getXp() / (50 + player.getLevel() * 50)) > 0) {
 							int[] gains = player.levelUp();
 							player.setXp(0);

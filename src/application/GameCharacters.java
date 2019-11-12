@@ -159,17 +159,17 @@ public class GameCharacters {
 		// maximum number of stats
 		// so player cannot highroll super high stats or lowroll super bad stats
 		int atk = this.getAttack();
-		int atkRand = 5 + (int) (Math.random() * ((10) + 1));
+		int atkRand = 3 + (int) (Math.random() * ((6) + 1));
 		atk = atk + atkRand;
-		int defRand = 3 + (int) (Math.random() * ((8) + 1));
+		int defRand = 3 + (int) (Math.random() * ((6) + 1));
 		int defense = this.getDefense();
 		defense = defense + defRand;
-		int stamRand = 3 + (int) (Math.random() * ((8) + 1));
+		int stamRand = 3 + (int) (Math.random() * ((6) + 1));
 		int stam = this.getStamina();
 		stam = stam + stamRand;
 		int manaRand = 0;
 		if (this instanceof Mage) {
-			manaRand = 3 + (int) (Math.random() * ((8) + 1));
+			manaRand = 3 + (int) (Math.random() * ((6) + 1));
 			mana = mana + manaRand;
 		}
 		int[] gains = {atkRand, defRand, stamRand, manaRand};

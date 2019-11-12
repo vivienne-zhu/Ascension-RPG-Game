@@ -21,7 +21,7 @@ public class Warrior extends GameCharacters {
 	public Warrior() {
 		// Stat values will be changed
 		setAttack(175);
-		setDefense(80);
+		setDefense(70);
 		setStamina(500);
 		setCurrentStamina(500);
 		setX(50);
