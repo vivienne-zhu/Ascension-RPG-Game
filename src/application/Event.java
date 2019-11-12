@@ -71,4 +71,19 @@ public class Event {
 			hero.setGold(0);
 		}
 	}
+
+	/**
+	 * @return the isEvent
+	 */
+	public boolean isEvent() {
+		return isEvent;
+	}
+
+	/**
+	 * @param isEvent the isEvent to set
+	 */
+	public void setEvent(boolean isEvent) {
+		this.isEvent = isEvent;
+	}
+	
 }
