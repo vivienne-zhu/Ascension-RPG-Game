@@ -1,11 +1,12 @@
 package application;
 
-/**
- * @author JiayuZhu
- */
-
 import java.util.Random;
-
+/**
+ * This class represents and controls event that can happen randomly in the game.
+ * 
+ * @author JiayuZhu
+ *
+ */
 public class Event {
 	private boolean isEvent;
 	
@@ -31,6 +32,7 @@ public class Event {
 	
 	/**
 	 * This method will allow the player to jump 1-3 floors.
+	 * 
 	 * @param floor the current floor the player is on.
 	 */
 	public void jumpFloor(Floor floor) {
@@ -41,6 +43,8 @@ public class Event {
 	/**
 	 * This method will trigger the drop floor event. 
 	 * The player will move down to the lower floor. 
+	 * 
+	 * @param floor
 	 */
 	public void dropFloor(Floor floor) {
 		floor.setFloor(floor.getFloor() - 1);
@@ -49,6 +53,7 @@ public class Event {
 	/**
 	 * This method will trigger the get gold event. 
 	 * The player will receive a random amount of gold from 1-200.
+	 * 
 	 * @param hero
 	 */
 	public void gainGold(GameCharacters hero) {
@@ -59,6 +64,8 @@ public class Event {
 	/**
 	 * This method will trigger the lost gold event. 
 	 * The player will lose a random amount of gold from 0-100.
+	 * 
+	 * @param hero
 	 * 
 	 */
 	public void loseGold(GameCharacters hero) {
