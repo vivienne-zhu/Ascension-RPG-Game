@@ -27,8 +27,7 @@ public class Archer extends GameCharacters {
 		setY(210);
 		setWidth(230);
 		setHeight(510);
-		//Image below commented out in order to pass JUnit tests
-		//setCharacterImage(new Image("Archer.png", getWidth(), getHeight(), false, false));
+		setCharacterImage(new Image("Archer.png", getWidth(), getHeight(), false, false));
 		setType("Archer");
     }
 }

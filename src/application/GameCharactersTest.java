@@ -13,10 +13,10 @@ import javafx.embed.swing.JFXPanel;
  *
  */
 class GameCharactersTest {
-
+    	
 	JFXPanel jfxPanel = new JFXPanel();
 
-
+    	// This tests the attack method
 	@Test
 	void attackTest() {
 		Archer legolas = new Archer();
@@ -29,6 +29,7 @@ class GameCharactersTest {
 		assertEquals(expected, legolas.getCurrentStamina());
 	}
 
+	// This tests the defend method with and enemy and hero
 	@Test
 	void defendingTest() {
 		Archer legolas = new Archer();
@@ -42,6 +43,7 @@ class GameCharactersTest {
 		assertEquals(expected, legolas.getCurrentStamina());
 	}
 
+	// This tests defend method with two heroes
 	@Test 
 	void defendingTestTwo() {
 		Warrior aragorn = new Warrior();
@@ -52,6 +54,8 @@ class GameCharactersTest {
 		assertEquals(448, aragorn.getCurrentStamina());
 	}
 
+	// This tests the methods buyRevive and sellRevive, 
+	// and test whether gold and hasRevives update correctly
 	@Test
 	void buyingAndSellingRevivesTest() {
 		Warrior link = new Warrior();
@@ -75,6 +79,8 @@ class GameCharactersTest {
 
 	}
 
+	// This tests buyPotion, sellPotion and usePotion methods
+	// and checks that the potionMap, stamina and gold update correctly
 	@Test
 	void buyingSellingAndUsingPotionTest() {
 		Warrior link = new Warrior();

@@ -29,8 +29,7 @@ public class Mage extends GameCharacters {
 		setY(250);
 		setWidth(400);
 		setHeight(450);
-		//Image below commented out in order to pass JUnit tests
-		//setCharacterImage(new Image("Mage.png", getWidth(), getHeight(), false, false));
+		setCharacterImage(new Image("Mage.png", getWidth(), getHeight(), false, false));
 		setType("Mage");
 	}
 }

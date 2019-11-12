@@ -39,7 +39,7 @@ import java.io.FileNotFoundException;
  * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
  * (Start scene, Character selection and naming, incomplete floor 1 of the tower). 
  * Currently this class is only to begin testing GUI elements and its design will be 
- * revised heavily before final submission.
+ * revised heavily before final submission (instance variables may be removed/added).
  * 
  * @author Shari Sinclair
  *
@@ -55,7 +55,7 @@ public class GameGUI extends Application {
     /**
      * The constructor creates a new character, sets all booleans variables to
      * false, initialized name as an empty string and enemy array to hold 10
-     * enemies.
+     * enemies.(Still in testing phase, some variables may be removed/added later)
      */
     public GameGUI() {
 	isMage = false;
@@ -372,8 +372,8 @@ public class GameGUI extends Application {
 	enemyStam.setFill(Color.DARKRED);
 	
 	// TEST - Adding hero and boss images
-	//hero.displayCharacter(gc);
-	//allEnemies[0].displayCharacter(gc);
+	hero.displayCharacter(gc);
+	allEnemies[0].displayCharacter(gc);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");

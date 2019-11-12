@@ -28,8 +28,7 @@ public class Warrior extends GameCharacters {
 		setY(240);
 		setWidth(450);
 		setHeight(470);
-		//Image below commented out in order to pass JUnit tests
-		//setCharacterImage(new Image("Warrior.png",getWidth(), getHeight(), false, false));
+		setCharacterImage(new Image("Warrior.png",getWidth(), getHeight(), false, false));
 		setType("Warrior");
 	}
 
