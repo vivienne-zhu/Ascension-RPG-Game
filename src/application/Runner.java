@@ -38,7 +38,8 @@ public class Runner {
 			int healerCount = 0;
 			ArrayList<GameCharacters> enemyList = new ArrayList<GameCharacters>();
 			//min 1 enemy + random num from 0 to 1 + sqrt(floor) rounded down
-			int numEnemies = 1 + (int) (Math.random() * ((1) + 1)) + (int) Math.sqrt(floor); 
+		//	int numEnemies = 1 + (int) (Math.random() * ((1) + 1)) + (int) Math.sqrt(floor); 
+			int numEnemies = 1 + (int) Math.sqrt(floor); //no randomization
 		//	int totalEnemyHealth = 0;
 			for (int i = 0; i < numEnemies; i++) {
 				if (floor == 10) {

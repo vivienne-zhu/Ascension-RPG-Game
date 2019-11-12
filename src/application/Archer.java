@@ -20,7 +20,7 @@ public class Archer extends GameCharacters {
      */
     public Archer() {
 	// Stat values will be changed
-	setAttack(100);
+	setAttack(150);
 	setDefense(60);
 	setStamina(400);
 	setCurrentStamina(400);
