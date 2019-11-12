@@ -80,6 +80,7 @@ public class GameGUI extends Application {
 	//Setting title of primary stage window, adding start scene and showing primary stage
 	primaryStage.setTitle("Tower Challenge");
 	primaryStage.setScene(start);
+	primaryStage.setResizable(false);
 	primaryStage.show();
     }
 
@@ -204,6 +205,7 @@ public class GameGUI extends Application {
 	Scene chooseChar = new Scene(display, 1280, 720);
 
 	primaryStage.setScene(chooseChar);
+	primaryStage.setResizable(false);
 	primaryStage.show();
     }
 
@@ -267,6 +269,7 @@ public class GameGUI extends Application {
 	//Adding Scene to primary Stage and showing it.
 	Scene chooseCharName = new Scene(display, 1280, 720);
 	primaryStage.setScene(chooseCharName);
+	primaryStage.setResizable(false);
 	primaryStage.show();
 
     }
@@ -331,6 +334,7 @@ public class GameGUI extends Application {
 
 	Scene insideTower = new Scene(towerLevel, 1280, 720);
 	primaryStage.setScene(insideTower);
+	primaryStage.setResizable(false);
 	primaryStage.show();
 
     }
@@ -370,6 +374,9 @@ public class GameGUI extends Application {
 	
 	//Adding hero image
 	hero.displayCharacter(gc);
+	
+	//Adding enemy image
+	allEnemies[0].displayCharacter(gc);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
