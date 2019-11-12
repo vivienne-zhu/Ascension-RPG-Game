@@ -12,9 +12,9 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class BossEnemy extends GameCharacters {
     /**
-     * The constructor sets the stats(attack,defense and stamina) of the MeleeEnemy
+     * The constructor sets the stats(attack,defense and stamina) of the BossEnemy
      * object, and also sets the values needed to display the image instance
-     * variable in the GUI.
+     * variable in the GUI. 
      */
     public BossEnemy(int floor) {
 		// Stat values will be changed

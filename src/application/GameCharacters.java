@@ -53,6 +53,8 @@ public class GameCharacters {
 	 * @param character The character currently being attacked.
 	 */
 	public int attack(GameCharacters character) {
+	    	// To Add: change x coordinate so character moves forward and back when he
+	 	// attacks
 		setIsDefending(false);
 		int attackValue = this.getAttack() - character.getDefense();
 		if (character.isDefending()) {
@@ -62,8 +64,6 @@ public class GameCharacters {
 			character.setCurrentStamina(character.getCurrentStamina() - attackValue);
 		}
 		return attackValue;
-		// To Add: change x coordinate so character moves forward and back when he
-		// attacks
 	}
 
 	/**

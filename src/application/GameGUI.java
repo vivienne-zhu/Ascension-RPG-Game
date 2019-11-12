@@ -39,7 +39,7 @@ import java.io.FileNotFoundException;
  * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
  * (Start scene, Character selection and naming, incomplete floor 1 of the tower). 
  * Currently this class is only to begin testing GUI elements and its design will be 
- * revived heavily before final submission.
+ * revised heavily before final submission.
  * 
  * @author Shari Sinclair
  *
@@ -63,6 +63,7 @@ public class GameGUI extends Application {
 	isArcher = false;
 	hero = new GameCharacters();
 	allEnemies = new GameCharacters[10];
+	
     }
 
     /**
@@ -295,8 +296,10 @@ public class GameGUI extends Application {
      */
     public void fullGame(Stage primaryStage) {
 	GamePlayController gpc = new GamePlayController();
-	MeleeEnemy m = new MeleeEnemy(1);
-	allEnemies[0] = m;
+	
+	//Below enemy created for testing purposes
+	MeleeEnemy orc = new MeleeEnemy(1);
+	allEnemies[0] = orc;
 
 	// while(gpc.isEndGamePlay() == false){
 	boolean attacking = false;
@@ -318,12 +321,12 @@ public class GameGUI extends Application {
 	 * } 
 	 * - Once either hero or enemy stam = 0 and we exit while loop
 	 * 	gpc.GameplayContinue(hero,enemy)-- this will check whether hero has won 
-	 * 		If continue to next floor = true (i.e. hero has stam, enemy dead)--> increment floor (which corresponds to enemy[]), 
+	 * 		If continue to next floor = true (i.e. hero has stam, enemy dead)--> increment floor (built into method in gpc), 
 	 * 			possibly load shop screen if floor==3,6,9, re-enter original while loop and fight again 
 	 * 		Else if Enemy alive ,hero dead --> end game = true and we exit overall while loop
 	 *		
 	 *  } Exit overall while loop if endgame =true if 
-	 *  	Since endGame = true :
+	 *  	(Since endGame = true -->)
 	 *  		if floor less than 10 -->Load game over screen (make game over screen)
 	 *  		Else --> Congrats you win screen(make congrats screen)
 	 * 
@@ -354,7 +357,7 @@ public class GameGUI extends Application {
 	towerLevels.getChildren().add(canvas);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
 
-	// To display current stamina of hero and enemy.
+	// To display current stamina of hero and enemy (using tester enemy[0]).
 	Text heroName = new Text(hero.getType() + ": " + this.heroName);
 	heroName.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	heroName.setFill(Color.DODGERBLUE);
@@ -368,8 +371,9 @@ public class GameGUI extends Application {
 	enemyStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	enemyStam.setFill(Color.DARKRED);
 	
-	//Adding hero image
-	hero.displayCharacter(gc);
+	// TEST - Adding hero and boss images
+	//hero.displayCharacter(gc);
+	//allEnemies[0].displayCharacter(gc);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
@@ -397,6 +401,7 @@ public class GameGUI extends Application {
 	grid.setMinSize(1100, 700);
 	grid.add(hbBtn, 0, 3);
 
+	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
 	towerLevels.getChildren().add(grid);
 

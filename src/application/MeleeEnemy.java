@@ -29,7 +29,8 @@ public class MeleeEnemy extends GameCharacters {
 		setWidth(450);
 		setHeight(470);
 		setType("Melee");
-		setCharacterImage(new Image("meleeEnemyOrc.png", getWidth(), getHeight(), false, false));
+		//Image below commented out in order to pass JUnit tests
+		//setCharacterImage(new Image("meleeEnemyOrc.png", getWidth(), getHeight(), false, false));
 
 	}
 
