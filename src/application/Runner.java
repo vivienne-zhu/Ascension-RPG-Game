@@ -120,17 +120,19 @@ public class Runner {
 				}
 
 				//enemy turn
-				System.out.println("\nIt is the enemy's turn.");
-				for (int i = 0; i < numEnemies; i++) {
-					if (player.getCurrentStamina() > 0) {
-						int attackAmount = enemyList.get(i).attack(player);
-						System.out.println("The " + enemyList.get(i).getType() + " enemy attacked you!");
-						if (attackAmount <= 0) {
-							System.out.println("The enemy's attack had no effect on you!");
-						} else {
-							System.out.println("Your health is now " + player.getCurrentStamina() + ".");
-							if (player.isDefending()) {
-								System.out.println("Your defense blocked " + attackAmount / 2 + " damage!");
+				if (numEnemies > 0) {
+					System.out.println("\nIt is the enemy's turn.");
+					for (int i = 0; i < numEnemies; i++) {
+						if (player.getCurrentStamina() > 0) {
+							int attackAmount = enemyList.get(i).attack(player);
+							System.out.println("The " + enemyList.get(i).getType() + " enemy attacked you!");
+							if (attackAmount <= 0) {
+								System.out.println("The enemy's attack had no effect on you!");
+							} else {
+								System.out.println("Your health is now " + player.getCurrentStamina() + ".");
+								if (player.isDefending()) {
+									System.out.println("Your defense blocked " + attackAmount / 2 + " damage!");
+								}
 							}
 						}
 					}
