@@ -29,6 +29,8 @@ public class Runner {
 		
 		GameCharacters player = null;
 		
+		
+		//Creates player class based on user input
 		if (playerChoice.equals("Warrior")) {
 			player = new Warrior();
 		} else if (playerChoice.equals("Archer")) {
@@ -37,15 +39,13 @@ public class Runner {
 			player = new Mage();
 		}
 
-		
-		
+		//Loop covers functionality of entire game cycle
 		while (gameOn) {
-			int healerCount = 0;
+			int healerCount = 0; //keeps track of enemy healers
 			ArrayList<GameCharacters> enemyList = new ArrayList<GameCharacters>();
 			//min 1 enemy + random num from 0 to 1 + sqrt(floor) rounded down
 		//	int numEnemies = 1 + (int) (Math.random() * ((1) + 1)) + (int) Math.sqrt(floor); 
 			int numEnemies = 1 + (int) Math.sqrt(floor); //no randomization
-		//	int totalEnemyHealth = 0;
 			for (int i = 0; i < numEnemies; i++) {
 				if (floor == 10) {
 					enemyList.add(new BossEnemy(floor));
@@ -55,6 +55,7 @@ public class Runner {
 						randEnemy = (int) (Math.random() * ((2) + 1));
 					}
 					
+					//Random generation of enemy type
 					if (randEnemy == 0) {
 						enemyList.add(new MeleeEnemy(floor));
 					} else if (randEnemy == 1) {
@@ -64,9 +65,9 @@ public class Runner {
 						healerCount++;
 					}
 				}
-			//	totalEnemyHealth += enemyList.get(i).getCurrentStamina();
 			}
 			
+			//Loop covers battle phase between player and enemy
 			while (player.getCurrentStamina() > 0 && numEnemies > 0 && gameOn && floor <= 10) {
 				//player turn
 				System.out.println("\nThis is floor: " + floor);
@@ -126,10 +127,8 @@ public class Runner {
 			
 			if (floor == 11) {
 				System.out.println("\nCongratulations, you have finished the game!");
-				gameOn = false;
-			}
-			
-
+				gameOn = false; //finish game
+			}	
 		}
 	}
 }
