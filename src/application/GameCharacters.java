@@ -20,6 +20,7 @@ public class GameCharacters {
     private int gold;
     private int xp;
     private int mana;
+    private int level;
     private HashMap<Potion, Integer> potionMap;
 
     private double x;
@@ -389,13 +390,33 @@ public class GameCharacters {
 	this.potionMap = potionMap;
     }
 
+    /**
+     * @return the type of character
+     */
     public String getType() {
 	return type;
     }
 
+    /**
+     * @param type the type of character to set
+     */
     public void setType(String type) {
 	this.type = type;
     }
+
+	/**
+	 * @return the level of character
+	 */
+	public int getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level of character to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
     
     
 
