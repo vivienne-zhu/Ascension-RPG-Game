@@ -28,6 +28,7 @@ public class Archer extends GameCharacters {
 	setY(200);
 	setWidth(100);
 	setHeight(200);
+	setLevel(1);
 	archerPic = new Image("Archer.png", 100, 200, false, false);
     }
 

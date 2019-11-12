@@ -28,6 +28,7 @@ public class Warrior extends GameCharacters {
 	setY(200);
 	setWidth(100);
 	setHeight(200);
+	setLevel(1);
 	warriorPic = new Image("Warrior.png",100, 200, false, false);
     }
 
