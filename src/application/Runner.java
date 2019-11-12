@@ -26,10 +26,10 @@ public class Runner {
 			System.out.println("Invalid choice. Please choose either Warrior/Archer/Mage.");
 			playerChoice = scan.next();
 		}
-		
+
 		GameCharacters player = null;
-		
-		
+
+
 		//Creates player class based on user input
 		if (playerChoice.equals("Warrior")) {
 			player = new Warrior();
@@ -44,7 +44,7 @@ public class Runner {
 			int healerCount = 0; //keeps track of enemy healers
 			ArrayList<GameCharacters> enemyList = new ArrayList<GameCharacters>();
 			//min 1 enemy + random num from 0 to 1 + sqrt(floor) rounded down
-		//	int numEnemies = 1 + (int) (Math.random() * ((1) + 1)) + (int) Math.sqrt(floor); 
+			//	int numEnemies = 1 + (int) (Math.random() * ((1) + 1)) + (int) Math.sqrt(floor); 
 			int numEnemies = 1 + (int) Math.sqrt(floor); //no randomization
 			for (int i = 0; i < numEnemies; i++) {
 				if (floor == 10) {
@@ -54,7 +54,7 @@ public class Runner {
 					while (randEnemy == 2 && healerCount == 1) { //max one healer per battle
 						randEnemy = (int) (Math.random() * ((2) + 1));
 					}
-					
+
 					//Random generation of enemy type
 					if (randEnemy == 0) {
 						enemyList.add(new MeleeEnemy(floor));
@@ -66,7 +66,7 @@ public class Runner {
 					}
 				}
 			}
-			
+
 			//Loop covers battle phase between player and enemy
 			while (player.getCurrentStamina() > 0 && numEnemies > 0 && gameOn && floor <= 10) {
 				//player turn
@@ -84,17 +84,38 @@ public class Runner {
 						System.out.println(i + 1 + ". " + enemyList.get(i).getType());
 					}
 					int attackChoice = scan.nextInt();
-				
+
 					int attackAmount = player.attack(enemyList.get(attackChoice - 1));
 					System.out.println("\nYou dealt " + attackAmount + " damage. Target enemy health: " + enemyList.get(attackChoice - 1).getCurrentStamina());
 					if (enemyList.get(attackChoice - 1).getCurrentStamina() <= 0) {
-						System.out.println("You have killed the enemy.");
+						System.out.println("\nYou have killed the enemy.");
+						int xpGain = floor * 20;
+						player.setXp(player.getXp() + xpGain);
+						System.out.println("\nYou have gained " + xpGain + " experience points!");
+						System.out.println("Experience: " + player.getXp() + "/" + (50 + player.getLevel() * 50));
+						if ((player.getXp() / (50 + player.getLevel() * 50)) > 0) {
+							int[] gains = player.levelUp();
+							player.setXp(0);
+							System.out.println("\nCongragulations! You have leveled up!");
+							System.out.println("You are now Level " + player.getLevel() + ".");
+							System.out.println("Your stats have been upgraded!");
+							System.out.println("Attack: +" + gains[0]);
+							System.out.println("Defense: +" + gains[1]);
+							System.out.println("Stamina: +" + gains[2]);
+							System.out.println("\nYou have healed for 20% of your missing health.");
+							int missingHealth = player.getStamina() - player.getCurrentStamina();
+							player.setCurrentStamina(player.getCurrentStamina() + (int) (missingHealth * 0.2));
+							if (player instanceof Mage) {
+								System.out.println("Mana: +" + gains[3]);
+							}
+
+						}
 						enemyList.remove(attackChoice - 1);
 						numEnemies--;
 					}
 				} else if (choice == 2) { //defend
 					player.setIsDefending(true);
-					
+
 				}
 
 				//enemy turn
@@ -124,7 +145,7 @@ public class Runner {
 					gameOn = true;
 				}
 			}
-			
+
 			if (floor == 11) {
 				System.out.println("\nCongratulations, you have finished the game!");
 				gameOn = false; //finish game
