@@ -6,8 +6,13 @@ import javafx.embed.swing.JFXPanel;
 
 /**
  * @author David Cai
- * This Runner class is for testing purposes only. It allows us to test the game
- * in console before the completion of the GUI interface.
+ * This Runner class is for TESTING purposes only. It allows us to test the game
+ * in console before the completion of the GUI interface. It lets us prototype
+ * and balance the game quickly in concurrence with the development of the GUI.
+ * 
+ * THIS CLASS WILL BE DEPRECATED as soon as GUI implementation is complete. 
+ * Furthermore, design in this particular class is not reflective of the design 
+ * implementation for this project due to the focus on quick prototyping.
  */
 public class Runner {
 	public static void main(String[] args) {
