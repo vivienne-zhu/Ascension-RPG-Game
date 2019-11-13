@@ -4,9 +4,9 @@ This is a turn-based RPG in which the player aims to climb a tower to reach the 
 
 On your way, you will encounter various monsters, secret mechanics, a varied shop, and a final boss.
 
-Best part of it is no two plays will be the same thanks to controlled randomization of stat generation and minion generation.
+Best part of it is that no two plays will be the same thanks to controlled randomization of stat and minion generation.
 
-Choose from 3 classes, warrior, mage, and ranger, and experience different playstyles through unique stat focuses and unique battle perks.
+Choose from 3 classes, warrior, mage, and archer, and experience different playstyles through unique stat focuses and battle perks.
 
 Will you succeed?
 
