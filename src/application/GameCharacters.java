@@ -184,8 +184,11 @@ public class GameCharacters {
 	 * 
 	 * @param g GraphicsContext needed to draw the image in the GUI.
 	 */
-	public void displayCharacter(GraphicsContext g) {
+	public void displayCharacter(GraphicsContext g, boolean delete) {
 	    g.drawImage(getCharacterImage(), getX(), getY());
+	    if (delete) {
+	    	g.clearRect(640, 0, g.getCanvas().getWidth(), g.getCanvas().getHeight());
+	    }
 	}
 	
 
