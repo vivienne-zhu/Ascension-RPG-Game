@@ -404,7 +404,9 @@ public class GameGUI extends Application {
 	    chooseEnemyBtn.setVisible(true);	   
 	});
 	defendBtn.setOnAction(event -> {
-	    
+	    hero.setIsDefending(true);
+	    enemyTurn(allEnemies, heroStam, dialogue);
+		hero.setIsDefending(false);
 	});
 	healBtn.setOnAction(event -> {
 	   
@@ -485,13 +487,12 @@ public class GameGUI extends Application {
     				} else {
     					//		dialogue.setText("Your health is now " + hero.getCurrentStamina() + ".");
     					if (hero.isDefending()) {
-    						dialogue.setText("Your defense blocked " + attackAmount / 2 + " damage!");
+    						dialogue.setText("Your defense blocked " + attackAmount + " damage!");
 
     					}
     				}
     			}
     		}
-    		hero.setIsDefending(false);
     	}
 
     }
