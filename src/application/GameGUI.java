@@ -445,12 +445,13 @@ public class GameGUI extends Application {
     }
     
     /**
-     * TBA
-     * @param allEnemies
-     * @param enemyStam
-     * @param dialogue
-     * @param choice
-     * @param gc
+     * This method creates display text for when it is the heroes turn to attack and updates necessary variables.
+     * 
+     * @param allEnemies The arrayList of enemies the hero is currently fighting.
+     * @param enemyStam The current stamina of the enemy
+     * @param dialogue Text that updates the player on what is currently happening.
+     * @param choice  The enemy character the hero would like to attack (if there are multiple)
+     * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
      */
     public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, int choice, GraphicsContext gc) {
 	    int attackAmount = this.hero.attack(allEnemies.get(choice - 1));
@@ -464,10 +465,11 @@ public class GameGUI extends Application {
     }
     
      /**
-      * TBA
-     * @param allEnemies
-     * @param heroStam
-     * @param dialogue
+     * This method creates display text for when it is the enemies turn to attack and updates necessary variables.
+     * 
+     * @param allEnemies The arrayList of enemies the hero is currently fighting.
+     * @param heroStam The current stamina of the hero
+     * @param dialogue Text that updates the player on what is currently happening.
      */
     public void enemyTurn(ArrayList<GameCharacters> allEnemies, Text heroStam, Text dialogue) {
     	if (allEnemies.size() > 0) {
