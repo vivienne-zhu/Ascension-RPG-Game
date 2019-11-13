@@ -33,6 +33,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
@@ -50,7 +51,7 @@ public class GameGUI extends Application {
     private boolean isArcher;
     private GameCharacters hero;
     private String heroName;
-    private GameCharacters[] allEnemies;
+    private ArrayList<GameCharacters> allEnemies;
 
     /**
      * The constructor creates a new character, sets all booleans variables to
@@ -62,8 +63,8 @@ public class GameGUI extends Application {
 	isWarrior = false;
 	isArcher = false;
 	hero = new GameCharacters();
-	allEnemies = new GameCharacters[10];
-	
+	allEnemies = new ArrayList<GameCharacters>();
+
     }
 
     /**
@@ -299,7 +300,7 @@ public class GameGUI extends Application {
 	
 	//Below enemy created for testing purposes
 	MeleeEnemy orc = new MeleeEnemy(1);
-	allEnemies[0] = orc;
+	allEnemies.add(orc);
 
 	// while(gpc.isEndGamePlay() == false){
 	boolean attacking = false;
@@ -364,16 +365,23 @@ public class GameGUI extends Application {
 	Text heroStam = new Text("Stamina: " + this.hero.getCurrentStamina());
 	heroStam.setFill(Color.DODGERBLUE);
 	heroStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
-	Text enemyName = new Text("Enemy Type: " + this.allEnemies[0].getType());
+	Text enemyName = new Text("Enemy Type: " + this.allEnemies.get(0).getType());
 	enemyName.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	enemyName.setFill(Color.DARKRED);
-	Text enemyStam = new Text("Stamina: " + this.allEnemies[0].getCurrentStamina());
+	Text enemyStam = new Text("Stamina: " + this.allEnemies.get(0).getCurrentStamina());
 	enemyStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	enemyStam.setFill(Color.DARKRED);
 	
+	// To display dialogue and other relevant battle info
+	Text dialogue = new Text();
+	dialogue.setStyle(" -fx-font: normal bold 30px 'serif' ");
+	dialogue.setFill(Color.WHITE);
+	dialogue.setWrappingWidth(300);
+	
+	
 	// TEST - Adding hero and boss images
-	hero.displayCharacter(gc);
-	allEnemies[0].displayCharacter(gc);
+	hero.displayCharacter(gc, false);
+	allEnemies.get(0).displayCharacter(gc, false);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
@@ -385,13 +393,39 @@ public class GameGUI extends Application {
 	HBox hbBtn = new HBox(10);
 	hbBtn.setAlignment(Pos.BOTTOM_LEFT);
 	hbBtn.getChildren().addAll(attackBtn, defendBtn, healBtn);
+	
+	// Button to choose enemy
+	Button chooseEnemyBtn = new Button("Attack");
+	chooseEnemyBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	chooseEnemyBtn.setVisible(false);
+	
+	//Event handling for when each button is pressed
+	attackBtn.setOnAction(event -> {
+	    chooseEnemyBtn.setVisible(true);	   
+	});
+	defendBtn.setOnAction(event -> {
+	    
+	});
+	healBtn.setOnAction(event -> {
+	   
+	});
+
+	// Actions to take after button to choose enemy is chosen
+	chooseEnemyBtn.setOnAction(event -> {
+		heroTurn(allEnemies, enemyStam, dialogue, 1, gc); // hardcode first minion
+	    enemyTurn(allEnemies, heroStam, dialogue);
+	    chooseEnemyBtn.setVisible(false);
+	});
+	
 
 	// Adding all nodes to grid
 	GridPane grid = new GridPane();
 	grid.add(heroName, 0, 0);
 	grid.add(heroStam, 0, 1);
-	grid.add(enemyName, 18, 0);
-	grid.add(enemyStam, 18, 1);
+	grid.add(dialogue, 1, 8);
+	grid.add(enemyName, 2, 0);
+	grid.add(enemyStam, 2, 1);
+	grid.add(chooseEnemyBtn, 2, 2);
 	grid.setVgap(15);
 	grid.setHgap(20);
 	grid.setPadding(new Insets(10, 10, 10, 10));
@@ -399,13 +433,65 @@ public class GameGUI extends Application {
 	grid.setLayoutX(80);
 	grid.setLayoutY(60);
 	grid.setMinSize(1100, 700);
-	grid.add(hbBtn, 0, 3);
+	grid.add(hbBtn, 0, 2);
 
+
+	
 	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
 	towerLevels.getChildren().add(grid);
 
 	return towerLevels;
+    }
+    
+    /**
+     * TBA
+     * @param allEnemies
+     * @param enemyStam
+     * @param dialogue
+     * @param choice
+     * @param gc
+     */
+    public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, int choice, GraphicsContext gc) {
+	    int attackAmount = this.hero.attack(allEnemies.get(choice - 1));
+	    enemyStam.setText("Stamina: " + this.allEnemies.get(choice - 1).getCurrentStamina());
+	    dialogue.setText("You dealt " + attackAmount + " damage!");
+    	if (allEnemies.get(choice - 1).getCurrentStamina() <= 0) {
+			dialogue.setText("You have killed the enemy.");
+			allEnemies.get(0).displayCharacter(gc, true);
+			allEnemies.remove(choice - 1);
+    	}
+    }
+    
+     /**
+      * TBA
+     * @param allEnemies
+     * @param heroStam
+     * @param dialogue
+     */
+    public void enemyTurn(ArrayList<GameCharacters> allEnemies, Text heroStam, Text dialogue) {
+    	if (allEnemies.size() > 0) {
+    		dialogue.setText("It is the enemy's turn.");
+    		for (int i = 0; i < allEnemies.size(); i++) {
+    			if (hero.getCurrentStamina() > 0) {
+    				int attackAmount = allEnemies.get(i).attack(hero);
+    				heroStam.setText("Stamina: " + this.hero.getCurrentStamina());
+    				dialogue.setText("You took " + attackAmount + " damage!");
+    				if (attackAmount <= 0) {
+    					dialogue.setText("The enemy's attack had no effect on you!");
+
+    				} else {
+    					//		dialogue.setText("Your health is now " + hero.getCurrentStamina() + ".");
+    					if (hero.isDefending()) {
+    						dialogue.setText("Your defense blocked " + attackAmount / 2 + " damage!");
+
+    					}
+    				}
+    			}
+    		}
+    		hero.setIsDefending(false);
+    	}
+
     }
 
     /**
