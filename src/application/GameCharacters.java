@@ -60,8 +60,13 @@ public class GameCharacters {
 		if (character.isDefending()) {
 			attackValue = attackValue / 2;
 		}
+		int newHealth = character.getCurrentStamina() - attackValue;
 		if (attackValue > 0) {
-			character.setCurrentStamina(character.getCurrentStamina() - attackValue);
+			if (newHealth > 0) {
+				character.setCurrentStamina(newHealth);
+			} else {
+				character.setCurrentStamina(0);
+			}
 		}
 		return attackValue;
 	}
