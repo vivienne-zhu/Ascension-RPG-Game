@@ -311,6 +311,7 @@ public class GameGUI extends Application {
 	/*
 	 * Logic: 
 	 * while(gpc.isEndGamePlay() == false){
+	 * ---> is there an Event()
 	 * 	-current stamina = stamina , get new enemy in array (let enemy[] index
 	 * 	correspond with floor to accommodate events with floor changes) 
 	 * 
@@ -350,7 +351,7 @@ public class GameGUI extends Application {
 	Pane towerLevels = new Pane();
 
 	// To display the background for the floor
-	Image tower = new Image("towerpossible.jpg");
+	Image tower = new Image("towerpossible.jpg");//
 	BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 		BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 	Background insideTowerBackground = new Background(background);
