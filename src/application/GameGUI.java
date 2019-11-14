@@ -391,7 +391,7 @@ public class GameGUI extends Application {
 	dialogue.setWrappingWidth(300);
 	
 	
-	// TEST - Adding hero and boss images
+	// Adding hero and boss images
 	hero.displayCharacter(gc, false);
 	allEnemies.get(0).displayCharacter(gc, false);
 
@@ -448,7 +448,6 @@ public class GameGUI extends Application {
 	grid.setLayoutY(60);
 	grid.setMinSize(1100, 700);
 	grid.add(hbBtn, 0, 2);
-
 
 	
 	// Setting Background for Pane, adding grid to Pane 
@@ -531,7 +530,7 @@ public class GameGUI extends Application {
     	errorMsg.setFill(Color.GOLDENROD);
     	errorMsg.setVisible(false);
 
-    	// Display all items currrently in the hero's bag
+    	// Display all items currently in the hero's bag
     	Text potionList = new Text(hero.shopDisplay());
     	potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
     	potionList.setFill(Color.GOLDENROD);
@@ -574,7 +573,7 @@ public class GameGUI extends Application {
     	revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
     	revive.setFill(Color.GOLDENROD);
 
-    	// Incomplet: buy and sell buttons for revive, will add eventhandlers
+    	// Incomplete: buy and sell buttons for revive, will add eventhandlers
     	Button btnBuy3 = new Button("Buy");
     	Button btnSell3 = new Button("Sell");
 
@@ -674,6 +673,56 @@ public class GameGUI extends Application {
     			errorMsg.setVisible(true);
     		}
     	});
+    }
+    
+    /**
+     * This method creates game over screen when the player losses the enemy
+     * 
+     * @param primaryStage The primary stage/ window for displaying the GUI.
+     */
+    public void gameOverScreen(Stage primaryStage) {
+	
+	//Creating the game over image text for the Pane and adding effects
+	Image gameOverText = new Image("gameover.png");
+	ImageView gameOverText2 = new ImageView(gameOverText);
+	DropShadow ds = new DropShadow();
+	ds.setColor(Color.DARKRED);
+	gameOverText2.setEffect(ds);
+	//Temporary X an Y values  for image until tested
+	gameOverText2.setLayoutX(300);
+	gameOverText2.setLayoutX(300);
+	
+	//Creating the buttons to exit the game or play again
+	Button exitBtn = new Button("Exit game");
+	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button playAgainBtn = new Button("Play again");
+	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	HBox hbBtn = new HBox(10);
+	hbBtn.setAlignment(Pos.BOTTOM_LEFT);
+	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
+	//temporary X and Y for HBox, will be changed once tested.
+	hbBtn.setLayoutX(500);
+	hbBtn.setLayoutY(600);
+	
+	//Adding eventHandlint for buttons
+	exitBtn.setOnAction(event-> {primaryStage.close();;});
+	playAgainBtn.setOnAction(event-> {try {
+	    start(primaryStage);
+	} catch (FileNotFoundException e) { 
+	 // Temporary handling of exception, will change what happens once tested.
+	    primaryStage.close();
+	}});
+	
+	//Creating Pane and adding nodes
+	Pane gameOver = new Pane();
+	gameOver.getChildren().addAll(gameOverText2, hbBtn);
+	
+	//Adding Pane to Scene and Scene to Stage
+	Scene gOver = new Scene(gameOver, 1280, 720);
+	gOver.setFill(Color.BLACK);
+	primaryStage.setScene(gOver);
+	primaryStage.show();
+	
     }
 
     /**
