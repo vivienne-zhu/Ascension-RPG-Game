@@ -169,7 +169,7 @@ public class GameCharacters {
 	public void displayCharacter(GraphicsContext g, boolean delete) {
 	    g.drawImage(getCharacterImage(), getX(), getY());
 	    if (delete) {
-	    	g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+	    	g.clearRect(640, 0, g.getCanvas().getWidth(), g.getCanvas().getHeight());
 	    }
 	}
 	
