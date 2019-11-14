@@ -173,6 +173,22 @@ public class GameCharacters {
 	    }
 	}
 	
+	/**
+	 * This method creates a string that shows what is inside the potion bag
+	 * 
+	 * @return display A string shows what is currently inside the potion bag
+	 */
+	public String shopDisplay() {
+		String display = "You have: " + this.getGold() + " GOLD \n\nITEM BAG: ";
+
+		for (Potion p : this.getPotionMap().keySet()) {
+
+			display += "\n" + p + "\t\tx" + this.getPotionMap().get(p);
+
+		}
+		return display;
+	}
+
 
 	/**
 	 * 
@@ -430,6 +446,34 @@ public class GameCharacters {
 	 */
 	public void setCharacterImage(Image characterImage) {
 	    this.characterImage = characterImage;
+	}
+
+	/**
+	 * @return the cp
+	 */
+	public CheapPotion getCp() {
+		return cp;
+	}
+
+	/**
+	 * @param cp the cp to set
+	 */
+	public void setCp(CheapPotion cp) {
+		this.cp = cp;
+	}
+
+	/**
+	 * @return the hp
+	 */
+	public HyperPotion getHp() {
+		return hp;
+	}
+
+	/**
+	 * @param hp the hp to set
+	 */
+	public void setHp(HyperPotion hp) {
+		this.hp = hp;
 	}
 
 }

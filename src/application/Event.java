@@ -70,7 +70,7 @@ public class Event {
 	 */
 	public void loseGold(GameCharacters hero) {
 		Random r = new Random();
-		int lostGold = r.nextInt(100) + 1;
+		double lostGold = r.nextInt(100) + 1;
 		
 		if (hero.getGold() > lostGold) {
 			hero.setGold(hero.getGold() - lostGold);			
