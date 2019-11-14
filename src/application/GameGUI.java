@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
@@ -688,9 +689,8 @@ public class GameGUI extends Application {
 	DropShadow ds = new DropShadow();
 	ds.setColor(Color.DARKRED);
 	gameOverText2.setEffect(ds);
-	//Temporary X an Y values  for image until tested
-	gameOverText2.setLayoutX(300);
-	gameOverText2.setLayoutX(300);
+	gameOverText2.setLayoutX(170);
+	gameOverText2.setLayoutY(10);
 	
 	//Creating the buttons to exit the game or play again
 	Button exitBtn = new Button("Exit game");
@@ -698,11 +698,10 @@ public class GameGUI extends Application {
 	Button playAgainBtn = new Button("Play again");
 	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	HBox hbBtn = new HBox(10);
-	hbBtn.setAlignment(Pos.BOTTOM_LEFT);
 	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
-	//temporary X and Y for HBox, will be changed once tested.
 	hbBtn.setLayoutX(500);
 	hbBtn.setLayoutY(600);
+	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 	
 	//Adding eventHandlint for buttons
 	exitBtn.setOnAction(event-> {primaryStage.close();;});
@@ -716,6 +715,8 @@ public class GameGUI extends Application {
 	//Creating Pane and adding nodes
 	Pane gameOver = new Pane();
 	gameOver.getChildren().addAll(gameOverText2, hbBtn);
+	gameOver.setStyle(" -fx-background-color: black");
+
 	
 	//Adding Pane to Scene and Scene to Stage
 	Scene gOver = new Scene(gameOver, 1280, 720);
