@@ -558,8 +558,7 @@ public class GameGUI extends Application {
 			dialogueThree.setText("");
 			
 			//Delete enemy picture off canvas
-			gc.clearRect(allEnemies.get(choice - 1).getX(), allEnemies.get(choice - 1).getY(), 
-					allEnemies.get(choice - 1).getWidth(), allEnemies.get(choice - 1).getHeight());
+			allEnemies.get(choice - 1).displayCharacter(gc, true);
 			
 			//Remove enemy from ArrayList after death
 			allEnemies.remove(choice - 1);
@@ -578,7 +577,7 @@ public class GameGUI extends Application {
 	public void move(GameCharacters character, GraphicsContext gc, boolean forward) {
 		
 		//Clear current picture
-		gc.clearRect(character.getX(), character.getY(), character.getWidth(), character.getHeight());
+		character.displayCharacter(gc, true);
 		
 		//Move character accordingly depending on boolean
 		if (forward) {
@@ -588,10 +587,8 @@ public class GameGUI extends Application {
 		}
 		
 		//Draw new picture
-		gc.drawImage(character.getCharacterImage(), character.getX(), character.getY());
+		character.displayCharacter(gc, false);
 	}
-
-
 
 	/**
 	 * This method creates display text for when it is the enemies turn to attack and updates necessary variables.
@@ -669,7 +666,7 @@ public class GameGUI extends Application {
 				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
 			}
 			if (hero.getCurrentStamina() <= 0) {
-				gc.clearRect(hero.getX(), hero.getY(), hero.getWidth(), hero.getHeight());
+				hero.displayCharacter(gc, true);
 			}
 		}
 	}
