@@ -341,6 +341,19 @@ public class GameGUI extends Application {
 	 * 
 	 */
 
+	
+	// Button to shop
+	// This will be adujsted when the full game method is completed 
+	Button shopBtn = new Button("Go to the Magic Shop");
+	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	shopBtn.setAlignment(Pos.BOTTOM_LEFT);
+
+	// Event handling for shop button 
+	shopBtn.setOnAction(event -> {
+		shop(primaryStage);});
+
+	towerLevel.getChildren().add(shopBtn);
+
 	Scene insideTower = new Scene(towerLevel, 1280, 720);
 	primaryStage.setScene(insideTower);
 	primaryStage.show();
@@ -656,8 +669,166 @@ public class GameGUI extends Application {
      * items.
      */
     public void shop(Stage primaryStage) {
-	// return will be Scene shopScene
-	// Scene shopScene = new Scene();
+    	// Create grid pane
+    	GridPane rootNode = new GridPane();
+
+    	// Create the magic shop text
+    	Text welcome = new Text("Magic Shop");
+    	welcome.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
+    	welcome.setFill(Color.GOLDENROD);
+    	DropShadow ds = new DropShadow();
+    	ds.setColor(Color.GOLDENROD);
+    	welcome.setEffect(ds);
+
+    	// Error message when money is not enough
+    	Text errorMsg = new Text("BLABLABLABLA");
+    	errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+    	errorMsg.setFill(Color.GOLDENROD);
+    	errorMsg.setVisible(false);
+
+    	// Display all items currrently in the hero's bag
+    	Text potionList = new Text(hero.shopDisplay());
+    	potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+    	potionList.setFill(Color.GOLDENROD);
+
+    	// Description for cheap potion
+    	Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
+    	potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+    	potion1.setFill(Color.GOLDENROD);
+
+    	// Input quantity for cheap potion
+    	TextField quantity1 = new TextField("Quantity");
+    	quantity1.setOpacity(0.8);
+    	quantity1.setMaxWidth(100);
+
+    	// Buy and sell buttons for cheap potion
+    	Button btnBuy1 = new Button("Buy");
+    	this.buyPotion(btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
+    	Button btnSell1 = new Button("Sell");
+    	this.sellPotion(btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
+
+    	// Description for hyper potion
+    	Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
+    	potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+    	potion2.setFill(Color.GOLDENROD);
+
+    	// Input quantity for hyper potion
+    	TextField quantity2 = new TextField("Quantity");
+    	quantity2.setMaxWidth(100);
+    	quantity2.setOpacity(0.8);
+
+    	// Buy and sell buttons for hyper potion
+    	Button btnBuy2 = new Button("Buy");
+    	this.buyPotion(btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
+
+    	Button btnSell2 = new Button("Sell");
+    	this.sellPotion(btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
+
+    	// Description for revive
+    	Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
+    	revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+    	revive.setFill(Color.GOLDENROD);
+
+    	// Incomplet: buy and sell buttons for revive, will add eventhandlers
+    	Button btnBuy3 = new Button("Buy");
+    	Button btnSell3 = new Button("Sell");
+
+    	// Create images for the items at the shop
+    	Image imgPotion1 = new Image("cheapPotion.png", 200, 200, false, false);
+    	Image imgPotion2 = new Image("hyperPotion.png", 200, 200, false, false);
+    	Image imgRevive = new Image("revive.png", 200, 200, false, false);
+    	ImageView ivPotion1 = new ImageView(imgPotion1);
+    	ImageView ivPotion2 = new ImageView(imgPotion2);
+    	ImageView ivRevive = new ImageView(imgRevive);
+
+    	// Add nodes to the grid
+    	rootNode.setHgap(5);
+    	rootNode.setVgap(5);
+    	rootNode.add(welcome, 1, 0);
+    	rootNode.add(ivPotion1, 0, 1);
+    	rootNode.add(potion1, 0, 2);
+    	rootNode.add(quantity1, 0, 3);
+    	rootNode.add(btnBuy1, 0, 4);
+    	rootNode.add(btnSell1, 0, 5);
+    	rootNode.add(ivPotion2, 1, 1);
+    	rootNode.add(potion2, 1, 2);
+    	rootNode.add(quantity2, 1, 3);
+    	rootNode.add(btnBuy2, 1, 4);
+    	rootNode.add(btnSell2, 1, 5);
+    	rootNode.add(ivRevive, 2, 1);
+    	rootNode.add(revive, 2, 2);
+    	rootNode.add(btnBuy3, 2, 3);
+    	rootNode.add(btnSell3, 2, 4);
+    	rootNode.add(potionList, 0, 7);
+    	rootNode.add(errorMsg, 0, 8);
+    	rootNode.setAlignment(Pos.CENTER);
+    	rootNode.setPadding(new Insets(5, 5, 5, 5));
+
+    	// Set background
+    	Image shopBg = new Image("magicShop.jpg", 1280, 720, false, false);
+    	BackgroundImage shopBg1 = new BackgroundImage(shopBg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+    			BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    	Background shopBg2 = new Background(shopBg1);
+    	rootNode.setBackground(shopBg2);
+
+    	// Create the scene
+    	Scene shopScene = new Scene(rootNode, 1280, 720);
+    	primaryStage.setScene(shopScene);
+    	primaryStage.show();
+
+    }
+
+    /**
+     * This method allows the player to buy the potion from the shop by clicking the
+     * buy button
+     * 
+     * @param btn      buy button
+     * @param potion   the type of the potion the player is buying
+     * @param quantity the quantity of the potion the player is buying
+     * @param errorMsg an error message shows if the player does not have enough
+     *                 money
+     * @param display
+     */
+    public void buyPotion(Button btn, Potion potion, TextField quantity, Text errorMsg, Text display) {
+    	btn.setOnAction(Event -> {
+    		double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
+    		if (hero.getGold() >= cost) {
+    			errorMsg.setVisible(false);
+    			hero.setGold(hero.getGold() - cost);
+    			hero.getPotionMap().put(potion,
+    					hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
+    			display.setText(hero.shopDisplay());
+    		} else {
+    			errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
+    			errorMsg.setVisible(true);
+    		}
+    	});
+
+    }
+
+    /**
+     * This method allows the player to sell items at the shop by clicking the sell
+     * button
+     * 
+     * @param btn      the sell button
+     * @param potion   the type of potion the player is selling
+     * @param q        the quantity of potion the player is selling
+     * @param errorMsg an error message shows if the player does not have enough
+     *                 items
+     * @param display
+     */
+    public void sellPotion(Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
+    	btn.setOnAction(Event -> {
+    		double quantity = Double.parseDouble(q.getText());
+    		if (hero.getPotionMap().get(potion) >= quantity) {
+    			hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
+    			hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
+    			display.setText(hero.shopDisplay());
+    		} else {
+    			errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
+    			errorMsg.setVisible(true);
+    		}
+    	});
     }
 
     /**
