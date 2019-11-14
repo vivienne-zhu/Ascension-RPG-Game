@@ -830,6 +830,134 @@ public class GameGUI extends Application {
     		}
     	});
     }
+    
+
+    /**
+     * This method creates screen when the player wins the game
+     * 
+     * @param primaryStage The primary stage/ window for displaying the GUI.
+     */
+    public void youWinScreen(Stage primaryStage) {
+
+	//Creating the treasure images for the Pane and adding effects
+	Image treasureChest = new Image("gold_treasure.png");
+	ImageView treasureChest1 = new ImageView(treasureChest);
+	Image treasureChest2 = new Image("gold_treasure.png");
+	ImageView treasureChest3 = new ImageView(treasureChest2);
+	treasureChest1.setLayoutX(100);
+	treasureChest1.setLayoutY(300);
+	treasureChest3.setLayoutX(900);
+	treasureChest3.setLayoutY(300);
+
+	//Adding text to Pane
+	Text youWin = new Text();
+	youWin.setText("Congratulations. YOU WON!");
+	youWin.setX(120);
+	youWin.setY(100);
+	youWin.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+	DropShadow ds = new DropShadow();
+	ds.setColor(Color.CHOCOLATE);
+	youWin.setEffect(ds);
+	Text thankYou = new Text();
+	thankYou.setText("Thank you for playing!");
+	thankYou.setX(350);
+	thankYou.setY(550);
+	thankYou.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
+	thankYou.setEffect(ds);
+
+	//TESTING - Creating Pane and canvas, and Adding hero to pane
+	Pane gameWon = new Pane();
+//	Canvas canvas = new Canvas(1280,720);
+//	gameWon.getChildren().add(canvas);
+//	GraphicsContext gc = canvas.getGraphicsContext2D();
+//	hero.setX(450);
+//	hero.setY(150);
+//	hero.displayCharacter(gc, false);
+
+
+	//Creating the buttons to exit the game or play again
+	Button exitBtn = new Button("Exit game");
+	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button playAgainBtn = new Button("Play again");
+	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	HBox hbBtn = new HBox(10);
+	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
+	hbBtn.setLayoutX(500);
+	hbBtn.setLayoutY(600);
+	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+	//Adding eventHandling for buttons
+	exitBtn.setOnAction(event-> {primaryStage.close();;});
+	playAgainBtn.setOnAction(event-> {try {
+	    start(primaryStage);
+	} catch (FileNotFoundException e) { 
+	 // Temporary handling of exception, will change what happens once tested.
+	    primaryStage.close();
+	}});
+
+	//Adding nodes to pane
+	gameWon.getChildren().addAll(treasureChest1,treasureChest3, hbBtn, youWin, thankYou);
+	gameWon.setStyle(" -fx-background-color: gold");
+
+
+	//Adding Pane to Scene and Scene to Stage
+	Scene gWon = new Scene(gameWon, 1280, 720);
+	gWon.setFill(Color.GOLD);
+	primaryStage.setScene(gWon);
+	primaryStage.show();
+
+    }
+
+
+     /**
+     * This method creates game over screen when the player losses the enemy
+     * 
+     * @param primaryStage The primary stage/ window for displaying the GUI.
+     */
+    public void gameOverScreen(Stage primaryStage) {
+	
+	//Creating the game over image text for the Pane and adding effects
+	Image gameOverText = new Image("gameover.png");
+	ImageView gameOverText2 = new ImageView(gameOverText);
+	DropShadow ds = new DropShadow();
+	ds.setColor(Color.DARKRED);
+	gameOverText2.setEffect(ds);
+	gameOverText2.setLayoutX(170);
+	gameOverText2.setLayoutY(10);
+
+	//Creating the buttons to exit the game or play again
+	Button exitBtn = new Button("Exit game");
+	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button playAgainBtn = new Button("Play again");
+	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	HBox hbBtn = new HBox(10);
+	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
+	hbBtn.setLayoutX(500);
+	hbBtn.setLayoutY(600);
+	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+	//Adding eventHandlint for buttons
+	exitBtn.setOnAction(event-> {primaryStage.close();;});
+	playAgainBtn.setOnAction(event-> {try {
+	    start(primaryStage);
+	} catch (FileNotFoundException e) { 
+	 // Temporary handling of exception, will change what happens once tested.
+	    primaryStage.close();
+	}});
+	
+	//Creating Pane and adding nodes
+	Pane gameOver = new Pane();
+	gameOver.getChildren().addAll(gameOverText2, hbBtn);
+	gameOver.setStyle(" -fx-background-color: black");
+
+
+	//Adding Pane to Scene and Scene to Stage
+	Scene gOver = new Scene(gameOver, 1280, 720);
+	gOver.setFill(Color.BLACK);
+	primaryStage.setScene(gOver);
+	primaryStage.show();
+	
+    }
 
     /**
      * @return the isMage
