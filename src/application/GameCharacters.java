@@ -20,11 +20,13 @@ public class GameCharacters {
 	private int currentStamina;
 	private boolean hasRevive;
 	private boolean isDefending;
-	private int gold;
+	private double gold;
 	private int xp;
 	private int mana;
 	private int level;
-	private HashMap<Potion, Integer> potionMap;
+	private HashMap<Potion, Double> potionMap;
+	private CheapPotion cp;
+	private HyperPotion hp;
 	private double x;
 	private double y;
 	private double height;
@@ -36,14 +38,21 @@ public class GameCharacters {
 	 * The constructor initializes the necessary instance variables to O and false, initializes hashMap.
 	 */
 	public GameCharacters() {
-		potionMap = new HashMap<>();
-		gold = 0;
-		xp = 0;
-		isDefending = false;
-		x = 0;
-		y = 0;
-		height = 0.0;
-		width = 0.0;
+		// Initialize potion map
+		this.potionMap = new HashMap<>();
+		this.cp = new CheapPotion();
+		this.hp = new HyperPotion();
+		this.potionMap.put(cp, 0.0);
+		this.potionMap.put(hp, 0.0);
+				
+		// for testing purpose, set the gold to 10000
+		this.gold = 10000;
+		this.xp = 0;
+		this.isDefending = false;
+		this.x = 0;
+		this.y = 0;
+		this.height = 0.0;
+		this.width = 0.0;
 	}
 
 	/**
@@ -101,38 +110,6 @@ public class GameCharacters {
 		if (isHasRevive() == true) {
 			setCurrentStamina(this.getStamina());
 			setHasRevive(false);
-		}
-	}
-
-	/**
-	 * This method allows the player to buy potions from the shop using gold. The
-	 * potion bought will be added to the potionMap.
-	 * 
-	 * @param potion  The type of potion being bought.
-	 * @param quantity The amount of that type of potions being bought.
-	 */
-	public void buyPotion(Potion potion, int quantity) {
-		if (getGold() >= (potion.getPrice() * quantity)) {
-			setGold(getGold() - potion.getPrice() * quantity);
-			if (getPotionMap().keySet().contains(potion)) {
-				getPotionMap().put(potion, getPotionMap().get(potion) + quantity);
-			} else {
-				getPotionMap().put(potion, quantity);
-			}
-		}
-	}
-
-	/**
-	 * This method allows the player to sell potion for half of the buying price to
-	 * the shop. The potions he sells will be removed from the potionMap.
-	 * 
-	 * @param potion The type of potion being sold.
-	 * @param quantity The amount of that potion being sold.
-	 */
-	public void sellPotion(Potion potion, int quantity) {
-		if (getPotionMap().get(potion) >= quantity) {
-			setGold(getGold() + ((potion.getPrice() / 2) * quantity));
-			getPotionMap().put(potion, getPotionMap().get(potion) - quantity);
 		}
 	}
 
@@ -344,14 +321,14 @@ public class GameCharacters {
 	/**
 	 * @return The value of the gold instance variable.
 	 */
-	public int getGold() {
+	public double getGold() {
 		return gold;
 	}
 
 	/**
 	 * @param gold The value to be set to the gold instance variable.
 	 */
-	public void setGold(int gold) {
+	public void setGold(double gold) {
 		this.gold = gold;
 	}
 
@@ -402,14 +379,14 @@ public class GameCharacters {
 	/**
 	 * @return the potionList
 	 */
-	public HashMap<Potion, Integer> getPotionMap() {
+	public HashMap<Potion, Double> getPotionMap() {
 		return potionMap;
 	}
 
 	/**
 	 * @param potionMap the potionMap to set
 	 */
-	public void setPotionList(HashMap<Potion, Integer> potionMap) {
+	public void setPotionList(HashMap<Potion, Double> potionMap) {
 		this.potionMap = potionMap;
 	}
 

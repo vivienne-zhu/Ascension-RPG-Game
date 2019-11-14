@@ -79,32 +79,4 @@ class GameCharactersTest {
 
 	}
 
-	// This tests buyPotion, sellPotion and usePotion methods
-	// and checks that the potionMap, stamina and gold update correctly
-	@Test
-	void buyingSellingAndUsingPotionTest() {
-		Warrior link = new Warrior();
-		HyperPotion hp = new HyperPotion();
-		link.setGold(300);
-		link.buyPotion(hp, 2);
-
-		assertEquals(100, link.getGold());
-
-		link.buyPotion(hp, 1);
-
-		assertEquals(3, link.getPotionMap().get(hp));
-		assertEquals(0, link.getGold());
-
-		link.setCurrentStamina(10);
-		link.usePotion(hp);
-
-		assertEquals(260, link.getCurrentStamina());
-
-		link.sellPotion(hp, 1);
-		assertEquals(1, link.getPotionMap().get(hp));
-		assertEquals(50, link.getGold());
-
-	}
-
-
 }
