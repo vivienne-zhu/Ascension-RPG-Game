@@ -403,7 +403,6 @@ public class GameGUI extends Application {
 	Text dialogueThree = new Text("");
 	dialogueThree.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	dialogueThree.setFill(Color.WHITE);
-//	dialogue.setWrappingWidth(400);
 	
 	
 	// TEST - Adding hero and boss images
@@ -453,8 +452,6 @@ public class GameGUI extends Application {
     	timelineTwo.getKeyFrames().add(frameTwo);
     	SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
     	sequence.play();
-		
-
 	    chooseEnemyBtn.setVisible(false);
 	});
 	
@@ -490,9 +487,6 @@ public class GameGUI extends Application {
 	GridPane.setHalignment(chooseEnemyBtn, HPos.CENTER);
 	GridPane.setHalignment(hbBtn, HPos.CENTER);
 	grid.setGridLinesVisible(true);
-
-
-	
 	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
 	towerLevels.getChildren().add(grid);
@@ -509,9 +503,8 @@ public class GameGUI extends Application {
      * @param choice  The enemy character the hero would like to attack (if there are multiple)
      * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
      */
-    public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc) {
-
-    	
+    public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, 
+    		Text dialogueThree, int choice, GraphicsContext gc) {   	
     	Timeline timeline = new Timeline(); 
     	timeline.setCycleCount(600);
     	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true));
@@ -522,7 +515,6 @@ public class GameGUI extends Application {
     	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false));
     	timelineTwo.getKeyFrames().add(frameTwo);
     	
-    	
     	Timeline hit = new Timeline();
     	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> hitEnemy(allEnemies, choice, 
     			dialogue, dialogueTwo, dialogueThree, enemyStam, gc));
@@ -530,11 +522,6 @@ public class GameGUI extends Application {
     	
     	SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
     	sequence.play();
-    	
-
-    	
-
-    	
     }
     
     /**
@@ -615,7 +602,6 @@ public class GameGUI extends Application {
     		    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(innerI), gc, true));
     		    	timelineTwo.getKeyFrames().add(frameTwo);
     		    	
-    		    	
     		    	Timeline hit = new Timeline(); 	
     		    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> hitHero( 
     		    			dialogueTwo, dialogueThree, heroStam, innerI, gc));
@@ -623,12 +609,9 @@ public class GameGUI extends Application {
     		    	
     		    	SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
     		    	sequence.play();
-    		    	
-
     			}
     		}
     	}
-
     }
     
     /**
@@ -651,12 +634,9 @@ public class GameGUI extends Application {
 		}
 		if (attackAmount <= 0) {
 			dialogueThree.setText("The enemy's attack had no effect on you!");
-
 		} else {
-			//		dialogue.setText("Your health is now " + hero.getCurrentStamina() + ".");
 			if (hero.isDefending()) {
 				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
-
 			}
 			if (hero.getCurrentStamina() <= 0) {
 				gc.clearRect(hero.getX(), hero.getY(), hero.getWidth(), hero.getHeight());
