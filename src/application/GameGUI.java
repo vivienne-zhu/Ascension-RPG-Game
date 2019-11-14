@@ -42,7 +42,7 @@ import java.util.ArrayList;
  * Currently this class is only to begin testing GUI elements and its design will be 
  * revised heavily before final submission (instance variables may be removed/added).
  * 
- * @author Shari Sinclair
+ * @author Shari Sinclair and David Cai
  *
  */
 public class GameGUI extends Application {
