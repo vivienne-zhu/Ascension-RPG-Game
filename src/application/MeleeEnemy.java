@@ -24,12 +24,12 @@ public class MeleeEnemy extends GameCharacters {
 		int startStam = 250 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
-		setX(770);
-		setY(240);
-		setWidth(450);
-		setHeight(470);
+		setX(1000);
+		setY(330);
+		setWidth(240);
+		setHeight(260);
 		setType("Melee");
-		setCharacterImage(new Image("meleeEnemyOrc.png", getWidth(), getHeight(), false, false));
+		setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
 
 	}
 
