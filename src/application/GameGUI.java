@@ -729,7 +729,7 @@ public class GameGUI extends Application {
     	revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
     	revive.setFill(Color.GOLDENROD);
 
-    	// Incomplet: buy and sell buttons for revive, will add eventhandlers
+    	// Incomplete: buy and sell buttons for revive, will add eventhandlers
     	Button btnBuy3 = new Button("Buy");
     	Button btnSell3 = new Button("Sell");
 
@@ -797,8 +797,10 @@ public class GameGUI extends Application {
     			hero.setGold(hero.getGold() - cost);
     			hero.getPotionMap().put(potion,
     					hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
+    			quantity.setText("");
     			display.setText(hero.shopDisplay());
     		} else {
+    			quantity.setText("");
     			errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
     			errorMsg.setVisible(true);
     		}
@@ -824,9 +826,11 @@ public class GameGUI extends Application {
     			hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
     			hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
     			display.setText(hero.shopDisplay());
+    			q.setText("");
     		} else {
     			errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
     			errorMsg.setVisible(true);
+    			q.setText("");
     		}
     	});
     }
