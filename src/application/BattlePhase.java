@@ -49,7 +49,7 @@ public class BattlePhase extends GameGUI{
 		this.primaryStage = primaryStage;
 		this.shop = shop;
 		this.floor = floor;
-	
+	}
 
 
 	/**
@@ -286,7 +286,7 @@ public class BattlePhase extends GameGUI{
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitEnemy(GameCharacters hero, ArrayList<GameCharacters> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-			Text enemyStam, GraphicsContext gc, Stage primaryStage) {
+			Text enemyStam, GraphicsContext gc, Stage primaryStage) {//Shop shop
 
 		//Hero attacks enemy
 		GameCharacters enemy = allEnemies.get(choice - 1);
@@ -304,7 +304,7 @@ public class BattlePhase extends GameGUI{
 			if (this.floor.getFloor() < 10) {
 			    Timeline moveOn = new Timeline();
 			    moveOn.setCycleCount(1);
-			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage, shop));
+			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage));//shop
 			    moveOn.getKeyFrames().add(frame);
 			    moveOn.play();
 			} else if (this.floor.getFloor() == 10){
