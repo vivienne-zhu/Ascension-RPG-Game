@@ -662,6 +662,9 @@ public class GameGUI extends Application {
 	 // Temporary handling of exception, will change what happens once tested.
 	    primaryStage.close();
 	}});
+	reviveBtn.setOnAction(event-> {hero.revive();
+		fullGame(primaryStage);
+	});
 	
 	//Creating Pane and adding nodes
 	Pane gameOver = new Pane();
