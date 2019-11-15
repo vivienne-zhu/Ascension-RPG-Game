@@ -735,8 +735,8 @@ public class GameGUI extends Application {
 
     	// Create images for the items at the shop
     	Image imgPotion1 = new Image("cheapPotion.png", 200, 200, false, false);
-    	Image imgPotion2 = new Image("hyperPotion.png", 200, 200, false, false);
-    	Image imgRevive = new Image("revive.png", 200, 200, false, false);
+    	Image imgPotion2 = new Image("hyperPotion.jpg", 200, 200, false, false);
+    	Image imgRevive = new Image("revivePotion.png", 200, 200, false, false);
     	ImageView ivPotion1 = new ImageView(imgPotion1);
     	ImageView ivPotion2 = new ImageView(imgPotion2);
     	ImageView ivRevive = new ImageView(imgRevive);
