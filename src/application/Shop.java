@@ -49,7 +49,7 @@ public class Shop {
 				hero.getPotionMap().put(potion,
 						hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
 				quantity.setText("");
-				display.setText(hero.shopDisplay());
+				display.setText(this.shopDisplay(hero));
 			} else {
 				quantity.setText("");
 				errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
@@ -77,7 +77,7 @@ public class Shop {
 			if (hero.getPotionMap().get(potion) >= quantity) {
 				hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
 				hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
-				display.setText(hero.shopDisplay());
+				display.setText(this.shopDisplay(hero));
 				q.setText("");
 			} else {
 				errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
@@ -104,7 +104,7 @@ public class Shop {
 				if (hero.getGold() >= 200) {
 					hero.setGold(hero.getGold() - 200);
 					hero.setHasRevive(true);
-					display.setText(hero.shopDisplay());
+					display.setText(this.shopDisplay(hero));
 				} else {
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
 					errorMsg.setVisible(true);
@@ -127,12 +127,36 @@ public class Shop {
 			if (hero.isHasRevive() == true) {
 				hero.setGold(hero.getGold() + 150);
 				hero.setHasRevive(false);
-				display.setText(hero.shopDisplay());
+				display.setText(this.shopDisplay(hero));
 			} else {
 				errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 				errorMsg.setVisible(true);
 			}
 		});
+	}
+    
+	/**
+	 * This method returns a string that include player's gold and what is in his
+	 * bag.
+	 * 
+	 * @param hero the hero
+	 * @return display a string with amount of gold and what is in the player's bag
+	 */
+	public String shopDisplay(GameCharacters hero) {
+		String display = "You have: " + hero.getGold() + " GOLD \n\nITEM BAG: ";
+		for (Potion p : hero.getPotionMap().keySet()) {
+
+			display += "\n" + p + "\t\tx" + hero.getPotionMap().get(p);
+
+		}
+
+		if (hero.isHasRevive() == true) {
+			display += "\nRevive \t\t\tx1.0";
+		} else {
+			display += "\nRevive \t\t\tx0.0";
+		}
+
+		return display;
 	}
 
 	/**

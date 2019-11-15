@@ -736,123 +736,123 @@ public class GameGUI extends Application {
     	defendBtn.setDisable(disable);
     }
 
-    /**
-     * This will generate the shop screen, where player is able to buy and sell
-     * items.
-     */
-    public void shop(Stage primaryStage) {
-    	// Create grid pane
-    	GridPane rootNode = new GridPane();
+	/**
+	 * This will generate the shop screen, where player is able to buy and sell
+	 * items.
+	 */
+	public void shop(Stage primaryStage) {
+		// Create grid pane
+		GridPane rootNode = new GridPane();
 
-    	// Create the magic shop text
-    	Text welcome = new Text("Magic Shop");
-    	welcome.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
-    	welcome.setFill(Color.GOLDENROD);
-    	DropShadow ds = new DropShadow();
-    	ds.setColor(Color.GOLDENROD);
-    	welcome.setEffect(ds);
+		// Create the magic shop text
+		Text welcome = new Text("Magic Shop");
+		welcome.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
+		welcome.setFill(Color.GOLDENROD);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.GOLDENROD);
+		welcome.setEffect(ds);
 
-    	// Error message when money is not enough
-    	Text errorMsg = new Text("BLABLABLABLA");
-    	errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-    	errorMsg.setFill(Color.GOLDENROD);
-    	errorMsg.setVisible(false);
+		// Error message when money is not enough
+		Text errorMsg = new Text("BLABLABLABLA");
+		errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		errorMsg.setFill(Color.GOLDENROD);
+		errorMsg.setVisible(false);
 
-    	// Display all items currrently in the hero's bag
-    	Text potionList = new Text(hero.shopDisplay());
-    	potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-    	potionList.setFill(Color.GOLDENROD);
+		// Display all items currrently in the hero's bag
+		Text potionList = new Text(shop.shopDisplay(hero));
+		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		potionList.setFill(Color.GOLDENROD);
 
-    	// Description for cheap potion
-    	Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
-    	potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-    	potion1.setFill(Color.GOLDENROD);
+		// Description for cheap potion
+		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
+		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		potion1.setFill(Color.GOLDENROD);
 
-    	// Input quantity for cheap potion
-    	TextField quantity1 = new TextField("Quantity");
-    	quantity1.setOpacity(0.8);
-    	quantity1.setMaxWidth(100);
+		// Input quantity for cheap potion
+		TextField quantity1 = new TextField("Quantity");
+		quantity1.setOpacity(0.8);
+		quantity1.setMaxWidth(100);
 
-    	// Buy and sell buttons for cheap potion
-    	Button btnBuy1 = new Button("Buy");
-    	this.shop.buyPotion(this.hero, btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
-    	Button btnSell1 = new Button("Sell");
-    	this.shop.sellPotion(this.hero, btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
+		// Buy and sell buttons for cheap potion
+		Button btnBuy1 = new Button("Buy");
+		this.shop.buyPotion(this.hero, btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
+		Button btnSell1 = new Button("Sell");
+		this.shop.sellPotion(this.hero, btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
 
-    	// Description for hyper potion
-    	Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
-    	potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-    	potion2.setFill(Color.GOLDENROD);
+		// Description for hyper potion
+		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
+		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		potion2.setFill(Color.GOLDENROD);
 
-    	// Input quantity for hyper potion
-    	TextField quantity2 = new TextField("Quantity");
-    	quantity2.setMaxWidth(100);
-    	quantity2.setOpacity(0.8);
+		// Input quantity for hyper potion
+		TextField quantity2 = new TextField("Quantity");
+		quantity2.setMaxWidth(100);
+		quantity2.setOpacity(0.8);
 
-    	// Buy and sell buttons for hyper potion
-    	Button btnBuy2 = new Button("Buy");
-    	this.shop.buyPotion(this.hero, btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
+		// Buy and sell buttons for hyper potion
+		Button btnBuy2 = new Button("Buy");
+		this.shop.buyPotion(this.hero, btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
 
-    	Button btnSell2 = new Button("Sell");
-    	this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
+		Button btnSell2 = new Button("Sell");
+		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
 
-    	// Description for revive
-    	Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
-    	revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-    	revive.setFill(Color.GOLDENROD);
+		// Description for revive
+		Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
+		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		revive.setFill(Color.GOLDENROD);
 
-    	// Incomplete: buy and sell buttons for revive, will add eventhandlers
-    	Button btnBuy3 = new Button("Buy");
-    	this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
-    	Button btnSell3 = new Button("Sell");
-    	this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
+		// Incomplete: buy and sell buttons for revive, will add eventhandlers
+		Button btnBuy3 = new Button("Buy");
+		this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
+		Button btnSell3 = new Button("Sell");
+		this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
 
-    	// Create imageView for the items at the shop
-    	ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
-    	ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
-    	ImageView ivRevive = new ImageView(this.shop.getReviveImage());
-     	
-    	// Fixed width for columns
-    	for (int i = 0; i < 5; i++) {
-            ColumnConstraints column = new ColumnConstraints(250);
-            rootNode.getColumnConstraints().add(column);
-        }
-    	
-    	// Add nodes to the grid pane 
-    	rootNode.setGridLinesVisible(false);
-    	rootNode.setHgap(10);
-    	rootNode.setVgap(5);
-    	rootNode.add(welcome, 1, 0);
-    	rootNode.add(ivPotion1, 1, 1);
-    	rootNode.add(potion1, 1, 2);
-    	rootNode.add(quantity1, 1, 3);
-    	rootNode.add(btnBuy1, 1, 4);
-    	rootNode.add(btnSell1, 1, 5);
-    	rootNode.add(ivPotion2, 2, 1);
-    	rootNode.add(potion2, 2, 2);
-    	rootNode.add(quantity2, 2, 3);
-    	rootNode.add(btnBuy2, 2, 4);
-    	rootNode.add(btnSell2, 2, 5);
-    	rootNode.add(ivRevive, 3, 1);
-    	rootNode.add(revive, 3, 2);
-    	rootNode.add(btnBuy3, 3, 3);
-    	rootNode.add(btnSell3, 3, 4);
-    	rootNode.add(potionList, 1, 7);
-    	rootNode.add(errorMsg, 1, 8);
-    	rootNode.setAlignment(Pos.CENTER);
+		// Create imageView for the items at the shop
+		ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
+		ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
+		ImageView ivRevive = new ImageView(this.shop.getReviveImage());
 
-    	// Set background
-    	BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-    			BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    	Background shopBg2 = new Background(shopBg1);
-    	rootNode.setBackground(shopBg2);
+		// Fixed width for columns
+		for (int i = 0; i < 5; i++) {
+			ColumnConstraints column = new ColumnConstraints(250);
+			rootNode.getColumnConstraints().add(column);
+		}
 
-    	// Create the scene
-    	Scene shopScene = new Scene(rootNode, 1280, 720);
-    	primaryStage.setScene(shopScene);
-    	primaryStage.show();
+		// Add nodes to the grid pane
+		rootNode.setGridLinesVisible(false);
+		rootNode.setHgap(10);
+		rootNode.setVgap(5);
+		rootNode.add(welcome, 1, 0);
+		rootNode.add(ivPotion1, 1, 1);
+		rootNode.add(potion1, 1, 2);
+		rootNode.add(quantity1, 1, 3);
+		rootNode.add(btnBuy1, 1, 4);
+		rootNode.add(btnSell1, 1, 5);
+		rootNode.add(ivPotion2, 2, 1);
+		rootNode.add(potion2, 2, 2);
+		rootNode.add(quantity2, 2, 3);
+		rootNode.add(btnBuy2, 2, 4);
+		rootNode.add(btnSell2, 2, 5);
+		rootNode.add(ivRevive, 3, 1);
+		rootNode.add(revive, 3, 2);
+		rootNode.add(btnBuy3, 3, 3);
+		rootNode.add(btnSell3, 3, 4);
+		rootNode.add(potionList, 1, 7);
+		rootNode.add(errorMsg, 1, 8);
+		rootNode.setAlignment(Pos.CENTER);
 
-    }
+		// Set background
+		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		Background shopBg2 = new Background(shopBg1);
+		rootNode.setBackground(shopBg2);
+
+		// Create the scene
+		Scene shopScene = new Scene(rootNode, 1280, 720);
+		primaryStage.setScene(shopScene);
+		primaryStage.show();
+
+	}
 
     /**
      * This method creates screen when the player wins the game

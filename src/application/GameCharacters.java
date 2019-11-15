@@ -159,21 +159,6 @@ public class GameCharacters {
 	}
 
 	/**
-	 * This method creates a string that shows what is inside the potion bag
-	 * 
-	 * @return display A string shows what is currently inside the potion bag
-	 */
-	public String shopDisplay() {
-		String display = "You have: " + this.getGold() + " GOLD \n\nITEM BAG: ";
-		for (Potion p : this.getPotionMap().keySet()) {
-
-			display += "\n" + p + "\t\tx" + this.getPotionMap().get(p);
-
-		}
-		return display;
-	}
-
-	/**
 	 * 
 	 * @return x x value of the game character image.
 	 */
