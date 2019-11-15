@@ -393,6 +393,7 @@ public class BattlePhase extends GameGUI{
 					SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
 					sequence.play();
 				}
+				gameOverScreen(primaryStage);
 			}
 		}
 	}
