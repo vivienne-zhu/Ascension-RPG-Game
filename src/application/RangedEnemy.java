@@ -28,6 +28,8 @@ public class RangedEnemy extends GameCharacters {
 		setWidth(100);
 		setHeight(200);
 		setType("Ranged");
+		//setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
+		//setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
 
 	}
 

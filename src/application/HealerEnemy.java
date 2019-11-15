@@ -30,6 +30,8 @@ public class HealerEnemy extends GameCharacters {
 		setWidth(100);
 		setHeight(200);
 		setType("Healer");
+		//setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
+		//setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
 
 	}
 

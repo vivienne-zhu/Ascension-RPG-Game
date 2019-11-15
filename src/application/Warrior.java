@@ -29,6 +29,7 @@ public class Warrior extends GameCharacters {
 		setWidth(250);
 		setHeight(280);
 		setCharacterImage(new Image("pixelWarrior.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
 		setType("Warrior");
 	}
 
