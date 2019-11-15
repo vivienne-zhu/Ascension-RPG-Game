@@ -314,13 +314,14 @@ public class GameGUI extends Application {
 	//Below enemy created for testing purposes
 	MeleeEnemy orc = new MeleeEnemy(floor.getFloor());
 	allEnemies.add(orc);
-//	MeleeEnemy dummy = new MeleeEnemy(floors.getFloor());
-//	allEnemies.add(dummy);
+	MeleeEnemy dummy = new MeleeEnemy(floor.getFloor());
+	allEnemies.add(dummy);
 	
+	hero.setCurrentStamina(hero.getStamina());
 
 	// Creation of pane -->currently here for GUI testing
-	System.out.println(allEnemies.get(0));
-	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor())); //(- 1 causes it to crash cause floors dont increment yet)
+	//System.out.println(allEnemies.get(0));
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()-1));
 	
 	/* 
 	 * 
