@@ -61,7 +61,7 @@ public class GameGUI extends Application {
     private String heroName;
     private ArrayList<GameCharacters> allEnemies;
     private Shop shop;
-    private Floor floors;
+    private Floor floor;
 
     /**
      * The constructor creates a new character, sets all booleans variables to
@@ -75,7 +75,7 @@ public class GameGUI extends Application {
 	hero = new GameCharacters();
 	allEnemies = new ArrayList<GameCharacters>();
 	shop = new Shop();
-	floors = new Floor();
+	floor = new Floor();
 
     }
 
@@ -312,7 +312,7 @@ public class GameGUI extends Application {
 	GamePlayController gpc = new GamePlayController();
 	
 	//Below enemy created for testing purposes
-	MeleeEnemy orc = new MeleeEnemy(floors.getFloor());
+	MeleeEnemy orc = new MeleeEnemy(floor.getFloor());
 	allEnemies.add(orc);
 //	MeleeEnemy dummy = new MeleeEnemy(floors.getFloor());
 //	allEnemies.add(dummy);
@@ -320,7 +320,7 @@ public class GameGUI extends Application {
 
 	// Creation of pane -->currently here for GUI testing
 	System.out.println(allEnemies.get(0));
-	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floors.getFloor() - 1));
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor() - 1));
 	
 	/* 
 	 * 
@@ -383,7 +383,7 @@ public class GameGUI extends Application {
 	
 	//To display floor number
 	Text floorNum = new Text();
-	floorNum.setText("Floor " + floors.getFloor());
+	floorNum.setText("Floor " + floor.getFloor());
 	floorNum.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	floorNum.setFill(Color.WHITE);
 	floorNum.setX(600);
@@ -495,7 +495,8 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
 		continueBtn.setOnAction(event -> {
-			fullGame(primaryStage);});
+		    Event e = new Event();
+			e.eventScene(primaryStage, this, floor);});
 
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
@@ -670,7 +671,7 @@ public class GameGUI extends Application {
      */
     public void transitionScreen(Stage primaryStage, Shop shop) {
 	Text clearedFloor = new Text();
-	clearedFloor.setText("You cleared floor " + floors.getFloor() + "!");
+	clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 	clearedFloor.setX(300);
 	clearedFloor.setY(300);
 	clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
@@ -696,13 +697,13 @@ public class GameGUI extends Application {
 	//Adding eventHandling for buttons
 	continueBtn.setOnAction(event -> {
 	    Event e = new Event();
-		e.eventScene(primaryStage, this);});
+		e.eventScene(primaryStage, this, floor);});
 	
 	shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
-	if (floors.getFloor() != 3 ||  floors.getFloor() != 6 || floors.getFloor() != 9) {
+	if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
 	    shopBtn.setDisable(true);
-	}
+	} 
 
 	//Adding nodes to pane
 	display.getChildren().addAll(hbBtn, clearedFloor);

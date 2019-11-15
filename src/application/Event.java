@@ -76,16 +76,16 @@ public class Event {
 	 * @param hero
 	 * 
 	 */
-	public void loseGold(GameCharacters hero) {
+	public void loseGold(GameCharacters hero,  Floor floor) {
 		Random r = new Random();
 		double lostGold = r.nextInt(100) + 1;
 		
 		if (hero.getGold() > lostGold) {
 			hero.setGold(hero.getGold() - lostGold);
-			//incrementFloor()
+			floor.incrementFloor();
 		} else {
 			hero.setGold(0);
-			//incrementFloor()
+			floor.incrementFloor();
 		}
 	}
 	
@@ -95,7 +95,7 @@ public class Event {
 	 * @param primaryStage The primary stage/window needed to display the GUI.
 	 * @param g The GameGUI class 
 	 */
-	public void eventScene(Stage primaryStage, GameGUI g) {
+	public void eventScene(Stage primaryStage, GameGUI g, Floor floor) {
 	    //Temporary values layout and text
 	    this.eventHappen();
 	    Text eventText = new Text();
@@ -105,6 +105,7 @@ public class Event {
 		eventText.setText("An event has happened!");
 	    } else {
 		eventText.setText("No event has happened!");
+		floor.incrementFloor();
 	    }
 	    
 	    //Creating continue button and setting eventHandling
