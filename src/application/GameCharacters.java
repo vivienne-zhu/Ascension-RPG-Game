@@ -36,7 +36,8 @@ public class GameCharacters {
 	private String type;
 
 	/**
-	 * The constructor initializes the necessary instance variables to O and false, initializes hashMap.
+	 * The constructor initializes the necessary instance variables to O and false,
+	 * initializes hashMap.
 	 */
 	public GameCharacters() {
 		// Initialize potion map
@@ -45,7 +46,7 @@ public class GameCharacters {
 		this.hp = new HyperPotion();
 		this.potionMap.put(cp, 0.0);
 		this.potionMap.put(hp, 0.0);
-				
+
 		// for testing purpose, set the gold to 10000
 		this.gold = 10000;
 		this.xp = 0;
@@ -63,8 +64,8 @@ public class GameCharacters {
 	 * @param character The character currently being attacked.
 	 */
 	public int attack(GameCharacters character) {
-	    	// To Add: change x coordinate so character moves forward and back when he
-	 	// attacks
+		// To Add: change x coordinate so character moves forward and back when he
+		// attacks
 		setIsDefending(false);
 		int attackValue = this.getAttack() - character.getDefense();
 		if (character.isDefending()) {
@@ -115,26 +116,6 @@ public class GameCharacters {
 	}
 
 	/**
-	 * This method allows the player to buy revive from the shop for 200 gold.
-	 */
-	public void buyRevive() {
-		if (getGold() >=200) {
-			setGold(getGold() - 200);
-			setHasRevive(true);
-		}
-	}
-
-	/**
-	 * This method allows the player to sell revive for 150 gold.
-	 */
-	public void sellRevive() {
-		if (isHasRevive() == true) {
-			setGold(getGold() + 150);
-			setHasRevive(false);
-		}
-	}
-
-	/**
 	 * This method increases the attack, defense and stamina of the hero when
 	 * certain conditions are met.
 	 */
@@ -157,26 +138,26 @@ public class GameCharacters {
 			manaRand = 3 + (int) (Math.random() * ((6) + 1));
 			mana = mana + manaRand;
 		}
-		int[] gains = {atkRand, defRand, stamRand, manaRand};
+		int[] gains = { atkRand, defRand, stamRand, manaRand };
 		this.setLevel(this.getLevel() + 1);
 		return gains;
 	}
-	
+
 	/**
 	 * This method allows us to display the game character image in the GUI.
 	 * 
 	 * @param g GraphicsContext needed to draw the image in the GUI.
 	 */
 	public void displayCharacter(GraphicsContext g, boolean delete, boolean hurt) {
-	    if (delete) {
-	    	g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-	    } else if (hurt) {
+		if (delete) {
+			g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		} else if (hurt) {
 			g.drawImage(getCharacterImageHurt(), getX(), getY());
 		} else {
 			g.drawImage(getCharacterImage(), getX(), getY());
 		}
 	}
-	
+
 	/**
 	 * This method creates a string that shows what is inside the potion bag
 	 * 
@@ -184,7 +165,6 @@ public class GameCharacters {
 	 */
 	public String shopDisplay() {
 		String display = "You have: " + this.getGold() + " GOLD \n\nITEM BAG: ";
-
 		for (Potion p : this.getPotionMap().keySet()) {
 
 			display += "\n" + p + "\t\tx" + this.getPotionMap().get(p);
@@ -192,7 +172,6 @@ public class GameCharacters {
 		}
 		return display;
 	}
-
 
 	/**
 	 * 
@@ -442,29 +421,29 @@ public class GameCharacters {
 	 * @return the characterImage
 	 */
 	public Image getCharacterImage() {
-	    return characterImage;
+		return characterImage;
 	}
-	
+
 	/**
 	 * @return the characterImage when hurt
 	 */
 	public Image getCharacterImageHurt() {
-	    return characterImageHurt;
+		return characterImageHurt;
 	}
 
 	/**
 	 * @param characterImage the characterImage to set
 	 */
 	public void setCharacterImage(Image characterImage) {
-	    this.characterImage = characterImage;
+		this.characterImage = characterImage;
 	}
-	
+
 	/**
 	 * @param characterImage the characterImage to set when character is hurt
 	 */
 	public void setCharacterImageHurt(Image characterImageHurt) {
-	    this.characterImageHurt = characterImageHurt;
-	}	
+		this.characterImageHurt = characterImageHurt;
+	}
 
 	/**
 	 * @return the cp

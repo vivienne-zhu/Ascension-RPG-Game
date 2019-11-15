@@ -60,6 +60,7 @@ public class GameGUI extends Application {
     private GameCharacters hero;
     private String heroName;
     private ArrayList<GameCharacters> allEnemies;
+    private Shop shop;
 
     /**
      * The constructor creates a new character, sets all booleans variables to
@@ -72,6 +73,7 @@ public class GameGUI extends Application {
 	isArcher = false;
 	hero = new GameCharacters();
 	allEnemies = new ArrayList<GameCharacters>();
+	shop = new Shop();
 
     }
 
@@ -774,9 +776,9 @@ public class GameGUI extends Application {
 
     	// Buy and sell buttons for cheap potion
     	Button btnBuy1 = new Button("Buy");
-    	this.buyPotion(btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
+    	this.shop.buyPotion(this.hero, btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
     	Button btnSell1 = new Button("Sell");
-    	this.sellPotion(btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
+    	this.shop.sellPotion(this.hero, btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
 
     	// Description for hyper potion
     	Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
@@ -790,10 +792,10 @@ public class GameGUI extends Application {
 
     	// Buy and sell buttons for hyper potion
     	Button btnBuy2 = new Button("Buy");
-    	this.buyPotion(btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
+    	this.shop.buyPotion(this.hero, btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
 
     	Button btnSell2 = new Button("Sell");
-    	this.sellPotion(btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
+    	this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
 
     	// Description for revive
     	Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
@@ -802,15 +804,14 @@ public class GameGUI extends Application {
 
     	// Incomplete: buy and sell buttons for revive, will add eventhandlers
     	Button btnBuy3 = new Button("Buy");
+    	this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
     	Button btnSell3 = new Button("Sell");
+    	this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
 
-    	// Create images for the items at the shop
-    	Image imgPotion1 = new Image("cheapPotion.png", 200, 200, false, false);
-    	Image imgPotion2 = new Image("hyperPotion.jpg", 200, 200, false, false);
-    	Image imgRevive = new Image("revivePotion.png", 200, 200, false, false);
-    	ImageView ivPotion1 = new ImageView(imgPotion1);
-    	ImageView ivPotion2 = new ImageView(imgPotion2);
-    	ImageView ivRevive = new ImageView(imgRevive);
+    	// Create imageView for the items at the shop
+    	ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
+    	ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
+    	ImageView ivRevive = new ImageView(this.shop.getReviveImage());
 
     	// Add nodes to the grid
     	rootNode.setHgap(5);
@@ -833,11 +834,9 @@ public class GameGUI extends Application {
     	rootNode.add(potionList, 0, 7);
     	rootNode.add(errorMsg, 0, 8);
     	rootNode.setAlignment(Pos.CENTER);
-    	rootNode.setPadding(new Insets(5, 5, 5, 5));
 
     	// Set background
-    	Image shopBg = new Image("magicShop.jpg", 1280, 720, false, false);
-    	BackgroundImage shopBg1 = new BackgroundImage(shopBg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+    	BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
     			BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     	Background shopBg2 = new Background(shopBg1);
     	rootNode.setBackground(shopBg2);
@@ -848,64 +847,6 @@ public class GameGUI extends Application {
     	primaryStage.show();
 
     }
-
-    /**
-     * This method allows the player to buy the potion from the shop by clicking the
-     * buy button
-     * 
-     * @param btn      buy button
-     * @param potion   the type of the potion the player is buying
-     * @param quantity the quantity of the potion the player is buying
-     * @param errorMsg an error message shows if the player does not have enough
-     *                 money
-     * @param display
-     */
-    public void buyPotion(Button btn, Potion potion, TextField quantity, Text errorMsg, Text display) {
-    	btn.setOnAction(Event -> {
-    		double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
-    		if (hero.getGold() >= cost) {
-    			errorMsg.setVisible(false);
-    			hero.setGold(hero.getGold() - cost);
-    			hero.getPotionMap().put(potion,
-    					hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
-    			quantity.setText("");
-    			display.setText(hero.shopDisplay());
-    		} else {
-    			quantity.setText("");
-    			errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
-    			errorMsg.setVisible(true);
-    		}
-    	});
-
-    }
-
-    /**
-     * This method allows the player to sell items at the shop by clicking the sell
-     * button
-     * 
-     * @param btn      the sell button
-     * @param potion   the type of potion the player is selling
-     * @param q        the quantity of potion the player is selling
-     * @param errorMsg an error message shows if the player does not have enough
-     *                 items
-     * @param display
-     */
-    public void sellPotion(Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
-    	btn.setOnAction(Event -> {
-    		double quantity = Double.parseDouble(q.getText());
-    		if (hero.getPotionMap().get(potion) >= quantity) {
-    			hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
-    			hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
-    			display.setText(hero.shopDisplay());
-    			q.setText("");
-    		} else {
-    			errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
-    			errorMsg.setVisible(true);
-    			q.setText("");
-    		}
-    	});
-    }
-    
 
     /**
      * This method creates screen when the player wins the game
@@ -1103,8 +1044,23 @@ public class GameGUI extends Application {
     public void setHeroName(String heroName) {
 	this.heroName = heroName;
     }
+    
 
-    public static void main(String[] args) {
+    /**
+	 * @return the shop
+	 */
+	public Shop getShop() {
+		return shop;
+	}
+
+	/**
+	 * @param shop the shop to set
+	 */
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public static void main(String[] args) {
 	launch(args);
     }
 }
