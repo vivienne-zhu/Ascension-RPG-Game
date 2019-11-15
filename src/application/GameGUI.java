@@ -323,26 +323,20 @@ public class GameGUI extends Application {
 	//System.out.println(allEnemies.get(0));
 	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()-1));
 	
-	/* 
-	 * 
-	 * gpc.continueGameplay();
-	 * 
-	 * while (gpc.sEndGamePlay() == false { 
-	 * 	
-	 *   hero.setCurrentStamina(getStamina());
-	 *   ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
-	 *   tempEnemies = allEnemies.get(floor.getFloor());
-	 *   Pane towerLevel = createTowerLevels(tempEnemies);
-	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen() (REVIVE MECHANICS built into game over screen)
-	 *     //heroTurn -->when enemyStam == 0: Transition page saying player cleared the floor
-	 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button calls eventScene
-	 *     						eventScene tells if event happened & has continueBtn which calls fullGame()
-	 *     		                      --> else (not floor 3,6,9): eventScene --> fullGame() 
-	 *   }
- 	 *  gpc.determineEndOfGame();
- 	 *  if (gpc.isWin() = true){
- 	 *  	youWinScreen();
- 	 *  } else {gameOverScreen} (REVIVE MECHANICS built into game over screen)
+	//Code to be added when enemy hashMap completed
+	 //ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
+	 //tempEnemies = allEnemies.get(floor.getFloor()); --> get arrayList from enemy hashMap
+	
+	 // Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
+
+	/*   
+	 *   Logics:
+	 *   	//in enemyTurn --> if hero dies --> GameOver Screen() (REVIVE MECHANICS built into game over screen)
+	 *     //heroTurn -->when all enemies die: Transition page saying player cleared the floor
+	 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button
+	 *     		                      --> else (not floor 3,6,9): continue fighting 
+	 *  			If there is and event-->eventScene tells what event happened & has continueBtn to continue fighting
+ 	 * If win on floor 10 -->  youWinScreen built in
 	 */
 
 	
