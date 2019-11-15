@@ -394,7 +394,7 @@ public class GameGUI extends Application {
 	hero.displayCharacter(gc, false, false);
 	g.displayCharacter(gc, false, false);
 	
-	BattlePhase battle = new BattlePhase(primaryStage, shop);
+	BattlePhase battle = new BattlePhase(primaryStage, shop, floor);
 	battle.dispCombatInfo(hero, allEnemies);
 	battle.dispDialogue();
 	battle.initButtons();
@@ -808,20 +808,33 @@ public class GameGUI extends Application {
 	this.heroName = heroName;
     }
     
+    /**
+     * @return the shop
+     */
+    public Shop getShop() {
+	return shop;
+    }
 
     /**
-	 * @return the shop
-	 */
-	public Shop getShop() {
-		return shop;
-	}
+     * @param shop the shop to set
+     */
+    public void setShop(Shop shop) {
+	this.shop = shop;
+    }
 
-	/**
-	 * @param shop the shop to set
-	 */
-	public void setShop(Shop shop) {
-		this.shop = shop;
-	}
+    /**
+     * @return the floor
+     */
+    public Floor getFloor() {
+        return floor;
+    }
+
+    /**
+     * @param floor the floor to set
+     */
+    public void setFloor(Floor floor) {
+        this.floor = floor;
+    }
 
 	public static void main(String[] args) {
 	launch(args);

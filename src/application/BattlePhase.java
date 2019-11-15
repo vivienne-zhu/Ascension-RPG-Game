@@ -43,10 +43,12 @@ public class BattlePhase extends GameGUI{
 	private Text enemyName;
 	private Shop shop;
 	private Stage primaryStage;
+	private Floor floor;
 	
-	public BattlePhase(Stage primaryStage, Shop shop) {
+	public BattlePhase(Stage primaryStage, Shop shop , Floor floor) {
 		this.primaryStage = primaryStage;
 		this.shop = shop;
+		this.floor = floor;
 	}
 
 
@@ -299,11 +301,20 @@ public class BattlePhase extends GameGUI{
 			allEnemies.remove(choice - 1);
 			
 			//Transition to next screen after battle after 5 seconds
-			Timeline moveOn = new Timeline();
-			moveOn.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage, shop));
-			moveOn.getKeyFrames().add(frame);
-			moveOn.play();
+			if (this.floor.getFloor() < 10) {
+			    Timeline moveOn = new Timeline();
+			    moveOn.setCycleCount(1);
+			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage, shop));
+			    moveOn.getKeyFrames().add(frame);
+			    moveOn.play();
+			} else if (this.floor.getFloor() == 10){
+			    Timeline moveOn = new Timeline();
+			    moveOn.setCycleCount(1);
+			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> youWinScreen(primaryStage));
+			    moveOn.getKeyFrames().add(frame);
+			    moveOn.play();
+			}
+			
 		}
 
 		//After 0.1 seconds revert color only if not dead
