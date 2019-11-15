@@ -405,8 +405,8 @@ public class GameGUI extends Application {
 	dialogueThree.setFill(Color.WHITE);
 	
 	// TEST - Adding hero and boss images
-	hero.displayCharacter(gc, false);
-	allEnemies.get(0).displayCharacter(gc, false);
+	hero.displayCharacter(gc, false, false);
+	allEnemies.get(0).displayCharacter(gc, false, false);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
@@ -574,20 +574,35 @@ public class GameGUI extends Application {
     		Text enemyStam, GraphicsContext gc) {
     	
 		//Hero attacks enemy
-	    int attackAmount = this.hero.attack(allEnemies.get(choice - 1));
-	    enemyStam.setText("Stamina: " + this.allEnemies.get(choice - 1).getCurrentStamina());
+    	GameCharacters enemy = allEnemies.get(choice - 1);
+	    int attackAmount = this.hero.attack(enemy);
+	    enemy.displayCharacter(gc, false, true); //turn enemy red on attack
+	    
+		//If enemy dies, update information and delete enemy picture
+    	if (enemy.getCurrentStamina() <= 0) {
+			dialogue.setText("You have killed the enemy.");
+			dialogueTwo.setText(""); //XP stuff and gold stuff will be here
+			dialogueThree.setText("");
+			enemy.displayCharacter(gc, true, false); //deleting picture
+			allEnemies.remove(choice - 1);
+    	}
+	    
+	    //After 0.1 seconds revert color only if not dead
+	    if (allEnemies.contains(enemy)) {
+	    	Timeline timeline = new Timeline(); 
+	    	timeline.setCycleCount(1);
+	    	KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+	    		enemy.displayCharacter(gc, false, false));
+	    	timeline.getKeyFrames().add(frame);
+	    	timeline.play();
+	    }
+	    
+	    enemyStam.setText("Stamina: " + enemy.getCurrentStamina());
 	    dialogue.setText("You dealt " + attackAmount + " damage!");
 	    dialogueTwo.setText("");
 	    dialogueThree.setText("");
 	    
-		//If enemy dies, update information and delete enemy picture
-    	if (allEnemies.get(choice - 1).getCurrentStamina() <= 0) {
-			dialogue.setText("You have killed the enemy.");
-			dialogueTwo.setText(""); //XP stuff and gold stuff will be here
-			dialogueThree.setText("");
-			allEnemies.get(choice - 1).displayCharacter(gc, true); //deleting picture
-			allEnemies.remove(choice - 1);
-    	}
+
     }
     
     /**
@@ -602,7 +617,7 @@ public class GameGUI extends Application {
     public void move(GameCharacters character, GraphicsContext gc, boolean forward) {
     	
 		//Clear current picture
-    	character.displayCharacter(gc, true);
+    	character.displayCharacter(gc, true, false);
     	
 		//Move character accordingly depending on boolean
     	if (forward) {
@@ -612,7 +627,7 @@ public class GameGUI extends Application {
     	}
     	
 		//Draw new picture
-    	character.displayCharacter(gc, false);
+    	character.displayCharacter(gc, false, false);
     }
     
     
@@ -679,6 +694,16 @@ public class GameGUI extends Application {
     public void hitHero(Text dialogueTwo, Text dialogueThree, 
     		Text heroStam, int i, GraphicsContext gc) {
 		int attackAmount = allEnemies.get(i).attack(hero);
+	    hero.displayCharacter(gc, false, true); //turn hero red on attack
+	    
+	    //After 0.1 seconds revert color
+    	Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+    		hero.displayCharacter(gc, false, false));
+    	timeline.getKeyFrames().add(frame);
+    	timeline.play();
+    	
 		heroStam.setText("Stamina: " + this.hero.getCurrentStamina());
 		if (hero.isDefending()) {
 			dialogueTwo.setText("You took " + attackAmount + " damage!");
@@ -693,7 +718,7 @@ public class GameGUI extends Application {
 				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
 			}
 			if (hero.getCurrentStamina() <= 0) {
-				hero.displayCharacter(gc, true);
+				hero.displayCharacter(gc, true, false);
 			}
 		}
     }
