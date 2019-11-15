@@ -343,16 +343,16 @@ public class GameGUI extends Application {
 	 */
 
 	
-	// Button to shop
+	// Button to shop --> REMOVE COMMMENTS TO QUICKLY TEST SHOP
 	// This has been added to correct scene & will be removed when the full game method is completed 
-	Button shopBtn = new Button("Go to the Magic Shop");
-	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	//Button shopBtn = new Button("Go to the Magic Shop");
+	//shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
 	// Event handling for shop button 
-	shopBtn.setOnAction(event -> {
-		shop(primaryStage);});
+	//shopBtn.setOnAction(event -> {
+		//shop(primaryStage);});
 
-	towerLevel.getChildren().add(shopBtn);
+	//towerLevel.getChildren().add(shopBtn);
 
 	Scene insideTower = new Scene(towerLevel, 1280, 720);
 	primaryStage.setScene(insideTower);
