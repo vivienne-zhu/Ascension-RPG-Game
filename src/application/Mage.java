@@ -25,10 +25,10 @@ public class Mage extends GameCharacters {
 		setCurrentStamina(getStamina());
 		setMana(400);
 		setLevel(1);
-		setX(130);
-		setY(250);
-		setWidth(400);
-		setHeight(450);
+		setX(150);
+		setY(360);
+		setWidth(200);
+		setHeight(230);
 		setCharacterImage(new Image("mage1.png", getWidth(), getHeight(), false, false));
 		//setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
 		setType("Mage");
