@@ -44,9 +44,8 @@ public class BattlePhase extends GameGUI{
 	private Shop shop;
 	private Stage primaryStage;
 	
-	public BattlePhase(Stage primaryStage, Shop shop) {
+	public BattlePhase(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.shop = shop;
 	}
 
 
@@ -259,7 +258,7 @@ public class BattlePhase extends GameGUI{
 		//Hero hits enemy
 		Timeline hit = new Timeline();
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(hero, allEnemies, choice, 
-				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, shop));
+				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage));
 		hit.getKeyFrames().add(frameTwo);
 
 		//Move hero backward
@@ -284,7 +283,7 @@ public class BattlePhase extends GameGUI{
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitEnemy(GameCharacters hero, ArrayList<GameCharacters> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-			Text enemyStam, GraphicsContext gc, Stage primaryStage, Shop shop) {
+			Text enemyStam, GraphicsContext gc, Stage primaryStage) {
 
 		//Hero attacks enemy
 		GameCharacters enemy = allEnemies.get(choice - 1);
@@ -301,7 +300,7 @@ public class BattlePhase extends GameGUI{
 			//Transition to next screen after battle after 5 seconds
 			Timeline moveOn = new Timeline();
 			moveOn.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage, shop));
+			KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage));
 			moveOn.getKeyFrames().add(frame);
 			moveOn.play();
 		}
