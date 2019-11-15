@@ -314,11 +314,13 @@ public class GameGUI extends Application {
 	//Below enemy created for testing purposes
 	MeleeEnemy orc = new MeleeEnemy(floors.getFloor());
 	allEnemies.add(orc);
-	MeleeEnemy dummy = new MeleeEnemy(floors.getFloor());
-	allEnemies.add(dummy);
+//	MeleeEnemy dummy = new MeleeEnemy(floors.getFloor());
+//	allEnemies.add(dummy);
+	
 
 	// Creation of pane -->currently here for GUI testing
-	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floors.getFloor()));
+	System.out.println(allEnemies.get(0));
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floors.getFloor() - 1));
 	
 	/* 
 	 * 
@@ -389,13 +391,13 @@ public class GameGUI extends Application {
 	
 	// TEST - Adding hero and boss images
 	hero.displayCharacter(gc, false, false);
-	allEnemies.get(0).displayCharacter(gc, false, false);
+	g.displayCharacter(gc, false, false);
 	
-	BattlePhase battle = new BattlePhase();
+	BattlePhase battle = new BattlePhase(primaryStage, shop);
 	battle.dispCombatInfo(hero, allEnemies);
 	battle.dispDialogue();
 	battle.initButtons();
-	battle.eventButtons(allEnemies, hero, gc);
+	battle.eventButtons(allEnemies, hero, gc, shop);
 	GridPane grid = battle.gridLayout();
 	
 	// Setting Background for Pane, adding grid to Pane 
@@ -607,7 +609,7 @@ public class GameGUI extends Application {
 
 
      /**
-     * This method creates game over screen when the player losses the enemy
+     * This method creates game over screen when the player loses to the enemy
      * 
      * @param primaryStage The primary stage/ window for displaying the GUI.
      */

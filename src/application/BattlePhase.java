@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
  * 
  * @author David Cai
  */
-public class BattlePhase{
+public class BattlePhase extends GameGUI{
 	
 	private Button attackBtn;
 	private Button defendBtn;
@@ -40,7 +41,15 @@ public class BattlePhase{
 	private Text enemyStam;
 	private Text heroName;
 	private Text enemyName;
+	private Shop shop;
+	private Stage primaryStage;
 	
+	public BattlePhase(Stage primaryStage, Shop shop) {
+		this.primaryStage = primaryStage;
+		this.shop = shop;
+	}
+
+
 	/**
 	 * This method will display relevant combat information like  player/enemy names and health
 	 * @param hero The character the player controls
@@ -109,7 +118,7 @@ public class BattlePhase{
 	 * @param hero The character the player controls
 	 * @param gc The GraphicsContext used to delete and draw pictures to canvas
 	 */
-	public void eventButtons(ArrayList<GameCharacters> allEnemies, GameCharacters hero, GraphicsContext gc) {
+	public void eventButtons(ArrayList<GameCharacters> allEnemies, GameCharacters hero, GraphicsContext gc, Shop shop) {
 		//Event handling for when attack button is pressed
 		attackBtn.setOnAction(event -> {
 			disableButtons(true, attackBtn, healBtn, defendBtn);
@@ -152,7 +161,7 @@ public class BattlePhase{
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 1, gc)); // hardcode first minion
+					dialogueTwo, dialogueThree, 1, gc, primaryStage)); // hardcode first minion
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
@@ -238,7 +247,8 @@ public class BattlePhase{
 	 * @param choice  The enemy character the hero would like to attack (if there are multiple)
 	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
 	 */
-	public void heroTurn(GameCharacters hero, ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc) {
+	public void heroTurn(GameCharacters hero, ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, 
+			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage) {
 
 		//Move hero forward
 		Timeline timeline = new Timeline(); 
@@ -249,7 +259,7 @@ public class BattlePhase{
 		//Hero hits enemy
 		Timeline hit = new Timeline();
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(hero, allEnemies, choice, 
-				dialogue, dialogueTwo, dialogueThree, enemyStam, gc));
+				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, shop));
 		hit.getKeyFrames().add(frameTwo);
 
 		//Move hero backward
@@ -274,7 +284,7 @@ public class BattlePhase{
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitEnemy(GameCharacters hero, ArrayList<GameCharacters> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-			Text enemyStam, GraphicsContext gc) {
+			Text enemyStam, GraphicsContext gc, Stage primaryStage, Shop shop) {
 
 		//Hero attacks enemy
 		GameCharacters enemy = allEnemies.get(choice - 1);
@@ -288,6 +298,8 @@ public class BattlePhase{
 			dialogueThree.setText("");
 			enemy.displayCharacter(gc, true, false); //deleting picture
 			allEnemies.remove(choice - 1);
+		    transitionScreen(primaryStage, shop);
+			
 		}
 
 		//After 0.1 seconds revert color only if not dead
