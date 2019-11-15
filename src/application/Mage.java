@@ -1,7 +1,6 @@
 package application;
 
 import javafx.scene.image.Image;
-import javafx.scene.canvas.GraphicsContext;
 
 /**
  * This class is an extension of the GameCharacters class. It represents a Mage
