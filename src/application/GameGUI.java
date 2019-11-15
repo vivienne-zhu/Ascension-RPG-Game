@@ -705,7 +705,7 @@ public class GameGUI extends Application {
 	continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	HBox hbBtn = new HBox(10);
 	hbBtn.getChildren().addAll(shopBtn, continueBtn);
-	hbBtn.setLayoutX(500);
+	hbBtn.setLayoutX(400);
 	hbBtn.setLayoutY(600);
 	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
