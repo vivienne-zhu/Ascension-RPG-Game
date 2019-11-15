@@ -684,7 +684,7 @@ public class GameGUI extends Application {
      * 
      * @param primaryStage The primary stage/window of the GUI.
      */
-    public void transitionScreen(Stage primaryStage, Shop shop) {
+    public void transitionScreen(Stage primaryStage) {
 	Text clearedFloor = new Text();
 	clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 	clearedFloor.setX(300);
