@@ -312,11 +312,13 @@ public class GameGUI extends Application {
 	GamePlayController gpc = new GamePlayController();
 	
 	//Below enemy created for testing purposes
-	MeleeEnemy orc = new MeleeEnemy(1);
+	MeleeEnemy orc = new MeleeEnemy(floors.getFloor());
 	allEnemies.add(orc);
+	MeleeEnemy dummy = new MeleeEnemy(floors.getFloor());
+	allEnemies.add(dummy);
 
 	// Creation of pane -->currently here for GUI testing
-	Pane towerLevel = createTowerLevels();
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floors.getFloor()));
 	
 	/* 
 	 * 
@@ -329,7 +331,8 @@ public class GameGUI extends Application {
 	 *   tempEnemies = allEnemies.get(floor.getFloor());
 	 *   Pane towerLevel = createTowerLevels(tempEnemies);
 	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen() (REVIVE MECHANICS built into game over screen)
-	 *     //heroTurn -->when enemyStam == 0: if floor = 3,6, 9 , Shop scene, w/return button calls eventScene
+	 *     //heroTurn -->when enemyStam == 0: Transition page saying player cleared the floor
+	 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button calls eventScene
 	 *     						eventScene tells if event happened & has continueBtn which calls fullGame()
 	 *     		                      --> else (not floor 3,6,9): eventScene --> fullGame() 
 	 *   }
@@ -341,7 +344,7 @@ public class GameGUI extends Application {
 
 	
 	// Button to shop
-	// This will be adujsted when the full game method is completed 
+	// This has been added to correct scene & will be removed when the full game method is completed 
 	Button shopBtn = new Button("Go to the Magic Shop");
 	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
@@ -364,7 +367,7 @@ public class GameGUI extends Application {
      * @return The Pane containing all the graphical elements needed for fights
      *         inside the Tower.
      */
-    public Pane createTowerLevels() {
+    public Pane createTowerLevels(Stage primaryStage, GameCharacters g) {
 	Pane towerLevels = new Pane();
 
 	// To display the background for the floor
@@ -411,7 +414,7 @@ public class GameGUI extends Application {
 	
 	// TEST - Adding hero and boss images
 	hero.displayCharacter(gc, false, false);
-	allEnemies.get(0).displayCharacter(gc, false, false);
+	g.displayCharacter(gc, false, false);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
@@ -470,7 +473,7 @@ public class GameGUI extends Application {
 		Timeline timeline = new Timeline(); 
     	timeline.setCycleCount(1);
     	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(allEnemies, enemyStam, dialogue, 
-    			dialogueTwo, dialogueThree, 1, gc)); // hardcode first minion
+    			dialogueTwo, dialogueThree, 1, gc, primaryStage)); // hardcode first minion
     	timeline.getKeyFrames().add(frame);
     	Timeline timelineTwo = new Timeline();
     	timelineTwo.setCycleCount(1);
@@ -540,7 +543,7 @@ public class GameGUI extends Application {
      * @param choice  The enemy character the hero would like to attack (if there are multiple)
      * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
      */
-    public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc) {
+    public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage) {
 
 		//Move hero forward
     	Timeline timeline = new Timeline(); 
@@ -551,7 +554,7 @@ public class GameGUI extends Application {
     	//Hero hits enemy
     	Timeline hit = new Timeline();
     	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(allEnemies, choice, 
-    			dialogue, dialogueTwo, dialogueThree, enemyStam, gc));
+    			dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage));
     	hit.getKeyFrames().add(frameTwo);
 
 		//Move hero backward
@@ -576,7 +579,7 @@ public class GameGUI extends Application {
      * @param gc GraphicsContext to clear character after death
      */
     public void hitEnemy(ArrayList<GameCharacters> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-    		Text enemyStam, GraphicsContext gc) {
+    		Text enemyStam, GraphicsContext gc, Stage primaryStage) {
     	
 		//Hero attacks enemy
     	GameCharacters enemy = allEnemies.get(choice - 1);
@@ -590,6 +593,7 @@ public class GameGUI extends Application {
 			dialogueThree.setText("");
 			enemy.displayCharacter(gc, true, false); //deleting picture
 			allEnemies.remove(choice - 1);
+			transitionScreen(primaryStage, shop);//NEED TO ADD TIMER
     	}
 	    
 	    //After 0.1 seconds revert color only if not dead
@@ -821,6 +825,14 @@ public class GameGUI extends Application {
 			ColumnConstraints column = new ColumnConstraints(250);
 			rootNode.getColumnConstraints().add(column);
 		}
+		
+		//Creating continue button and adding event handling
+		Button continueBtn = new Button("Continue playing");
+		continueBtn.setLayoutX(500);
+		continueBtn.setLayoutY(700);
+		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
+		continueBtn.setOnAction(event -> {
+			fullGame(primaryStage);});
 
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
@@ -844,6 +856,7 @@ public class GameGUI extends Application {
 		rootNode.add(potionList, 1, 7);
 		rootNode.add(errorMsg, 1, 8);
 		rootNode.setAlignment(Pos.CENTER);
+		rootNode.add(continueBtn, 2, 9);
 
 		// Set background
 		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
@@ -895,15 +908,8 @@ public class GameGUI extends Application {
 	thankYou.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
 	thankYou.setEffect(ds);
 
-	//TESTING - Creating Pane and canvas, and Adding hero to pane
+	//Creating Pane 
 	Pane gameWon = new Pane();
-//	Canvas canvas = new Canvas(1280,720);
-//	gameWon.getChildren().add(canvas);
-//	GraphicsContext gc = canvas.getGraphicsContext2D();
-//	hero.setX(450);
-//	hero.setY(150);
-//	hero.displayCharacter(gc, false);
-
 
 	//Creating the buttons to exit the game or play again
 	Button exitBtn = new Button("Exit game");
@@ -993,6 +999,58 @@ public class GameGUI extends Application {
 	primaryStage.setScene(gOver);
 	primaryStage.show();
 	
+    }
+    /**
+     * This method creates the transition page after the user has cleared the floor.
+     * 
+     * @param primaryStage The primary stage/window of the GUI.
+     */
+    public void transitionScreen(Stage primaryStage, Shop shop) {
+	Text clearedFloor = new Text();
+	clearedFloor.setText("You cleared floor " + floors.getFloor() + "!");
+	clearedFloor.setX(300);
+	clearedFloor.setY(300);
+	clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+	DropShadow ds = new DropShadow();
+	ds.setColor(Color.BLUE);
+	clearedFloor.setEffect(ds);
+	
+	//Creating Pane 
+	Pane display = new Pane();
+
+	//Creating the buttons play for the player to continue on
+	Button shopBtn = new Button("Go to the Magic Shop");
+	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+
+	Button continueBtn = new Button("Continue playing");
+	continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	HBox hbBtn = new HBox(10);
+	hbBtn.getChildren().addAll(shopBtn, continueBtn);
+	hbBtn.setLayoutX(500);
+	hbBtn.setLayoutY(600);
+	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+	//Adding eventHandling for buttons
+	continueBtn.setOnAction(event -> {
+	    Event e = new Event();
+		e.eventScene(primaryStage, this);});
+	
+	shopBtn.setOnAction(event -> {
+			shop(primaryStage);});
+	if (floors.getFloor() != 3 ||  floors.getFloor() != 6 || floors.getFloor() != 9) {
+	    shopBtn.setDisable(true);
+	}
+
+	//Adding nodes to pane
+	display.getChildren().addAll(hbBtn, clearedFloor);
+	display.setStyle(" -fx-background-color: grey");
+
+
+	//Adding Pane to Scene and Scene to Stage
+	Scene transition = new Scene(display, 1280, 720);
+	transition.setFill(Color.GREY);
+	primaryStage.setScene(transition);
+	primaryStage.show();
     }
 
     /**
