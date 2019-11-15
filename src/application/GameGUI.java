@@ -403,8 +403,6 @@ public class GameGUI extends Application {
 	Text dialogueThree = new Text("");
 	dialogueThree.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	dialogueThree.setFill(Color.WHITE);
-//	dialogue.setWrappingWidth(400);
-	
 	
 	// TEST - Adding hero and boss images
 	hero.displayCharacter(gc, false);
@@ -428,16 +426,39 @@ public class GameGUI extends Application {
 	
 	//Event handling for when each button is pressed
 	attackBtn.setOnAction(event -> {
+		disableButtons(true, attackBtn, healBtn, defendBtn);
 		hero.setIsDefending(false);
 	    chooseEnemyBtn.setVisible(true);	
 	});
+	
 	defendBtn.setOnAction(event -> {
+		Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
+		gc.drawImage(defendIcon, 100, 280); //draw defend icon
+		disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
 	    hero.setIsDefending(true);
 	    enemyTurn(allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc);
+	    
+	    //Enable buttons after 1.5 secs per enemy
+		Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(1500 * allEnemies.size()), ae -> 
+    		disableButtons(false, attackBtn, healBtn, defendBtn));
+    	timeline.getKeyFrames().add(frame);
+    	timeline.play();
+    	
+    	//Delete icon after 1.5 secs per enemy
+    	Timeline icon = new Timeline(); 
+    	icon.setCycleCount(1);
+    	KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * allEnemies.size()), ae -> 
+    		gc.clearRect(100, 280, 80, 80));
+    	icon.getKeyFrames().add(iconDisable);
+    	icon.play();
 	});
+    	
 	healBtn.setOnAction(event -> {
 	   
 	});
+
 
 	// Actions to take after button to choose enemy is chosen
 	chooseEnemyBtn.setOnAction(event -> {
@@ -454,8 +475,15 @@ public class GameGUI extends Application {
     	SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
     	sequence.play();
 		
-
-	    chooseEnemyBtn.setVisible(false);
+    	//Enable buttons after 3 seconds per enemy
+    	Timeline enable = new Timeline(); 
+    	enable.setCycleCount(1);
+    	KeyFrame frameEnable = new KeyFrame(Duration.millis(3000 * allEnemies.size()), ae -> 
+    		disableButtons(false, attackBtn, healBtn, defendBtn));
+    	enable.getKeyFrames().add(frameEnable);
+    	enable.play();
+    	
+    	chooseEnemyBtn.setVisible(false);
 	});
 	
 
@@ -668,6 +696,18 @@ public class GameGUI extends Application {
 				hero.displayCharacter(gc, true);
 			}
 		}
+    }
+    
+    /** This method disables/enables all user input buttons
+     * @param disable If true, disable all buttons. Enable otherwise.
+     * @param attackBtn Button to attack
+     * @param healBtn Button to use item
+     * @param defendBtn Button to defend
+     */
+    public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn) {
+    	attackBtn.setDisable(disable);
+    	healBtn.setDisable(disable);
+    	defendBtn.setDisable(disable);
     }
 
     /**
