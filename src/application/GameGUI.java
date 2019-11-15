@@ -348,7 +348,6 @@ public class GameGUI extends Application {
 	// This will be adujsted when the full game method is completed 
 	Button shopBtn = new Button("Go to the Magic Shop");
 	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	shopBtn.setAlignment(Pos.BOTTOM_LEFT);
 
 	// Event handling for shop button 
 	shopBtn.setOnAction(event -> {
@@ -812,27 +811,34 @@ public class GameGUI extends Application {
     	ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
     	ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
     	ImageView ivRevive = new ImageView(this.shop.getReviveImage());
-
-    	// Add nodes to the grid
-    	rootNode.setHgap(5);
+     	
+    	// Fixed width for columns
+    	for (int i = 0; i < 5; i++) {
+            ColumnConstraints column = new ColumnConstraints(250);
+            rootNode.getColumnConstraints().add(column);
+        }
+    	
+    	// Add nodes to the grid pane 
+    	rootNode.setGridLinesVisible(false);
+    	rootNode.setHgap(10);
     	rootNode.setVgap(5);
     	rootNode.add(welcome, 1, 0);
-    	rootNode.add(ivPotion1, 0, 1);
-    	rootNode.add(potion1, 0, 2);
-    	rootNode.add(quantity1, 0, 3);
-    	rootNode.add(btnBuy1, 0, 4);
-    	rootNode.add(btnSell1, 0, 5);
-    	rootNode.add(ivPotion2, 1, 1);
-    	rootNode.add(potion2, 1, 2);
-    	rootNode.add(quantity2, 1, 3);
-    	rootNode.add(btnBuy2, 1, 4);
-    	rootNode.add(btnSell2, 1, 5);
-    	rootNode.add(ivRevive, 2, 1);
-    	rootNode.add(revive, 2, 2);
-    	rootNode.add(btnBuy3, 2, 3);
-    	rootNode.add(btnSell3, 2, 4);
-    	rootNode.add(potionList, 0, 7);
-    	rootNode.add(errorMsg, 0, 8);
+    	rootNode.add(ivPotion1, 1, 1);
+    	rootNode.add(potion1, 1, 2);
+    	rootNode.add(quantity1, 1, 3);
+    	rootNode.add(btnBuy1, 1, 4);
+    	rootNode.add(btnSell1, 1, 5);
+    	rootNode.add(ivPotion2, 2, 1);
+    	rootNode.add(potion2, 2, 2);
+    	rootNode.add(quantity2, 2, 3);
+    	rootNode.add(btnBuy2, 2, 4);
+    	rootNode.add(btnSell2, 2, 5);
+    	rootNode.add(ivRevive, 3, 1);
+    	rootNode.add(revive, 3, 2);
+    	rootNode.add(btnBuy3, 3, 3);
+    	rootNode.add(btnSell3, 3, 4);
+    	rootNode.add(potionList, 1, 7);
+    	rootNode.add(errorMsg, 1, 8);
     	rootNode.setAlignment(Pos.CENTER);
 
     	// Set background
