@@ -293,13 +293,17 @@ public class BattlePhase extends GameGUI{
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
-			dialogue.setText("You have killed the enemy.");
-			dialogueTwo.setText(""); //XP stuff and gold stuff will be here
-			dialogueThree.setText("");
+			dialogueTwo.setText("You have killed the enemy."); 
+			dialogueThree.setText("");//XP stuff and gold stuff will be here
 			enemy.displayCharacter(gc, true, false); //deleting picture
 			allEnemies.remove(choice - 1);
-		    transitionScreen(primaryStage, shop);
 			
+			//Transition to next screen after battle after 5 seconds
+			Timeline moveOn = new Timeline();
+			moveOn.setCycleCount(1);
+			KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage, shop));
+			moveOn.getKeyFrames().add(frame);
+			moveOn.play();
 		}
 
 		//After 0.1 seconds revert color only if not dead
@@ -314,7 +318,7 @@ public class BattlePhase extends GameGUI{
 
 		enemyStam.setText("Stamina: " + enemy.getCurrentStamina());
 		dialogue.setText("You dealt " + attackAmount + " damage!");
-		dialogueTwo.setText("");
+		//dialogueTwo.setText("");
 		dialogueThree.setText("");
 	}
 
