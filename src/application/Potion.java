@@ -9,7 +9,7 @@ package application;
 
 public class Potion {
 	int restorePoint;
-	int price;
+	double price;
 
 	/**
 	 * The constructor sets the restore points and price of a potion object
@@ -36,14 +36,14 @@ public class Potion {
 	/**
 	 * @return the price
 	 */
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
