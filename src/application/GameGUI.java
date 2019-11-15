@@ -319,24 +319,21 @@ public class GameGUI extends Application {
 	 * 
 	 * gpc.continueGameplay();
 	 * 
-	 * while (gpc.sEndGamePlay() == false { ----> Need event scene to say what happened then loop back
-	 * 	Event e = new Event()
-	 * 	if (e.isEventHappen() == true){
-	 *		//if statements for to determine what event 
-	 *		// gold and floor will be update accordingly
-	 *	}
+	 * while (gpc.sEndGamePlay() == false { 
+	 * 	
 	 *   hero.setCurrentStamina(getStamina());
 	 *   ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
 	 *   tempEnemies = allEnemies.get(floor.getFloor());
 	 *   Pane towerLevel = createTowerLevels(tempEnemies);
-	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen()
-	 *     //heroTurn -->when enemyStam == 0: if floor = 3,6, 9 , Shop scene, return button calls full game
-	 *     		                      --> else : fullGame() called if the opponent stamina goes to 0
+	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen() (REVIVE MECHANICS built into game over screen)
+	 *     //heroTurn -->when enemyStam == 0: if floor = 3,6, 9 , Shop scene, w/return button calls eventScene
+	 *     						eventScene tells if event happened & has continueBtn which calls fullGame()
+	 *     		                      --> else (not floor 3,6,9): eventScene --> fullGame() 
 	 *   }
  	 *  gpc.determineEndOfGame();
  	 *  if (gpc.isWin() = true){
  	 *  	youWinScreen();
- 	 *  } else {gameOverScreen}
+ 	 *  } else {gameOverScreen} (REVIVE MECHANICS built into game over screen)
 	 */
 
 	
