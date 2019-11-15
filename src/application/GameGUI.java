@@ -61,7 +61,7 @@ public class GameGUI extends Application {
     private String heroName;
     private ArrayList<GameCharacters> allEnemies;
     private Shop shop;
-	private Floor floors;
+    private Floor floors;
 
     /**
      * The constructor creates a new character, sets all booleans variables to
