@@ -870,16 +870,20 @@ public class GameGUI extends Application {
 	ImageView treasureChest1 = new ImageView(treasureChest);
 	Image treasureChest2 = new Image("gold_treasure.png");
 	ImageView treasureChest3 = new ImageView(treasureChest2);
-	treasureChest1.setLayoutX(100);
+	Image treasureChest4 = new Image("closed_treasure.png");
+	ImageView treasureChest5 = new ImageView(treasureChest4);
+	treasureChest1.setLayoutX(250);
 	treasureChest1.setLayoutY(300);
-	treasureChest3.setLayoutX(900);
+	treasureChest3.setLayoutX(750);
 	treasureChest3.setLayoutY(300);
+	treasureChest5.setLayoutX(500);
+	treasureChest5.setLayoutY(200);
 
 	//Adding text to Pane
 	Text youWin = new Text();
 	youWin.setText("Congratulations. YOU WON!");
 	youWin.setX(120);
-	youWin.setY(100);
+	youWin.setY(130);
 	youWin.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
 	DropShadow ds = new DropShadow();
 	ds.setColor(Color.CHOCOLATE);
@@ -922,7 +926,7 @@ public class GameGUI extends Application {
 	}});
 
 	//Adding nodes to pane
-	gameWon.getChildren().addAll(treasureChest1,treasureChest3, hbBtn, youWin, thankYou);
+	gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
 	gameWon.setStyle(" -fx-background-color: gold");
 
 
