@@ -2,6 +2,7 @@ package application;
 
 import javafx.event.ActionEvent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -11,13 +12,14 @@ import java.util.Random;
  *
  */
 public class GamePlayController {
-	private boolean continueFighting;
 	private boolean goToNextLevel;
 	private boolean endGamePlay;
+	private boolean win;
+	
 
 	public GamePlayController() {
-		continueFighting = true;
 		endGamePlay = false;
+		win = false;
 
 	}
 
@@ -26,53 +28,40 @@ public class GamePlayController {
 	 * continue to the next floor.
 	 * 
 	 * @param hero       The chosen hero character being used by the player.
-	 * @param allEnemies the array of all enemies f
+	 * @param allEnemies the arraylist of all enemies the hero is fighting
 	 * @param floor      The current floor of the hero is on.
 	 */
-	public void continueGamePlay(GameCharacters hero, GameCharacters allEnemies[], Floor floor) { 
+	public void continueGamePlay(GameCharacters hero, ArrayList<GameCharacters> allEnemies, Floor floor) { 
 		int heroStam = hero.getCurrentStamina();
 		int enemyStam = 0;
-		for (int i = 0; i < allEnemies.length; i++) {
-			enemyStam += allEnemies[i].getCurrentStamina();
+		for (int i = 0; i < allEnemies.size(); i++) {
+			enemyStam += allEnemies.get(i).getCurrentStamina();
 		}
-
-		if (heroStam == 0 || enemyStam == 0 && floor.getFloor() < 10) {
-			continueFighting = false;
+		if (heroStam > 0 || enemyStam == 0 && floor.getFloor() < 10) {
 			if (enemyStam <= 0) {
 				goToNextLevel = true;
-				floor.incrementFloor();
 			} else if (heroStam <= 0) {
-				floor.setFloor(1);
 				endGamePlay = true;
 			}
 		}
+		
 	}
 
 	/**
 	 * This method will determine whether to end the game or not.
 	 * 
 	 * @param hero The chosen hero character being used by the player.
-	 * @param enemy The enemy the hero is fighting
+	 * @param enemy The enemy(or enemies) the hero is fighting
 	 * @param floor The floor the hero is on.
 	 */
-	public void determineEndOfGame(GameCharacters hero, GameCharacters enemy, Floor floor) { 
-		if (floor.getFloor() == 10 && enemy.getCurrentStamina() == 0 && hero.getCurrentStamina() >0) {
-			endGamePlay = true;
+	public void determineEndOfGame(GameCharacters hero, ArrayList<GameCharacters> allEnemies, Floor floor) { 
+	    	int enemyStam = 0;
+	    	for (int i = 0; i < allEnemies.size(); i++) {
+			enemyStam += allEnemies.get(i).getCurrentStamina();
 		}
-	}
-
-	/**
-	 * @return the continueFighting
-	 */
-	public boolean isContinueFighting() {
-		return continueFighting;
-	}
-
-	/**
-	 * @param continueFighting the continueFighting to set
-	 */
-	public void setContinueFighting(boolean continueFighting) {
-		this.continueFighting = continueFighting;
+		if (floor.getFloor() == 10 && enemyStam == 0 && hero.getCurrentStamina() > 0) {
+			setWin(true) ;
+		} 
 	}
 
 	/**
@@ -103,5 +92,18 @@ public class GamePlayController {
 		this.endGamePlay = endGamePlay;
 	}
 
+	/**
+	 * @return the win
+	 */
+	public boolean isWin() {
+	    return win;
+	}
+
+	/**
+	 * @param win the win to set
+	 */
+	public void setWin(boolean win) {
+	    this.win = win;
+	}
 
 }

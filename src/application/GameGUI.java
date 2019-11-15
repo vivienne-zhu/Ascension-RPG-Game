@@ -48,9 +48,9 @@ import java.util.ArrayList;
  * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
  * (Start scene, Character selection and naming, incomplete floor 1 of the tower). 
  * Currently this class is only to begin testing GUI elements and its design will be 
- * revised heavily before final submission (instance variables may be removed/added).
+ * revised heavily before final submission (class will be made more cohesive and DRY).
  * 
- * @author Shari Sinclair and David Cai
+ * @author Shari Sinclair, JiayuZhu and David Cai
  *
  */
 public class GameGUI extends Application {
@@ -61,6 +61,7 @@ public class GameGUI extends Application {
     private String heroName;
     private ArrayList<GameCharacters> allEnemies;
     private Shop shop;
+	private Floor floors;
 
     /**
      * The constructor creates a new character, sets all booleans variables to
@@ -74,6 +75,7 @@ public class GameGUI extends Application {
 	hero = new GameCharacters();
 	allEnemies = new ArrayList<GameCharacters>();
 	shop = new Shop();
+	floors = new Floor();
 
     }
 
@@ -312,35 +314,28 @@ public class GameGUI extends Application {
 	MeleeEnemy orc = new MeleeEnemy(1);
 	allEnemies.add(orc);
 
-	// while(gpc.isEndGamePlay() == false){
-	boolean attacking = false;
-	boolean defending = false;
-	boolean healing = false;
-
+	// Creation of pane -->currently here for GUI testing
 	Pane towerLevel = createTowerLevels();
-	/*
-	 * Logic: 
-	 * while(gpc.isEndGamePlay() == false){
-	 * 	-current stamina = stamina , get new enemy in array (let enemy[] index
-	 * 	correspond with floor to accommodate events with floor changes) 
+	
+	/* 
 	 * 
-	 * while(heroStam != 0 || enemyStam !=0) 
-	 * 	Player will click buttons, and this will change corresponding booleans set above- attack, defend heal)
-	 *  	If (statement to handle which is boolean is true, hero will attack, defend or heal)
-	 *  	Enemy react() -(randomly chooses what to do - attach, defend, if heal is an option
+	 * gpc.continueGameplay();
 	 * 
-	 * } 
-	 * - Once either hero or enemy stam = 0 and we exit while loop
-	 * 	gpc.GameplayContinue(hero,enemy)-- this will check whether hero has won 
-	 * 		If continue to next floor = true (i.e. hero has stam, enemy dead)--> increment floor (built into method in gpc), 
-	 * 			possibly load shop screen if floor==3,6,9, re-enter original while loop and fight again 
-	 * 		Else if Enemy alive ,hero dead --> end game = true and we exit overall while loop
-	 *		
-	 *  } Exit overall while loop if endgame =true if 
-	 *  	(Since endGame = true -->)
-	 *  		if floor less than 10 -->Load game over screen (make game over screen)
-	 *  		Else --> Congrats you win screen(make congrats screen)
-	 * 
+	 * while (gpc.sEndGamePlay() == false { 
+	 * 	
+	 *   hero.setCurrentStamina(getStamina());
+	 *   ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
+	 *   tempEnemies = allEnemies.get(floor.getFloor());
+	 *   Pane towerLevel = createTowerLevels(tempEnemies);
+	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen() (REVIVE MECHANICS built into game over screen)
+	 *     //heroTurn -->when enemyStam == 0: if floor = 3,6, 9 , Shop scene, w/return button calls eventScene
+	 *     						eventScene tells if event happened & has continueBtn which calls fullGame()
+	 *     		                      --> else (not floor 3,6,9): eventScene --> fullGame() 
+	 *   }
+ 	 *  gpc.determineEndOfGame();
+ 	 *  if (gpc.isWin() = true){
+ 	 *  	youWinScreen();
+ 	 *  } else {gameOverScreen} (REVIVE MECHANICS built into game over screen)
 	 */
 
 	
@@ -393,6 +388,14 @@ public class GameGUI extends Application {
 	Text enemyStam = new Text("Stamina: " + this.allEnemies.get(0).getCurrentStamina());
 	enemyStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	enemyStam.setFill(Color.DARKRED);
+	
+	//To display floor number
+	Text floorNum = new Text();
+	floorNum.setText("Floor " + floors.getFloor());
+	floorNum.setStyle(" -fx-font: normal bold 30px 'serif' ");
+	floorNum.setFill(Color.WHITE);
+	floorNum.setX(600);
+	floorNum.setY(50);
 	
 	// To display dialogue and other relevant battle info
 	Text dialogue = new Text("");
@@ -522,7 +525,7 @@ public class GameGUI extends Application {
 	
 	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
-	towerLevels.getChildren().add(grid);
+	towerLevels.getChildren().addAll(grid, floorNum);
 
 	return towerLevels;
     }
