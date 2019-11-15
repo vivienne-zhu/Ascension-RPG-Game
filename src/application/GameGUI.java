@@ -91,6 +91,7 @@ public class GameGUI extends Application {
 	//Start Screen Scene creation
 	Scene start = startScreen(primaryStage);
 	
+	
 	//Setting title of primary stage window, adding start scene and showing primary stage
 	primaryStage.setTitle("Tower Challenge");
 	primaryStage.setScene(start);
@@ -955,11 +956,17 @@ public class GameGUI extends Application {
 	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	Button playAgainBtn = new Button("Play again");
 	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button reviveBtn = new Button("Use Revive");
+	reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	HBox hbBtn = new HBox(10);
-	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
-	hbBtn.setLayoutX(500);
+	hbBtn.getChildren().addAll(exitBtn, playAgainBtn, reviveBtn);
+	hbBtn.setLayoutX(430);
 	hbBtn.setLayoutY(600);
 	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+	
+	if (hero.isHasRevive() == false) {
+	    reviveBtn.setDisable(true);
+	}
 
 	//Adding eventHandlint for buttons
 	exitBtn.setOnAction(event-> {primaryStage.close();;});
