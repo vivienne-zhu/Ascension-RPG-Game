@@ -11,12 +11,10 @@ import java.util.Random;
  *
  */
 public class GamePlayController {
-	private boolean continueFighting;
 	private boolean goToNextLevel;
 	private boolean endGamePlay;
 
 	public GamePlayController() {
-		continueFighting = true;
 		endGamePlay = false;
 
 	}
@@ -36,11 +34,9 @@ public class GamePlayController {
 			enemyStam += allEnemies[i].getCurrentStamina();
 		}
 
-		if (heroStam == 0 || enemyStam == 0 && floor.getFloor() < 10) {
-			continueFighting = false;
+		if (heroStam > 0 || enemyStam == 0 && floor.getFloor() < 10) {
 			if (enemyStam <= 0) {
 				goToNextLevel = true;
-				floor.incrementFloor();
 			} else if (heroStam <= 0) {
 				floor.setFloor(1);
 				endGamePlay = true;
@@ -59,20 +55,6 @@ public class GamePlayController {
 		if (floor.getFloor() == 10 && enemy.getCurrentStamina() == 0 && hero.getCurrentStamina() >0) {
 			endGamePlay = true;
 		}
-	}
-
-	/**
-	 * @return the continueFighting
-	 */
-	public boolean isContinueFighting() {
-		return continueFighting;
-	}
-
-	/**
-	 * @param continueFighting the continueFighting to set
-	 */
-	public void setContinueFighting(boolean continueFighting) {
-		this.continueFighting = continueFighting;
 	}
 
 	/**

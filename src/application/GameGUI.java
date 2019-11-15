@@ -50,7 +50,7 @@ import java.util.ArrayList;
  * Currently this class is only to begin testing GUI elements and its design will be 
  * revised heavily before final submission (instance variables may be removed/added).
  * 
- * @author Shari Sinclair and David Cai
+ * @author Shari Sinclair, JiayuZhu and David Cai
  *
  */
 public class GameGUI extends Application {
@@ -60,6 +60,7 @@ public class GameGUI extends Application {
     private GameCharacters hero;
     private String heroName;
     private ArrayList<GameCharacters> allEnemies;
+    private Floor floors;
 
     /**
      * The constructor creates a new character, sets all booleans variables to
@@ -72,6 +73,7 @@ public class GameGUI extends Application {
 	isArcher = false;
 	hero = new GameCharacters();
 	allEnemies = new ArrayList<GameCharacters>();
+	floors = new Floor();
 
     }
 
@@ -311,11 +313,9 @@ public class GameGUI extends Application {
 	allEnemies.add(orc);
 
 	// while(gpc.isEndGamePlay() == false){
-	boolean attacking = false;
-	boolean defending = false;
-	boolean healing = false;
-
+	
 	Pane towerLevel = createTowerLevels();
+	
 	/*
 	 * Logic: 
 	 * while(gpc.isEndGamePlay() == false){
@@ -392,6 +392,14 @@ public class GameGUI extends Application {
 	Text enemyStam = new Text("Stamina: " + this.allEnemies.get(0).getCurrentStamina());
 	enemyStam.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	enemyStam.setFill(Color.DARKRED);
+	
+	//To display floor number
+	Text floorNum = new Text();
+	floorNum.setText("Floor " + floors.getFloor());
+	floorNum.setStyle(" -fx-font: normal bold 30px 'serif' ");
+	floorNum.setFill(Color.WHITE);
+	floorNum.setX(600);
+	floorNum.setY(50);
 	
 	// To display dialogue and other relevant battle info
 	Text dialogue = new Text("");
@@ -521,7 +529,7 @@ public class GameGUI extends Application {
 	
 	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
-	towerLevels.getChildren().add(grid);
+	towerLevels.getChildren().addAll(grid, floorNum);
 
 	return towerLevels;
     }
