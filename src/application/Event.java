@@ -1,6 +1,12 @@
 package application;
 
 import java.util.Random;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 /**
  * This class represents and controls event that can happen randomly in the game.
  * 
@@ -48,6 +54,7 @@ public class Event {
 	 */
 	public void dropFloor(Floor floor) {
 		floor.setFloor(floor.getFloor() - 1);
+	
 	}
 	
 	/**
@@ -58,7 +65,8 @@ public class Event {
 	 */
 	public void gainGold(GameCharacters hero) {
 		Random r = new Random();
-		hero.setGold(hero.getGold() + r.nextInt(200) + 1);		
+		hero.setGold(hero.getGold() + r.nextInt(200) + 1);	
+		//incrementFloor();
 	}
 	
 	/**
@@ -73,12 +81,49 @@ public class Event {
 		double lostGold = r.nextInt(100) + 1;
 		
 		if (hero.getGold() > lostGold) {
-			hero.setGold(hero.getGold() - lostGold);			
+			hero.setGold(hero.getGold() - lostGold);
+			//incrementFloor()
 		} else {
 			hero.setGold(0);
+			//incrementFloor()
 		}
 	}
+	
+	/**
+	 * This method creates a display to let the player know if  and what event has happened
+	 * 
+	 * @param primaryStage The primary stage/window needed to display the GUI.
+	 * @param g The GameGUI class 
+	 */
+	public void eventScene(Stage primaryStage, GameGUI g) {
+	    //Temporary values layout and text
+	    this.eventHappen();
+	    Text eventText = new Text();
+	    eventText.setLayoutX(600);
+	    eventText.setLayoutY(300);
+	    if (this.isEvent() == true) {
+		eventText.setText("An event has happened!");
+	    } else {
+		eventText.setText("No event has happened!");
+	    }
+	    
+	    //Creating continue button and setting eventHandling
+	    Button continueBtn = new Button("Continue to next floor");
+	    continueBtn.setOnAction(event->{g.fullGame(primaryStage);});
+	    continueBtn.setLayoutX(600);
+	    continueBtn.setLayoutY(700);
+	    
+	    //Creating pane, adding children 
+	    Pane display = new Pane();
+	    display.getChildren().addAll(continueBtn, eventText);
+	    
+	    //Creating scene, adding it to stage and showing stage
+	    Scene eventScene = new Scene(display, 1280, 720);
+	    primaryStage.setScene(eventScene);
+	    primaryStage.show();
+	}
 
+	
 	/**
 	 * @return the isEvent
 	 */

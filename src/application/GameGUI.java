@@ -91,6 +91,7 @@ public class GameGUI extends Application {
 	//Start Screen Scene creation
 	Scene start = startScreen(primaryStage);
 	
+	
 	//Setting title of primary stage window, adding start scene and showing primary stage
 	primaryStage.setTitle("Tower Challenge");
 	primaryStage.setScene(start);
@@ -311,11 +312,13 @@ public class GameGUI extends Application {
 	GamePlayController gpc = new GamePlayController();
 	
 	//Below enemy created for testing purposes
-	MeleeEnemy orc = new MeleeEnemy(1);
+	MeleeEnemy orc = new MeleeEnemy(floors.getFloor());
 	allEnemies.add(orc);
+	MeleeEnemy dummy = new MeleeEnemy(floors.getFloor());
+	allEnemies.add(dummy);
 
 	// Creation of pane -->currently here for GUI testing
-	Pane towerLevel = createTowerLevels();
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floors.getFloor()));
 	
 	/* 
 	 * 
@@ -328,7 +331,8 @@ public class GameGUI extends Application {
 	 *   tempEnemies = allEnemies.get(floor.getFloor());
 	 *   Pane towerLevel = createTowerLevels(tempEnemies);
 	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen() (REVIVE MECHANICS built into game over screen)
-	 *     //heroTurn -->when enemyStam == 0: if floor = 3,6, 9 , Shop scene, w/return button calls eventScene
+	 *     //heroTurn -->when enemyStam == 0: Transition page saying player cleared the floor
+	 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button calls eventScene
 	 *     						eventScene tells if event happened & has continueBtn which calls fullGame()
 	 *     		                      --> else (not floor 3,6,9): eventScene --> fullGame() 
 	 *   }
@@ -340,7 +344,7 @@ public class GameGUI extends Application {
 
 	
 	// Button to shop
-	// This will be adujsted when the full game method is completed 
+	// This has been added to correct scene & will be removed when the full game method is completed 
 	Button shopBtn = new Button("Go to the Magic Shop");
 	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
@@ -363,7 +367,7 @@ public class GameGUI extends Application {
      * @return The Pane containing all the graphical elements needed for fights
      *         inside the Tower.
      */
-    public Pane createTowerLevels() {
+    public Pane createTowerLevels(Stage primaryStage, GameCharacters g) {
 	Pane towerLevels = new Pane();
 
 	// To display the background for the floor
@@ -385,7 +389,85 @@ public class GameGUI extends Application {
 	
 	// TEST - Adding hero and boss images
 	hero.displayCharacter(gc, false, false);
-	allEnemies.get(0).displayCharacter(gc, false, false);
+	g.displayCharacter(gc, false, false);
+
+	// Creating buttons for player to fight enemies
+	Button attackBtn = new Button("Attack");
+	attackBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button defendBtn = new Button("Defend");
+	defendBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button healBtn = new Button("Heal");
+	healBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	HBox hbBtn = new HBox(10);
+	hbBtn.setAlignment(Pos.CENTER);
+	hbBtn.getChildren().addAll(attackBtn, defendBtn, healBtn);
+	
+	// Button to choose enemy
+	Button chooseEnemyBtn = new Button("Attack");
+	chooseEnemyBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	chooseEnemyBtn.setVisible(false);
+	
+	//Event handling for when each button is pressed
+	attackBtn.setOnAction(event -> {
+		disableButtons(true, attackBtn, healBtn, defendBtn);
+		hero.setIsDefending(false);
+	    chooseEnemyBtn.setVisible(true);	
+	});
+	
+	defendBtn.setOnAction(event -> {
+		Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
+		gc.drawImage(defendIcon, 100, 280); //draw defend icon
+		disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
+	    hero.setIsDefending(true);
+	    enemyTurn(allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc);
+	    
+	    //Enable buttons after 1.5 secs per enemy
+		Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(1500 * allEnemies.size()), ae -> 
+    		disableButtons(false, attackBtn, healBtn, defendBtn));
+    	timeline.getKeyFrames().add(frame);
+    	timeline.play();
+    	
+    	//Delete icon after 1.5 secs per enemy
+    	Timeline icon = new Timeline(); 
+    	icon.setCycleCount(1);
+    	KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * allEnemies.size()), ae -> 
+    		gc.clearRect(100, 280, 80, 80));
+    	icon.getKeyFrames().add(iconDisable);
+    	icon.play();
+	});
+    	
+	healBtn.setOnAction(event -> {
+	   
+	});
+
+
+	// Actions to take after button to choose enemy is chosen
+	chooseEnemyBtn.setOnAction(event -> {
+		Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(allEnemies, enemyStam, dialogue, 
+    			dialogueTwo, dialogueThree, 1, gc, primaryStage)); // hardcode first minion
+    	timeline.getKeyFrames().add(frame);
+    	Timeline timelineTwo = new Timeline();
+    	timelineTwo.setCycleCount(1);
+    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(allEnemies, heroStam, dialogue, dialogueTwo,
+    			dialogueThree, gc));
+    	timelineTwo.getKeyFrames().add(frameTwo);
+    	SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
+    	sequence.play();
+		
+    	//Enable buttons after 3 seconds per enemy
+    	Timeline enable = new Timeline(); 
+    	enable.setCycleCount(1);
+    	KeyFrame frameEnable = new KeyFrame(Duration.millis(3000 * allEnemies.size()), ae -> 
+    		disableButtons(false, attackBtn, healBtn, defendBtn));
+    	enable.getKeyFrames().add(frameEnable);
+    	enable.play();
+    	
+    	chooseEnemyBtn.setVisible(false);
+	});
 	
 	BattlePhase battle = new BattlePhase();
 	battle.dispCombatInfo(hero, allEnemies);
@@ -399,6 +481,216 @@ public class GameGUI extends Application {
 	towerLevels.getChildren().addAll(grid, floorNum);
 	
 	return towerLevels;
+    }
+    
+    /**
+     * This method creates display text for when it is the heroes turn to attack and updates necessary variables.
+     * 
+     * @param allEnemies The arrayList of enemies the hero is currently fighting.
+     * @param enemyStam The current stamina of the enemy
+     * @param dialogue Text that updates the player on what is currently happening.
+     * @param choice  The enemy character the hero would like to attack (if there are multiple)
+     * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
+     */
+    public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage) {
+
+		//Move hero forward
+    	Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(741);
+    	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true));
+    	timeline.getKeyFrames().add(frame);
+    	
+    	//Hero hits enemy
+    	Timeline hit = new Timeline();
+    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(allEnemies, choice, 
+    			dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage));
+    	hit.getKeyFrames().add(frameTwo);
+
+		//Move hero backward
+    	Timeline timelineTwo = new Timeline();
+    	timelineTwo.setCycleCount(741);
+    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false));
+    	timelineTwo.getKeyFrames().add(frameThree);
+    	
+    	SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
+    	sequence.play();    	
+    }
+    
+    /**
+     * This method is called when an hero hits an enemy. It is unique
+     * from the hitHero method due to different dialogue that appears.
+     * @param allEnemies The ArrayList of enemies on floor
+     * @param choice The player choice of which enemy to attack
+     * @param dialogue The first textbox used to update battle info
+     * @param dialogueTwo The second textbox used to update battle info
+     * @param dialogueThree The third textbox used to update battle info
+     * @param enemyStam The textbox used to display enemy health
+     * @param gc GraphicsContext to clear character after death
+     */
+    public void hitEnemy(ArrayList<GameCharacters> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
+    		Text enemyStam, GraphicsContext gc, Stage primaryStage) {
+    	
+		//Hero attacks enemy
+    	GameCharacters enemy = allEnemies.get(choice - 1);
+	    int attackAmount = this.hero.attack(enemy);
+	    enemy.displayCharacter(gc, false, true); //turn enemy red on attack
+	    
+		//If enemy dies, update information and delete enemy picture
+    	if (enemy.getCurrentStamina() <= 0) {
+			dialogue.setText("You have killed the enemy.");
+			dialogueTwo.setText(""); //XP stuff and gold stuff will be here
+			dialogueThree.setText("");
+			enemy.displayCharacter(gc, true, false); //deleting picture
+			allEnemies.remove(choice - 1);
+			transitionScreen(primaryStage, shop);//NEED TO ADD TIMER
+    	}
+	    
+	    //After 0.1 seconds revert color only if not dead
+	    if (allEnemies.contains(enemy)) {
+	    	Timeline timeline = new Timeline(); 
+	    	timeline.setCycleCount(1);
+	    	KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+	    		enemy.displayCharacter(gc, false, false));
+	    	timeline.getKeyFrames().add(frame);
+	    	timeline.play();
+	    }
+	    
+	    enemyStam.setText("Stamina: " + enemy.getCurrentStamina());
+	    dialogue.setText("You dealt " + attackAmount + " damage!");
+	    dialogueTwo.setText("");
+	    dialogueThree.setText("");
+	    
+
+    }
+    
+    /**
+     * This method allows us to move either the hero character or the enemies forward and
+     * backward for the animation of an attack. It will first clear the current picture
+     * off the canvas, move the X axis of image either forward or backward depending 
+     * on the boolean and repaint in the new location
+     * @param character The character we are moving
+     * @param gc The GraphicsContext used to delete and repaint
+     * @param forward Whether we are moving forward or backward
+     */
+    public void move(GameCharacters character, GraphicsContext gc, boolean forward) {
+    	
+		//Clear current picture
+    	character.displayCharacter(gc, true, false);
+    	
+		//Move character accordingly depending on boolean
+    	if (forward) {
+    		character.setX(character.getX() + 1);
+    	} else {
+    		character.setX(character.getX() - 1);
+    	}
+    	
+		//Draw new picture
+    	character.displayCharacter(gc, false, false);
+    }
+    
+    
+    
+     /**
+     * This method creates display text for when it is the enemies turn to attack and updates necessary variables.
+     * 
+     * @param allEnemies The arrayList of enemies the hero is currently fighting.
+     * @param heroStam The current stamina of the hero
+     * @param dialogue Text that updates the player on what is currently happening.
+     */
+    public void enemyTurn(ArrayList<GameCharacters> allEnemies, Text heroStam, Text dialogue, Text dialogueTwo, 
+    		Text dialogueThree, GraphicsContext gc) {
+    	
+		//If enemies are still alive
+    	if (allEnemies.size() > 0) {
+    		if (hero.isDefending()) {
+    			dialogue.setText("It is the enemy's turn.");
+    			dialogueTwo.setText("");
+    			dialogueThree.setText("");
+    		} else {
+    			dialogueTwo.setText("It is the enemy's turn.");
+    		}
+    		
+			//Loop through all enemies so they all attack
+    		for (int i = 0; i < allEnemies.size(); i++) {
+    			if (hero.getCurrentStamina() > 0) {
+    				final Integer innerI = new Integer(i);
+    				
+					//Move enemy forward
+    		    	Timeline timeline = new Timeline(); 
+    		    	timeline.setCycleCount(745);
+    		    	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(innerI), gc, false));
+    		    	timeline.getKeyFrames().add(frame);
+    		    	
+    		    	//Enemy hits hero
+    		    	Timeline hit = new Timeline(); 	
+    		    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitHero( 
+    		    			dialogueTwo, dialogueThree, heroStam, innerI, gc));
+					hit.getKeyFrames().add(frameTwo);
+    		    	
+    		    	//Move enemy backward
+    		    	Timeline timelineTwo = new Timeline();
+    		    	timelineTwo.setCycleCount(745);
+    		    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(innerI), gc, true));
+    		    	timelineTwo.getKeyFrames().add(frameThree);
+    		    	
+    		    	SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
+    		    	sequence.play();
+    			}
+    		}
+    	}
+    }
+    
+    /**
+     * This method is called when an enemy hits the hero. It is unique
+     * from the hitEnemy method due to different dialogue that appears.
+     * @param dialogueTwo The second textbox used to update battle info
+     * @param dialogueThree The third textbox used to update battle info
+     * @param heroStam The textbox used to display hero health
+     * @param i The counter for which enemy attacks
+     * @param gc GraphicsContext to clear character after death
+     */
+    public void hitHero(Text dialogueTwo, Text dialogueThree, 
+    		Text heroStam, int i, GraphicsContext gc) {
+		int attackAmount = allEnemies.get(i).attack(hero);
+	    hero.displayCharacter(gc, false, true); //turn hero red on attack
+	    
+	    //After 0.1 seconds revert color
+    	Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+    		hero.displayCharacter(gc, false, false));
+    	timeline.getKeyFrames().add(frame);
+    	timeline.play();
+    	
+		heroStam.setText("Stamina: " + this.hero.getCurrentStamina());
+		if (hero.isDefending()) {
+			dialogueTwo.setText("You took " + attackAmount + " damage!");
+		} else {
+			dialogueThree.setText("You took " + attackAmount + " damage!");
+		}
+		if (attackAmount <= 0) {
+			dialogueThree.setText("The enemy's attack had no effect on you!");
+
+		} else {
+			if (hero.isDefending()) {
+				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
+			}
+			if (hero.getCurrentStamina() <= 0) {
+				hero.displayCharacter(gc, true, false);
+			}
+		}
+    }
+    
+    /** This method disables/enables all user input buttons
+     * @param disable If true, disable all buttons. Enable otherwise.
+     * @param attackBtn Button to attack
+     * @param healBtn Button to use item
+     * @param defendBtn Button to defend
+     */
+    public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn) {
+    	attackBtn.setDisable(disable);
+    	healBtn.setDisable(disable);
+    	defendBtn.setDisable(disable);
     }
 
 	/**
@@ -482,6 +774,14 @@ public class GameGUI extends Application {
 			ColumnConstraints column = new ColumnConstraints(250);
 			rootNode.getColumnConstraints().add(column);
 		}
+		
+		//Creating continue button and adding event handling
+		Button continueBtn = new Button("Continue playing");
+		continueBtn.setLayoutX(500);
+		continueBtn.setLayoutY(700);
+		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
+		continueBtn.setOnAction(event -> {
+			fullGame(primaryStage);});
 
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
@@ -505,6 +805,7 @@ public class GameGUI extends Application {
 		rootNode.add(potionList, 1, 7);
 		rootNode.add(errorMsg, 1, 8);
 		rootNode.setAlignment(Pos.CENTER);
+		rootNode.add(continueBtn, 2, 9);
 
 		// Set background
 		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
@@ -531,16 +832,20 @@ public class GameGUI extends Application {
 	ImageView treasureChest1 = new ImageView(treasureChest);
 	Image treasureChest2 = new Image("gold_treasure.png");
 	ImageView treasureChest3 = new ImageView(treasureChest2);
-	treasureChest1.setLayoutX(100);
+	Image treasureChest4 = new Image("closed_treasure.png");
+	ImageView treasureChest5 = new ImageView(treasureChest4);
+	treasureChest1.setLayoutX(250);
 	treasureChest1.setLayoutY(300);
-	treasureChest3.setLayoutX(900);
+	treasureChest3.setLayoutX(750);
 	treasureChest3.setLayoutY(300);
+	treasureChest5.setLayoutX(500);
+	treasureChest5.setLayoutY(200);
 
 	//Adding text to Pane
 	Text youWin = new Text();
 	youWin.setText("Congratulations. YOU WON!");
 	youWin.setX(120);
-	youWin.setY(100);
+	youWin.setY(130);
 	youWin.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
 	DropShadow ds = new DropShadow();
 	ds.setColor(Color.CHOCOLATE);
@@ -552,15 +857,8 @@ public class GameGUI extends Application {
 	thankYou.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
 	thankYou.setEffect(ds);
 
-	//TESTING - Creating Pane and canvas, and Adding hero to pane
+	//Creating Pane 
 	Pane gameWon = new Pane();
-//	Canvas canvas = new Canvas(1280,720);
-//	gameWon.getChildren().add(canvas);
-//	GraphicsContext gc = canvas.getGraphicsContext2D();
-//	hero.setX(450);
-//	hero.setY(150);
-//	hero.displayCharacter(gc, false);
-
 
 	//Creating the buttons to exit the game or play again
 	Button exitBtn = new Button("Exit game");
@@ -583,7 +881,7 @@ public class GameGUI extends Application {
 	}});
 
 	//Adding nodes to pane
-	gameWon.getChildren().addAll(treasureChest1,treasureChest3, hbBtn, youWin, thankYou);
+	gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
 	gameWon.setStyle(" -fx-background-color: gold");
 
 
@@ -617,11 +915,17 @@ public class GameGUI extends Application {
 	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	Button playAgainBtn = new Button("Play again");
 	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	Button reviveBtn = new Button("Use Revive");
+	reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	HBox hbBtn = new HBox(10);
-	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
-	hbBtn.setLayoutX(500);
+	hbBtn.getChildren().addAll(exitBtn, playAgainBtn, reviveBtn);
+	hbBtn.setLayoutX(430);
 	hbBtn.setLayoutY(600);
 	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+	
+	if (hero.isHasRevive() == false) {
+	    reviveBtn.setDisable(true);
+	}
 
 	//Adding eventHandlint for buttons
 	exitBtn.setOnAction(event-> {primaryStage.close();;});
@@ -644,6 +948,58 @@ public class GameGUI extends Application {
 	primaryStage.setScene(gOver);
 	primaryStage.show();
 	
+    }
+    /**
+     * This method creates the transition page after the user has cleared the floor.
+     * 
+     * @param primaryStage The primary stage/window of the GUI.
+     */
+    public void transitionScreen(Stage primaryStage, Shop shop) {
+	Text clearedFloor = new Text();
+	clearedFloor.setText("You cleared floor " + floors.getFloor() + "!");
+	clearedFloor.setX(300);
+	clearedFloor.setY(300);
+	clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+	DropShadow ds = new DropShadow();
+	ds.setColor(Color.BLUE);
+	clearedFloor.setEffect(ds);
+	
+	//Creating Pane 
+	Pane display = new Pane();
+
+	//Creating the buttons play for the player to continue on
+	Button shopBtn = new Button("Go to the Magic Shop");
+	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+
+	Button continueBtn = new Button("Continue playing");
+	continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	HBox hbBtn = new HBox(10);
+	hbBtn.getChildren().addAll(shopBtn, continueBtn);
+	hbBtn.setLayoutX(500);
+	hbBtn.setLayoutY(600);
+	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+	//Adding eventHandling for buttons
+	continueBtn.setOnAction(event -> {
+	    Event e = new Event();
+		e.eventScene(primaryStage, this);});
+	
+	shopBtn.setOnAction(event -> {
+			shop(primaryStage);});
+	if (floors.getFloor() != 3 ||  floors.getFloor() != 6 || floors.getFloor() != 9) {
+	    shopBtn.setDisable(true);
+	}
+
+	//Adding nodes to pane
+	display.getChildren().addAll(hbBtn, clearedFloor);
+	display.setStyle(" -fx-background-color: grey");
+
+
+	//Adding Pane to Scene and Scene to Stage
+	Scene transition = new Scene(display, 1280, 720);
+	transition.setFill(Color.GREY);
+	primaryStage.setScene(transition);
+	primaryStage.show();
     }
 
     /**
