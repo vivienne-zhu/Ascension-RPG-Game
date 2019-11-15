@@ -32,6 +32,7 @@ public class GameCharacters {
 	private double height;
 	private double width;
 	private Image characterImage;
+	private Image characterImageHurt;
 	private String type;
 
 	/**
@@ -166,11 +167,14 @@ public class GameCharacters {
 	 * 
 	 * @param g GraphicsContext needed to draw the image in the GUI.
 	 */
-	public void displayCharacter(GraphicsContext g, boolean delete) {
-	    g.drawImage(getCharacterImage(), getX(), getY());
+	public void displayCharacter(GraphicsContext g, boolean delete, boolean hurt) {
 	    if (delete) {
 	    	g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-	    }
+	    } else if (hurt) {
+			g.drawImage(getCharacterImageHurt(), getX(), getY());
+		} else {
+			g.drawImage(getCharacterImage(), getX(), getY());
+		}
 	}
 	
 	/**
@@ -440,6 +444,13 @@ public class GameCharacters {
 	public Image getCharacterImage() {
 	    return characterImage;
 	}
+	
+	/**
+	 * @return the characterImage when hurt
+	 */
+	public Image getCharacterImageHurt() {
+	    return characterImageHurt;
+	}
 
 	/**
 	 * @param characterImage the characterImage to set
@@ -447,6 +458,13 @@ public class GameCharacters {
 	public void setCharacterImage(Image characterImage) {
 	    this.characterImage = characterImage;
 	}
+	
+	/**
+	 * @param characterImage the characterImage to set when character is hurt
+	 */
+	public void setCharacterImageHurt(Image characterImageHurt) {
+	    this.characterImageHurt = characterImageHurt;
+	}	
 
 	/**
 	 * @return the cp
