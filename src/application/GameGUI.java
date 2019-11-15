@@ -320,7 +320,7 @@ public class GameGUI extends Application {
 
 	// Creation of pane -->currently here for GUI testing
 	System.out.println(allEnemies.get(0));
-	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor() - 1));
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor())); //(- 1 causes it to crash cause floors dont increment yet)
 	
 	/* 
 	 * 
@@ -494,9 +494,20 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
-		continueBtn.setOnAction(event -> {
-		    Event e = new Event();
+		 Event e = new Event();
+		 e.eventHappen();
+		 if ( e.isEvent() == true) {
+		     continueBtn.setOnAction(event -> {
 			e.eventScene(primaryStage, this, floor);});
+		    } else {
+			continueBtn.setOnAction(event -> {
+			    floor.incrementFloor();
+				fullGame(primaryStage);});
+		    }
+			
+		
+		   
+		    
 
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
@@ -695,10 +706,16 @@ public class GameGUI extends Application {
 	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
 	//Adding eventHandling for buttons
-	continueBtn.setOnAction(event -> {
-	    Event e = new Event();
+	Event e = new Event();
+	 e.eventHappen();
+	 if ( e.isEvent() == true) {
+	     continueBtn.setOnAction(event -> {
 		e.eventScene(primaryStage, this, floor);});
-	
+	    } else {
+		continueBtn.setOnAction(event -> {
+		    floor.incrementFloor();
+			fullGame(primaryStage);});
+	    }
 	shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
 	if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
