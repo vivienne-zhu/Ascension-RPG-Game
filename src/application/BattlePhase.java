@@ -392,8 +392,10 @@ public class BattlePhase extends GameGUI{
 
 					SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
 					sequence.play();
+				} else if (hero.getCurrentStamina() < 0){
+				    gameOverScreen(primaryStage);
 				}
-				gameOverScreen(primaryStage);
+				
 			}
 		}
 	}
