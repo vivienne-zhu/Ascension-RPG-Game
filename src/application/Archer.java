@@ -28,6 +28,7 @@ public class Archer extends GameCharacters {
 		setWidth(230);
 		setHeight(510);
 		setCharacterImage(new Image("Archer.png", getWidth(), getHeight(), false, false));
+	    //setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
 		setType("Archer");
     }
 }

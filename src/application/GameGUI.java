@@ -403,12 +403,10 @@ public class GameGUI extends Application {
 	Text dialogueThree = new Text("");
 	dialogueThree.setStyle(" -fx-font: normal bold 30px 'serif' ");
 	dialogueThree.setFill(Color.WHITE);
-//	dialogue.setWrappingWidth(400);
-	
 	
 	// TEST - Adding hero and boss images
-	hero.displayCharacter(gc, false);
-	allEnemies.get(0).displayCharacter(gc, false);
+	hero.displayCharacter(gc, false, false);
+	allEnemies.get(0).displayCharacter(gc, false, false);
 
 	// Creating buttons for player to fight enemies
 	Button attackBtn = new Button("Attack");
@@ -428,16 +426,39 @@ public class GameGUI extends Application {
 	
 	//Event handling for when each button is pressed
 	attackBtn.setOnAction(event -> {
+		disableButtons(true, attackBtn, healBtn, defendBtn);
 		hero.setIsDefending(false);
 	    chooseEnemyBtn.setVisible(true);	
 	});
+	
 	defendBtn.setOnAction(event -> {
+		Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
+		gc.drawImage(defendIcon, 100, 280); //draw defend icon
+		disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
 	    hero.setIsDefending(true);
 	    enemyTurn(allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc);
+	    
+	    //Enable buttons after 1.5 secs per enemy
+		Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(1500 * allEnemies.size()), ae -> 
+    		disableButtons(false, attackBtn, healBtn, defendBtn));
+    	timeline.getKeyFrames().add(frame);
+    	timeline.play();
+    	
+    	//Delete icon after 1.5 secs per enemy
+    	Timeline icon = new Timeline(); 
+    	icon.setCycleCount(1);
+    	KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * allEnemies.size()), ae -> 
+    		gc.clearRect(100, 280, 80, 80));
+    	icon.getKeyFrames().add(iconDisable);
+    	icon.play();
 	});
+    	
 	healBtn.setOnAction(event -> {
 	   
 	});
+
 
 	// Actions to take after button to choose enemy is chosen
 	chooseEnemyBtn.setOnAction(event -> {
@@ -454,8 +475,15 @@ public class GameGUI extends Application {
     	SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
     	sequence.play();
 		
-
-	    chooseEnemyBtn.setVisible(false);
+    	//Enable buttons after 3 seconds per enemy
+    	Timeline enable = new Timeline(); 
+    	enable.setCycleCount(1);
+    	KeyFrame frameEnable = new KeyFrame(Duration.millis(3000 * allEnemies.size()), ae -> 
+    		disableButtons(false, attackBtn, healBtn, defendBtn));
+    	enable.getKeyFrames().add(frameEnable);
+    	enable.play();
+    	
+    	chooseEnemyBtn.setVisible(false);
 	});
 	
 
@@ -490,8 +518,6 @@ public class GameGUI extends Application {
 	GridPane.setHalignment(chooseEnemyBtn, HPos.CENTER);
 	GridPane.setHalignment(hbBtn, HPos.CENTER);
 	grid.setGridLinesVisible(true);
-
-
 	
 	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
@@ -511,30 +537,26 @@ public class GameGUI extends Application {
      */
     public void heroTurn(ArrayList<GameCharacters> allEnemies, Text enemyStam, Text dialogue, Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc) {
 
-    	
+		//Move hero forward
     	Timeline timeline = new Timeline(); 
-    	timeline.setCycleCount(600);
+    	timeline.setCycleCount(741);
     	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true));
     	timeline.getKeyFrames().add(frame);
-
-    	Timeline timelineTwo = new Timeline();
-    	timelineTwo.setCycleCount(600);
-    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false));
-    	timelineTwo.getKeyFrames().add(frameTwo);
     	
-    	
+    	//Hero hits enemy
     	Timeline hit = new Timeline();
-    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> hitEnemy(allEnemies, choice, 
+    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(allEnemies, choice, 
     			dialogue, dialogueTwo, dialogueThree, enemyStam, gc));
-    	hit.getKeyFrames().add(frameThree);
+    	hit.getKeyFrames().add(frameTwo);
+
+		//Move hero backward
+    	Timeline timelineTwo = new Timeline();
+    	timelineTwo.setCycleCount(741);
+    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false));
+    	timelineTwo.getKeyFrames().add(frameThree);
     	
     	SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
-    	sequence.play();
-    	
-
-    	
-
-    	
+    	sequence.play();    	
     }
     
     /**
@@ -550,19 +572,37 @@ public class GameGUI extends Application {
      */
     public void hitEnemy(ArrayList<GameCharacters> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
     		Text enemyStam, GraphicsContext gc) {
-	    int attackAmount = this.hero.attack(allEnemies.get(choice - 1));
-	    enemyStam.setText("Stamina: " + this.allEnemies.get(choice - 1).getCurrentStamina());
-	    dialogue.setText("You dealt " + attackAmount + " damage!");
-	    dialogueTwo.setText("");
-	    dialogueThree.setText("");
-    	if (allEnemies.get(choice - 1).getCurrentStamina() <= 0) {
+    	
+		//Hero attacks enemy
+    	GameCharacters enemy = allEnemies.get(choice - 1);
+	    int attackAmount = this.hero.attack(enemy);
+	    enemy.displayCharacter(gc, false, true); //turn enemy red on attack
+	    
+		//If enemy dies, update information and delete enemy picture
+    	if (enemy.getCurrentStamina() <= 0) {
 			dialogue.setText("You have killed the enemy.");
 			dialogueTwo.setText(""); //XP stuff and gold stuff will be here
 			dialogueThree.setText("");
-			gc.clearRect(allEnemies.get(choice - 1).getX(), allEnemies.get(choice - 1).getY(), 
-					allEnemies.get(choice - 1).getWidth(), allEnemies.get(choice - 1).getHeight());
+			enemy.displayCharacter(gc, true, false); //deleting picture
 			allEnemies.remove(choice - 1);
     	}
+	    
+	    //After 0.1 seconds revert color only if not dead
+	    if (allEnemies.contains(enemy)) {
+	    	Timeline timeline = new Timeline(); 
+	    	timeline.setCycleCount(1);
+	    	KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+	    		enemy.displayCharacter(gc, false, false));
+	    	timeline.getKeyFrames().add(frame);
+	    	timeline.play();
+	    }
+	    
+	    enemyStam.setText("Stamina: " + enemy.getCurrentStamina());
+	    dialogue.setText("You dealt " + attackAmount + " damage!");
+	    dialogueTwo.setText("");
+	    dialogueThree.setText("");
+	    
+
     }
     
     /**
@@ -575,13 +615,19 @@ public class GameGUI extends Application {
      * @param forward Whether we are moving forward or backward
      */
     public void move(GameCharacters character, GraphicsContext gc, boolean forward) {
-    	gc.clearRect(character.getX(), character.getY(), character.getWidth(), character.getHeight());
+    	
+		//Clear current picture
+    	character.displayCharacter(gc, true, false);
+    	
+		//Move character accordingly depending on boolean
     	if (forward) {
-    		character.setX(character.getX() + 1.25);
+    		character.setX(character.getX() + 1);
     	} else {
-    		character.setX(character.getX() - 1.25);
+    		character.setX(character.getX() - 1);
     	}
-    	gc.drawImage(character.getCharacterImage(), character.getX(), character.getY());
+    	
+		//Draw new picture
+    	character.displayCharacter(gc, false, false);
     }
     
     
@@ -595,6 +641,8 @@ public class GameGUI extends Application {
      */
     public void enemyTurn(ArrayList<GameCharacters> allEnemies, Text heroStam, Text dialogue, Text dialogueTwo, 
     		Text dialogueThree, GraphicsContext gc) {
+    	
+		//If enemies are still alive
     	if (allEnemies.size() > 0) {
     		if (hero.isDefending()) {
     			dialogue.setText("It is the enemy's turn.");
@@ -603,32 +651,35 @@ public class GameGUI extends Application {
     		} else {
     			dialogueTwo.setText("It is the enemy's turn.");
     		}
+    		
+			//Loop through all enemies so they all attack
     		for (int i = 0; i < allEnemies.size(); i++) {
     			if (hero.getCurrentStamina() > 0) {
     				final Integer innerI = new Integer(i);
+    				
+					//Move enemy forward
     		    	Timeline timeline = new Timeline(); 
-    		    	timeline.setCycleCount(600);
+    		    	timeline.setCycleCount(745);
     		    	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(innerI), gc, false));
     		    	timeline.getKeyFrames().add(frame);
-    		    	Timeline timelineTwo = new Timeline();
-    		    	timelineTwo.setCycleCount(600);
-    		    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(innerI), gc, true));
-    		    	timelineTwo.getKeyFrames().add(frameTwo);
     		    	
-    		    	
+    		    	//Enemy hits hero
     		    	Timeline hit = new Timeline(); 	
-    		    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> hitHero( 
+    		    	KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitHero( 
     		    			dialogueTwo, dialogueThree, heroStam, innerI, gc));
-					hit.getKeyFrames().add(frameThree);
+					hit.getKeyFrames().add(frameTwo);
+    		    	
+    		    	//Move enemy backward
+    		    	Timeline timelineTwo = new Timeline();
+    		    	timelineTwo.setCycleCount(745);
+    		    	KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(innerI), gc, true));
+    		    	timelineTwo.getKeyFrames().add(frameThree);
     		    	
     		    	SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
     		    	sequence.play();
-    		    	
-
     			}
     		}
     	}
-
     }
     
     /**
@@ -643,6 +694,16 @@ public class GameGUI extends Application {
     public void hitHero(Text dialogueTwo, Text dialogueThree, 
     		Text heroStam, int i, GraphicsContext gc) {
 		int attackAmount = allEnemies.get(i).attack(hero);
+	    hero.displayCharacter(gc, false, true); //turn hero red on attack
+	    
+	    //After 0.1 seconds revert color
+    	Timeline timeline = new Timeline(); 
+    	timeline.setCycleCount(1);
+    	KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+    		hero.displayCharacter(gc, false, false));
+    	timeline.getKeyFrames().add(frame);
+    	timeline.play();
+    	
 		heroStam.setText("Stamina: " + this.hero.getCurrentStamina());
 		if (hero.isDefending()) {
 			dialogueTwo.setText("You took " + attackAmount + " damage!");
@@ -653,15 +714,25 @@ public class GameGUI extends Application {
 			dialogueThree.setText("The enemy's attack had no effect on you!");
 
 		} else {
-			//		dialogue.setText("Your health is now " + hero.getCurrentStamina() + ".");
 			if (hero.isDefending()) {
 				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
-
 			}
 			if (hero.getCurrentStamina() <= 0) {
-				gc.clearRect(hero.getX(), hero.getY(), hero.getWidth(), hero.getHeight());
+				hero.displayCharacter(gc, true, false);
 			}
 		}
+    }
+    
+    /** This method disables/enables all user input buttons
+     * @param disable If true, disable all buttons. Enable otherwise.
+     * @param attackBtn Button to attack
+     * @param healBtn Button to use item
+     * @param defendBtn Button to defend
+     */
+    public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn) {
+    	attackBtn.setDisable(disable);
+    	healBtn.setDisable(disable);
+    	defendBtn.setDisable(disable);
     }
 
     /**

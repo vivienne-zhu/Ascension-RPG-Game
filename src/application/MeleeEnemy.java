@@ -30,6 +30,7 @@ public class MeleeEnemy extends GameCharacters {
 		setHeight(260);
 		setType("Melee");
 		setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
+		setCharacterImageHurt(new Image("redMelee.png",getWidth(), getHeight(), false, false));
 
 	}
 
