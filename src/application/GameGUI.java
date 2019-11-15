@@ -48,7 +48,7 @@ import java.util.ArrayList;
  * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
  * (Start scene, Character selection and naming, incomplete floor 1 of the tower). 
  * Currently this class is only to begin testing GUI elements and its design will be 
- * revised heavily before final submission (instance variables may be removed/added).
+ * revised heavily before final submission (class will be made more cohesive and DRY).
  * 
  * @author Shari Sinclair, JiayuZhu and David Cai
  *
@@ -312,33 +312,31 @@ public class GameGUI extends Application {
 	MeleeEnemy orc = new MeleeEnemy(1);
 	allEnemies.add(orc);
 
-	// while(gpc.isEndGamePlay() == false){
-	
+	// Creation of pane -->currently here for GUI testing
 	Pane towerLevel = createTowerLevels();
 	
-	/*
-	 * Logic: 
-	 * while(gpc.isEndGamePlay() == false){
-	 * 	-current stamina = stamina , get new enemy in array (let enemy[] index
-	 * 	correspond with floor to accommodate events with floor changes) 
+	/* 
 	 * 
-	 * while(heroStam != 0 || enemyStam !=0) 
-	 * 	Player will click buttons, and this will change corresponding booleans set above- attack, defend heal)
-	 *  	If (statement to handle which is boolean is true, hero will attack, defend or heal)
-	 *  	Enemy react() -(randomly chooses what to do - attach, defend, if heal is an option
+	 * gpc.continueGameplay();
 	 * 
-	 * } 
-	 * - Once either hero or enemy stam = 0 and we exit while loop
-	 * 	gpc.GameplayContinue(hero,enemy)-- this will check whether hero has won 
-	 * 		If continue to next floor = true (i.e. hero has stam, enemy dead)--> increment floor (built into method in gpc), 
-	 * 			possibly load shop screen if floor==3,6,9, re-enter original while loop and fight again 
-	 * 		Else if Enemy alive ,hero dead --> end game = true and we exit overall while loop
-	 *		
-	 *  } Exit overall while loop if endgame =true if 
-	 *  	(Since endGame = true -->)
-	 *  		if floor less than 10 -->Load game over screen (make game over screen)
-	 *  		Else --> Congrats you win screen(make congrats screen)
-	 * 
+	 * while (gpc.sEndGamePlay() == false { ----> Need event scene to say what happened then loop back
+	 * 	Event e = new Event()
+	 * 	if (e.isEventHappen() == true){
+	 *		//if statements for to determine what event 
+	 *		// gold and floor will be update accordingly
+	 *	}
+	 *   hero.setCurrentStamina(getStamina());
+	 *   ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
+	 *   tempEnemies = allEnemies.get(floor.getFloor());
+	 *   Pane towerLevel = createTowerLevels(tempEnemies);
+	 *   	//in enemyTurn --> if hero goes to 0, GameOver Screen()
+	 *     //heroTurn -->when enemyStam == 0: if floor = 3,6, 9 , Shop scene, return button calls full game
+	 *     		                      --> else : fullGame() called if the opponent stamina goes to 0
+	 *   }
+ 	 *  gpc.determineEndOfGame();
+ 	 *  if (gpc.isWin() = true){
+ 	 *  	youWinScreen();
+ 	 *  } else {gameOverScreen}
 	 */
 
 	
