@@ -20,7 +20,7 @@ class GameCharactersTest {
 	@Test
 	void attackTest() {
 		Archer legolas = new Archer();
-		MeleeEnemy  orc = new MeleeEnemy(2);
+		MeleeEnemy  orc = new MeleeEnemy(2, 0);
 
 		int orcAttack = orc.getAttack();
 		int expected = 400 - (orcAttack - 60);
@@ -33,7 +33,7 @@ class GameCharactersTest {
 	@Test
 	void defendingTest() {
 		Archer legolas = new Archer();
-		MeleeEnemy  orc = new MeleeEnemy(4);
+		MeleeEnemy  orc = new MeleeEnemy(4, 0);
 
 		legolas.defend();
 		orc.attack(legolas);
