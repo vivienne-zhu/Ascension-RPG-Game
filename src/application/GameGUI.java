@@ -24,6 +24,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
@@ -689,17 +691,51 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary stage/window of the GUI.
 	 */
 	public Scene transitionScreen(Stage primaryStage) {
+	    	//Creating text for the page
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
-		clearedFloor.setX(300);
-		clearedFloor.setY(300);
+		clearedFloor.setX(280);
+		clearedFloor.setY(200);
 		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
 		DropShadow ds = new DropShadow();
 		ds.setColor(Color.BLUE);
 		clearedFloor.setEffect(ds);
+			
+		//Creating text for gold and xp gained
+		Text goldGained = new Text();
+		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
+		hero.setGold(hero.getGold() +  gold);
+		goldGained.setText("You gained " + gold + " gold! Gold = " + hero.getGold());
+		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+	
+		Text xpGained = new Text();
+		int xp = 100 + (int) (Math.random() * ((6) + 1) * floor.getFloor());
+		hero.setXp(hero.getXp()+ xp);
+		xpGained.setText("You gained " + xp + " xp! Xp = " + hero.getXp());
+		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		
+		//Creating text for level up and the conditions to display it
+		Text levelUp = new Text();
+	
+		if (hero.getXp() > 300) {
+		    hero.levelUp();
+		    hero.setXp(hero.getXp() - 300);
+		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + hero.getLevel());
+		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		    levelUp.setFill(Color.PURPLE);
+		    
+		}
+		
+		//Creating VBox for user update text on gold and xp gained
+		VBox userUpdate = new VBox(30);
+		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
+		userUpdate.setLayoutX(340);
+		userUpdate.setLayoutY(350);
+		userUpdate.setAlignment(Pos.CENTER);
 
-		//Creating Pane 
+		//Creating Pane and 
 		Pane display = new Pane();
+		
 
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Go to the Magic Shop");
@@ -709,7 +745,7 @@ public class GameGUI extends Application {
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		HBox hbBtn = new HBox(10);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn);
-		hbBtn.setLayoutX(400);
+		hbBtn.setLayoutX(430);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -731,8 +767,8 @@ public class GameGUI extends Application {
 		} 
 
 		//Adding nodes to pane
-		display.getChildren().addAll(hbBtn, clearedFloor);
-		display.setStyle(" -fx-background-color: grey");
+		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
+		display.setStyle(" -fx-background-color: cornflowerblue");
 
 
 		//Adding Pane to Scene and Scene to Stage

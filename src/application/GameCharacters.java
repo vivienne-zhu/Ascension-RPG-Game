@@ -47,9 +47,9 @@ public class GameCharacters {
 		this.potionMap.put(cp, 0.0);
 		this.potionMap.put(hp, 0.0);
 
-		// for testing purpose, set the gold to 10000
+		// for testing purpose, set the gold to 10000 and xp to 300
 		this.gold = 10000;
-		this.xp = 0;
+		this.xp = 300;
 		this.isDefending = false;
 		this.x = 0;
 		this.y = 0;
@@ -64,8 +64,6 @@ public class GameCharacters {
 	 * @param character The character currently being attacked.
 	 */
 	public int attack(GameCharacters character) {
-		// To Add: change x coordinate so character moves forward and back when he
-		// attacks
 		setIsDefending(false);
 		int attackValue = this.getAttack() - character.getDefense();
 		if (character.isDefending()) {
@@ -119,28 +117,26 @@ public class GameCharacters {
 	 * This method increases the attack, defense and stamina of the hero when
 	 * certain conditions are met.
 	 */
-	public int[] levelUp() {
-		// change increase number
-		// can be changed to get a certain number of stats at a minimum and also a
-		// maximum number of stats
-		// so player cannot highroll super high stats or lowroll super bad stats
+	public void levelUp() {
 		int atk = this.getAttack();
 		int atkRand = 3 + (int) (Math.random() * ((6) + 1));
 		atk = atk + atkRand;
+		setAttack(atk);
 		int defRand = 3 + (int) (Math.random() * ((6) + 1));
 		int defense = this.getDefense();
 		defense = defense + defRand;
+		setDefense(defense);
 		int stamRand = 3 + (int) (Math.random() * ((6) + 1));
 		int stam = this.getStamina();
 		stam = stam + stamRand;
+		setStamina(stam);
 		int manaRand = 0;
 		if (this instanceof Mage) {
 			manaRand = 3 + (int) (Math.random() * ((6) + 1));
 			mana = mana + manaRand;
+			setMana(mana);
 		}
-		int[] gains = { atkRand, defRand, stamRand, manaRand };
 		this.setLevel(this.getLevel() + 1);
-		return gains;
 	}
 
 	/**
