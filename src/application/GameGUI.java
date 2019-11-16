@@ -42,6 +42,7 @@ import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
@@ -59,7 +60,7 @@ public class GameGUI extends Application {
     private boolean isArcher;
     private GameCharacters hero;
     private String heroName;
-    private ArrayList<GameCharacters> allEnemies;
+	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
     private Shop shop;
     private Floor floor;
 
@@ -73,7 +74,7 @@ public class GameGUI extends Application {
 	isWarrior = false;
 	isArcher = false;
 	hero = new GameCharacters();
-	allEnemies = new ArrayList<GameCharacters>();
+	allEnemies = new HashMap<Integer, ArrayList<GameCharacters>>();
 	shop = new Shop();
 	floor = new Floor();
 
@@ -312,16 +313,26 @@ public class GameGUI extends Application {
 	GamePlayController gpc = new GamePlayController();
 	
 	//Below enemy created for testing purposes
-	MeleeEnemy orc = new MeleeEnemy(floor.getFloor());
-	allEnemies.add(orc);
-	MeleeEnemy dummy = new MeleeEnemy(floor.getFloor());
-	allEnemies.add(dummy);
+	//These will not be hardcoded in the future
+	ArrayList<GameCharacters> floorOne = new ArrayList<GameCharacters>();
+	MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
+	floorOne.add(orc);
+	MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
+	floorOne.add(dummy);
+	allEnemies.put(1, floorOne);
+
+	ArrayList<GameCharacters> floorTwo = new ArrayList<GameCharacters>();
+	MeleeEnemy orcTwo = new MeleeEnemy(floor.getFloor(), 0);
+	floorTwo.add(orcTwo);
+//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
+//	floorTwo.add(dummyTwo);
+	allEnemies.put(2, floorTwo);
 	
 	hero.setCurrentStamina(hero.getStamina());
 
 	// Creation of pane -->currently here for GUI testing
 	//System.out.println(allEnemies.get(0));
-	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()-1));
+	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
 	
 	//Code to be added when enemy hashMap completed
 	 //ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
@@ -364,7 +375,7 @@ public class GameGUI extends Application {
      * @return The Pane containing all the graphical elements needed for fights
      *         inside the Tower.
      */
-    public Pane createTowerLevels(Stage primaryStage, GameCharacters g) {
+    public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> allChar) {
 	Pane towerLevels = new Pane();
 
 	// To display the background for the floor
@@ -386,21 +397,23 @@ public class GameGUI extends Application {
 	
 	// TEST - Adding hero and boss images
 	hero.displayCharacter(gc, false, false);
-	g.displayCharacter(gc, false, false);
-	
-	BattlePhase battle = new BattlePhase(primaryStage, shop, floor);
-	battle.dispCombatInfo(hero, allEnemies);
+	allChar.get(0).displayCharacter(gc, false, false);
+	for (int i = 1; i < allChar.size(); i++) {
+		allChar.get(i).displayCharacter(gc, false, false);
+	}
+	BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor());
+	battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 	battle.dispDialogue();
 	battle.initButtons();
 	battle.eventButtons(allEnemies, hero, gc, shop);
-	GridPane grid = battle.gridLayout();
-	
+	GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
+
 	// Setting Background for Pane, adding grid to Pane 
 	towerLevels.setBackground(insideTowerBackground);
 	towerLevels.getChildren().addAll(grid, floorNum);
-	
+
 	return towerLevels;
-    }
+}
 
 	/**
 	 * This will generate the shop screen, where player is able to buy and sell
@@ -499,10 +512,6 @@ public class GameGUI extends Application {
 			    floor.incrementFloor();
 				fullGame(primaryStage);});
 		    }
-			
-		
-		   
-		    
 
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
