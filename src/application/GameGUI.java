@@ -1,17 +1,9 @@
 package application;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,8 +30,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,365 +45,365 @@ import java.util.HashMap;
  *
  */
 public class GameGUI extends Application {
-    private boolean isMage;
-    private boolean isWarrior;
-    private boolean isArcher;
-    private GameCharacters hero;
-    private String heroName;
+	private boolean isMage;
+	private boolean isWarrior;
+	private boolean isArcher;
+	private GameCharacters hero;
+	private String heroName;
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
-    private Shop shop;
-    private Floor floor;
+	private Shop shop;
+	private Floor floor;
 
-    /**
-     * The constructor creates a new character, sets all booleans variables to
-     * false, initialized name as an empty string and enemy array to hold 10
-     * enemies.(Still in testing phase, some variables may be removed/added later)
-     */
-    public GameGUI() {
-	isMage = false;
-	isWarrior = false;
-	isArcher = false;
-	hero = new GameCharacters();
-	allEnemies = new HashMap<Integer, ArrayList<GameCharacters>>();
-	shop = new Shop();
-	floor = new Floor();
-
-    }
-
-    /**
-     * This is the start method that enables us to run/display our JavaFX
-     * application. It begins by displaying start screen and then allows us to
-     * continue through and play the game.
-     */
-    @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
-	// Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
-	
-	//Start Screen Scene creation
-	Scene start = startScreen(primaryStage);
-	
-	
-	//Setting title of primary stage window, adding start scene and showing primary stage
-	primaryStage.setTitle("Tower Challenge");
-	primaryStage.setScene(start);
-	primaryStage.show();
-    }
-
-    /**
-     * This method is responsible for displaying the start screen for the game.
-     * 
-     * @param primaryStage The primary Stage object of the JavaFX application GUI.
-     */
-    public Scene startScreen(Stage primaryStage) {
-	//Creating Pane which will display all the elements/ nodes
-	Pane root = new Pane();
-	
-	//Creating Start button, adding style and necessary configurations
-	Button btn = new Button("START");
-	btn.setLayoutX(600);
-	btn.setLayoutY(500);
-	btn.setAlignment(Pos.CENTER);
-	btn.setPrefSize(100, 50);
-	btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-
-	//Event Handling for when Start button is pressed
-	EventHandler<MouseEvent> nextScreen = new EventHandler<MouseEvent>() {
-	    @Override
-	    public void handle(MouseEvent e) {
-		chooseCharacterScreen(primaryStage);
-	    }
-	};
-	
-	btn.addEventHandler(MouseEvent.MOUSE_CLICKED, nextScreen);
-	
-	//Creating Title/ start screen text with game name, adding style and configuration
-	Text title = new Text();
-	title.setText("Tower Challenge");
-	title.setX(250);
-	title.setY(400);
-	title.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.ITALIC, 100));
-	title.setStroke(Color.BLACK);
-	title.setStrokeWidth(3);
-	DropShadow ds = new DropShadow();
-	ds.setColor(Color.FIREBRICK);
-	title.setEffect(ds);
-
-	//Adding image fill to Title text
-	Image brick = new Image("Brick.jpeg");
-	ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
-	title.setFill(fill);
-
-	//Adding background to Pane
-	Image background = new Image("Tower.jpg");
-	BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
-		BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	Background startScreen = new Background(background2);
-	root.setBackground(startScreen);
-
-	//Adding other element/nodes to Pane, then Pane to Scene
-	root.getChildren().addAll(title, btn);
-	Scene startScene = new Scene(root, 1280, 720);
-	return startScene;
-    }
-
-    /**
-     * This method houses the code needed for the screen that allows the player to
-     * choose their character type/fighter.
-     * 
-     * @param primaryStage The primary Stage object of the JavaFX application GUI.
-     * @return
-     */
-    public void chooseCharacterScreen(Stage primaryStage) {
-	//Creating Text, positioning it and adding style and effects
-	Text charOption = new Text();
-	charOption.setText("Choose your character type");
-	charOption.setX(180);
-	charOption.setY(350);
-	charOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
-	DropShadow ds = new DropShadow();
-	ds.setColor(Color.WHITE);
-	charOption.setEffect(ds);
-	
-	//Creating buttons for user selection, positioning and adding style
-	Button mageBtn = new Button("Mage");
-	mageBtn.setLayoutX(600);
-	mageBtn.setLayoutY(400);
-	mageBtn.setPrefSize(100, 50);
-	mageBtn.setFont(Font.font(20));
-	Button warriorBtn = new Button("Warrior");
-	warriorBtn.setLayoutX(600);
-	warriorBtn.setLayoutY(475);
-	warriorBtn.setPrefSize(100, 50);
-	warriorBtn.setFont(Font.font(20));
-	Button archerBtn = new Button("Archer");
-	archerBtn.setLayoutX(600);
-	archerBtn.setLayoutY(550);
-	archerBtn.setPrefSize(100, 50);
-	archerBtn.setFont(Font.font(20));
-
-	//Event handling for when each button is pressed
-	mageBtn.setOnAction(event -> {
-	    setMage(true);
-	    getCharName(primaryStage);
-	});
-	warriorBtn.setOnAction(event -> {
-	    setWarrior(true);
-	    getCharName(primaryStage);
-	});
-	archerBtn.setOnAction(event -> {
-	    setArcher(true);
-	    getCharName(primaryStage);
-	});
-
-	//Creating background for Pane
-	Image background = new Image("Tower.jpg");
-	BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
-		BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	Background startScreen = new Background(background2);
-
-	//Creating Pane, adding background and then adding above nodes
-	Pane display = new Pane();
-	display.setBackground(startScreen);
-	display.getChildren().addAll(mageBtn, warriorBtn, archerBtn, charOption);
-
-	//Adding Pane to Scene and then Scene to primary stage and then showing
-	Scene chooseChar = new Scene(display, 1280, 720);
-
-	primaryStage.setScene(chooseChar);
-	primaryStage.show();
-    }
-
-    /**
-     * This method allows us to take in the character name for the user and uses it
-     * to set the hero name and create the new hero.
-     * 
-     * @return givenName String name entered by the user.
-     */
-    public void getCharName(Stage primaryStage) {
-	//Creating grid to be used to house text and text field
-	GridPane getName = new GridPane();
-	
-	//Creating label field and text
-	Label charName = new Label("Character Name: ");
-	TextField charNameBox = new TextField();
-	
-	//Adding label and text field to grid
-	getName.add(charName, 0, 0);
-	getName.add(charNameBox, 0, 1);
-	
-	//Configuring and style to grid and label
-	getName.setVgap(10);
-	getName.setHgap(10);
-	getName.setPadding(new Insets(10, 10, 10, 10));
-	getName.setAlignment(Pos.CENTER);
-	getName.setLayoutX(300);
-	getName.setLayoutY(150);
-	getName.setMinSize(600, 400);
-	charName.setTextFill(Color.BLACK);
-	DropShadow ds = new DropShadow();
-	ds.setColor(Color.ANTIQUEWHITE);
-	charName.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
-	charName.setEffect(ds);
-
-	//Creating button and creating event handling for when the button is pressed
-	Button submitBtn = new Button("Enter Tower Floor 1");
-	submitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	HBox hbBtn = new HBox(10);
-	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-	hbBtn.getChildren().add(submitBtn);
-	getName.add(hbBtn, 0, 2);
-	submitBtn.setOnAction(event -> {
-	    String name = charNameBox.getText();
-	    setHeroName(name);
-	    createHero();
-	    fullGame(primaryStage);
-	});
-
-	//Adding background to Pane
-	Image background = new Image("Tower.jpg");
-	BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
-		BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	Background startScreen = new Background(background2);
-
-	//Creating Pane, adding above nodes to Pane, and then Pane to Scene
-	Pane display = new Pane();
-	display.setBackground(startScreen);
-	display.getChildren().addAll(getName);
-
-	//Adding Scene to primary Stage and showing it.
-	Scene chooseCharName = new Scene(display, 1280, 720);
-	primaryStage.setScene(chooseCharName);
-	primaryStage.show();
-
-    }
-
-    /**
-     * This method creates a hero character and sets its name.
-     */
-    public void createHero() {
-	if (isMage == true) {
-	    hero = new Mage();
-	    hero.setName(heroName);
-	} else if (isWarrior == true) {
-	    hero = new Warrior();
-	    hero.setName(heroName);
-	} else if (isArcher == true) {
-	    hero = new Archer();
-	    hero.setName(heroName);
-	}
-    }
-
-    /**
-     * INCOMPLETE METHOD. This method will control the GUI for full game play. For
-     * now it houses the possible logic for bring the game to life.
-     * 
-     * @param primaryStage The primary stage/window of the JavaFX GUI.
-     */
-    public void fullGame(Stage primaryStage) {
-	GamePlayController gpc = new GamePlayController();
-	
-	//Below enemy created for testing purposes
-	//These will not be hardcoded in the future
-	ArrayList<GameCharacters> floorOne = new ArrayList<GameCharacters>();
-	MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
-	floorOne.add(orc);
-	MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
-	floorOne.add(dummy);
-	allEnemies.put(1, floorOne);
-
-	ArrayList<GameCharacters> floorTwo = new ArrayList<GameCharacters>();
-	MeleeEnemy orcTwo = new MeleeEnemy(floor.getFloor(), 0);
-	floorTwo.add(orcTwo);
-//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
-//	floorTwo.add(dummyTwo);
-	allEnemies.put(2, floorTwo);
-	
-	hero.setCurrentStamina(hero.getStamina());
-
-	// Creation of pane -->currently here for GUI testing
-	//System.out.println(allEnemies.get(0));
-	Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
-	
-	//Code to be added when enemy hashMap completed
-	 //ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
-	 //tempEnemies = allEnemies.get(floor.getFloor()); --> get arrayList from enemy hashMap
-	
-	 // Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
-
-	/*   
-	 *   Logics:
-	 *   	//in enemyTurn --> if hero dies --> GameOver Screen() (REVIVE MECHANICS built into game over screen)
-	 *     //heroTurn -->when all enemies die: Transition page saying player cleared the floor
-	 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button
-	 *     		                      --> else (not floor 3,6,9): continue fighting 
-	 *  			If there is and event-->eventScene tells what event happened & has continueBtn to continue fighting
- 	 * If win on floor 10 -->  youWinScreen built in
+	/**
+	 * The constructor creates a new character, sets all booleans variables to
+	 * false, initialized name as an empty string and enemy array to hold 10
+	 * enemies.(Still in testing phase, some variables may be removed/added later)
 	 */
+	public GameGUI() {
+		isMage = false;
+		isWarrior = false;
+		isArcher = false;
+		hero = new GameCharacters();
+		allEnemies = new HashMap<Integer, ArrayList<GameCharacters>>();
+		shop = new Shop();
+		floor = new Floor();
 
-	
-	// Button to shop --> REMOVE COMMMENTS TO QUICKLY TEST SHOP
-	// This has been added to correct scene & will be removed when the full game method is completed 
-	//Button shopBtn = new Button("Go to the Magic Shop");
-	//shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	}
 
-	// Event handling for shop button 
-	//shopBtn.setOnAction(event -> {
+	/**
+	 * This is the start method that enables us to run/display our JavaFX
+	 * application. It begins by displaying start screen and then allows us to
+	 * continue through and play the game.
+	 */
+	@Override
+	public void start(Stage primaryStage) throws FileNotFoundException {
+		// Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
+
+		//Start Screen Scene creation
+		Scene start = startScreen(primaryStage);
+
+
+		//Setting title of primary stage window, adding start scene and showing primary stage
+		primaryStage.setTitle("Tower Challenge");
+		primaryStage.setScene(start);
+		primaryStage.show();
+	}
+
+	/**
+	 * This method is responsible for displaying the start screen for the game.
+	 * 
+	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
+	 */
+	public Scene startScreen(Stage primaryStage) {
+		//Creating Pane which will display all the elements/ nodes
+		Pane root = new Pane();
+
+		//Creating Start button, adding style and necessary configurations
+		Button btn = new Button("START");
+		btn.setLayoutX(600);
+		btn.setLayoutY(500);
+		btn.setAlignment(Pos.CENTER);
+		btn.setPrefSize(100, 50);
+		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+
+		//Event Handling for when Start button is pressed
+		EventHandler<MouseEvent> nextScreen = new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				chooseCharacterScreen(primaryStage);
+			}
+		};
+
+		btn.addEventHandler(MouseEvent.MOUSE_CLICKED, nextScreen);
+
+		//Creating Title/ start screen text with game name, adding style and configuration
+		Text title = new Text();
+		title.setText("Tower Challenge");
+		title.setX(250);
+		title.setY(400);
+		title.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.ITALIC, 100));
+		title.setStroke(Color.BLACK);
+		title.setStrokeWidth(3);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.FIREBRICK);
+		title.setEffect(ds);
+
+		//Adding image fill to Title text
+		Image brick = new Image("Brick.jpeg");
+		ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
+		title.setFill(fill);
+
+		//Adding background to Pane
+		Image background = new Image("Tower.jpg");
+		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+		Background startScreen = new Background(background2);
+		root.setBackground(startScreen);
+
+		//Adding other element/nodes to Pane, then Pane to Scene
+		root.getChildren().addAll(title, btn);
+		Scene startScene = new Scene(root, 1280, 720);
+		return startScene;
+	}
+
+	/**
+	 * This method houses the code needed for the screen that allows the player to
+	 * choose their character type/fighter.
+	 * 
+	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
+	 * @return
+	 */
+	public void chooseCharacterScreen(Stage primaryStage) {
+		//Creating Text, positioning it and adding style and effects
+		Text charOption = new Text();
+		charOption.setText("Choose your character type");
+		charOption.setX(180);
+		charOption.setY(350);
+		charOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.WHITE);
+		charOption.setEffect(ds);
+
+		//Creating buttons for user selection, positioning and adding style
+		Button mageBtn = new Button("Mage");
+		mageBtn.setLayoutX(600);
+		mageBtn.setLayoutY(400);
+		mageBtn.setPrefSize(100, 50);
+		mageBtn.setFont(Font.font(20));
+		Button warriorBtn = new Button("Warrior");
+		warriorBtn.setLayoutX(600);
+		warriorBtn.setLayoutY(475);
+		warriorBtn.setPrefSize(100, 50);
+		warriorBtn.setFont(Font.font(20));
+		Button archerBtn = new Button("Archer");
+		archerBtn.setLayoutX(600);
+		archerBtn.setLayoutY(550);
+		archerBtn.setPrefSize(100, 50);
+		archerBtn.setFont(Font.font(20));
+
+		//Event handling for when each button is pressed
+		mageBtn.setOnAction(event -> {
+			setMage(true);
+			getCharName(primaryStage);
+		});
+		warriorBtn.setOnAction(event -> {
+			setWarrior(true);
+			getCharName(primaryStage);
+		});
+		archerBtn.setOnAction(event -> {
+			setArcher(true);
+			getCharName(primaryStage);
+		});
+
+		//Creating background for Pane
+		Image background = new Image("Tower.jpg");
+		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+		Background startScreen = new Background(background2);
+
+		//Creating Pane, adding background and then adding above nodes
+		Pane display = new Pane();
+		display.setBackground(startScreen);
+		display.getChildren().addAll(mageBtn, warriorBtn, archerBtn, charOption);
+
+		//Adding Pane to Scene and then Scene to primary stage and then showing
+		Scene chooseChar = new Scene(display, 1280, 720);
+
+		primaryStage.setScene(chooseChar);
+		primaryStage.show();
+	}
+
+	/**
+	 * This method allows us to take in the character name for the user and uses it
+	 * to set the hero name and create the new hero.
+	 * 
+	 * @return givenName String name entered by the user.
+	 */
+	public void getCharName(Stage primaryStage) {
+		//Creating grid to be used to house text and text field
+		GridPane getName = new GridPane();
+
+		//Creating label field and text
+		Label charName = new Label("Character Name: ");
+		TextField charNameBox = new TextField();
+
+		//Adding label and text field to grid
+		getName.add(charName, 0, 0);
+		getName.add(charNameBox, 0, 1);
+
+		//Configuring and style to grid and label
+		getName.setVgap(10);
+		getName.setHgap(10);
+		getName.setPadding(new Insets(10, 10, 10, 10));
+		getName.setAlignment(Pos.CENTER);
+		getName.setLayoutX(300);
+		getName.setLayoutY(150);
+		getName.setMinSize(600, 400);
+		charName.setTextFill(Color.BLACK);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.ANTIQUEWHITE);
+		charName.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
+		charName.setEffect(ds);
+
+		//Creating button and creating event handling for when the button is pressed
+		Button submitBtn = new Button("Enter Tower Floor 1");
+		submitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(10);
+		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+		hbBtn.getChildren().add(submitBtn);
+		getName.add(hbBtn, 0, 2);
+		submitBtn.setOnAction(event -> {
+			String name = charNameBox.getText();
+			setHeroName(name);
+			createHero();
+			fullGame(primaryStage);
+		});
+
+		//Adding background to Pane
+		Image background = new Image("Tower.jpg");
+		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+		Background startScreen = new Background(background2);
+
+		//Creating Pane, adding above nodes to Pane, and then Pane to Scene
+		Pane display = new Pane();
+		display.setBackground(startScreen);
+		display.getChildren().addAll(getName);
+
+		//Adding Scene to primary Stage and showing it.
+		Scene chooseCharName = new Scene(display, 1280, 720);
+		primaryStage.setScene(chooseCharName);
+		primaryStage.show();
+
+	}
+
+	/**
+	 * This method creates a hero character and sets its name.
+	 */
+	public void createHero() {
+		if (isMage == true) {
+			hero = new Mage();
+			hero.setName(heroName);
+		} else if (isWarrior == true) {
+			hero = new Warrior();
+			hero.setName(heroName);
+		} else if (isArcher == true) {
+			hero = new Archer();
+			hero.setName(heroName);
+		}
+	}
+
+	/**
+	 * INCOMPLETE METHOD. This method will control the GUI for full game play. For
+	 * now it houses the possible logic for bring the game to life.
+	 * 
+	 * @param primaryStage The primary stage/window of the JavaFX GUI.
+	 */
+	public void fullGame(Stage primaryStage) {
+		GamePlayController gpc = new GamePlayController();
+
+		//Below enemy created for testing purposes
+		//These will not be hardcoded in the future
+		ArrayList<GameCharacters> floorOne = new ArrayList<GameCharacters>();
+		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
+		floorOne.add(orc);
+		MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
+		floorOne.add(dummy);
+		allEnemies.put(1, floorOne);
+
+		ArrayList<GameCharacters> floorTwo = new ArrayList<GameCharacters>();
+		MeleeEnemy orcTwo = new MeleeEnemy(floor.getFloor(), 0);
+		floorTwo.add(orcTwo);
+		//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
+		//	floorTwo.add(dummyTwo);
+		allEnemies.put(2, floorTwo);
+
+		hero.setCurrentStamina(hero.getStamina());
+
+		// Creation of pane -->currently here for GUI testing
+		//System.out.println(allEnemies.get(0));
+		Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
+
+		//Code to be added when enemy hashMap completed
+		//ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
+		//tempEnemies = allEnemies.get(floor.getFloor()); --> get arrayList from enemy hashMap
+
+		// Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
+
+		/*   
+		 *   Logics:
+		 *   	//in enemyTurn --> if hero dies --> GameOver Screen() (REVIVE MECHANICS built into game over screen)
+		 *     //heroTurn -->when all enemies die: Transition page saying player cleared the floor
+		 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button
+		 *     		                      --> else (not floor 3,6,9): continue fighting 
+		 *  			If there is and event-->eventScene tells what event happened & has continueBtn to continue fighting
+		 * If win on floor 10 -->  youWinScreen built in
+		 */
+
+
+		// Button to shop --> REMOVE COMMMENTS TO QUICKLY TEST SHOP
+		// This has been added to correct scene & will be removed when the full game method is completed 
+		//Button shopBtn = new Button("Go to the Magic Shop");
+		//shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+
+		// Event handling for shop button 
+		//shopBtn.setOnAction(event -> {
 		//shop(primaryStage);});
 
-	//towerLevel.getChildren().add(shopBtn);
+		//towerLevel.getChildren().add(shopBtn);
 
-	Scene insideTower = new Scene(towerLevel, 1280, 720);
-	primaryStage.setScene(insideTower);
-	primaryStage.show();
+		Scene insideTower = new Scene(towerLevel, 1280, 720);
+		primaryStage.setScene(insideTower);
+		primaryStage.show();
 
-    }
-
-    /**
-     * This method creates the backdrop, buttons and text needed for fighting inside
-     * the Tower.
-     * 
-     * @return The Pane containing all the graphical elements needed for fights
-     *         inside the Tower.
-     */
-    public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> allChar) {
-	Pane towerLevels = new Pane();
-
-	// To display the background for the floor
-	Image tower = new Image("pixelBack.png");
-	BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-		BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	Background insideTowerBackground = new Background(background);
-	Canvas canvas = new Canvas(1280, 720);
-	towerLevels.getChildren().add(canvas);
-	GraphicsContext gc = canvas.getGraphicsContext2D();
-	
-	//To display floor number
-	Text floorNum = new Text();
-	floorNum.setText("Floor " + floor.getFloor());
-	floorNum.setStyle(" -fx-font: normal bold 30px 'serif' ");
-	floorNum.setFill(Color.WHITE);
-	floorNum.setX(600);
-	floorNum.setY(50);
-	
-	// TEST - Adding hero and boss images
-	hero.displayCharacter(gc, false, false);
-	allChar.get(0).displayCharacter(gc, false, false);
-	for (int i = 1; i < allChar.size(); i++) {
-		allChar.get(i).displayCharacter(gc, false, false);
 	}
-	BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor());
-	battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
-	battle.dispDialogue();
-	battle.initButtons();
-	battle.eventButtons(allEnemies, hero, gc, shop);
-	GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
-	// Setting Background for Pane, adding grid to Pane 
-	towerLevels.setBackground(insideTowerBackground);
-	towerLevels.getChildren().addAll(grid, floorNum);
+	/**
+	 * This method creates the backdrop, buttons and text needed for fighting inside
+	 * the Tower.
+	 * 
+	 * @return The Pane containing all the graphical elements needed for fights
+	 *         inside the Tower.
+	 */
+	public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> allChar) {
+		Pane towerLevels = new Pane();
 
-	return towerLevels;
-}
+		// To display the background for the floor
+		Image tower = new Image("pixelBack.png");
+		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+		Background insideTowerBackground = new Background(background);
+		Canvas canvas = new Canvas(1280, 720);
+		towerLevels.getChildren().add(canvas);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+
+		//To display floor number
+		Text floorNum = new Text();
+		floorNum.setText("Floor " + floor.getFloor());
+		floorNum.setStyle(" -fx-font: normal bold 30px 'serif' ");
+		floorNum.setFill(Color.WHITE);
+		floorNum.setX(600);
+		floorNum.setY(50);
+
+		// TEST - Adding hero and boss images
+		hero.displayCharacter(gc, false, false);
+		allChar.get(0).displayCharacter(gc, false, false);
+		for (int i = 1; i < allChar.size(); i++) {
+			allChar.get(i).displayCharacter(gc, false, false);
+		}
+		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor());
+		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
+		battle.dispDialogue();
+		battle.initButtons();
+		battle.eventButtons(allEnemies, hero, gc, shop);
+		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
+
+		// Setting Background for Pane, adding grid to Pane 
+		towerLevels.setBackground(insideTowerBackground);
+		towerLevels.getChildren().addAll(grid, floorNum);
+
+		return towerLevels;
+	}
 
 	/**
 	 * This will generate the shop screen, where player is able to buy and sell
@@ -496,22 +486,22 @@ public class GameGUI extends Application {
 			ColumnConstraints column = new ColumnConstraints(250);
 			rootNode.getColumnConstraints().add(column);
 		}
-		
+
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Continue playing");
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
-		 Event e = new Event();
-		 e.eventHappen();
-		 if ( e.isEvent() == true) {
-		     continueBtn.setOnAction(event -> {
-			e.eventScene(primaryStage, this, floor);});
-		    } else {
+		Event e = new Event();
+		e.eventHappen();
+		if ( e.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
-			    floor.incrementFloor();
+				e.eventScene(primaryStage, this, floor);});
+		} else {
+			continueBtn.setOnAction(event -> {
+				floor.incrementFloor();
 				fullGame(primaryStage);});
-		    }
+		}
 
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
@@ -550,296 +540,296 @@ public class GameGUI extends Application {
 
 	}
 
-    /**
-     * This method creates screen when the player wins the game
-     * 
-     * @param primaryStage The primary stage/ window for displaying the GUI.
-     */
-    public void youWinScreen(Stage primaryStage) {
+	/**
+	 * This method creates screen when the player wins the game
+	 * 
+	 * @param primaryStage The primary stage/ window for displaying the GUI.
+	 */
+	public void youWinScreen(Stage primaryStage) {
 
-	//Creating the treasure images for the Pane and adding effects
-	Image treasureChest = new Image("gold_treasure.png");
-	ImageView treasureChest1 = new ImageView(treasureChest);
-	Image treasureChest2 = new Image("gold_treasure.png");
-	ImageView treasureChest3 = new ImageView(treasureChest2);
-	Image treasureChest4 = new Image("closed_treasure.png");
-	ImageView treasureChest5 = new ImageView(treasureChest4);
-	treasureChest1.setLayoutX(250);
-	treasureChest1.setLayoutY(300);
-	treasureChest3.setLayoutX(750);
-	treasureChest3.setLayoutY(300);
-	treasureChest5.setLayoutX(500);
-	treasureChest5.setLayoutY(200);
+		//Creating the treasure images for the Pane and adding effects
+		Image treasureChest = new Image("gold_treasure.png");
+		ImageView treasureChest1 = new ImageView(treasureChest);
+		Image treasureChest2 = new Image("gold_treasure.png");
+		ImageView treasureChest3 = new ImageView(treasureChest2);
+		Image treasureChest4 = new Image("closed_treasure.png");
+		ImageView treasureChest5 = new ImageView(treasureChest4);
+		treasureChest1.setLayoutX(250);
+		treasureChest1.setLayoutY(300);
+		treasureChest3.setLayoutX(750);
+		treasureChest3.setLayoutY(300);
+		treasureChest5.setLayoutX(500);
+		treasureChest5.setLayoutY(200);
 
-	//Adding text to Pane
-	Text youWin = new Text();
-	youWin.setText("Congratulations. YOU WON!");
-	youWin.setX(120);
-	youWin.setY(130);
-	youWin.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
-	DropShadow ds = new DropShadow();
-	ds.setColor(Color.CHOCOLATE);
-	youWin.setEffect(ds);
-	Text thankYou = new Text();
-	thankYou.setText("Thank you for playing!");
-	thankYou.setX(350);
-	thankYou.setY(550);
-	thankYou.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
-	thankYou.setEffect(ds);
+		//Adding text to Pane
+		Text youWin = new Text();
+		youWin.setText("Congratulations. YOU WON!");
+		youWin.setX(120);
+		youWin.setY(130);
+		youWin.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.CHOCOLATE);
+		youWin.setEffect(ds);
+		Text thankYou = new Text();
+		thankYou.setText("Thank you for playing!");
+		thankYou.setX(350);
+		thankYou.setY(550);
+		thankYou.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
+		thankYou.setEffect(ds);
 
-	//Creating Pane 
-	Pane gameWon = new Pane();
+		//Creating Pane 
+		Pane gameWon = new Pane();
 
-	//Creating the buttons to exit the game or play again
-	Button exitBtn = new Button("Exit game");
-	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	Button playAgainBtn = new Button("Play again");
-	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	HBox hbBtn = new HBox(10);
-	hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
-	hbBtn.setLayoutX(500);
-	hbBtn.setLayoutY(600);
-	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+		//Creating the buttons to exit the game or play again
+		Button exitBtn = new Button("Exit game");
+		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		Button playAgainBtn = new Button("Play again");
+		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(10);
+		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
+		hbBtn.setLayoutX(500);
+		hbBtn.setLayoutY(600);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
-	//Adding eventHandling for buttons
-	exitBtn.setOnAction(event-> {primaryStage.close();;});
-	playAgainBtn.setOnAction(event-> {try {
-	    start(primaryStage);
-	} catch (FileNotFoundException e) { 
-	 // Temporary handling of exception, will change what happens once tested.
-	    primaryStage.close();
-	}});
+		//Adding eventHandling for buttons
+		exitBtn.setOnAction(event-> {primaryStage.close();;});
+		playAgainBtn.setOnAction(event-> {try {
+			start(primaryStage);
+		} catch (FileNotFoundException e) { 
+			// Temporary handling of exception, will change what happens once tested.
+			primaryStage.close();
+		}});
 
-	//Adding nodes to pane
-	gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
-	gameWon.setStyle(" -fx-background-color: gold");
-
-
-	//Adding Pane to Scene and Scene to Stage
-	Scene gWon = new Scene(gameWon, 1280, 720);
-	gWon.setFill(Color.GOLD);
-	primaryStage.setScene(gWon);
-	primaryStage.show();
-
-    }
+		//Adding nodes to pane
+		gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
+		gameWon.setStyle(" -fx-background-color: gold");
 
 
-     /**
-     * This method creates game over screen when the player loses to the enemy
-     * 
-     * @param primaryStage The primary stage/ window for displaying the GUI.
-     */
-    public void gameOverScreen(Stage primaryStage) {
-	
-	//Creating the game over image text for the Pane and adding effects
-	Image gameOverText = new Image("gameover.png");
-	ImageView gameOverText2 = new ImageView(gameOverText);
-	DropShadow ds = new DropShadow();
-	ds.setColor(Color.DARKRED);
-	gameOverText2.setEffect(ds);
-	gameOverText2.setLayoutX(170);
-	gameOverText2.setLayoutY(10);
+		//Adding Pane to Scene and Scene to Stage
+		Scene gWon = new Scene(gameWon, 1280, 720);
+		gWon.setFill(Color.GOLD);
+		primaryStage.setScene(gWon);
+		primaryStage.show();
 
-	//Creating the buttons to exit the game or play again
-	Button exitBtn = new Button("Exit game");
-	exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	Button playAgainBtn = new Button("Play again");
-	playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	Button reviveBtn = new Button("Use Revive");
-	reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	HBox hbBtn = new HBox(10);
-	hbBtn.getChildren().addAll(exitBtn, playAgainBtn, reviveBtn);
-	hbBtn.setLayoutX(430);
-	hbBtn.setLayoutY(600);
-	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-	
-	if (hero.isHasRevive() == false) {
-	    reviveBtn.setDisable(true);
 	}
 
-	//Adding eventHandlint for buttons
-	exitBtn.setOnAction(event-> {primaryStage.close();;});
-	playAgainBtn.setOnAction(event-> {try {
-	    start(primaryStage);
-	} catch (FileNotFoundException e) { 
-	 // Temporary handling of exception, will change what happens once tested.
-	    primaryStage.close();
-	}});
-	reviveBtn.setOnAction(event-> {hero.revive();
+
+	/**
+	 * This method creates game over screen when the player loses to the enemy
+	 * 
+	 * @param primaryStage The primary stage/ window for displaying the GUI.
+	 */
+	public void gameOverScreen(Stage primaryStage) {
+
+		//Creating the game over image text for the Pane and adding effects
+		Image gameOverText = new Image("gameover.png");
+		ImageView gameOverText2 = new ImageView(gameOverText);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.DARKRED);
+		gameOverText2.setEffect(ds);
+		gameOverText2.setLayoutX(170);
+		gameOverText2.setLayoutY(10);
+
+		//Creating the buttons to exit the game or play again
+		Button exitBtn = new Button("Exit game");
+		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		Button playAgainBtn = new Button("Play again");
+		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		Button reviveBtn = new Button("Use Revive");
+		reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(10);
+		hbBtn.getChildren().addAll(exitBtn, playAgainBtn, reviveBtn);
+		hbBtn.setLayoutX(430);
+		hbBtn.setLayoutY(600);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+		if (hero.isHasRevive() == false) {
+			reviveBtn.setDisable(true);
+		}
+
+		//Adding eventHandlint for buttons
+		exitBtn.setOnAction(event-> {primaryStage.close();;});
+		playAgainBtn.setOnAction(event-> {try {
+			start(primaryStage);
+		} catch (FileNotFoundException e) { 
+			// Temporary handling of exception, will change what happens once tested.
+			primaryStage.close();
+		}});
+		reviveBtn.setOnAction(event-> {hero.revive();
 		fullGame(primaryStage);
-	});
-	
-	//Creating Pane and adding nodes
-	Pane gameOver = new Pane();
-	gameOver.getChildren().addAll(gameOverText2, hbBtn);
-	gameOver.setStyle(" -fx-background-color: black");
+		});
+
+		//Creating Pane and adding nodes
+		Pane gameOver = new Pane();
+		gameOver.getChildren().addAll(gameOverText2, hbBtn);
+		gameOver.setStyle(" -fx-background-color: black");
 
 
-	//Adding Pane to Scene and Scene to Stage
-	Scene gOver = new Scene(gameOver, 1280, 720);
-	gOver.setFill(Color.BLACK);
-	primaryStage.setScene(gOver);
-	primaryStage.show();
-	
-    }
-    /**
-     * This method creates the transition page after the user has cleared the floor.
-     * 
-     * @param primaryStage The primary stage/window of the GUI.
-     */
-    public void transitionScreen(Stage primaryStage) {
-	Text clearedFloor = new Text();
-	clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
-	clearedFloor.setX(300);
-	clearedFloor.setY(300);
-	clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
-	DropShadow ds = new DropShadow();
-	ds.setColor(Color.BLUE);
-	clearedFloor.setEffect(ds);
-	
-	//Creating Pane 
-	Pane display = new Pane();
+		//Adding Pane to Scene and Scene to Stage
+		Scene gOver = new Scene(gameOver, 1280, 720);
+		gOver.setFill(Color.BLACK);
+		primaryStage.setScene(gOver);
+		primaryStage.show();
 
-	//Creating the buttons play for the player to continue on
-	Button shopBtn = new Button("Go to the Magic Shop");
-	shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	}
+	/**
+	 * This method creates the transition page after the user has cleared the floor.
+	 * 
+	 * @param primaryStage The primary stage/window of the GUI.
+	 */
+	public void transitionScreen(Stage primaryStage) {
+		Text clearedFloor = new Text();
+		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
+		clearedFloor.setX(300);
+		clearedFloor.setY(300);
+		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.BLUE);
+		clearedFloor.setEffect(ds);
 
-	Button continueBtn = new Button("Continue playing");
-	continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	HBox hbBtn = new HBox(10);
-	hbBtn.getChildren().addAll(shopBtn, continueBtn);
-	hbBtn.setLayoutX(400);
-	hbBtn.setLayoutY(600);
-	hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+		//Creating Pane 
+		Pane display = new Pane();
 
-	//Adding eventHandling for buttons
-	Event e = new Event();
-	 e.eventHappen();
-	 if ( e.isEvent() == true) {
-	     continueBtn.setOnAction(event -> {
-		e.eventScene(primaryStage, this, floor);});
-	    } else {
-		continueBtn.setOnAction(event -> {
-		    floor.incrementFloor();
-			fullGame(primaryStage);});
-	    }
-	shopBtn.setOnAction(event -> {
+		//Creating the buttons play for the player to continue on
+		Button shopBtn = new Button("Go to the Magic Shop");
+		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+
+		Button continueBtn = new Button("Continue playing");
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(10);
+		hbBtn.getChildren().addAll(shopBtn, continueBtn);
+		hbBtn.setLayoutX(400);
+		hbBtn.setLayoutY(600);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+		//Adding eventHandling for buttons
+		Event e = new Event();
+		e.eventHappen();
+		if ( e.isEvent() == true) {
+			continueBtn.setOnAction(event -> {
+				e.eventScene(primaryStage, this, floor);});
+		} else {
+			continueBtn.setOnAction(event -> {
+				floor.incrementFloor();
+				fullGame(primaryStage);});
+		}
+		shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
-	if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
-	    shopBtn.setDisable(true);
-	} 
+		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
+			shopBtn.setDisable(true);
+		} 
 
-	//Adding nodes to pane
-	display.getChildren().addAll(hbBtn, clearedFloor);
-	display.setStyle(" -fx-background-color: grey");
+		//Adding nodes to pane
+		display.getChildren().addAll(hbBtn, clearedFloor);
+		display.setStyle(" -fx-background-color: grey");
 
 
-	//Adding Pane to Scene and Scene to Stage
-	Scene transition = new Scene(display, 1280, 720);
-	transition.setFill(Color.GREY);
-	primaryStage.setScene(transition);
-	primaryStage.show();
-    }
+		//Adding Pane to Scene and Scene to Stage
+		Scene transition = new Scene(display, 1280, 720);
+		transition.setFill(Color.GREY);
+		primaryStage.setScene(transition);
+		primaryStage.show();
+	}
 
-    /**
-     * @return the isMage
-     */
-    public boolean isMage() {
-	return isMage;
-    }
+	/**
+	 * @return the isMage
+	 */
+	public boolean isMage() {
+		return isMage;
+	}
 
-    /**
-     * @param isMage the isMage to set
-     */
-    public void setMage(boolean isMage) {
-	this.isMage = isMage;
-    }
+	/**
+	 * @param isMage the isMage to set
+	 */
+	public void setMage(boolean isMage) {
+		this.isMage = isMage;
+	}
 
-    /**
-     * @return the isWarrior
-     */
-    public boolean isWarrior() {
-	return isWarrior;
-    }
+	/**
+	 * @return the isWarrior
+	 */
+	public boolean isWarrior() {
+		return isWarrior;
+	}
 
-    /**
-     * @param isWarrior the isWarrior to set
-     */
-    public void setWarrior(boolean isWarrior) {
-	this.isWarrior = isWarrior;
-    }
+	/**
+	 * @param isWarrior the isWarrior to set
+	 */
+	public void setWarrior(boolean isWarrior) {
+		this.isWarrior = isWarrior;
+	}
 
-    /**
-     * @return the isArcher
-     */
-    public boolean isArcher() {
-	return isArcher;
-    }
+	/**
+	 * @return the isArcher
+	 */
+	public boolean isArcher() {
+		return isArcher;
+	}
 
-    /**
-     * @param isArcher the isArcher to set
-     */
-    public void setArcher(boolean isArcher) {
-	this.isArcher = isArcher;
-    }
+	/**
+	 * @param isArcher the isArcher to set
+	 */
+	public void setArcher(boolean isArcher) {
+		this.isArcher = isArcher;
+	}
 
-    /**
-     * @return the hero
-     */
-    public GameCharacters getHero() {
-	return hero;
-    }
+	/**
+	 * @return the hero
+	 */
+	public GameCharacters getHero() {
+		return hero;
+	}
 
-    /**
-     * @param hero the hero to set
-     */
-    public void setHero(GameCharacters hero) {
-	this.hero = hero;
-    }
+	/**
+	 * @param hero the hero to set
+	 */
+	public void setHero(GameCharacters hero) {
+		this.hero = hero;
+	}
 
-    /**
-     * @return the heroName
-     */
-    public String getHeroName() {
-	return heroName;
-    }
+	/**
+	 * @return the heroName
+	 */
+	public String getHeroName() {
+		return heroName;
+	}
 
-    /**
-     * @param heroName the heroName to set
-     */
-    public void setHeroName(String heroName) {
-	this.heroName = heroName;
-    }
-    
-    /**
-     * @return the shop
-     */
-    public Shop getShop() {
-	return shop;
-    }
+	/**
+	 * @param heroName the heroName to set
+	 */
+	public void setHeroName(String heroName) {
+		this.heroName = heroName;
+	}
 
-    /**
-     * @param shop the shop to set
-     */
-    public void setShop(Shop shop) {
-	this.shop = shop;
-    }
+	/**
+	 * @return the shop
+	 */
+	public Shop getShop() {
+		return shop;
+	}
 
-    /**
-     * @return the floor
-     */
-    public Floor getFloor() {
-        return floor;
-    }
+	/**
+	 * @param shop the shop to set
+	 */
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
 
-    /**
-     * @param floor the floor to set
-     */
-    public void setFloor(Floor floor) {
-        this.floor = floor;
-    }
+	/**
+	 * @return the floor
+	 */
+	public Floor getFloor() {
+		return floor;
+	}
+
+	/**
+	 * @param floor the floor to set
+	 */
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
 
 	public static void main(String[] args) {
-	launch(args);
-    }
+		launch(args);
+	}
 }
