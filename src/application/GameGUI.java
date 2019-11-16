@@ -51,6 +51,7 @@ public class GameGUI extends Application {
 	private GameCharacters hero;
 	private String heroName;
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
+	private int totalCount;
 	private Shop shop;
 	private Floor floor;
 
@@ -317,6 +318,8 @@ public class GameGUI extends Application {
 		//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
 		//	floorTwo.add(dummyTwo);
 		allEnemies.put(2, floorTwo);
+		
+		totalCount = allEnemies.get(floor.getFloor()).size();
 
 		hero.setCurrentStamina(hero.getStamina());
 
@@ -395,7 +398,7 @@ public class GameGUI extends Application {
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.dispDialogue();
 		battle.initButtons();
-		battle.eventButtons(allEnemies, hero, gc, shop);
+		battle.eventButtons(allEnemies, hero, gc, shop, totalCount);
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
 		// Setting Background for Pane, adding grid to Pane 

@@ -19,6 +19,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * This class represents the actions that occur during the battle phase. This class ensures that
@@ -47,6 +48,7 @@ public class BattlePhase extends GameGUI{
 	private Text enemyTwoName;
 	private Stage primaryStage;
 	private int floor;
+	private HashSet<Integer> dead = new HashSet<Integer>();
 	
 	public BattlePhase(Stage primaryStage, int floor) {
 		this.primaryStage = primaryStage;
@@ -134,7 +136,7 @@ public class BattlePhase extends GameGUI{
 	 * @param hero The character the player controls
 	 * @param gc The GraphicsContext used to delete and draw pictures to canvas
 	 */
-	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, Shop shop) {
+	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, Shop shop, int totalCount) {
 		//Event handling for when attack button is pressed
 		attackBtn.setOnAction(event -> {
 			disableButtons(true, attackBtn, healBtn, defendBtn);
@@ -143,7 +145,11 @@ public class BattlePhase extends GameGUI{
 			chooseEnemyBtn.setVisible(true);
 			chooseEnemyTwoBtn.setVisible(true);
 			} else if (allEnemies.get(floor).size() == 1) {
-				chooseEnemyBtn.setVisible(true);	
+				if (dead.contains(0)) {
+					chooseEnemyTwoBtn.setVisible(true);
+				} else if (dead.contains(1)) {
+					chooseEnemyBtn.setVisible(true);
+				}
 			}
 		});
 		
@@ -153,7 +159,7 @@ public class BattlePhase extends GameGUI{
 			gc.drawImage(defendIcon, 100, 280); //draw defend icon
 			disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
 			hero.setIsDefending(true);
-			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor);
+			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
@@ -181,12 +187,12 @@ public class BattlePhase extends GameGUI{
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 0, gc, primaryStage)); // hardcode first minion
+					dialogueTwo, dialogueThree, 0, gc, primaryStage, totalCount)); // hardcode first minion
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
 			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor));
+					dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -208,12 +214,12 @@ public class BattlePhase extends GameGUI{
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 1, gc, primaryStage)); // hardcode second minion
+					dialogueTwo, dialogueThree, 1, gc, primaryStage, totalCount)); // hardcode second minion
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
 			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor));
+					dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -313,7 +319,7 @@ public class BattlePhase extends GameGUI{
 	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
 	 */
 	public void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
-			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage) {
+			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, int totalCount) {
 
 		//Move hero forward
 		Timeline timeline = new Timeline(); 
@@ -322,7 +328,7 @@ public class BattlePhase extends GameGUI{
 		} else if (choice == 1) {
 			timeline.setCycleCount(459);
 		}
-		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true, allEnemies, floor, -1));
+		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true, allEnemies, floor, totalCount));
 		timeline.getKeyFrames().add(frame);
 
 		//Hero hits enemy
@@ -338,7 +344,7 @@ public class BattlePhase extends GameGUI{
 		} else if (choice == 1) {
 			timelineTwo.setCycleCount(459);
 		}
-		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false, allEnemies, floor, -1));
+		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false, allEnemies, floor, totalCount));
 		timelineTwo.getKeyFrames().add(frameThree);
 
 		SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
@@ -358,18 +364,24 @@ public class BattlePhase extends GameGUI{
 	 */
 	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
 			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor) {
-
+		Boolean countSwitch = false;
 		//Hero attacks enemy
+		if (allEnemies.get(floor).size() == 1 && choice == 1) {
+			choice = 0;
+			countSwitch = true;
+		}
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = hero.attack(enemy);
 		enemy.displayCharacter(gc, false, true); //turn enemy red on attack
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
+			dead.add(choice);
 			dialogueTwo.setText("You have killed the enemy."); 
 			dialogueThree.setText("");//XP stuff and gold stuff will be here
 			enemy.displayCharacter(gc, true, false); //deleting picture
 			allEnemies.get(floor).remove(choice);
+			
 		}
 		
 		//If all enemies dead, move on to next floor
@@ -400,11 +412,11 @@ public class BattlePhase extends GameGUI{
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
 		}
-		if (choice == 0) {
+		if (choice == 0 && !countSwitch) {
 			enemyStam.setText("Stamina: " + enemy.getCurrentStamina());
-		} else if (choice == 1) {
+		} else if (choice == 1 || (choice == 0 && countSwitch)) {
 			enemyTwoStam.setText("Stamina: " + enemy.getCurrentStamina());
-		}
+		} 
 		dialogue.setText("You dealt " + attackAmount + " damage!");
 		//dialogueTwo.setText("");
 		dialogueThree.setText("");
@@ -420,7 +432,7 @@ public class BattlePhase extends GameGUI{
 	 * @param forward Whether we are moving forward or backward
 	 */
 	public void move(GameCharacters character, GraphicsContext gc, boolean forward, 
-			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, int enemyCount) {
+			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, int totalCount) {
 
 		//Clear current picture
 		character.displayCharacter(gc, true, false);
@@ -437,18 +449,16 @@ public class BattlePhase extends GameGUI{
 		
 		//Draw in overlapped enemies
 		if (allEnemies.get(floor).size() > 1 && character == allEnemies.get(floor).get(0)) {
-//			for (int i = 0; i < allEnemies.get(floor).size(); i++) {
-//				if (i != enemyCount) {
-//					allEnemies.get(floor).get(i).displayCharacter(gc, false, false);
-//				}
-//			}
-			
 			allEnemies.get(floor).get(1).displayCharacter(gc, false, false);
 		} else if (allEnemies.get(floor).size() > 1 && character == allEnemies.get(floor).get(1)) {
 			allEnemies.get(floor).get(0).displayCharacter(gc, false, false);
 		} else if (allEnemies.get(floor).size() > 1 && character.getX() + character.getWidth() >= 
 				allEnemies.get(floor).get(1).getX()){
 			allEnemies.get(floor).get(1).displayCharacter(gc, false, false);
+		} else if (allEnemies.get(floor).size() == 1 && dead.contains(0)) {
+			if (character.getX() + character.getWidth() >=  allEnemies.get(floor).get(0).getX()) {
+				allEnemies.get(floor).get(0).displayCharacter(gc, false, false);
+			}
 		}
 	}
 
@@ -460,7 +470,7 @@ public class BattlePhase extends GameGUI{
 	 * @param dialogue Text that updates the player on what is currently happening.
 	 */
 	public void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text heroStam, Text dialogue, Text dialogueTwo, 
-			Text dialogueThree, GraphicsContext gc, int floor) {
+			Text dialogueThree, GraphicsContext gc, int floor, int totalCount) {
 
 		//If enemies are still alive
 		if (allEnemies.get(floor).size() > 0) {
@@ -472,7 +482,7 @@ public class BattlePhase extends GameGUI{
 				dialogueTwo.setText("It is the enemy's turn.");
 			}
 
-			singleEnemyAttacks(hero, allEnemies, gc);
+			singleEnemyAttacks(hero, allEnemies, gc, totalCount);
 			
 //			Timeline allEnemyAttacks = new Timeline();
 //			allEnemyAttacks.setCycleCount(allEnemies.get(floor).size());
@@ -487,29 +497,56 @@ public class BattlePhase extends GameGUI{
 	}
 	
 	public void singleEnemyAttacks(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
-			 GraphicsContext gc) {
+			 GraphicsContext gc, int totalCount) {
 			if (hero.getCurrentStamina() > 0) {
 			//	final Integer innerI = new Integer(i);
 
-				//Move enemy forward
-				Timeline timeline = new Timeline(); 
-				timeline.setCycleCount(745);
-				KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(0), gc, false,
-						allEnemies, floor, 0));
-				timeline.getKeyFrames().add(frame);
-
-				//Enemy hits hero
-				Timeline hit = new Timeline(); 	
-				KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
-				hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc));
-				hit.getKeyFrames().add(frameTwo);
-
-				//Move enemy backward
+				Timeline timeline = new Timeline();
+				Timeline hit = new Timeline();
 				Timeline timelineTwo = new Timeline();
-				timelineTwo.setCycleCount(745);
-				KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(0), gc, true,
-						allEnemies, floor, 0));
-				timelineTwo.getKeyFrames().add(frameThree);
+				
+				if ((totalCount == 2 && allEnemies.get(floor).size() == 2) || dead.contains(1) ) {
+					//Move enemy forward
+					timeline = new Timeline(); 
+					timeline.setCycleCount(745);
+					KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(0), gc, false,
+							allEnemies, floor, 0));
+					timeline.getKeyFrames().add(frame);
+	
+					//Enemy hits hero
+					hit = new Timeline(); 	
+					KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc));
+					hit.getKeyFrames().add(frameTwo);
+	
+					//Move enemy backward
+					timelineTwo = new Timeline();
+					timelineTwo.setCycleCount(745);
+					KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(0), gc, true,
+							allEnemies, floor, 0));
+					timelineTwo.getKeyFrames().add(frameThree);
+				}
+				
+				else if (totalCount == 2 && allEnemies.get(floor).size() == 1) {
+					timeline = new Timeline(); 
+					timeline.setCycleCount(500);
+					KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(0), gc, false,
+							allEnemies, floor, 0));
+					timeline.getKeyFrames().add(frame);
+	
+					//Enemy hits hero
+					hit = new Timeline(); 	
+					KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc));
+					hit.getKeyFrames().add(frameTwo);
+	
+					//Move enemy backward
+					timelineTwo = new Timeline();
+					timelineTwo.setCycleCount(500);
+					KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(0), gc, true,
+							allEnemies, floor, 0));
+					timelineTwo.getKeyFrames().add(frameThree);
+				}
 				
 				if (allEnemies.get(floor).size() == 2) {
 					//Move enemy forward
