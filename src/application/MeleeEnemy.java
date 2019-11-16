@@ -16,14 +16,20 @@ public class MeleeEnemy extends GameCharacters {
 	 * object, and also sets the values needed to display the image instance
 	 * variable in the GUI.
 	 */
-	public MeleeEnemy(int floor) {
+	public MeleeEnemy(int floor, int position) {
 		// Stat values will be changed
 		setAttack(85 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
 		setDefense(30 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
 		int startStam = 250 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
-		setX(1000);
+		if (position == 0) {
+			setX(1000);
+		} else if (position == 1) {
+			setX(720);
+		} else {
+			setX(460);
+		}
 		setY(330);
 		setWidth(240);
 		setHeight(260);
