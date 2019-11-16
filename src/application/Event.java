@@ -63,10 +63,11 @@ public class Event {
 	 * 
 	 * @param hero
 	 */
-	public void gainGold(GameCharacters hero) {
+	public void gainGold(GameCharacters hero, Floor floor) { 
+	    	//REMOVE FLOOR AND INCREMENT FLOOR WHEN EVENT SCENE BELOW IS COMPLETED
 		Random r = new Random();
 		hero.setGold(hero.getGold() + r.nextInt(200) + 1);	
-		//incrementFloor();
+		floor.incrementFloor();
 	}
 	
 	/**
@@ -77,6 +78,7 @@ public class Event {
 	 * 
 	 */
 	public void loseGold(GameCharacters hero,  Floor floor) {
+	    //REMOVE FLOOR AND INCREMENT FLOOR WHEN EVENT SCENE BELOW IS COMPLETED
 		Random r = new Random();
 		double lostGold = r.nextInt(100) + 1;
 		
@@ -103,6 +105,7 @@ public class Event {
 	    eventText.setLayoutY(300);
 	    if (this.isEvent() == true) {
 		eventText.setText("An event has happened!");
+		//REMEMBER TO ADD INCREMENT FLOOR TO EVENTS THAT CHANGE GOLD AND REMOVE THEM FROM METHODS ABOVE
 	    } else {
 		eventText.setText("No event has happened!");
 		floor.incrementFloor();
