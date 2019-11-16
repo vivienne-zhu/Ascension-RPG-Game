@@ -54,6 +54,7 @@ public class GameGUI extends Application {
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
 	private Shop shop;
 	private Floor floor;
+	
 
 	/**
 	 * The constructor creates a new character, sets all booleans variables to
@@ -407,7 +408,7 @@ public class GameGUI extends Application {
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.dispDialogue();
 		battle.initButtons();
-		battle.eventButtons(allEnemies, hero, gc, shop);
+		battle.eventButtons(allEnemies, hero, gc, shop, transitionScreen(primaryStage), youWinScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
 		// Setting Background for Pane, adding grid to Pane 
@@ -557,7 +558,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage The primary stage/ window for displaying the GUI.
 	 */
-	public void youWinScreen(Stage primaryStage) {
+	public Scene youWinScreen(Stage primaryStage) {
 
 		//Creating the treasure images for the Pane and adding effects
 		Image treasureChest = new Image("gold_treasure.png");
@@ -620,8 +621,7 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
 		gWon.setFill(Color.GOLD);
-		primaryStage.setScene(gWon);
-		primaryStage.show();
+		return gWon;
 
 	}
 
@@ -631,7 +631,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage The primary stage/ window for displaying the GUI.
 	 */
-	public void gameOverScreen(Stage primaryStage) {
+	public Scene gameOverScreen(Stage primaryStage) {
 
 		//Creating the game over image text for the Pane and adding effects
 		Image gameOverText = new Image("gameover.png");
@@ -680,8 +680,7 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene gOver = new Scene(gameOver, 1280, 720);
 		gOver.setFill(Color.BLACK);
-		primaryStage.setScene(gOver);
-		primaryStage.show();
+		return gOver;
 
 	}
 	/**
@@ -689,7 +688,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage The primary stage/window of the GUI.
 	 */
-	public void transitionScreen(Stage primaryStage) {
+	public Scene transitionScreen(Stage primaryStage) {
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 		clearedFloor.setX(300);
@@ -739,8 +738,7 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
 		transition.setFill(Color.GREY);
-		primaryStage.setScene(transition);
-		primaryStage.show();
+		return transition;
 	}
 
 	/**
