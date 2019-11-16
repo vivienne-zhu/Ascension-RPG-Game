@@ -2,6 +2,7 @@ package application;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -77,8 +78,8 @@ public class GameGUI extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
-		// Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
-
+		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
+		
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
 
@@ -252,11 +253,22 @@ public class GameGUI extends Application {
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(submitBtn);
 		getName.add(hbBtn, 0, 2);
+		
+		//EventHandling and error checking for empty textfield
+		Text error = new Text();
+		getName.add(error, 0, 4);
+		
 		submitBtn.setOnAction(event -> {
+		    if (charNameBox.getText().isEmpty() == true) {
+			error.setFill(Color.RED);
+			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
+			error.setText("Please enter name to continue.");
+		    } else {
 			String name = charNameBox.getText();
 			setHeroName(name);
 			createHero();
 			fullGame(primaryStage);
+		    }
 		});
 
 		//Adding background to Pane
