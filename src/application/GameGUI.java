@@ -398,7 +398,7 @@ public class GameGUI extends Application {
 		//To display floor number
 		Text floorNum = new Text();
 		floorNum.setText("Floor " + floor.getFloor());
-		floorNum.setStyle(" -fx-font: normal bold 30px 'serif' ");
+		floorNum.setStyle(" -fx-font: normal bold 40px 'serif' ");
 		floorNum.setFill(Color.WHITE);
 		floorNum.setX(600);
 		floorNum.setY(50);
@@ -708,7 +708,7 @@ public class GameGUI extends Application {
 		Text goldGained = new Text();
 		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
 		hero.setGold(hero.getGold() +  gold);
-		goldGained.setText("You gained " + gold + " gold! Gold = " + hero.getGold());
+		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 	
 		Text xpGained = new Text();
