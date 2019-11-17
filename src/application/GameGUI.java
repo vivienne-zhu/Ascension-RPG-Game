@@ -413,7 +413,7 @@ public class GameGUI extends Application {
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.dispDialogue();
 		battle.initButtons();
-		battle.eventButtons(allEnemies, hero, gc, shop, transitionScreen(primaryStage), youWinScreen(primaryStage));
+		battle.eventButtons(allEnemies, hero, gc, shop, totalCount, transitionScreen(primaryStage), youWinScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
 		// Setting Background for Pane, adding grid to Pane 
