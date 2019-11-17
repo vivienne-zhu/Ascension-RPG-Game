@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -29,7 +30,7 @@ import java.util.HashSet;
  * 
  * @author David Cai
  */
-public class BattlePhase extends GameGUI{
+public class BattlePhase {
 	
 	private Button attackBtn;
 	private Button defendBtn;
@@ -136,7 +137,7 @@ public class BattlePhase extends GameGUI{
 	 * @param hero The character the player controls
 	 * @param gc The GraphicsContext used to delete and draw pictures to canvas
 	 */
-	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, Shop shop, int totalCount) {
+	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, Shop shop, Scene transition, Scene youWin) {
 		//Event handling for when attack button is pressed
 		attackBtn.setOnAction(event -> {
 			disableButtons(true, attackBtn, healBtn, defendBtn);
@@ -187,7 +188,7 @@ public class BattlePhase extends GameGUI{
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 0, gc, primaryStage, totalCount)); // hardcode first minion
+					dialogueTwo, dialogueThree, 0, gc, primaryStage, transition, youWin)); // hardcode first minion
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
@@ -214,7 +215,7 @@ public class BattlePhase extends GameGUI{
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 1, gc, primaryStage, totalCount)); // hardcode second minion
+					dialogueTwo, dialogueThree, 1, gc, primaryStage, transition, youWin)); // hardcode second minion
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
@@ -319,7 +320,7 @@ public class BattlePhase extends GameGUI{
 	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
 	 */
 	public void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
-			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, int totalCount) {
+			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage,Scene transition, Scene youWin) {
 
 		//Move hero forward
 		Timeline timeline = new Timeline(); 
@@ -334,7 +335,7 @@ public class BattlePhase extends GameGUI{
 		//Hero hits enemy
 		Timeline hit = new Timeline();
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(hero, allEnemies, choice, 
-				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor));
+				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin));
 		hit.getKeyFrames().add(frameTwo);
 
 		//Move hero backward
@@ -363,8 +364,8 @@ public class BattlePhase extends GameGUI{
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor) {
-		Boolean countSwitch = false;
+			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin) {
+
 		//Hero attacks enemy
 		if (allEnemies.get(floor).size() == 1 && choice == 1) {
 			choice = 0;
@@ -390,13 +391,13 @@ public class BattlePhase extends GameGUI{
 			if (floor < 10) {
 			    Timeline moveOn = new Timeline();
 			    moveOn.setCycleCount(1);
-			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> transitionScreen(primaryStage));
+			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae ->  primaryStage.setScene(transition));
 			    moveOn.getKeyFrames().add(frame);
 			    moveOn.play();
 			} else if (floor == 10){
 			    Timeline moveOn = new Timeline();
 			    moveOn.setCycleCount(1);
-			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> youWinScreen(primaryStage));
+			    KeyFrame frame = new KeyFrame(Duration.millis(5000), ae -> primaryStage.setScene(youWin));
 			    moveOn.getKeyFrames().add(frame);
 			    moveOn.play();
 			}
