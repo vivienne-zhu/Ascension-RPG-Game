@@ -116,7 +116,7 @@ public class GameGUI extends Application {
 		EventHandler<MouseEvent> nextScreen = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				event(primaryStage);
+				chooseCharacterScreen(primaryStage);
 			}
 		};
 

@@ -29,7 +29,7 @@ public class Event {
 	 */
 	public void eventHappen() {
 		Random r = new Random();
-		int a = r.nextInt(5);
+		int a = r.nextInt(1); //hard coded to 100% for testing purposes
 		
 		if (a == 0) {
 			this.isEvent = true;			
@@ -112,8 +112,9 @@ public class Event {
 	    }
 	    
 	    //Creating continue button and setting eventHandling
-	    Button continueBtn = new Button("Continue to next floor");
-	    continueBtn.setOnAction(event->{g.fullGame(primaryStage);});
+	    Button continueBtn = new Button("Continue to event");
+	  //  continueBtn.setOnAction(event->{g.fullGame(primaryStage);});
+	    continueBtn.setOnAction(event->{g.event(primaryStage);});
 	    continueBtn.setLayoutX(600);
 	    continueBtn.setLayoutY(700);
 	    
