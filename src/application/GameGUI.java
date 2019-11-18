@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -429,7 +430,7 @@ public class GameGUI extends Application {
 	 */
 	public void shop(Stage primaryStage) {
 		// Create grid pane
-		GridPane rootNode = new GridPane();
+		GridPane root = new GridPane();
 
 		// Create the magic shop text
 		Text welcome = new Text("Magic Shop");
@@ -438,6 +439,7 @@ public class GameGUI extends Application {
 		DropShadow ds = new DropShadow();
 		ds.setColor(Color.GOLDENROD);
 		welcome.setEffect(ds);
+		GridPane.setHalignment(welcome, HPos.CENTER);
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
@@ -487,6 +489,7 @@ public class GameGUI extends Application {
 		Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		revive.setFill(Color.GOLDENROD);
+		GridPane.setHalignment(revive, HPos.CENTER);
 
 		// Buy and sell for revive 
 		Button btnBuy3 = new Button("Buy");
@@ -502,55 +505,113 @@ public class GameGUI extends Application {
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
 			ColumnConstraints column = new ColumnConstraints(250);
-			rootNode.getColumnConstraints().add(column);
+			root.getColumnConstraints().add(column);
 		}
 
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
-		
+		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");		
 		continueBtn.setOnAction(event -> {
 			floor.incrementFloor();
 			fullGame(primaryStage);
 		});
 		
 		// Add nodes to the grid pane
-		rootNode.setGridLinesVisible(false);
-		rootNode.setHgap(10);
-		rootNode.setVgap(5);
-		rootNode.add(welcome, 1, 0);
-		rootNode.add(ivPotion1, 1, 1);
-		rootNode.add(potion1, 1, 2);
-		rootNode.add(quantity1, 1, 3);
-		rootNode.add(btnBuy1, 1, 4);
-		rootNode.add(btnSell1, 1, 5);
-		rootNode.add(ivPotion2, 2, 1);
-		rootNode.add(potion2, 2, 2);
-		rootNode.add(quantity2, 2, 3);
-		rootNode.add(btnBuy2, 2, 4);
-		rootNode.add(btnSell2, 2, 5);
-		rootNode.add(ivRevive, 3, 1);
-		rootNode.add(revive, 3, 2);
-		rootNode.add(btnBuy3, 3, 3);
-		rootNode.add(btnSell3, 3, 4);
-		rootNode.add(potionList, 1, 7);
-		rootNode.add(errorMsg, 1, 8);
-		rootNode.setAlignment(Pos.CENTER);
-		rootNode.add(continueBtn, 2, 9);
+		root.setGridLinesVisible(false);
+		root.setHgap(10);
+		root.setVgap(5);
+		root.add(welcome, 2, 0);
+		root.add(ivPotion1, 1, 1);
+		root.add(potion1, 1, 2);
+		root.add(quantity1, 1, 3);
+		root.add(btnBuy1, 1, 4);
+		root.add(btnSell1, 1, 5);
+		root.add(ivPotion2, 2, 1);
+		root.add(potion2, 2, 2);
+		root.add(quantity2, 2, 3);
+		root.add(btnBuy2, 2, 4);
+		root.add(btnSell2, 2, 5);
+		root.add(ivRevive, 3, 1);
+		root.add(revive, 3, 2);
+		root.add(btnBuy3, 3, 3);
+		root.add(btnSell3, 3, 4);
+		root.add(potionList, 1, 7);
+		root.add(errorMsg, 1, 8);
+		root.setAlignment(Pos.CENTER);
+		root.add(continueBtn, 4, 9);
 
 		// Set background
 		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		Background shopBg2 = new Background(shopBg1);
-		rootNode.setBackground(shopBg2);
+		root.setBackground(shopBg2);
 
 		// Create the scene
-		Scene shopScene = new Scene(rootNode, 1280, 720);
+		Scene shopScene = new Scene(root, 1280, 720);
 		primaryStage.setScene(shopScene);
 		primaryStage.show();
 
+	}
+	
+	/**
+	 * This method creates the screen when a special event occurs. 
+	 * 
+	 * @param primaryStage
+	 */
+	public void event(Stage primaryStage) {
+		GridPane grid = new GridPane();
+		
+		// Text for the event 
+		Text txtEvent = new Text("A MYSTERIOUS BOX...");
+		txtEvent.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
+		txtEvent.setFill(Color.GOLDENROD);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.GOLDENROD);
+		txtEvent.setEffect(ds);
+				
+		// Image for the treasure chest 
+		Image closedBox = new Image("closed_treasure.png", 300, 300, false, false);
+		Image openBox = new Image("open_treasure .png", 300, 300, false, false);
+		ImageView closedIV = new ImageView(closedBox);		
+		ImageView openIV = new ImageView(openBox);
+		
+		// Create 'Open' Button 
+		Button openBtn = new Button("OPEN");
+		openBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		
+		openBtn.setOnAction(Event -> {
+			grid.getChildren().remove(closedIV);
+			grid.add(openIV, 0, 1);
+			GridPane.setHalignment(openIV, HPos.CENTER);
+			openBtn.setVisible(false);
+		}); 
+			
+		// Add nodes to the grid
+		GridPane.setHalignment(txtEvent, HPos.CENTER);
+		GridPane.setHalignment(closedIV, HPos.CENTER);
+		GridPane.setHalignment(openBtn,HPos.CENTER);
+		grid.setGridLinesVisible(true);
+		grid.add(txtEvent, 0, 0);
+		grid.add(closedIV, 0, 1);
+		grid.add(openBtn, 0, 2);
+		grid.setAlignment(Pos.CENTER);
+	    grid.setVgap(20); 
+	    grid.setHgap(20); 
+		
+		// Set background 
+		Image tower = new Image("pixelBack.png");
+		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+		Background towerBackground = new Background(background);
+		grid.setBackground(towerBackground);
+		
+		// Create the scene
+		Scene eventScene = new Scene(grid, 1280, 720);
+		primaryStage.setScene(eventScene);
+		primaryStage.show();
+		
 	}
 
 	/**
