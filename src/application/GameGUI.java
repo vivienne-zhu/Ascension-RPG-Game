@@ -116,7 +116,7 @@ public class GameGUI extends Application {
 		EventHandler<MouseEvent> nextScreen = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				chooseCharacterScreen(primaryStage);
+				event(primaryStage);
 			}
 		};
 
@@ -512,7 +512,7 @@ public class GameGUI extends Application {
 		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");		
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
 		continueBtn.setOnAction(event -> {
 			floor.incrementFloor();
 			fullGame(primaryStage);
@@ -573,7 +573,7 @@ public class GameGUI extends Application {
 				
 		// Image for the treasure chest 
 		Image closedBox = new Image("closed_treasure.png", 300, 300, false, false);
-		Image openBox = new Image("open_treasure .png", 300, 300, false, false);
+		Image openBox = new Image("open_treasure.png", 300, 300, false, false);
 		ImageView closedIV = new ImageView(closedBox);		
 		ImageView openIV = new ImageView(openBox);
 		
@@ -583,20 +583,40 @@ public class GameGUI extends Application {
 		
 		openBtn.setOnAction(Event -> {
 			grid.getChildren().remove(closedIV);
-			grid.add(openIV, 0, 1);
+			grid.add(openIV, 2, 1);
+			
 			GridPane.setHalignment(openIV, HPos.CENTER);
 			openBtn.setVisible(false);
 		}); 
+		
+		//Creating continue button and adding event handling
+		Button continueBtn = new Button("NEXT FLOOR");
+		continueBtn.setLayoutX(500);
+		continueBtn.setLayoutY(700);
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
+		continueBtn.setOnAction(event -> {
+				floor.incrementFloor();
+				fullGame(primaryStage);
+			});
+		
+		// Fixed width for columns
+		for (int i = 0; i < 5; i++) {
+			ColumnConstraints column = new ColumnConstraints(250);
+			grid.getColumnConstraints().add(column);
+		}
 			
 		// Add nodes to the grid
+		grid.setGridLinesVisible(true);
+
 		GridPane.setHalignment(txtEvent, HPos.CENTER);
 		GridPane.setHalignment(closedIV, HPos.CENTER);
 		GridPane.setHalignment(openBtn,HPos.CENTER);
-		grid.setGridLinesVisible(true);
-		grid.add(txtEvent, 0, 0);
-		grid.add(closedIV, 0, 1);
-		grid.add(openBtn, 0, 2);
 		grid.setAlignment(Pos.CENTER);
+
+		grid.add(txtEvent, 2, 0);
+		grid.add(closedIV, 2, 1);
+		grid.add(openBtn, 2, 2);
+		grid.add(continueBtn, 4, 6);
 	    grid.setVgap(20); 
 	    grid.setHgap(20); 
 		
