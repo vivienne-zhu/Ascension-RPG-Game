@@ -22,9 +22,9 @@ public class Shop {
 	public Shop() {
 		this.shopBg = new Image("magicShop.jpg", 1280, 720, false, false);
 
-		this.cpImage = new Image("cheapPotion.png", 200, 200, false, false);
-		this.hpImage = new Image("hyperPotion.jpg", 200, 200, false, false);
-		this.reviveImage = new Image("revivePotion.png", 200, 200, false, false);
+		this.cpImage = new Image("cheapPotion.jpg", 150, 150, false, false);
+		this.hpImage = new Image("hyperPotion.png", 150, 150, false, false);
+		this.reviveImage = new Image("revive.jpg", 150, 150, false, false);
 	}
 
 	/**

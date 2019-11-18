@@ -506,7 +506,7 @@ public class GameGUI extends Application {
 		}
 
 		//Creating continue button and adding event handling
-		Button continueBtn = new Button("Continue playing");
+		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
