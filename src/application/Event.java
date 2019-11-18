@@ -2,11 +2,6 @@ package application;
 
 import java.util.Random;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 /**
  * This class represents and controls event that can happen randomly in the game.
  * 
@@ -90,45 +85,7 @@ public class Event {
 			floor.incrementFloor();
 		}
 	}
-	
-	/**
-	 * This method creates a display to let the player know if  and what event has happened
-	 * 
-	 * @param primaryStage The primary stage/window needed to display the GUI.
-	 * @param g The GameGUI class 
-	 */
-	public void eventScene(Stage primaryStage, GameGUI g, Floor floor) {
-	    //Temporary values layout and text
-	    this.eventHappen();
-	    Text eventText = new Text();
-	    eventText.setLayoutX(600);
-	    eventText.setLayoutY(300);
-	    if (this.isEvent() == true) {
-		eventText.setText("An event has happened!");
-		//REMEMBER TO ADD INCREMENT FLOOR TO EVENTS THAT CHANGE GOLD AND REMOVE THEM FROM METHODS ABOVE
-	    } else {
-		eventText.setText("No event has happened!");
-		floor.incrementFloor();
-	    }
-	    
-	    //Creating continue button and setting eventHandling
-	    Button continueBtn = new Button("Continue to event");
-	  //  continueBtn.setOnAction(event->{g.fullGame(primaryStage);});
-	    continueBtn.setOnAction(event->{g.event(primaryStage);});
-	    continueBtn.setLayoutX(600);
-	    continueBtn.setLayoutY(700);
-	    
-	    //Creating pane, adding children 
-	    Pane display = new Pane();
-	    display.getChildren().addAll(continueBtn, eventText);
-	    
-	    //Creating scene, adding it to stage and showing stage
-	    Scene eventScene = new Scene(display, 1280, 720);
-	    primaryStage.setScene(eventScene);
-	    primaryStage.show();
-	}
-
-	
+		
 	/**
 	 * @return the isEvent
 	 */

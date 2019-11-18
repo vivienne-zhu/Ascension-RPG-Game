@@ -56,8 +56,9 @@ public class GameGUI extends Application {
 	private String heroName;
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
 	private int totalCount;
-	private Shop shop;
 	private Floor floor;
+	private Shop shop;
+	private Event event;
 	
 
 	/**
@@ -320,7 +321,7 @@ public class GameGUI extends Application {
 		GamePlayController gpc = new GamePlayController();
 
 		//Below enemy created for testing purposes
-		//These will not be hardcoded in the future
+		//These will not be hard-coded in the future
 		ArrayList<GameCharacters> floorOne = new ArrayList<GameCharacters>();
 		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
 		floorOne.add(orc);
@@ -828,22 +829,21 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
-		//Adding eventHandling for buttons
-		Event e = new Event();
-		e.eventHappen();
-		if ( e.isEvent() == true) {
+		// Event handling for special event 
+		this.event.eventHappen();
+		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
-				e.eventScene(primaryStage, this, floor);});
+				event(primaryStage);});
 		} else {
 			continueBtn.setOnAction(event -> {
 				floor.incrementFloor();
 				fullGame(primaryStage);});
 		}
 		
+		// Event handling for shop, only available on 3rd, 6th and 9th floor 
 		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
 			shopBtn.setDisable(true);
-		} 
-		
+		} 		
 		shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
 		
