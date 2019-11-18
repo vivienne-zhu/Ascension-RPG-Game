@@ -42,18 +42,23 @@ public class Shop {
 	public void buyPotion(GameCharacters hero, Button btn, Potion potion, TextField quantity, Text errorMsg,
 			Text display) {
 		btn.setOnAction(Event -> {
-			double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
-			if (hero.getGold() >= cost) {
-				errorMsg.setVisible(false);
-				hero.setGold(hero.getGold() - cost);
-				hero.getPotionMap().put(potion,
-						hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
-				quantity.setText("");
-				display.setText(this.shopDisplay(hero));
+			String text = quantity.getText();
+			if (text.matches("[0-9]*")) {
+				double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
+				if (hero.getGold() >= cost) {
+					errorMsg.setVisible(false);
+					hero.setGold(hero.getGold() - cost);
+					hero.getPotionMap().put(potion,
+							hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
+					quantity.setText("");
+					display.setText(this.shopDisplay(hero));
+				} else {
+					quantity.setText("");
+					errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
+					errorMsg.setVisible(true);
+			}
 			} else {
-				quantity.setText("");
-				errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
-				errorMsg.setVisible(true);
+				quantity.setText("NUMBERS ONLY");
 			}
 		});
 
@@ -73,16 +78,22 @@ public class Shop {
 	 */
 	public void sellPotion(GameCharacters hero, Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
-			double quantity = Double.parseDouble(q.getText());
-			if (hero.getPotionMap().get(potion) >= quantity) {
-				hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
-				hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
-				display.setText(this.shopDisplay(hero));
-				q.setText("");
+			String text = q.getText();
+			if (text.matches("[0-9]*")) {
+				double quantity = Double.parseDouble(q.getText());
+				if (hero.getPotionMap().get(potion) >= quantity) {
+					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
+					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
+					display.setText(this.shopDisplay(hero));
+					q.setText("");
+				} else {
+					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
+					errorMsg.setVisible(true);
+					q.setText("");
+				}
 			} else {
-				errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
-				errorMsg.setVisible(true);
-				q.setText("");
+				q.setText("NUMBERS ONLY");
+				
 			}
 		});
 	}
@@ -124,14 +135,14 @@ public class Shop {
 	 */
 	public void sellRevive(GameCharacters hero, Button btn, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
-			if (hero.isHasRevive() == true) {
-				hero.setGold(hero.getGold() + 150);
-				hero.setHasRevive(false);
-				display.setText(this.shopDisplay(hero));
-			} else {
-				errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
-				errorMsg.setVisible(true);
-			}
+				if (hero.isHasRevive() == true) {
+					hero.setGold(hero.getGold() + 150);
+					hero.setHasRevive(false);
+					display.setText(this.shopDisplay(hero));
+				} else {
+					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
+					errorMsg.setVisible(true);
+				}
 		});
 	}
     

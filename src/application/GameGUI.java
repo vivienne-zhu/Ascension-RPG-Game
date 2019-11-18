@@ -439,7 +439,7 @@ public class GameGUI extends Application {
 		ds.setColor(Color.GOLDENROD);
 		welcome.setEffect(ds);
 
-		// Error message when money is not enough
+		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
 		errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		errorMsg.setFill(Color.GOLDENROD);
@@ -458,7 +458,7 @@ public class GameGUI extends Application {
 		// Input quantity for cheap potion
 		TextField quantity1 = new TextField("Quantity");
 		quantity1.setOpacity(0.8);
-		quantity1.setMaxWidth(100);
+		quantity1.setMaxWidth(150);
 
 		// Buy and sell buttons for cheap potion
 		Button btnBuy1 = new Button("Buy");
@@ -473,7 +473,7 @@ public class GameGUI extends Application {
 
 		// Input quantity for hyper potion
 		TextField quantity2 = new TextField("Quantity");
-		quantity2.setMaxWidth(100);
+		quantity2.setMaxWidth(150);
 		quantity2.setOpacity(0.8);
 
 		// Buy and sell buttons for hyper potion
@@ -488,7 +488,7 @@ public class GameGUI extends Application {
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		revive.setFill(Color.GOLDENROD);
 
-		// Incomplete: buy and sell buttons for revive, will add eventhandlers
+		// Buy and sell for revive 
 		Button btnBuy3 = new Button("Buy");
 		this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
 		Button btnSell3 = new Button("Sell");
@@ -510,17 +510,12 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 25px 'serif' ");
-		Event e = new Event();
-		e.eventHappen();
-		if ( e.isEvent() == true) {
-			continueBtn.setOnAction(event -> {
-				e.eventScene(primaryStage, this, floor);});
-		} else {
-			continueBtn.setOnAction(event -> {
-				floor.incrementFloor();
-				fullGame(primaryStage);});
-		}
-
+		
+		continueBtn.setOnAction(event -> {
+			floor.incrementFloor();
+			fullGame(primaryStage);
+		});
+		
 		// Add nodes to the grid pane
 		rootNode.setGridLinesVisible(false);
 		rootNode.setHgap(10);
@@ -763,12 +758,14 @@ public class GameGUI extends Application {
 				floor.incrementFloor();
 				fullGame(primaryStage);});
 		}
-		shopBtn.setOnAction(event -> {
-			shop(primaryStage);});
+		
 		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
 			shopBtn.setDisable(true);
 		} 
-
+		
+		shopBtn.setOnAction(event -> {
+			shop(primaryStage);});
+		
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
 		display.setStyle(" -fx-background-color: cornflowerblue");
