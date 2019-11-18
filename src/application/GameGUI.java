@@ -72,8 +72,9 @@ public class GameGUI extends Application {
 		isArcher = false;
 		hero = new GameCharacters();
 		allEnemies = new HashMap<Integer, ArrayList<GameCharacters>>();
-		shop = new Shop();
 		floor = new Floor();
+		shop = new Shop();
+		event = new Event();
 
 	}
 
