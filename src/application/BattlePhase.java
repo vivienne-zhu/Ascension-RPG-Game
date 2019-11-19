@@ -550,6 +550,7 @@ public class BattlePhase {
 		
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = hero.attack(enemy);
+		totalEnemyHealth -= attackAmount;
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack
 
 		//If enemy dies, update information and delete enemy picture
@@ -568,7 +569,6 @@ public class BattlePhase {
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
 		}
-		System.out.println(totalEnemyHealth);
 		//If all enemies dead, move on to next floor
 		if (totalEnemyHealth == 0) {
 			//Transition to next screen after battle after 5 seconds
