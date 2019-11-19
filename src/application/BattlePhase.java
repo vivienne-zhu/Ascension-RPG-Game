@@ -696,9 +696,17 @@ public class BattlePhase {
 		// if hero gets killed 
 		if (hero.getCurrentStamina() == 0) {
 			if (hero.isHasRevive() == true) {
-				primaryStage.setScene(reviveScene);;
+				Timeline moveOn = new Timeline();
+				moveOn.setCycleCount(1);
+				KeyFrame frame1 = new KeyFrame(Duration.millis(5000), ae ->  primaryStage.setScene(reviveScene));
+				moveOn.getKeyFrames().add(frame1);
+				moveOn.play();
 			} else {
-				primaryStage.setScene(gameOverScreen);
+				Timeline moveOn = new Timeline();
+				moveOn.setCycleCount(1);
+				KeyFrame frame1 = new KeyFrame(Duration.millis(5000), ae ->  primaryStage.setScene(gameOverScreen));
+				moveOn.getKeyFrames().add(frame1);
+				moveOn.play();
 			}
 		}
 	}
