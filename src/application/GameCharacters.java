@@ -48,9 +48,9 @@ public class GameCharacters {
 		this.potionMap.put(cp, 0.0);
 		this.potionMap.put(hp, 0.0);
 
-		// for testing purpose, set the gold to 10000 and xp to 300
+		// for testing purpose, set the gold to 10000 and xp to 0
 		this.gold = 10000;
-		this.xp = 300;
+		this.xp = 0;
 		this.isDefending = false;
 		this.x = 0;
 		this.y = 0;
@@ -70,12 +70,14 @@ public class GameCharacters {
 		if (character.isDefending()) {
 			attackValue = attackValue / 2;
 		}
-		int newHealth = character.getCurrentStamina() - attackValue;
+		int oldHealth = character.getCurrentStamina();
+		int newHealth = oldHealth - attackValue;
 		if (attackValue > 0) {
 			if (newHealth > 0) {
 				character.setCurrentStamina(newHealth);
 			} else {
 				character.setCurrentStamina(0);
+				attackValue = oldHealth;
 			}
 		}
 		return attackValue;
@@ -135,15 +137,15 @@ public class GameCharacters {
 		int atk = this.getAttack();
 		int atkRand = 3 + (int) (Math.random() * ((6) + 1));
 		atk = atk + atkRand;
-		setAttack(atk);
+		this.setAttack(atk);
 		int defRand = 3 + (int) (Math.random() * ((6) + 1));
 		int defense = this.getDefense();
 		defense = defense + defRand;
-		setDefense(defense);
+		this.setDefense(defense);
 		int stamRand = 3 + (int) (Math.random() * ((6) + 1));
 		int stam = this.getStamina();
 		stam = stam + stamRand;
-		setStamina(stam);
+		this.setStamina(stam);
 		int manaRand = 0;
 		if (this instanceof Mage) {
 			manaRand = 3 + (int) (Math.random() * ((6) + 1));
@@ -151,6 +153,8 @@ public class GameCharacters {
 			setMana(mana);
 		}
 		this.setLevel(this.getLevel() + 1);
+//		int missingHealth = this.getStamina() - this.getCurrentStamina();
+//		this.setCurrentStamina(this.getCurrentStamina() + (int) (missingHealth * 0.2));
 	}
 
 	/**
