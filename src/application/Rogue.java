@@ -23,7 +23,7 @@ public class Rogue extends GameCharacters {
 		setCurrentStamina(getStamina());
 		setLevel(1);
 		setX(10);
-		setY(350);
+		setY(410);
 		setWidth(280);
 		setHeight(250);
 		setCharacterImage(new Image("rogue.png", getWidth(), getHeight(), false, false));

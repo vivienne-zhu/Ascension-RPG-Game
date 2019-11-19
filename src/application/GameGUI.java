@@ -342,12 +342,12 @@ public class GameGUI extends Application {
 		
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+		if (floor.getFloor() == 7 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+		} else if (floor.getFloor() == 1 || floor.getFloor() == 8 || floor.getFloor() == 9) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 2));
@@ -385,7 +385,7 @@ public class GameGUI extends Application {
 		Pane towerLevels = new Pane();
 
 		// To display the background for the floor
-		Image tower = new Image("pixelBack.png");
+		Image tower = new Image("pixelBackLower.png");
 		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 		Background insideTowerBackground = new Background(background);

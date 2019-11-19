@@ -30,7 +30,7 @@ public class MeleeEnemy extends GameCharacters {
 		} else {
 			setX(470);
 		}
-		setY(330);
+		setY(390);
 		setWidth(240);
 		setHeight(260);
 		setType("Melee");
