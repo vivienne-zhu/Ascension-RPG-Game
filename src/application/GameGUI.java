@@ -1,5 +1,7 @@
 package application;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +37,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +46,7 @@ import java.util.HashMap;
 /**
  * This class represents the GUI of the game and houses the instance variables
  * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
- * (Start scene, Character selection and naming, incomplete floor 1 of the tower). 
+ * (Start scene, Character selection and naming, floor 1&2 fighting, w/ healing and defending, magic shop). 
  * Currently this class is only to begin testing GUI elements and its design will be 
  * revised heavily before final submission (class will be made more cohesive and DRY).
  * 
@@ -62,9 +67,9 @@ public class GameGUI extends Application {
 	
 
 	/**
-	 * The constructor creates a new character, sets all booleans variables to
-	 * false, initialized name as an empty string and enemy array to hold 10
-	 * enemies.(Still in testing phase, some variables may be removed/added later)
+	 * The sets all booleans variables to false, and initializes the hero,
+	 *  allEnemies HashMap, the shop, event and floor variables.
+	 * (Still in testing phase, some variables may be removed/added later)
 	 */
 	public GameGUI() {
 		isMage = false;
@@ -222,7 +227,7 @@ public class GameGUI extends Application {
 	}
 
 	/**
-	 * This method allows us to take in the character name for the user and uses it
+	 * This method allows us to take in the character name from the user and use it
 	 * to set the hero name and create the new hero.
 	 * 
 	 * @return givenName String name entered by the user.
@@ -360,18 +365,6 @@ public class GameGUI extends Application {
 		 *  			If there is and event-->eventScene tells what event happened & has continueBtn to continue fighting
 		 * If win on floor 10 -->  youWinScreen built in
 		 */
-
-
-		// Button to shop --> REMOVE COMMMENTS TO QUICKLY TEST SHOP
-		// This has been added to correct scene & will be removed when the full game method is completed 
-		//Button shopBtn = new Button("Go to the Magic Shop");
-		//shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-
-		// Event handling for shop button 
-		//shopBtn.setOnAction(event -> {
-		//shop(primaryStage);});
-
-		//towerLevel.getChildren().add(shopBtn);
 
 		Scene insideTower = new Scene(towerLevel, 1280, 720);
 		primaryStage.setScene(insideTower);
@@ -732,9 +725,9 @@ public class GameGUI extends Application {
 		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		HBox hbBtn = new HBox(10);
+		HBox hbBtn = new HBox(25);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
-		hbBtn.setLayoutX(460);
+		hbBtn.setLayoutX(470);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -821,7 +814,7 @@ public class GameGUI extends Application {
 
 		Button continueBtn = new Button("Continue playing");
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		HBox hbBtn = new HBox(10);
+		HBox hbBtn = new HBox(15);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn);
 		hbBtn.setLayoutX(430);
 		hbBtn.setLayoutY(600);
@@ -857,7 +850,7 @@ public class GameGUI extends Application {
 	}
 	
 	/**
-	 * This method creates a transition scene if the player has an available revive
+	 * This method creates a transition scene after death if the player has a revive
 	 * 
 	 * @param primaryStage The primary stage or window of the GUI
 	 */
@@ -866,12 +859,21 @@ public class GameGUI extends Application {
 	    Text reviveOption = new Text();
 	    reviveOption.setText("Would you like to use a revive?");
 	    reviveOption.setX(100);
-	    reviveOption.setY(300);
+	    reviveOption.setY(200);
 	    reviveOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
 	    DropShadow ds = new DropShadow();
 	    ds.setColor(Color.BLUE);
 	    reviveOption.setEffect(ds);
-	  
+	    
+	    //Adding image of revive 
+	    ImageView revive = new ImageView(shop.getReviveImage());
+	    revive.setLayoutX(550);
+	    revive.setLayoutY(300);
+	    DropShadow ds1 = new DropShadow();
+	    ds1.setColor(Color.PURPLE);
+	    revive.setEffect(ds1);
+	    
+	    
 	    //Creating buttons and adding event handling
 	    Button reviveBtn = new Button("Use revive");
 	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
@@ -887,13 +889,13 @@ public class GameGUI extends Application {
 	    //Creating HBox, adding nodes and style
 	    HBox hbBtn = new HBox(10);
 	    hbBtn.getChildren().addAll(reviveBtn, exitBtn);
-	    hbBtn.setLayoutX(460);
-	    hbBtn.setLayoutY(400);
+	    hbBtn.setLayoutX(500);
+	    hbBtn.setLayoutY(550);
 	    hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 	    
 	    //Creating Pane, adding nodes and style
 	    Pane display = new Pane();
-	    display.getChildren().addAll(reviveOption, hbBtn);
+	    display.getChildren().addAll(reviveOption, hbBtn, revive);
 	    display.setStyle(" -fx-background-color: royalblue");
 
 

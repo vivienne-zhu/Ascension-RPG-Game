@@ -724,8 +724,8 @@ public class BattlePhase {
 		
 		// if hero gets killed 
 		if (hero.getCurrentStamina() == 0) {
-		    //use line below to test reviveScene
-		    //hero.setHasRevive(true);
+		    //Line below used to test reviveScene, will be removed later
+		    hero.setHasRevive(true);
 			if (hero.isHasRevive() == true) {
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
