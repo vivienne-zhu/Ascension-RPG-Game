@@ -323,10 +323,10 @@ public class BattlePhase {
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
 
-			//Enable buttons after 3 seconds per enemy
+			//Enable buttons after 2 seconds per enemy
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(2000 * allEnemies.get(floor).size()), ae -> 
+			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
@@ -351,10 +351,10 @@ public class BattlePhase {
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
 
-			//Enable buttons after 3 seconds per enemy
+			//Enable buttons after 2 seconds per enemy
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(2000 * allEnemies.get(floor).size()), ae -> 
+			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
@@ -382,7 +382,7 @@ public class BattlePhase {
 			//Enable buttons after 3 seconds per enemy
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(2000 * allEnemies.get(floor).size()), ae -> 
+			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
@@ -716,7 +716,7 @@ public class BattlePhase {
 					}
 				}
 				
-				if (!dead.contains(1) && allEnemies.get(floor).size() == 2) {
+				if (!dead.contains(1) && (allEnemies.get(floor).size() == 2 || allEnemies.get(floor).size() == 3)) {
 					timeline2 = new Timeline(); 
 					timeline2.setCycleCount(500);
 					KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(1), gc, false,
@@ -727,7 +727,7 @@ public class BattlePhase {
 					hit2 = new Timeline(); 	
 					KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
 					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 1, gc, reviveScene, gameOverScreen));
-					hit.getKeyFrames().add(frameTwo);
+					hit2.getKeyFrames().add(frameTwo);
 	
 					//Move enemy backward
 					timelineTwo2 = new Timeline();
