@@ -288,7 +288,7 @@ public class BattlePhase {
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1500 * allEnemies.get(floor).size()), ae -> 
+			KeyFrame frame = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn));
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
@@ -296,7 +296,7 @@ public class BattlePhase {
 			//Delete icon after 1.5 secs per enemy
 			Timeline icon = new Timeline(); 
 			icon.setCycleCount(1);
-			KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * allEnemies.get(floor).size()), ae -> 
+			KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			gc.clearRect(100, 280, 80, 80));
 			icon.getKeyFrames().add(iconDisable);
 			icon.play();
@@ -726,7 +726,7 @@ public class BattlePhase {
 					//Enemy hits hero
 					hit2 = new Timeline(); 	
 					KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
-					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc, reviveScene, gameOverScreen));
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 1, gc, reviveScene, gameOverScreen));
 					hit.getKeyFrames().add(frameTwo);
 	
 					//Move enemy backward
@@ -752,7 +752,7 @@ public class BattlePhase {
 					//Enemy hits hero
 					hit3 = new Timeline(); 	
 					KeyFrame frameTwo3 = new KeyFrame(Duration.millis(1), ae -> 
-					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 1, gc, reviveScene, gameOverScreen));
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 2, gc, reviveScene, gameOverScreen));
 					hit3.getKeyFrames().add(frameTwo3);
 	
 					//Move enemy backward
@@ -801,7 +801,7 @@ public class BattlePhase {
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
 			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, Scene gameOverScreen) {
 		int attackAmount = allEnemies.get(floor).get(i).attack(hero);
-		hero.displayCharacter(gc, false, true,false); //turn hero red on attack
+		hero.displayCharacter(gc, false, true, false); //turn hero red on attack
 
 		//After 0.1 seconds revert color
 		Timeline timeline = new Timeline(); 
