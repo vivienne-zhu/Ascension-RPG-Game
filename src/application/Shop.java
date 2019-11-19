@@ -20,7 +20,7 @@ public class Shop {
 	 * Constructor of the shop class
 	 */
 	public Shop() {
-		this.shopBg = new Image("magicShop.jpg", 1280, 720, false, false);
+		this.shopBg = new Image("shopBackground.png", 1280, 720, false, false);
 
 		this.cpImage = new Image("cheapPotion.jpg", 150, 150, false, false);
 		this.hpImage = new Image("hyperPotion.png", 150, 150, false, false);

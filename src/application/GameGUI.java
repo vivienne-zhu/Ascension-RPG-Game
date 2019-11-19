@@ -437,27 +437,27 @@ public class GameGUI extends Application {
 		// Create the magic shop text
 		Text welcome = new Text("Magic Shop");
 		welcome.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
-		welcome.setFill(Color.GOLDENROD);
+		welcome.setFill(Color.WHITE);
 		DropShadow ds = new DropShadow();
-		ds.setColor(Color.GOLDENROD);
+		ds.setColor(Color.MEDIUMSLATEBLUE);
 		welcome.setEffect(ds);
 		GridPane.setHalignment(welcome, HPos.CENTER);
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
 		errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		errorMsg.setFill(Color.GOLDENROD);
+		errorMsg.setFill(Color.WHITE);
 		errorMsg.setVisible(false);
 
 		// Display all items currrently in the hero's bag
 		Text potionList = new Text(shop.shopDisplay(hero));
 		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		potionList.setFill(Color.GOLDENROD);
+		potionList.setFill(Color.WHITE);
 
 		// Description for cheap potion
 		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
 		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		potion1.setFill(Color.GOLDENROD);
+		potion1.setFill(Color.WHITE);
 
 		// Input quantity for cheap potion
 		TextField quantity1 = new TextField("Quantity");
@@ -473,7 +473,7 @@ public class GameGUI extends Application {
 		// Description for hyper potion
 		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
 		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		potion2.setFill(Color.GOLDENROD);
+		potion2.setFill(Color.WHITE);
 
 		// Input quantity for hyper potion
 		TextField quantity2 = new TextField("Quantity");
@@ -490,7 +490,7 @@ public class GameGUI extends Application {
 		// Description for revive
 		Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		revive.setFill(Color.GOLDENROD);
+		revive.setFill(Color.WHITE);
 		GridPane.setHalignment(revive, HPos.CENTER);
 
 		// Buy and sell for revive 
