@@ -619,8 +619,8 @@ public class GameGUI extends Application {
 		grid.add(closedIV, 2, 1);
 		grid.add(openBtn, 2, 2);
 		grid.add(continueBtn, 4, 6);
-	    grid.setVgap(20); 
-	    grid.setHgap(20); 
+		grid.setVgap(20); 
+		grid.setHgap(20); 
 		
 		// Set background 
 		Image tower = new Image("pixelBack.png");
@@ -704,6 +704,8 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
 		gWon.setFill(Color.GOLD);
+		primaryStage.setScene(gWon);
+		primaryStage.show();
 		return gWon;
 
 	}
@@ -730,29 +732,22 @@ public class GameGUI extends Application {
 		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		Button reviveBtn = new Button("Use Revive");
-		reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		HBox hbBtn = new HBox(10);
-		hbBtn.getChildren().addAll(exitBtn, playAgainBtn, reviveBtn);
-		hbBtn.setLayoutX(430);
+		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
+		hbBtn.setLayoutX(460);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 
-		if (hero.isHasRevive() == false) {
-			reviveBtn.setDisable(true);
-		}
-
+		
 		//Adding eventHandlint for buttons
-		exitBtn.setOnAction(event-> {primaryStage.close();;});
+		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
 			primaryStage.close();
 		}});
-		reviveBtn.setOnAction(event-> {hero.revive();
-		fullGame(primaryStage);
-		});
+		
 
 		//Creating Pane and adding nodes
 		Pane gameOver = new Pane();
@@ -763,6 +758,8 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene gOver = new Scene(gameOver, 1280, 720);
 		gOver.setFill(Color.BLACK);
+		primaryStage.setScene(gOver);
+		primaryStage.show();
 		return gOver;
 
 	}
@@ -857,6 +854,56 @@ public class GameGUI extends Application {
 		Scene transition = new Scene(display, 1280, 720);
 		transition.setFill(Color.GREY);
 		return transition;
+	}
+	
+	/**
+	 * This method creates a transition scene if the player has an available revive
+	 * 
+	 * @param primaryStage The primary stage or window of the GUI
+	 */
+	public Scene reviveScene(Stage primaryStage) {
+	    //Creating text for the page
+	    Text reviveOption = new Text();
+	    reviveOption.setText("Would you like to use a revive?");
+	    reviveOption.setX(100);
+	    reviveOption.setY(300);
+	    reviveOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+	    DropShadow ds = new DropShadow();
+	    ds.setColor(Color.BLUE);
+	    reviveOption.setEffect(ds);
+	  
+	    //Creating buttons and adding event handling
+	    Button reviveBtn = new Button("Use revive");
+	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	    reviveBtn.setOnAction(event-> {hero.revive();
+		fullGame(primaryStage);
+		});
+	    
+	    Button exitBtn = new Button("Don't use revive");
+	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
+		});
+	    
+	    //Creating HBox, adding nodes and style
+	    HBox hbBtn = new HBox(10);
+	    hbBtn.getChildren().addAll(reviveBtn, exitBtn);
+	    hbBtn.setLayoutX(460);
+	    hbBtn.setLayoutY(400);
+	    hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+	    
+	    //Creating Pane, adding nodes and style
+	    Pane display = new Pane();
+	    display.getChildren().addAll(reviveOption, hbBtn);
+	    display.setStyle(" -fx-background-color: royalblue");
+
+
+	    //Adding Pane to Scene and Scene to Stage
+	    Scene reviveScene = new Scene(display, 1280, 720);
+	    reviveScene.setFill(Color.ROYALBLUE);
+	    primaryStage.setScene(reviveScene);
+	    primaryStage.show();
+	    return reviveScene;
+	    
 	}
 
 	/**
