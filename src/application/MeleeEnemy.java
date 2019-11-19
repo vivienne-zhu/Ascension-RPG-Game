@@ -18,8 +18,8 @@ public class MeleeEnemy extends GameCharacters {
 	 */
 	public MeleeEnemy(int floor, int position) {
 		// Stat values will be changed
-		setAttack(85 + 2 + (int) (Math.random() * (6 - 2) + 1) * floor); //85 + (2 to 6 * floor)
-		setDefense(30 + 2 + (int) (Math.random() * (5 - 2) + 1) * floor); //30 + (2 to 5 * floor)
+		setAttack(85 + 4 + (int) (Math.random() * (6 - 4) + 1) * floor); //85 + (4 to 6 * floor)
+		setDefense(30 + 3 + (int) (Math.random() * (5 - 3) + 1) * floor); //30 + (3 to 5 * floor)
 		int startStam = 250 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
