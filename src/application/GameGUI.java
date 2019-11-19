@@ -407,10 +407,10 @@ public class GameGUI extends Application {
 		floorNum.setY(50);
 
 		// TEST - Adding hero and boss images
-		hero.displayCharacter(gc, false, false);
-		allChar.get(0).displayCharacter(gc, false, false);
+		hero.displayCharacter(gc, false, false,false);
+		allChar.get(0).displayCharacter(gc, false, false,false);
 		for (int i = 1; i < allChar.size(); i++) {
-			allChar.get(i).displayCharacter(gc, false, false);
+			allChar.get(i).displayCharacter(gc, false, false,false);
 		}
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor());
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());

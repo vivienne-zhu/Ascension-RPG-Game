@@ -28,6 +28,7 @@ public class Rogue extends GameCharacters {
 		setHeight(250);
 		setCharacterImage(new Image("rogue.png", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("redrogue.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("whiterogue.png",getWidth(), getHeight(), false, false));
 		setType("Rogue");
     }
 }

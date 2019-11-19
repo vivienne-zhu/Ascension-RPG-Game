@@ -140,7 +140,7 @@ public class BattlePhase {
 	 * 
 	 * @param hero
 	 */
-	public void healFunction(GameCharacters hero) {
+	public void healFunction(GameCharacters hero, GraphicsContext gc) {
 		this.itemBag = new VBox();		
 		itemBag.setMaxWidth(200);
 				
@@ -160,6 +160,21 @@ public class BattlePhase {
 			hero.usePotion(hero.getCp(), this.error);
 			heroStam.setText("Stamina: " + hero.getCurrentStamina());
 			potionBtn.setText(hero.itemInfo(hero.getCp()));
+			if (this.error.isVisible() == false) {
+			    Timeline timeline = new Timeline(); 
+			    timeline.setCycleCount(1);
+			    KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+			    hero.displayCharacter(gc, false, false,true));
+			    timeline.getKeyFrames().addAll(frame);
+			    Timeline timeline2 = new Timeline(); 
+			    timeline2.setCycleCount(1);
+			    KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
+			    hero.displayCharacter(gc, false, false,false));
+			    timeline2.getKeyFrames().addAll(frame2);
+			    SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
+			    sequence.play(); 
+			}
+			
 		});
 		
 		// hyper potion button 
@@ -171,23 +186,37 @@ public class BattlePhase {
 			hero.usePotion(hero.getHp(), this.error);
 			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
 			heroStam.setText("Stamina: " + hero.getCurrentStamina());
+			if (this.error.isVisible() == false) {
+			    Timeline timeline = new Timeline(); 
+			    timeline.setCycleCount(1);
+			    KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
+			    hero.displayCharacter(gc, false, false,true));
+			    timeline.getKeyFrames().addAll(frame);
+			    Timeline timeline2 = new Timeline(); 
+			    timeline2.setCycleCount(1);
+			    KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
+			    hero.displayCharacter(gc, false, false,false));
+			    timeline2.getKeyFrames().addAll(frame2);
+			    SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
+			    sequence.play(); 
+			}
 		});
 		
 		// revive button 
-		String btnInfo3 = "Revive:\t";
-		if (hero.isHasRevive() == true) {
-			btnInfo3 += "1.0";
-		} else {
-			btnInfo3 += "0.0";
-		}
-		Button reviveBtn = new Button(btnInfo3);	
-		reviveBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
-		reviveBtn.setMaxWidth(200);
-		reviveBtn.setDisable(true);
+//		String btnInfo3 = "Revive:\t";
+//		if (hero.isHasRevive() == true) {
+//			btnInfo3 += "1.0";
+//		} else {
+//			btnInfo3 += "0.0";
+//		}
+//		Button reviveBtn = new Button(btnInfo3);	
+//		reviveBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+//		reviveBtn.setMaxWidth(200);
+//		reviveBtn.setDisable(true);
 		
 		// set background
 		itemBag.setStyle("-fx-background-color: gainsboro");
-		itemBag.getChildren().addAll(potionBtn, hyperPotionBtn, reviveBtn);
+		itemBag.getChildren().addAll(potionBtn, hyperPotionBtn);//reviveBtn
 		itemBag.setVisible(false);
 		
 	}
@@ -248,7 +277,7 @@ public class BattlePhase {
 		});
 
 		//Event handling for when heal button is pressed
-		this.healFunction(hero);
+		this.healFunction(hero, gc);
 		healBtn.setOnAction(event -> {
 			this.itemBag.setVisible(true);			
 		});
@@ -447,14 +476,14 @@ public class BattlePhase {
 		}
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = hero.attack(enemy);
-		enemy.displayCharacter(gc, false, true); //turn enemy red on attack
+		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
 			dead.add(choice);
 			dialogueTwo.setText("You have killed the enemy."); 
 			dialogueThree.setText("");//XP stuff and gold stuff will be here
-			enemy.displayCharacter(gc, true, false); //deleting picture
+			enemy.displayCharacter(gc, true, false,false); //deleting picture
 			allEnemies.get(floor).remove(choice);
 			
 		}
@@ -483,7 +512,7 @@ public class BattlePhase {
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
-			enemy.displayCharacter(gc, false, false));
+			enemy.displayCharacter(gc, false, false,false));
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
 		}
@@ -510,7 +539,7 @@ public class BattlePhase {
 			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, int totalCount) {
 
 		//Clear current picture
-		character.displayCharacter(gc, true, false);
+		character.displayCharacter(gc, true, false, false);
 
 		//Move character accordingly depending on boolean
 		if (forward) {
@@ -520,19 +549,19 @@ public class BattlePhase {
 		}
 
 		//Draw new picture
-		character.displayCharacter(gc, false, false);
+		character.displayCharacter(gc, false, false,false);
 		
 		//Draw in overlapped enemies
 		if (allEnemies.get(floor).size() > 1 && character == allEnemies.get(floor).get(0)) {
-			allEnemies.get(floor).get(1).displayCharacter(gc, false, false);
+			allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false);
 		} else if (allEnemies.get(floor).size() > 1 && character == allEnemies.get(floor).get(1)) {
-			allEnemies.get(floor).get(0).displayCharacter(gc, false, false);
+			allEnemies.get(floor).get(0).displayCharacter(gc, false, false, false);
 		} else if (allEnemies.get(floor).size() > 1 && character.getX() + character.getWidth() >= 
 				allEnemies.get(floor).get(1).getX()){
-			allEnemies.get(floor).get(1).displayCharacter(gc, false, false);
+			allEnemies.get(floor).get(1).displayCharacter(gc, false, false,false);
 		} else if (allEnemies.get(floor).size() == 1 && dead.contains(0)) {
 			if (character.getX() + character.getWidth() >=  allEnemies.get(floor).get(0).getX()) {
-				allEnemies.get(floor).get(0).displayCharacter(gc, false, false);
+				allEnemies.get(floor).get(0).displayCharacter(gc, false, false,false);
 			}
 		}
 	}
@@ -665,13 +694,13 @@ public class BattlePhase {
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
 			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, Scene gameOverScreen) {
 		int attackAmount = allEnemies.get(1).get(i).attack(hero);
-		hero.displayCharacter(gc, false, true); //turn hero red on attack
+		hero.displayCharacter(gc, false, true,false); //turn hero red on attack
 
 		//After 0.1 seconds revert color
 		Timeline timeline = new Timeline(); 
 		timeline.setCycleCount(1);
 		KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
-		hero.displayCharacter(gc, false, false));
+		hero.displayCharacter(gc, false, false,false));
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
 
@@ -689,7 +718,7 @@ public class BattlePhase {
 				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
 			}
 			if (hero.getCurrentStamina() <= 0) {
-				hero.displayCharacter(gc, true, false);
+				hero.displayCharacter(gc, true, false,false);
 			}
 		}
 		
