@@ -416,7 +416,7 @@ public class GameGUI extends Application {
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.dispDialogue();
 		battle.initButtons();
-		battle.eventButtons(allEnemies, hero, gc, totalCount, transitionScreen(primaryStage), youWinScreen(primaryStage));
+		battle.eventButtons(allEnemies, hero, gc, totalCount, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScene(primaryStage), gameOverScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
 		// Setting Background for Pane, adding grid to Pane 
@@ -709,7 +709,10 @@ public class GameGUI extends Application {
 		return gWon;
 
 	}
-
+	
+	public void dead() {
+		
+	}
 
 	/**
 	 * This method creates game over screen when the player loses to the enemy

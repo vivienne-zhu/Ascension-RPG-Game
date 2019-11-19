@@ -56,6 +56,7 @@ public class GameCharacters {
 		this.y = 0;
 		this.height = 0.0;
 		this.width = 0.0;
+		this.hasRevive = false;
 	}
 
 	/**

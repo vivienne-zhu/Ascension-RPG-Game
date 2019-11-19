@@ -199,7 +199,8 @@ public class BattlePhase {
 	 * @param hero The character the player controls
 	 * @param gc The GraphicsContext used to delete and draw pictures to canvas
 	 */
-	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, int totalCount, Scene transition, Scene youWin) {
+	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, int totalCount,
+			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen) {
 		//Event handling for when attack button is pressed
 		attackBtn.setOnAction(event -> {
 			itemBag.setVisible(false);
@@ -228,7 +229,7 @@ public class BattlePhase {
 			gc.drawImage(defendIcon, 100, 280); //draw defend icon
 			disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
 			hero.setIsDefending(true);
-			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount);
+			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount, reviveScene, gameOverScreen);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
@@ -262,7 +263,7 @@ public class BattlePhase {
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
 			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount));
+					dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount, reviveScene, gameOverScreen));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -289,7 +290,7 @@ public class BattlePhase {
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
 			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount));
+					dialogue, dialogueTwo, dialogueThree, gc, floor, totalCount, reviveScene, gameOverScreen));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -544,7 +545,7 @@ public class BattlePhase {
 	 * @param dialogue Text that updates the player on what is currently happening.
 	 */
 	public void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text heroStam, Text dialogue, Text dialogueTwo, 
-			Text dialogueThree, GraphicsContext gc, int floor, int totalCount) {
+			Text dialogueThree, GraphicsContext gc, int floor, int totalCount, Scene reviveScene, Scene gameOverScreen) {
 
 		//If enemies are still alive
 		if (allEnemies.get(floor).size() > 0) {
@@ -556,7 +557,7 @@ public class BattlePhase {
 				dialogueTwo.setText("It is the enemy's turn.");
 			}
 
-			singleEnemyAttacks(hero, allEnemies, gc, totalCount);
+			singleEnemyAttacks(hero, allEnemies, gc, totalCount, reviveScene, gameOverScreen);
 			
 //			Timeline allEnemyAttacks = new Timeline();
 //			allEnemyAttacks.setCycleCount(allEnemies.get(floor).size());
@@ -571,7 +572,7 @@ public class BattlePhase {
 	}
 	
 	public void singleEnemyAttacks(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
-			 GraphicsContext gc, int totalCount) {
+			 GraphicsContext gc, int totalCount, Scene reviveScene, Scene gameOverScreen) {
 			if (hero.getCurrentStamina() > 0) {
 			//	final Integer innerI = new Integer(i);
 
@@ -590,7 +591,7 @@ public class BattlePhase {
 					//Enemy hits hero
 					hit = new Timeline(); 	
 					KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
-					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc));
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc, reviveScene, gameOverScreen));
 					hit.getKeyFrames().add(frameTwo);
 	
 					//Move enemy backward
@@ -611,7 +612,7 @@ public class BattlePhase {
 					//Enemy hits hero
 					hit = new Timeline(); 	
 					KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
-					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc));
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 0, gc, reviveScene, gameOverScreen));
 					hit.getKeyFrames().add(frameTwo);
 	
 					//Move enemy backward
@@ -633,7 +634,7 @@ public class BattlePhase {
 					//Enemy hits hero
 					Timeline hit2 = new Timeline(); 	
 					KeyFrame frameTwo2 = new KeyFrame(Duration.millis(1), ae -> 
-					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 1, gc));
+					hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, 1, gc, reviveScene, gameOverScreen));
 					hit2.getKeyFrames().add(frameTwo2);
 	
 					//Move enemy backward
@@ -654,6 +655,7 @@ public class BattlePhase {
 	/**
 	 * This method is called when an enemy hits the hero. It is unique
 	 * from the hitEnemy method due to different dialogue that appears.
+	 * 
 	 * @param dialogueTwo The second textbox used to update battle info
 	 * @param dialogueThree The third textbox used to update battle info
 	 * @param heroStam The textbox used to display hero health
@@ -661,7 +663,7 @@ public class BattlePhase {
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
-			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc) {
+			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, Scene gameOverScreen) {
 		int attackAmount = allEnemies.get(1).get(i).attack(hero);
 		hero.displayCharacter(gc, false, true); //turn hero red on attack
 
@@ -688,6 +690,15 @@ public class BattlePhase {
 			}
 			if (hero.getCurrentStamina() <= 0) {
 				hero.displayCharacter(gc, true, false);
+			}
+		}
+		
+		// if hero gets killed 
+		if (hero.getCurrentStamina() == 0) {
+			if (hero.isHasRevive() == true) {
+				primaryStage.setScene(reviveScene);;
+			} else {
+				primaryStage.setScene(gameOverScreen);
 			}
 		}
 	}
