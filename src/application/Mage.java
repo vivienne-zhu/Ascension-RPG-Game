@@ -24,10 +24,10 @@ public class Mage extends GameCharacters {
 		setCurrentStamina(getStamina());
 		setMana(400);
 		setLevel(1);
-		setX(10);
-		setY(420);
-		setWidth(200);
-		setHeight(230);
+		setX(50);
+		setY(470);
+		setWidth(160);
+		setHeight(180);
 		setCharacterImage(new Image("mage1.png", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("redmage1.png",getWidth(), getHeight(), false, false));
 		setCharacterImageHeal(new Image("whitemage.png",getWidth(), getHeight(), false, false));
