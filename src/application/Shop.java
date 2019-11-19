@@ -54,7 +54,7 @@ public class Shop {
 					display.setText(this.shopDisplay(hero));
 				} else {
 					quantity.setText("");
-					errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
+					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
 					errorMsg.setVisible(true);
 			}
 			} else {
@@ -117,7 +117,7 @@ public class Shop {
 					hero.setHasRevive(true);
 					display.setText(this.shopDisplay(hero));
 				} else {
-					errorMsg.setText("YOU DO NOT HAVE ENOUGH MONEY");
+					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
 					errorMsg.setVisible(true);
 				}
 			}
