@@ -51,7 +51,7 @@ import java.util.HashMap;
 public class GameGUI extends Application {
 	private boolean isMage;
 	private boolean isWarrior;
-	private boolean isArcher;
+	private boolean isRogue;
 	private GameCharacters hero;
 	private String heroName;
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
@@ -69,7 +69,7 @@ public class GameGUI extends Application {
 	public GameGUI() {
 		isMage = false;
 		isWarrior = false;
-		isArcher = false;
+		isRogue = false;
 		hero = new GameCharacters();
 		allEnemies = new HashMap<Integer, ArrayList<GameCharacters>>();
 		floor = new Floor();
@@ -183,11 +183,11 @@ public class GameGUI extends Application {
 		warriorBtn.setLayoutY(475);
 		warriorBtn.setPrefSize(100, 50);
 		warriorBtn.setFont(Font.font(20));
-		Button archerBtn = new Button("Archer");
-		archerBtn.setLayoutX(600);
-		archerBtn.setLayoutY(550);
-		archerBtn.setPrefSize(100, 50);
-		archerBtn.setFont(Font.font(20));
+		Button rougueBtn = new Button("Rogue");
+		rougueBtn.setLayoutX(600);
+		rougueBtn.setLayoutY(550);
+		rougueBtn.setPrefSize(100, 50);
+		rougueBtn.setFont(Font.font(20));
 
 		//Event handling for when each button is pressed
 		mageBtn.setOnAction(event -> {
@@ -198,8 +198,8 @@ public class GameGUI extends Application {
 			setWarrior(true);
 			getCharName(primaryStage);
 		});
-		archerBtn.setOnAction(event -> {
-			setArcher(true);
+		rougueBtn.setOnAction(event -> {
+			setRogue(true);
 			getCharName(primaryStage);
 		});
 
@@ -212,7 +212,7 @@ public class GameGUI extends Application {
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
 		display.setBackground(startScreen);
-		display.getChildren().addAll(mageBtn, warriorBtn, archerBtn, charOption);
+		display.getChildren().addAll(mageBtn, warriorBtn, rougueBtn, charOption);
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
@@ -306,8 +306,8 @@ public class GameGUI extends Application {
 		} else if (isWarrior == true) {
 			hero = new Warrior();
 			hero.setName(heroName);
-		} else if (isArcher == true) {
-			hero = new Archer();
+		} else if (isRogue == true) {
+			hero = new Rogue();
 			hero.setName(heroName);
 		}
 	}
@@ -710,9 +710,6 @@ public class GameGUI extends Application {
 
 	}
 	
-	public void dead() {
-		
-	}
 
 	/**
 	 * This method creates game over screen when the player loses to the enemy
@@ -938,17 +935,17 @@ public class GameGUI extends Application {
 	}
 
 	/**
-	 * @return the isArcher
+	 * @return the isRogue
 	 */
-	public boolean isArcher() {
-		return isArcher;
+	public boolean isRogue() {
+		return isRogue;
 	}
 
 	/**
-	 * @param isArcher the isArcher to set
+	 * @param isRogue the isRogue to set
 	 */
-	public void setArcher(boolean isArcher) {
-		this.isArcher = isArcher;
+	public void setRogue(boolean isRogue) {
+		this.isRogue = isRogue;
 	}
 
 	/**
