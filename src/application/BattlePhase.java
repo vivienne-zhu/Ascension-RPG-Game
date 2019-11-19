@@ -337,7 +337,7 @@ public class BattlePhase {
 		grid.add(heroName, 0, 0);
 		grid.add(heroStam, 0, 1);
 		grid.add(error, 1, 1);
-		grid.add(itemBag, 1, 2);
+		grid.add(itemBag, 0, 3);
 		if (enemyCount == 1) {
 			grid.add(dialogue, 1, 5);
 			grid.add(dialogueTwo, 1, 6);
@@ -412,6 +412,7 @@ public class BattlePhase {
 		GridPane.setHalignment(chooseEnemyTwoBtn, HPos.CENTER);
 		GridPane.setHalignment(chooseEnemyThreeBtn, HPos.CENTER);
 		GridPane.setHalignment(hbBtn, HPos.CENTER);
+		GridPane.setHalignment(itemBag, HPos.CENTER);
 		
 		//Make gridlines visible - only for development phase
 		grid.setGridLinesVisible(true);
