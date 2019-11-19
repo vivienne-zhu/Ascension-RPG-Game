@@ -695,16 +695,18 @@ public class BattlePhase {
 		
 		// if hero gets killed 
 		if (hero.getCurrentStamina() == 0) {
+		    //use line below to test reviveScene
+		    //hero.setHasRevive(true);
 			if (hero.isHasRevive() == true) {
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
-				KeyFrame frame1 = new KeyFrame(Duration.millis(5000), ae ->  primaryStage.setScene(reviveScene));
+				KeyFrame frame1 = new KeyFrame(Duration.millis(4000), ae ->  primaryStage.setScene(reviveScene));
 				moveOn.getKeyFrames().add(frame1);
 				moveOn.play();
 			} else {
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
-				KeyFrame frame1 = new KeyFrame(Duration.millis(5000), ae ->  primaryStage.setScene(gameOverScreen));
+				KeyFrame frame1 = new KeyFrame(Duration.millis(4000), ae ->  primaryStage.setScene(gameOverScreen));
 				moveOn.getKeyFrames().add(frame1);
 				moveOn.play();
 			}
