@@ -313,8 +313,9 @@ public class GameGUI extends Application {
 	}
 
 	/**
-	 * INCOMPLETE METHOD. This method will control the GUI for full game play. For
-	 * now it houses the possible logic for bring the game to life.
+	 * INCOMPLETE METHOD. This method is the central point for full game play.
+	 * It creates the Pane for each floor of fighting, restores hero stamina, gets 
+	 * ArrayList of enemies for the floor from allEnemies HashMap.
 	 * 
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
@@ -382,7 +383,7 @@ public class GameGUI extends Application {
 		floorNum.setX(600);
 		floorNum.setY(50);
 
-		// TEST - Adding hero and boss images
+		//Adding hero and boss images
 		hero.displayCharacter(gc, false, false,false);
 		allChar.get(0).displayCharacter(gc, false, false,false);
 		for (int i = 1; i < allChar.size(); i++) {
