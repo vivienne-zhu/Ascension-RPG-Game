@@ -336,7 +336,7 @@ public class BattlePhase {
 		//Placements for various textboxes and buttons
 		grid.add(heroName, 0, 0);
 		grid.add(heroStam, 0, 1);
-		grid.add(error, 1, 1);
+		grid.add(error, 0, 4);
 		grid.add(itemBag, 0, 3);
 		if (enemyCount == 1) {
 			grid.add(dialogue, 1, 5);
