@@ -24,8 +24,7 @@ public class Event {
 	 */
 	public void eventHappen() {
 		Random r = new Random();
-		int a = r.nextInt(1); //hard coded to 100% for testing purposes
-		
+		int a = r.nextInt(5); //hard coded to 20%
 		if (a == 0) {
 			this.isEvent = true;			
 		}

@@ -794,7 +794,6 @@ public class GameGUI extends Application {
 		    hero.levelUp();
 		    hero.setXp(0);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + hero.getLevel());
-		    System.out.println("max stam: " + hero.getStamina());
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		    levelUp.setFill(Color.PURPLE);
 		    
