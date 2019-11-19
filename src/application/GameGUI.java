@@ -319,8 +319,6 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
 	public void fullGame(Stage primaryStage) {
-		//GamePlayController gpc = new GamePlayController();
-
 		//Below enemy created for testing purposes
 		//These will not be hard-coded in the future
 		ArrayList<GameCharacters> floorOne = new ArrayList<GameCharacters>();
@@ -350,16 +348,6 @@ public class GameGUI extends Application {
 		//tempEnemies = allEnemies.get(floor.getFloor()); --> get arrayList from enemy hashMap
 
 		// Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
-
-		/*   
-		 *   Logics:
-		 *   	//in enemyTurn --> if hero dies --> GameOver Screen() (REVIVE MECHANICS built into game over screen)
-		 *     //heroTurn -->when all enemies die: Transition page saying player cleared the floor
-		 *     					if floor = 3,6, 9 , shop button active--> Shop scene, w/return button
-		 *     		                      --> else (not floor 3,6,9): continue fighting 
-		 *  			If there is and event-->eventScene tells what event happened & has continueBtn to continue fighting
-		 * If win on floor 10 -->  youWinScreen built in
-		 */
 
 		Scene insideTower = new Scene(towerLevel, 1280, 720);
 		primaryStage.setScene(insideTower);

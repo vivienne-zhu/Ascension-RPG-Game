@@ -39,7 +39,7 @@ public class GameCharacters {
 
 	/**
 	 * The constructor initializes the necessary instance variables to O and false,
-	 * initializes hashMap.
+	 * initializes potionMap, cp, hp, and adds cp and hp to potionMap.
 	 */
 	public GameCharacters() {
 		// Initialize potion map
@@ -88,14 +88,13 @@ public class GameCharacters {
 	 * option to defend.
 	 */
 	public void defend() {
-		// When a game character is attacking, if isDefending = true, attack = 0 or no
-		// effect
 		this.setIsDefending(true);
 	}
 
 	/**
 	 * This method takes in a potion object, lets the character restore their
-	 * stamina, and removes the potion from the potionMap.
+	 * stamina, and removes the potion from the potionMap. It also adds/updates 
+	 * the error message when necessary.
 	 * 
 	 * @param potion Potion item being held by game character (hero or enemy)
 	 */
