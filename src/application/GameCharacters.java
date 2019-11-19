@@ -34,11 +34,12 @@ public class GameCharacters {
 	private double width;
 	private Image characterImage;
 	private Image characterImageHurt;
+	private Image characterImageHeal;
 	private String type;
 
 	/**
 	 * The constructor initializes the necessary instance variables to O and false,
-	 * initializes hashMap.
+	 * initializes potionMap, cp, hp, and adds cp and hp to potionMap.
 	 */
 	public GameCharacters() {
 		// Initialize potion map
@@ -56,6 +57,7 @@ public class GameCharacters {
 		this.y = 0;
 		this.height = 0.0;
 		this.width = 0.0;
+		this.hasRevive = false;
 	}
 
 	/**
@@ -88,14 +90,13 @@ public class GameCharacters {
 	 * option to defend.
 	 */
 	public void defend() {
-		// When a game character is attacking, if isDefending = true, attack = 0 or no
-		// effect
 		this.setIsDefending(true);
 	}
 
 	/**
 	 * This method takes in a potion object, lets the character restore their
-	 * stamina, and removes the potion from the potionMap.
+	 * stamina, and removes the potion from the potionMap. It also adds/updates 
+	 * the error message when necessary.
 	 * 
 	 * @param potion Potion item being held by game character (hero or enemy)
 	 */
@@ -162,13 +163,15 @@ public class GameCharacters {
 	 * 
 	 * @param g GraphicsContext needed to draw the image in the GUI.
 	 */
-	public void displayCharacter(GraphicsContext g, boolean delete, boolean hurt) {
+	public void displayCharacter(GraphicsContext g, boolean delete, boolean hurt, boolean heal) {
 		if (delete) {
 			g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		} else if (hurt) {
 			g.drawImage(getCharacterImageHurt(), getX(), getY());
+		} else if (heal){
+			g.drawImage(getCharacterImageHeal(), getX(), getY());
 		} else {
-			g.drawImage(getCharacterImage(), getX(), getY());
+		    g.drawImage(getCharacterImage(), getX(), getY());
 		}
 	}
 	
@@ -484,5 +487,21 @@ public class GameCharacters {
 	public void setHp(HyperPotion hp) {
 		this.hp = hp;
 	}
+
+	/**
+	 * @return the characterImageHeal
+	 */
+	public Image getCharacterImageHeal() {
+	    return characterImageHeal;
+	}
+
+	/**
+	 * @param characterImageHeal the characterImageHeal to set
+	 */
+	public void setCharacterImageHeal(Image characterImageHeal) {
+	    this.characterImageHeal = characterImageHeal;
+	}
+	
+	
 
 }

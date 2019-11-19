@@ -19,7 +19,7 @@ class GameCharactersTest {
     	// This tests the attack method
 	@Test
 	void attackTest() {
-		Archer legolas = new Archer();
+		Rogue legolas = new Rogue();
 		MeleeEnemy  orc = new MeleeEnemy(2, 0);
 
 		int orcAttack = orc.getAttack();
@@ -32,7 +32,7 @@ class GameCharactersTest {
 	// This tests the defend method with and enemy and hero
 	@Test
 	void defendingTest() {
-		Archer legolas = new Archer();
+		Rogue legolas = new Rogue();
 		MeleeEnemy  orc = new MeleeEnemy(4, 0);
 
 		legolas.defend();

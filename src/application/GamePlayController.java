@@ -1,9 +1,7 @@
 package application;
 
-import javafx.event.ActionEvent;
-
 import java.util.ArrayList;
-import java.util.Random;
+
 
 /**
  * This class is responsible for controlling elements of game play.

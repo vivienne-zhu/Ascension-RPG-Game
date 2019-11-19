@@ -30,6 +30,7 @@ public class Mage extends GameCharacters {
 		setHeight(230);
 		setCharacterImage(new Image("mage1.png", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("redmage1.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("whitemage.png",getWidth(), getHeight(), false, false));
 		setType("Mage");
 	}
 }
