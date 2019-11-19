@@ -630,48 +630,48 @@ public class BattlePhase {
 			if (hero.getCurrentStamina() > 0) {
 			//	final Integer innerI = new Integer(i);
 
-				Timeline timeline = new Timeline();
-				Timeline hit = new Timeline();
-				Timeline timelineTwo = new Timeline();
-				Timeline timeline2 = new Timeline();
-				Timeline hit2 = new Timeline();
-				Timeline timelineTwo2 = new Timeline();
-				Timeline timeline3 = new Timeline();
-				Timeline hit3 = new Timeline();
-				Timeline timelineTwo3 = new Timeline();
+				Timeline posOneForward = new Timeline();
+				Timeline posOneHit = new Timeline();
+				Timeline posOneBackward = new Timeline();
+				Timeline posTwoForward = new Timeline();
+				Timeline posTwoHit = new Timeline();
+				Timeline posTwoBackward = new Timeline();
+				Timeline posThreeForward = new Timeline();
+				Timeline posThreeHit = new Timeline();
+				Timeline posThreeBackward = new Timeline();
 				
 				if (!dead.contains(0)) {
-					enemyMoveTimeline(0, allEnemies, gc, timeline, timeline2, timeline3, timelineTwo, timelineTwo2,
-							timelineTwo3, hit, hit2, hit3, hero, reviveScene, gameOverScreen);
+					enemyMoveTimeline(0, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
+							posThreeBackward, posOneHit, posTwoHit, posThreeHit, hero, reviveScene, gameOverScreen);
 				}
 				if (!dead.contains(1) && (allEnemies.get(floor).size() == 2 || allEnemies.get(floor).size() == 3)) {
-					enemyMoveTimeline(1, allEnemies, gc, timeline, timeline2, timeline3, timelineTwo, timelineTwo2,
-							timelineTwo3, hit, hit2, hit3, hero, reviveScene, gameOverScreen);
+					enemyMoveTimeline(1, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
+							posThreeBackward, posOneHit, posTwoHit, posThreeHit, hero, reviveScene, gameOverScreen);
 				}
 				if (!dead.contains(2) && allEnemies.get(floor).size() == 3) {
-					enemyMoveTimeline(2, allEnemies, gc, timeline, timeline2, timeline3, timelineTwo, timelineTwo2,
-							timelineTwo3, hit, hit2, hit3, hero, reviveScene, gameOverScreen);
+					enemyMoveTimeline(2, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
+							posThreeBackward, posOneHit, posTwoHit, posThreeHit, hero, reviveScene, gameOverScreen);
 				}
 				if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAA
-					SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo, timeline2, hit2, timelineTwo2, timeline3, hit3, timelineTwo3);
+					SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward, posTwoForward, posTwoHit, posTwoBackward, posThreeForward, posThreeHit, posThreeBackward);
 					sequence.play();
 				} else if (!dead.contains(0) && dead.contains(1) && dead.contains(2)) { //DDA
-					SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
+					SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward);
 					sequence.play();
 				} else if (dead.contains(0) && !dead.contains(1) && dead.contains(2)) { //DAD
-					SequentialTransition sequence = new SequentialTransition(timeline2, hit2, timelineTwo2);
+					SequentialTransition sequence = new SequentialTransition(posTwoForward, posTwoHit, posTwoBackward);
 					sequence.play();
 				} else if (dead.contains(0) && dead.contains(1) && !dead.contains(2)) { //ADD
-					SequentialTransition sequence = new SequentialTransition(timeline3, hit3, timelineTwo3);
+					SequentialTransition sequence = new SequentialTransition(posThreeForward, posThreeHit, posThreeBackward);
 					sequence.play();
 				} else if (!dead.contains(0) && !dead.contains(1) && dead.contains(2)) { //DAA
-					SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo, timeline2, hit2, timelineTwo2);
+					SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward, posTwoForward, posTwoHit, posTwoBackward);
 					sequence.play();
 				} else if (dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAD
-					SequentialTransition sequence = new SequentialTransition(timeline2, hit2, timelineTwo2, timeline3, hit3, timelineTwo3);
+					SequentialTransition sequence = new SequentialTransition(posTwoForward, posTwoHit, posTwoBackward, posThreeForward, posThreeHit, posThreeBackward);
 					sequence.play();
 				} else if (!dead.contains(0) && dead.contains(1) && !dead.contains(2)) { //ADA
-					SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo, timeline3, hit3, timelineTwo3);
+					SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward, posThreeForward, posThreeHit, posThreeBackward);
 					sequence.play();
 				}
 			}
@@ -684,52 +684,52 @@ public class BattlePhase {
 	 * @param position Integer position (0 is right most)
 	 * @param allEnemies HashMap of all Enemies
 	 * @param gc GraphicsContext to draw and redraw enemies
-	 * @param timeline Timeline to move 0th enemy to hero
-	 * @param timeline2 Timeline to move 1st enemy to hero
-	 * @param timeline3 Timeline to move 2nd enemy to hero
-	 * @param timelineTwo Timeline to move 0th enemy back
-	 * @param timelineTwo2 Timeline to move 1st enemy back
-	 * @param timelineTwo3 Timeline to move 2nd enemy back
-	 * @param hit Timeline to let 0th enemy hit hero
-	 * @param hit2 Timeline to let 1st enemy hit hero
-	 * @param hit3 Timeline to let 2nd enemy hit hero
+	 * @param posOneForward Timeline to move 0th enemy to hero
+	 * @param posTwoForward Timeline to move 1st enemy to hero
+	 * @param posThreeForward Timeline to move 2nd enemy to hero
+	 * @param posOneBackward Timeline to move 0th enemy back
+	 * @param posTwoBackward Timeline to move 1st enemy back
+	 * @param posThreeBackward Timeline to move 2nd enemy back
+	 * @param posOneHit Timeline to let 0th enemy hit hero
+	 * @param posTwoHit Timeline to let 1st enemy hit hero
+	 * @param posThreeHit Timeline to let 2nd enemy hit hero
 	 * @param hero Player controlled hero GameCharacters
 	 * @param reviveScene Scene to show revive option
 	 * @param gameOverScreen Scene to show game over
 	 */
 	public void enemyMoveTimeline(int position, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc,
-			Timeline timeline, Timeline timeline2, Timeline timeline3, Timeline timelineTwo, Timeline timelineTwo2, 
-			Timeline timelineTwo3, Timeline hit, Timeline hit2, Timeline hit3,
+			Timeline posOneForward, Timeline posTwoForward, Timeline posThreeForward, Timeline posOneBackward, Timeline posTwoBackward, 
+			Timeline posThreeBackward, Timeline posOneHit, Timeline posTwoHit, Timeline posThreeHit,
 			GameCharacters hero, Scene reviveScene, Scene gameOverScreen) {
 		//Move enemy forward and backwards
-		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, false,
+		KeyFrame moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, false,
 				allEnemies, floor));
-		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, true,
+		KeyFrame moveBackward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, true,
 				allEnemies, floor));
 		//Enemy hits hero	
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
 		hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen));
 		if (position == 0) {
-			timeline.setCycleCount(745);
-			timeline.getKeyFrames().add(frame);
-			timelineTwo.setCycleCount(745);
-			timelineTwo.getKeyFrames().add(frameThree);
-			hit.getKeyFrames().add(frameTwo);
+			posOneForward.setCycleCount(745);
+			posOneForward.getKeyFrames().add(moveForward);
+			posOneBackward.setCycleCount(745);
+			posOneBackward.getKeyFrames().add(moveBackward);
+			posOneHit.getKeyFrames().add(frameTwo);
 		} else if (position == 1) {
-			timeline2.setCycleCount(500);
-			timeline2.getKeyFrames().add(frame);
-			timelineTwo2.setCycleCount(500);
-			timelineTwo2.getKeyFrames().add(frameThree);
-			hit2.getKeyFrames().add(frameTwo);
+			posTwoForward.setCycleCount(500);
+			posTwoForward.getKeyFrames().add(moveForward);
+			posTwoBackward.setCycleCount(500);
+			posTwoBackward.getKeyFrames().add(moveBackward);
+			posTwoHit.getKeyFrames().add(frameTwo);
 		} else { 
-			timeline3.setCycleCount(240);
-			timeline3.getKeyFrames().add(frame);
-			timelineTwo3.setCycleCount(240);
-			timelineTwo3.getKeyFrames().add(frameThree);
-			hit3.getKeyFrames().add(frameTwo);
+			posThreeForward.setCycleCount(240);
+			posThreeForward.getKeyFrames().add(moveForward);
+			posThreeBackward.setCycleCount(240);
+			posThreeBackward.getKeyFrames().add(moveBackward);
+			posThreeHit.getKeyFrames().add(frameTwo);
 		}
 	}
-	
+
 	/**
 	 * This method is called when an enemy hits the hero. It is unique
 	 * from the hitEnemy method due to different dialogue that appears.
