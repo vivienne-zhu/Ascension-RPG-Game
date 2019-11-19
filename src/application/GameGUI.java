@@ -1,10 +1,7 @@
 package application;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.FillTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,7 +24,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -37,7 +32,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -324,7 +319,7 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
 	public void fullGame(Stage primaryStage) {
-		GamePlayController gpc = new GamePlayController();
+		//GamePlayController gpc = new GamePlayController();
 
 		//Below enemy created for testing purposes
 		//These will not be hard-coded in the future
