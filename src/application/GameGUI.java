@@ -55,7 +55,7 @@ public class GameGUI extends Application {
 	private GameCharacters hero;
 	private String heroName;
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
-	private int totalCount;
+	private int totalEnemyHealth;
 	private Floor floor;
 	private Shop shop;
 	private Event event;
@@ -323,23 +323,41 @@ public class GameGUI extends Application {
 
 		//Below enemy created for testing purposes
 		//These will not be hard-coded in the future
-		ArrayList<GameCharacters> floorOne = new ArrayList<GameCharacters>();
-		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
-		floorOne.add(orc);
-		MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
-		floorOne.add(dummy);
-		allEnemies.put(1, floorOne);
 
-		ArrayList<GameCharacters> floorTwo = new ArrayList<GameCharacters>();
-		MeleeEnemy orcTwo = new MeleeEnemy(floor.getFloor(), 0);
-		floorTwo.add(orcTwo);
-		//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
-		//	floorTwo.add(dummyTwo);
-		allEnemies.put(2, floorTwo);
+//		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
+//		floorOne.add(orc);
+//		MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
+//		floorOne.add(dummy);
+//		MeleeEnemy dummy2 = new MeleeEnemy(floor.getFloor(), 2);
+//		floorOne.add(dummy2);
+//		allEnemies.put(1, floorOne);
+//
+//
+//
+//		ArrayList<GameCharacters> floorTwo = new ArrayList<GameCharacters>();
+//		MeleeEnemy orcTwo = new MeleeEnemy(floor.getFloor(), 0);
+//		floorTwo.add(orcTwo);
+//		//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
+//		//	floorTwo.add(dummyTwo);
+//		allEnemies.put(2, floorTwo);
 		
-		totalCount = allEnemies.get(floor.getFloor()).size();
-
-		hero.setCurrentStamina(hero.getStamina());
+		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
+		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
+		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
+		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
+		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 2));
+		}
+		allEnemies.put(floor.getFloor(), floorEnemies);
+		totalEnemyHealth = 0;
+		for (int i = 0; i < floorEnemies.size(); i++) {
+			totalEnemyHealth += floorEnemies.get(i).getCurrentStamina();
+		}
 
 		// Creation of pane -->currently here for GUI testing
 		//System.out.println(allEnemies.get(0));
@@ -386,7 +404,7 @@ public class GameGUI extends Application {
 	 * @return The Pane containing all the graphical elements needed for fights
 	 *         inside the Tower.
 	 */
-	public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> allChar) {
+	public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
 		Pane towerLevels = new Pane();
 
 		// To display the background for the floor
@@ -408,15 +426,16 @@ public class GameGUI extends Application {
 
 		// TEST - Adding hero and boss images
 		hero.displayCharacter(gc, false, false);
-		allChar.get(0).displayCharacter(gc, false, false);
-		for (int i = 1; i < allChar.size(); i++) {
-			allChar.get(i).displayCharacter(gc, false, false);
+		
+		for (int i = 0; i < floorCopy.size(); i++) {
+			floorCopy.get(i).displayCharacter(gc, false, false);
 		}
-		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor());
+
+		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.dispDialogue();
 		battle.initButtons();
-		battle.eventButtons(allEnemies, hero, gc, totalCount, transitionScreen(primaryStage), youWinScreen(primaryStage));
+		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
 		// Setting Background for Pane, adding grid to Pane 
@@ -787,20 +806,24 @@ public class GameGUI extends Application {
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 	
 		Text xpGained = new Text();
-		int xp = 100 + (int) (Math.random() * ((6) + 1) * floor.getFloor());
+		int xp = 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
 		hero.setXp(hero.getXp()+ xp);
 		xpGained.setText("You gained " + xp + " xp! Xp = " + hero.getXp());
 		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
-	
-		if (hero.getXp() > 300) {
+		if (hero.getXp() > (50 + hero.getLevel() * 80)) {
 		    hero.levelUp();
-		    hero.setXp(hero.getXp() - 300);
+		    hero.setXp(0);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + hero.getLevel());
+		    System.out.println("max stam: " + hero.getStamina());
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		    levelUp.setFill(Color.PURPLE);
+		    
+		    //gain 20% health back, gonna move this back to levelUp method later, not sure why it doesnt work in there - david
+			int missingHealth = hero.getStamina() - hero.getCurrentStamina();
+			hero.setCurrentStamina(hero.getCurrentStamina() + (int) (missingHealth * 0.2));
 		    
 		}
 		
