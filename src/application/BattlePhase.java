@@ -310,86 +310,17 @@ public class BattlePhase {
 
 		// Actions to take after button to choose enemy is chosen
 		chooseEnemyBtn.setOnAction(event -> {
-			Timeline timeline = new Timeline(); 
-			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 0, gc, primaryStage, transition, youWin)); // hardcode first minion
-			timeline.getKeyFrames().add(frame);
-			Timeline timelineTwo = new Timeline();
-			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen));
-			timelineTwo.getKeyFrames().add(frameTwo);
-			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
-			sequence.play();
-
-			//Enable buttons after 2 seconds per enemy
-			Timeline enable = new Timeline(); 
-			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn));
-			enable.getKeyFrames().add(frameEnable);
-			enable.play();
-
-			chooseEnemyBtn.setVisible(false);
-			chooseEnemyTwoBtn.setVisible(false);
-			chooseEnemyThreeBtn.setVisible(false);
+			chooseEnemyBtnEvent(0, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc);
 		});
 		
 		// Actions to take after button to choose enemy is chosen
 		chooseEnemyTwoBtn.setOnAction(event -> {
-			Timeline timeline = new Timeline(); 
-			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 1, gc, primaryStage, transition, youWin)); // hardcode second minion
-			timeline.getKeyFrames().add(frame);
-			Timeline timelineTwo = new Timeline();
-			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen));
-			timelineTwo.getKeyFrames().add(frameTwo);
-			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
-			sequence.play();
-
-			//Enable buttons after 2 seconds per enemy
-			Timeline enable = new Timeline(); 
-			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn));
-			enable.getKeyFrames().add(frameEnable);
-			enable.play();
-
-			chooseEnemyBtn.setVisible(false);
-			chooseEnemyTwoBtn.setVisible(false);
-			chooseEnemyThreeBtn.setVisible(false);
+			chooseEnemyBtnEvent(1, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc);
 		});
 		
 		// Actions to take after button to choose enemy is chosen
 		chooseEnemyThreeBtn.setOnAction(event -> {
-			Timeline timeline = new Timeline(); 
-			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, 2, gc, primaryStage, transition, youWin)); // hardcode second minion
-			timeline.getKeyFrames().add(frame);
-			Timeline timelineTwo = new Timeline();
-			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen));
-			timelineTwo.getKeyFrames().add(frameTwo);
-			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
-			sequence.play();
-
-			//Enable buttons after 3 seconds per enemy
-			Timeline enable = new Timeline(); 
-			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn));
-			enable.getKeyFrames().add(frameEnable);
-			enable.play();
-
-			chooseEnemyBtn.setVisible(false);
-			chooseEnemyTwoBtn.setVisible(false);
-			chooseEnemyThreeBtn.setVisible(false);
+			chooseEnemyBtnEvent(2, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc);
 		});
 	}
 
@@ -486,6 +417,38 @@ public class BattlePhase {
 		grid.setGridLinesVisible(true);
 		
 		return grid;
+	}
+	
+	/**
+	 * This method covers the events that occur after pressing a chooseEnemyBtn.
+	 * @param enemy The index of the enemy to be attacked
+	 */
+	public void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
+			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc) {
+		Timeline timeline = new Timeline(); 
+		timeline.setCycleCount(1);
+		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
+				dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin));
+		timeline.getKeyFrames().add(frame);
+		Timeline timelineTwo = new Timeline();
+		timelineTwo.setCycleCount(1);
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
+				dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen));
+		timelineTwo.getKeyFrames().add(frameTwo);
+		SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
+		sequence.play();
+
+		//Enable buttons after 2 seconds per enemy
+		Timeline enable = new Timeline(); 
+		enable.setCycleCount(1);
+		KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+		disableButtons(false, attackBtn, healBtn, defendBtn));
+		enable.getKeyFrames().add(frameEnable);
+		enable.play();
+
+		chooseEnemyBtn.setVisible(false);
+		chooseEnemyTwoBtn.setVisible(false);
+		chooseEnemyThreeBtn.setVisible(false);
 	}
 
 	/**
