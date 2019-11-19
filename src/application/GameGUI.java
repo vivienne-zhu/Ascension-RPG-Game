@@ -416,7 +416,7 @@ public class GameGUI extends Application {
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.dispDialogue();
 		battle.initButtons();
-		battle.eventButtons(allEnemies, hero, gc, shop, totalCount, transitionScreen(primaryStage), youWinScreen(primaryStage));
+		battle.eventButtons(allEnemies, hero, gc, totalCount, transitionScreen(primaryStage), youWinScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size());
 
 		// Setting Background for Pane, adding grid to Pane 
@@ -842,9 +842,9 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
-			shopBtn.setDisable(true);
-		} 		
+//		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
+//			shopBtn.setDisable(true);
+//		} 		
 		shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
 		

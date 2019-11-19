@@ -9,10 +9,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -35,9 +37,11 @@ public class BattlePhase {
 	private Button attackBtn;
 	private Button defendBtn;
 	private Button healBtn;
+	private VBox itemBag;
 	private HBox hbBtn;
 	private Button chooseEnemyBtn;
 	private Button chooseEnemyTwoBtn;
+	private Text error;
 	private Text dialogue;
 	private Text dialogueTwo;
 	private Text dialogueThree;
@@ -116,6 +120,7 @@ public class BattlePhase {
 		defendBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		this.healBtn = new Button("Heal");
 		healBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		
 		this.hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.CENTER);
 		hbBtn.getChildren().addAll(attackBtn, defendBtn, healBtn);
@@ -129,6 +134,63 @@ public class BattlePhase {
 		chooseEnemyTwoBtn.setVisible(false);
 	}
 	
+	
+	/**
+	 * This method handles the heal function in the battle phase. 
+	 * 
+	 * @param hero
+	 */
+	public void healFunction(GameCharacters hero) {
+		this.itemBag = new VBox();		
+		itemBag.setMaxWidth(200);
+				
+		// Error message 
+		this.error = new Text("you can't see me");
+		this.error.setStyle(" -fx-font: normal bold 18px 'serif';  ");
+		this.error.setVisible(false);
+		this.error.setFill(Color.WHITE);
+		
+		// cheap potion button
+		String btnInfo1 = hero.itemInfo(hero.getCp());	
+		Button potionBtn = new Button(btnInfo1);
+		potionBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+
+		potionBtn.setMaxWidth(200);
+		potionBtn.setOnAction(event -> {
+			hero.usePotion(hero.getCp(), this.error);
+			heroStam.setText("Stamina: " + hero.getCurrentStamina());
+			potionBtn.setText(hero.itemInfo(hero.getCp()));
+		});
+		
+		// hyper potion button 
+		String btnInfo2 = hero.itemInfo(hero.getHp());		
+		Button hyperPotionBtn = new Button(btnInfo2);
+		hyperPotionBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+		hyperPotionBtn.setMaxWidth(200);
+		hyperPotionBtn.setOnAction(event -> {
+			hero.usePotion(hero.getHp(), this.error);
+			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
+			heroStam.setText("Stamina: " + hero.getCurrentStamina());
+		});
+		
+		// revive button 
+		String btnInfo3 = "Revive:\t";
+		if (hero.isHasRevive() == true) {
+			btnInfo3 += "1.0";
+		} else {
+			btnInfo3 += "0.0";
+		}
+		Button reviveBtn = new Button(btnInfo3);	
+		reviveBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+		reviveBtn.setMaxWidth(200);
+		reviveBtn.setDisable(true);
+		
+		// set background
+		itemBag.setStyle("-fx-background-color: gainsboro");
+		itemBag.getChildren().addAll(potionBtn, hyperPotionBtn, reviveBtn);
+		itemBag.setVisible(false);
+		
+	}
 
 	/**
 	 * This method attaches the proper events to button clicks. Namely it gives action
@@ -137,9 +199,12 @@ public class BattlePhase {
 	 * @param hero The character the player controls
 	 * @param gc The GraphicsContext used to delete and draw pictures to canvas
 	 */
-	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, Shop shop, int totalCount, Scene transition, Scene youWin) {
+	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, GraphicsContext gc, int totalCount, Scene transition, Scene youWin) {
 		//Event handling for when attack button is pressed
 		attackBtn.setOnAction(event -> {
+			itemBag.setVisible(false);
+			error.setVisible(false);
+			
 			disableButtons(true, attackBtn, healBtn, defendBtn);
 			hero.setIsDefending(false);
 			if (allEnemies.get(floor).size() > 1) {
@@ -156,6 +221,9 @@ public class BattlePhase {
 		
 		//Event handling for when defend button is pressed
 		defendBtn.setOnAction(event -> {
+			itemBag.setVisible(false);
+			error.setVisible(false);
+			
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
 			gc.drawImage(defendIcon, 100, 280); //draw defend icon
 			disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
@@ -179,8 +247,9 @@ public class BattlePhase {
 		});
 
 		//Event handling for when heal button is pressed
+		this.healFunction(hero);
 		healBtn.setOnAction(event -> {
-
+			this.itemBag.setVisible(true);			
 		});
 
 		// Actions to take after button to choose enemy is chosen
@@ -250,6 +319,8 @@ public class BattlePhase {
 		//Placements for various textboxes and buttons
 		grid.add(heroName, 0, 0);
 		grid.add(heroStam, 0, 1);
+		grid.add(error, 1, 1);
+		grid.add(itemBag, 1, 2);
 		grid.add(dialogue, 1, 5);
 		grid.add(dialogueTwo, 1, 6);
 		grid.add(dialogueThree, 1, 7);

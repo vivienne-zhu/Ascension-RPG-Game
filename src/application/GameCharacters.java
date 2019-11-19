@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 
 /**
  * This class represents the parent class for all characters in the game (both
@@ -96,10 +97,23 @@ public class GameCharacters {
 	 * 
 	 * @param potion Potion item being held by game character (hero or enemy)
 	 */
-	public void usePotion(Potion potion) {
+	public void usePotion(Potion potion, Text error) {
 		if (getPotionMap().get(potion) > 0) {
-			setCurrentStamina(currentStamina + potion.getRestorePoint());
-			getPotionMap().put(potion, getPotionMap().get(potion) - 1);
+			if (getCurrentStamina() == getStamina()) {
+				error.setVisible(true);
+				error.setText("YOU HAVE REACHED THE MAX STAMINA");
+			} else if (getCurrentStamina() + potion.getRestorePoint() > getStamina()) {
+				error.setVisible(false);
+				setCurrentStamina(getStamina());
+				getPotionMap().put(potion, getPotionMap().get(potion) - 1);
+			} else {
+				error.setVisible(false);
+				setCurrentStamina(currentStamina + potion.getRestorePoint());
+				getPotionMap().put(potion, getPotionMap().get(potion) - 1);
+			}
+		} else {
+			error.setVisible(true);
+			error.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 		}
 	}
 
@@ -153,7 +167,20 @@ public class GameCharacters {
 			g.drawImage(getCharacterImage(), getX(), getY());
 		}
 	}
-
+	
+	/**
+	 * This method returns a string that includes the name of the item and the quantity of the item
+	 * hero currently possesses.
+	 *  
+	 * @return 
+	 */
+	public String itemInfo(Potion potion) {
+		String itemInfo = "";
+		
+		itemInfo = potion.toString() + "\t" + this.potionMap.get(potion).toString();
+		return itemInfo;
+	}
+	
 	/**
 	 * 
 	 * @return x x value of the game character image.
