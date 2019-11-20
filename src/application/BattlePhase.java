@@ -699,7 +699,6 @@ public class BattlePhase {
 			if (hero.getXp() >= (50 + hero.getLevel() * 80)) {
 			    hero.levelUp();
 			    hero.setXp(0);
-			    hero.setLeveledThisTurn(true);
 			}
 			if (floor < 10) {
 			    Timeline moveOn = new Timeline();

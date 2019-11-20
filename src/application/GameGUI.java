@@ -829,7 +829,6 @@ public class GameGUI extends Application {
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		    levelUp.setFill(Color.PURPLE);
 		    xpCount = 0;
-		    hero.setLeveledThisTurn(false);
 		}
 		
 		//Creating VBox for user update text on gold and xp gained
