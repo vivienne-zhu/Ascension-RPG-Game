@@ -23,6 +23,7 @@ public class Mage extends GameCharacters {
 		setStamina(400);
 		setCurrentStamina(getStamina());
 		setMana(400);
+		setCurrentMana(getMana());
 		setMagicAtk(150);
 		setLevel(1);
 		setX(50);

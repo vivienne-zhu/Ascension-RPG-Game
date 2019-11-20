@@ -39,6 +39,7 @@ public class BattlePhase {
 	private Button attackBtn;
 	private Button defendBtn;
 	private Button healBtn;
+	private Button magicAtkBtn;
 	private VBox itemBag;
 	private HBox hbBtn;
 	private Button chooseEnemyBtn;
@@ -49,6 +50,7 @@ public class BattlePhase {
 	private Text dialogueTwo;
 	private Text dialogueThree;
 	private Text heroStam;
+	private Text heroMana;
 	private Text enemyStam;
 	private Text enemyTwoStam;
 	private Text enemyThreeStam;
@@ -129,7 +131,7 @@ public class BattlePhase {
 	/**
 	 * This method will create the necessary action buttons during the battle phase
 	 */
-	public void initButtons() {
+	public void initButtons(GameCharacters hero) {
 
 		// Creating buttons for player to fight enemies
 		this.attackBtn = new Button("Attack");
@@ -139,6 +141,18 @@ public class BattlePhase {
 		defendBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		this.healBtn = new Button("Heal");
 		healBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		this.magicAtkBtn = new Button("Magic Atk");
+		magicAtkBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		magicAtkBtn.setVisible(false);
+		if(hero.getType().equals("Mage") && hero.getMana() > 50) {
+		    magicAtkBtn.setVisible(true);
+		    heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
+		    heroMana.setFill(Color.GREEN);
+		    heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		} else if(hero.getType().equals("Mage") && hero.getMana() < 50) {
+		    magicAtkBtn.setDisable(true);
+		}
+		
 		
 		this.hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.CENTER);
@@ -257,7 +271,36 @@ public class BattlePhase {
 			itemBag.setVisible(false);
 			error.setVisible(false);
 			
-			disableButtons(true, attackBtn, healBtn, defendBtn);
+			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn);
+			hero.setIsDefending(false);
+			if (dead.contains(1) && dead.contains(2)) {
+				chooseEnemyBtn.setVisible(true);
+			} else if (dead.contains(0) && dead.contains(2)) {
+				chooseEnemyTwoBtn.setVisible(true);
+			} else if (dead.contains(0) && dead.contains(1)) {
+				chooseEnemyThreeBtn.setVisible(true);
+			} else if (dead.contains(0)) {
+				chooseEnemyTwoBtn.setVisible(true);
+				chooseEnemyThreeBtn.setVisible(true);
+			} else if (dead.contains(1)) {
+				chooseEnemyBtn.setVisible(true);
+				chooseEnemyThreeBtn.setVisible(true);
+			} else if (dead.contains(2)) {
+				chooseEnemyBtn.setVisible(true);
+				chooseEnemyTwoBtn.setVisible(true);
+			} else {
+				chooseEnemyBtn.setVisible(true);
+				chooseEnemyTwoBtn.setVisible(true);
+				chooseEnemyThreeBtn.setVisible(true);
+			}
+			
+		});
+		
+		magicAtkBtn.setOnAction(event ->{
+			itemBag.setVisible(false);
+			error.setVisible(false);
+			
+			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn);
 			hero.setIsDefending(false);
 			if (dead.contains(1) && dead.contains(2)) {
 				chooseEnemyBtn.setVisible(true);
@@ -289,14 +332,14 @@ public class BattlePhase {
 			
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
 			gc.drawImage(defendIcon, 100, 280); //draw defend icon
-			disableButtons(true, attackBtn, healBtn, defendBtn); //disable buttons
+			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn); //disable buttons
 			hero.setIsDefending(true);
 			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn));
+			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
 
@@ -336,7 +379,7 @@ public class BattlePhase {
 	 * like character name, character health, the three dialogue boxes, and various buttons
 	 * @return The GridPane itself so it can be used in GameGUI.java
 	 */
-	public GridPane gridLayout(int enemyCount) {
+	public GridPane gridLayout(int enemyCount, GameCharacters hero) {
 		// Adding all nodes to grid
 		GridPane grid = new GridPane();
 		
@@ -345,6 +388,10 @@ public class BattlePhase {
 		grid.add(heroStam, 0, 1);
 		grid.add(error, 0, 4);
 		grid.add(itemBag, 0, 3);
+		grid.add(magicAtkBtn, 1, 2);
+		if(hero.getType().equals("Mage")) {
+		    grid.add(heroMana, 1, 1);
+		}
 		if (enemyCount == 1) {
 			grid.add(dialogue, 1, 5);
 			grid.add(dialogueTwo, 1, 6);
@@ -509,7 +556,7 @@ public class BattlePhase {
 		Timeline enable = new Timeline(); 
 		enable.setCycleCount(1);
 		KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-		disableButtons(false, attackBtn, healBtn, defendBtn));
+		disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
 		enable.getKeyFrames().add(frameEnable);
 		enable.play();
 
@@ -891,9 +938,10 @@ public class BattlePhase {
 	 * @param healBtn Button to use item
 	 * @param defendBtn Button to defend
 	 */
-	public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn) {
+	public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn, Button magicAtkBtn) {
 		attackBtn.setDisable(disable);
 		healBtn.setDisable(disable);
 		defendBtn.setDisable(disable);
+		magicAtkBtn.setDisable(disable);
 	}
 }

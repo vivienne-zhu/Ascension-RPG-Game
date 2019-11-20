@@ -25,6 +25,7 @@ public class GameCharacters {
     private double gold;
     private int xp;
     private int mana;
+    private int currentMana;
     private int level;
     private HashMap<Potion, Double> potionMap;
     private CheapPotion cp;
@@ -95,7 +96,7 @@ public class GameCharacters {
     public int magicAttack(GameCharacters character) {
 	setIsDefending(false);
 	int attackValue = this.getMagicAtk() - character.getDefense();
-	this.setMana(getMana() - 50);
+	this.setCurrentMana(getCurrentMana() - 50);
 	if (character.getType().equals("Melee")) { // Add other type advantage here
 	    attackValue = (int) (attackValue * 1.2);
 	}
@@ -545,6 +546,20 @@ public class GameCharacters {
      */
     public void setMagicAtk(int magicAtk) {
         this.magicAtk = magicAtk;
+    }
+
+    /**
+     * @return the currentMana
+     */
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    /**
+     * @param currentMana the currentMana to set
+     */
+    public void setCurrentMana(int currentMana) {
+        this.currentMana = currentMana;
     }
     
     
