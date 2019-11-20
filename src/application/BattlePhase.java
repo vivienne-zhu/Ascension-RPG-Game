@@ -93,6 +93,11 @@ public class BattlePhase {
 		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina());
 		enemyStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		enemyStam.setFill(Color.DARKRED);
+		if (hero.getType().equals("Mage")) {
+		    heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
+		    heroMana.setFill(Color.GREEN);
+		    heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		}
 		
 		if (allEnemies.get(floor).size() > 1) {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
@@ -146,9 +151,6 @@ public class BattlePhase {
 		magicAtkBtn.setVisible(false);
 		if(hero.getType().equals("Mage") && hero.getMana() > 50) {
 		    magicAtkBtn.setVisible(true);
-		    heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
-		    heroMana.setFill(Color.GREEN);
-		    heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		} else if(hero.getType().equals("Mage") && hero.getMana() < 50) {
 		    magicAtkBtn.setDisable(true);
 		}
