@@ -82,7 +82,7 @@ public class BattlePhase {
 		heroName = new Text(hero.getType() + ": " + hero.getName());
 		heroName.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		heroName.setFill(Color.DODGERBLUE);
-		heroStam = new Text("Stamina: " + hero.getCurrentStamina());
+		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		heroStam.setFill(Color.DODGERBLUE);
 		heroStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
@@ -180,7 +180,7 @@ public class BattlePhase {
 		potionBtn.setMaxWidth(200);
 		potionBtn.setOnAction(event -> {
 			hero.usePotion(hero.getCp(), this.error);
-			heroStam.setText("Stamina: " + hero.getCurrentStamina());
+			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 			potionBtn.setText(hero.itemInfo(hero.getCp()));
 			if (this.error.isVisible() == false) {
 			    Timeline timeline = new Timeline(); 
@@ -207,7 +207,7 @@ public class BattlePhase {
 		hyperPotionBtn.setOnAction(event -> {
 			hero.usePotion(hero.getHp(), this.error);
 			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
-			heroStam.setText("Stamina: " + hero.getCurrentStamina());
+			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 			if (this.error.isVisible() == false) {
 			    Timeline timeline = new Timeline(); 
 			    timeline.setCycleCount(1);
@@ -225,20 +225,20 @@ public class BattlePhase {
 		});
 		
 		// revive button 
-//		String btnInfo3 = "Revive:\t";
-//		if (hero.isHasRevive() == true) {
-//			btnInfo3 += "1.0";
-//		} else {
-//			btnInfo3 += "0.0";
-//		}
-//		Button reviveBtn = new Button(btnInfo3);	
-//		reviveBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
-//		reviveBtn.setMaxWidth(200);
-//		reviveBtn.setDisable(true);
+		String btnInfo3 = "Revive:\t";
+		if (hero.isHasRevive() == true) {
+			btnInfo3 += "1.0";
+		} else {
+			btnInfo3 += "0.0";
+		}
+		Button reviveBtn = new Button(btnInfo3);	
+		reviveBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+		reviveBtn.setMaxWidth(200);
+		reviveBtn.setDisable(true);
 		
 		// set background
 		itemBag.setStyle("-fx-background-color: gainsboro");
-		itemBag.getChildren().addAll(potionBtn, hyperPotionBtn);//reviveBtn
+		itemBag.getChildren().addAll(potionBtn, hyperPotionBtn, reviveBtn);
 		itemBag.setVisible(false);
 		
 	}
@@ -849,7 +849,7 @@ public class BattlePhase {
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
 
-		heroStam.setText("Stamina: " + hero.getCurrentStamina());
+		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		if (hero.isDefending()) {
 			dialogueTwo.setText("You took " + attackAmount + " damage!");
 		} else {
@@ -869,8 +869,6 @@ public class BattlePhase {
 		
 		// if hero gets killed 
 		if (hero.getCurrentStamina() == 0) {
-		    //Line below used to test reviveScene, will be removed later
-		    hero.setHasRevive(true);
 			if (hero.isHasRevive() == true) {
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
