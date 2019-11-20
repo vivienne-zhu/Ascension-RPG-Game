@@ -664,6 +664,71 @@ public class GameGUI extends Application {
 		primaryStage.show();
 		
 	}
+	
+	/**
+	 * This method creates a transition scene after death if the player has a revive
+	 * 
+	 * @param primaryStage The primary stage or window of the GUI
+	 */
+	public Scene reviveScene(Stage primaryStage) {
+	    //Creating text for the page
+	    Text reviveOption = new Text();
+	    reviveOption.setText("Would you like to use a revive?");
+	    reviveOption.setX(100);
+	    reviveOption.setY(200);
+	    reviveOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+	    reviveOption.setFill(Color.WHITE);
+	    DropShadow ds = new DropShadow();
+	    ds.setColor(Color.WHITE);
+	    reviveOption.setEffect(ds);
+	    
+	    //Adding image of revive 
+	    ImageView revive = new ImageView(shop.getReviveImage());
+	    revive.setLayoutX(550);
+	    revive.setLayoutY(300);
+	    DropShadow ds1 = new DropShadow();
+	    ds1.setColor(Color.PURPLE);
+	    revive.setEffect(ds1);
+	    
+	    
+	    //Creating buttons and adding event handling
+	    Button reviveBtn = new Button("Use revive");
+	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	    reviveBtn.setOnAction(event-> {hero.revive();
+		fullGame(primaryStage);
+		});
+	    
+	    Button exitBtn = new Button("Don't use revive");
+	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
+		});
+	    
+	    //Creating HBox, adding nodes and style
+	    HBox hbBtn = new HBox(10);
+	    hbBtn.getChildren().addAll(reviveBtn, exitBtn);
+	    hbBtn.setLayoutX(500);
+	    hbBtn.setLayoutY(550);
+	    hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+	    
+	    //Creating Pane, adding nodes and style
+	    Pane display = new Pane();
+	    display.getChildren().addAll(reviveOption, hbBtn, revive);
+	
+	    // Set background 
+	 	Image tower = new Image("pixelBack.png");
+	 	BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+	 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+	 	Background towerBackground = new Background(background);
+	 	display.setBackground(towerBackground);
+
+
+	    //Adding Pane to Scene and Scene to Stage
+	    Scene reviveScene = new Scene(display, 1280, 720);
+	    reviveScene.setFill(Color.ROYALBLUE);
+	    primaryStage.setScene(reviveScene);
+	    primaryStage.show();
+	    return reviveScene;	    
+	}
 
 	/**
 	 * This method creates screen when the player wins the game
@@ -881,73 +946,6 @@ public class GameGUI extends Application {
 		Scene transition = new Scene(display, 1280, 720);
 		transition.setFill(Color.GREY);
 		return transition;
-	}
-	
-	/**
-	 * This method creates a transition scene after death if the player has a revive
-	 * 
-	 * @param primaryStage The primary stage or window of the GUI
-	 */
-	public Scene reviveScene(Stage primaryStage) {
-	    //Creating text for the page
-	    Text reviveOption = new Text();
-	    reviveOption.setText("Would you like to use a revive?");
-	    reviveOption.setX(100);
-	    reviveOption.setY(200);
-	    reviveOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
-	    reviveOption.setFill(Color.WHITE);
-	    DropShadow ds = new DropShadow();
-	    ds.setColor(Color.WHITE);
-	    reviveOption.setEffect(ds);
-	    
-	    //Adding image of revive 
-	    ImageView revive = new ImageView(shop.getReviveImage());
-	    revive.setLayoutX(550);
-	    revive.setLayoutY(300);
-	    DropShadow ds1 = new DropShadow();
-	    ds1.setColor(Color.PURPLE);
-	    revive.setEffect(ds1);
-	    
-	    
-	    //Creating buttons and adding event handling
-	    Button reviveBtn = new Button("Use revive");
-	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	    reviveBtn.setOnAction(event-> {hero.revive();
-		fullGame(primaryStage);
-		});
-	    
-	    Button exitBtn = new Button("Don't use revive");
-	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
-		});
-	    
-	    //Creating HBox, adding nodes and style
-	    HBox hbBtn = new HBox(10);
-	    hbBtn.getChildren().addAll(reviveBtn, exitBtn);
-	    hbBtn.setLayoutX(500);
-	    hbBtn.setLayoutY(550);
-	    hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-	    
-	    //Creating Pane, adding nodes and style
-	    Pane display = new Pane();
-	    display.getChildren().addAll(reviveOption, hbBtn, revive);
-//	    display.setStyle(" -fx-background-color: royalblue");
-	
-	    // Set background 
-	 	Image tower = new Image("pixelBack.png");
-	 	BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-	 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	 	Background towerBackground = new Background(background);
-	 	display.setBackground(towerBackground);
-
-
-	    //Adding Pane to Scene and Scene to Stage
-	    Scene reviveScene = new Scene(display, 1280, 720);
-	    reviveScene.setFill(Color.ROYALBLUE);
-	    primaryStage.setScene(reviveScene);
-	    primaryStage.show();
-	    return reviveScene;
-	    
 	}
 
 	/**
