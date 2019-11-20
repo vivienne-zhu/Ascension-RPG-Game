@@ -61,6 +61,7 @@ public class GameGUI extends Application {
 	private Floor floor;
 	private Shop shop;
 	private Event event;
+	private MediaPlayer mediaPlayer;
 	
 
 	/**
@@ -322,11 +323,6 @@ public class GameGUI extends Application {
 	public void fullGame(Stage primaryStage) {
 		//Below enemy created for testing purposes
 		//These will not be hard-coded in the future
-		String musicFile = "./src/fightmusic.mp3";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.1);
 //		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
 //		floorOne.add(orc);
 //		MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
@@ -343,6 +339,13 @@ public class GameGUI extends Application {
 //		//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
 //		//	floorTwo.add(dummyTwo);
 //		allEnemies.put(2, floorTwo);
+		
+		//Mediaplayer for music
+		String musicFile = "./src/fightmusic.mp3";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.1);
 		
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();

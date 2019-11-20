@@ -14,11 +14,14 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,6 +63,7 @@ public class BattlePhase {
 	private Timeline animateOne;
 	private Timeline animateTwo;
 	private Timeline animateThree;
+	private MediaPlayer mediaPlayer;
 	
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
@@ -529,15 +533,26 @@ public class BattlePhase {
 		//Move hero forward
 		Timeline timeline = new Timeline(); 
 		if (choice == 0) {
-			timeline.setCycleCount(750);
+			timeline.setCycleCount(580);
 		} else if (choice == 1) {
-			timeline.setCycleCount(550);
+			timeline.setCycleCount(380);
 		} else {
-			timeline.setCycleCount(350);
+			timeline.setCycleCount(180);
 		}
 		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true, allEnemies, floor));
 		timeline.getKeyFrames().add(frame);
-
+		
+		//Play hit sound clip (needs to play before hero arrives)
+		Timeline sound = new Timeline();
+		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
+		sound.getKeyFrames().add(soundFrame);
+		
+		//Finish moving forward
+		Timeline finishMove = new Timeline(); 
+		finishMove.setCycleCount(130);
+		KeyFrame finishFrame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true, allEnemies, floor));
+		finishMove.getKeyFrames().add(finishFrame);
+		
 		//Hero hits enemy
 		Timeline hit = new Timeline();
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(hero, allEnemies, choice, 
@@ -547,19 +562,30 @@ public class BattlePhase {
 		//Move hero backward
 		Timeline timelineTwo = new Timeline();
 		if (choice == 0) {
-			timelineTwo.setCycleCount(750);
+			timelineTwo.setCycleCount(710);
 		} else if (choice == 1) {
-			timelineTwo.setCycleCount(550);
+			timelineTwo.setCycleCount(510);
 		} else {
-			timelineTwo.setCycleCount(350);
+			timelineTwo.setCycleCount(310);
 		}
 		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false, allEnemies, floor));
 		timelineTwo.getKeyFrames().add(frameThree);
 
-		SequentialTransition sequence = new SequentialTransition(timeline, hit, timelineTwo);
+		SequentialTransition sequence = new SequentialTransition(timeline, sound, finishMove, hit, timelineTwo);
 		sequence.play();    	
 	}
 
+	/**
+	 * This method plays the sword swing sound effect.
+	 */
+	public void swingSound() {
+		String musicFile = "./src/swing2.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.5);
+	}
+	
 	/**
 	 * This method is called when an hero hits an enemy. It is unique
 	 * from the hitHero method due to different dialogue that appears.
@@ -578,7 +604,7 @@ public class BattlePhase {
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = hero.attack(enemy);
 		totalEnemyHealth -= attackAmount;
-		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack
+		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
