@@ -60,7 +60,7 @@ public class GameCharacters {
 	this.height = 0.0;
 	this.width = 0.0;
 	this.hasRevive = false;
-	this.setLeveledThisTurn(false);
+//	this.setLeveledThisTurn(false);
     }
 
     /**

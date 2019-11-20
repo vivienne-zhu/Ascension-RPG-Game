@@ -39,7 +39,7 @@ public class MeleeEnemy extends GameCharacters {
 //		setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
 		setCharacterImage(new Image("meleeEnemy.gif", getWidth(), getHeight(), false, false));
 
-		setCharacterImageHurt(new Image("meleeEnemyRed.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHurt(new Image("redMelee.png",getWidth(), getHeight(), false, false));
 
 	}
 
