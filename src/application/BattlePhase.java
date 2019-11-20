@@ -696,7 +696,7 @@ public class BattlePhase {
 			//Transition to next screen after battle after 5 seconds
 			int xp = 50 * allEnemies.get(floor).size() + floor * 10;
 			hero.setXp(hero.getXp() + xp);
-			if (hero.getXp() > (50 + hero.getLevel() * 80)) {
+			if (hero.getXp() >= (50 + hero.getLevel() * 80)) {
 			    hero.levelUp();
 			    hero.setXp(0);
 			    hero.setLeveledThisTurn(true);

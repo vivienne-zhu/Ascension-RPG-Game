@@ -188,9 +188,9 @@ public class GameCharacters {
 	}
 	this.setLevel(this.getLevel() + 1);
 	int missingHealth = this.getStamina() - this.getCurrentStamina();
-	System.out.println("Missing:" + missingHealth);
+	//System.out.println("Missing:" + missingHealth);
 	this.setCurrentStamina(this.getCurrentStamina() + (int) (missingHealth * 0.2));
-	System.out.println("New stam" + this.getCurrentStamina());
+	//System.out.println("New stam" + this.getCurrentStamina());
     }
 
     /**

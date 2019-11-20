@@ -60,6 +60,7 @@ public class GameGUI extends Application {
 	private String heroName;
 	private HashMap<Integer, ArrayList<GameCharacters>> allEnemies;
 	private int totalEnemyHealth;
+	private int xpCount;
 	private Floor floor;
 	private Shop shop;
 	private Event event;
@@ -813,22 +814,24 @@ public class GameGUI extends Application {
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-				
+			
+		Text xpGained = new Text();
+		int xp= 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
+		xpCount += xp;
+		//hero.setXp(hero.getXp() + xp); done in battlephase already
+		xpGained.setText("You gained " + xp + " xp! Xp = " + xpCount);
+		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
-		if (hero.getLeveledThisTurn() == true) {
-		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + hero.getLevel());
+		if (xpCount >= (50 + hero.getLevel() * 80)) {
+		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1));
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		    levelUp.setFill(Color.PURPLE);
+		    xpCount = 0;
 		    hero.setLeveledThisTurn(false);
 		}
 		
-		Text xpGained = new Text();
-		int xp = 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
-		//hero.setXp(hero.getXp() + xp);
-		xpGained.setText("You gained " + xp + " xp! Xp = " + hero.getXp());
-		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		//Creating VBox for user update text on gold and xp gained
 		VBox userUpdate = new VBox(30);
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
