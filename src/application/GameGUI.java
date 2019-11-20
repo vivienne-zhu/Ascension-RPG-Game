@@ -348,13 +348,9 @@ public class GameGUI extends Application {
 		String musicFile = "./src/fightmusic.mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
-
 		if (firstTime) {
-			mediaPlayer.setOnEndOfMedia(new Runnable() {
-				public void run() {
-					mediaPlayer.seek(Duration.ZERO);
-				}
-			});
+			mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+			mediaPlayer.play();
 			mediaPlayer.play();
 			mediaPlayer.setVolume(0.03);
 			firstTime = false;
