@@ -24,6 +24,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -453,7 +454,7 @@ public class GameGUI extends Application {
 		errorMsg.setFill(Color.WHITE);
 		errorMsg.setVisible(false);
 
-		// Display all items currrently in the hero's bag
+		// Display all items currently in the hero's bag
 		Text potionList = new Text(shop.shopDisplay(hero));
 		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		potionList.setFill(Color.WHITE);
@@ -507,6 +508,11 @@ public class GameGUI extends Application {
 		ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
 		ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
 		ImageView ivRevive = new ImageView(this.shop.getReviveImage());
+		DropShadow ds2 = new DropShadow();
+		ds2.setColor(Color.MEDIUMPURPLE);
+		ivPotion1.setEffect(ds2);
+		ivPotion2.setEffect(ds2);
+		ivRevive.setEffect(ds2);
 
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
@@ -567,6 +573,7 @@ public class GameGUI extends Application {
 	 * @param primaryStage
 	 */
 	public void event(Stage primaryStage) {
+		// INCOMPLETE METHOD, WILL BE FINALIZED 
 		GridPane grid = new GridPane();
 		
 		// Text for the event 
@@ -576,12 +583,17 @@ public class GameGUI extends Application {
 		DropShadow ds = new DropShadow();
 		ds.setColor(Color.GOLDENROD);
 		txtEvent.setEffect(ds);
-				
+		
+		// Text for the description of the triggered event 
+		Text display = new Text("");
+		display.maxWidth(300);
+		display.setFill(Color.WHITE);
+		display.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		GridPane.setHalignment(display, HPos.CENTER);
+		
 		// Image for the treasure chest 
-		Image closedBox = new Image("closed_treasure.png", 300, 300, false, false);
-		Image openBox = new Image("open_treasure.png", 300, 300, false, false);
-		ImageView closedIV = new ImageView(closedBox);		
-		ImageView openIV = new ImageView(openBox);
+		ImageView closedIV = new ImageView(event.getClosedBox());		
+		ImageView openIV = new ImageView(event.getOpenBox());
 		
 		// Create 'Open' Button 
 		Button openBtn = new Button("OPEN");
@@ -593,6 +605,9 @@ public class GameGUI extends Application {
 			
 			GridPane.setHalignment(openIV, HPos.CENTER);
 			openBtn.setVisible(false);
+			
+			event.eventGenerator(hero, floor, display, openIV);
+			
 		}); 
 		
 		//Creating continue button and adding event handling
@@ -609,7 +624,7 @@ public class GameGUI extends Application {
 		for (int i = 0; i < 5; i++) {
 			ColumnConstraints column = new ColumnConstraints(250);
 			grid.getColumnConstraints().add(column);
-		}
+		}		
 			
 		// Add nodes to the grid
 		grid.setGridLinesVisible(true);
@@ -622,6 +637,7 @@ public class GameGUI extends Application {
 		grid.add(txtEvent, 2, 0);
 		grid.add(closedIV, 2, 1);
 		grid.add(openBtn, 2, 2);
+		grid.add(display, 2, 3);
 		grid.add(continueBtn, 4, 6);
 		grid.setVgap(20); 
 		grid.setHgap(20); 
@@ -875,8 +891,9 @@ public class GameGUI extends Application {
 	    reviveOption.setX(100);
 	    reviveOption.setY(200);
 	    reviveOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+	    reviveOption.setFill(Color.WHITE);
 	    DropShadow ds = new DropShadow();
-	    ds.setColor(Color.BLUE);
+	    ds.setColor(Color.WHITE);
 	    reviveOption.setEffect(ds);
 	    
 	    //Adding image of revive 
@@ -910,7 +927,14 @@ public class GameGUI extends Application {
 	    //Creating Pane, adding nodes and style
 	    Pane display = new Pane();
 	    display.getChildren().addAll(reviveOption, hbBtn, revive);
-	    display.setStyle(" -fx-background-color: royalblue");
+//	    display.setStyle(" -fx-background-color: royalblue");
+	
+	    // Set background 
+	 	Image tower = new Image("pixelBack.png");
+	 	BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+	 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+	 	Background towerBackground = new Background(background);
+	 	display.setBackground(towerBackground);
 
 
 	    //Adding Pane to Scene and Scene to Stage
