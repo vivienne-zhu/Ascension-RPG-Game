@@ -39,6 +39,7 @@ public class GameCharacters {
     private Image characterImageHeal;
     private Image magicAtkImage;
     private String type;
+    private Boolean leveledThisTurn;
 
     /**
      * The constructor initializes the necessary instance variables to O and false,
@@ -61,6 +62,7 @@ public class GameCharacters {
 	this.height = 0.0;
 	this.width = 0.0;
 	this.hasRevive = false;
+	this.setLeveledThisTurn(false);
     }
 
     /**
@@ -189,9 +191,10 @@ public class GameCharacters {
 	    setMana(mana);
 	}
 	this.setLevel(this.getLevel() + 1);
-	// int missingHealth = this.getStamina() - this.getCurrentStamina();
-	// this.setCurrentStamina(this.getCurrentStamina() + (int) (missingHealth *
-	// 0.2));
+	int missingHealth = this.getStamina() - this.getCurrentStamina();
+	System.out.println("Missing:" + missingHealth);
+	this.setCurrentStamina(this.getCurrentStamina() + (int) (missingHealth * 0.2));
+	System.out.println("New stam" + this.getCurrentStamina());
     }
 
     /**
@@ -567,6 +570,20 @@ public class GameCharacters {
     }
     
     /**
+     * @return whether leveledThisTurn is true or not
+     */
+    public Boolean getLeveledThisTurn() {
+        return leveledThisTurn;
+    }
+
+    /**
+     * @param currentMana set truthness of leveledThisTurn
+     */
+    public void setLeveledThisTurn(boolean leveledThisTurn) {
+        this.leveledThisTurn = leveledThisTurn;
+    }
+    
+    /**
      * @return the magicAtkImage
      */
     public Image getMagicAtkImage() {
@@ -579,6 +596,5 @@ public class GameCharacters {
     public void setMagicAtkImage(Image magicAtkImage) {
         this.magicAtkImage = magicAtkImage;
     }
-
 
 }
