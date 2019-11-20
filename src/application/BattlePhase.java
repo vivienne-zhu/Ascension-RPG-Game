@@ -3,6 +3,7 @@ package application;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,7 +34,7 @@ import java.util.HashSet;
  * user the ability to actually fight the enemy via various effect linked buttons. Finally, this
  * class contains the logic behind battle animations, level up mechanics, and enemy decision making.
  * 
- * @author David Cai
+ * @author David Cai and Shari Sinclair
  */
 public class BattlePhase {
 	
@@ -66,13 +68,15 @@ public class BattlePhase {
 	private Timeline animateTwo;
 	private Timeline animateThree;
 	private MediaPlayer mediaPlayer;
+	private boolean magic;
+	private Image fireblast;
 	
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
 		this.floor = floor;
 		this.totalEnemyHealth = totalEnemyHealth;
-	}
-
+		setMagic(false);
+		}
 
 	/**
 	 * This method will display relevant combat information like  player/enemy names and health
@@ -149,12 +153,9 @@ public class BattlePhase {
 		this.magicAtkBtn = new Button("Magic Atk");
 		magicAtkBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		magicAtkBtn.setVisible(false);
-		if(hero.getType().equals("Mage") && hero.getMana() > 50) {
+		if(hero.getType().equals("Mage")) {
 		    magicAtkBtn.setVisible(true);
-		} else if(hero.getType().equals("Mage") && hero.getMana() < 50) {
-		    magicAtkBtn.setDisable(true);
-		}
-		
+		} 		
 		
 		this.hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.CENTER);
@@ -298,7 +299,9 @@ public class BattlePhase {
 			
 		});
 		
+		
 		magicAtkBtn.setOnAction(event ->{
+			setMagic(true);
 			itemBag.setVisible(false);
 			error.setVisible(false);
 			
@@ -324,7 +327,7 @@ public class BattlePhase {
 				chooseEnemyTwoBtn.setVisible(true);
 				chooseEnemyThreeBtn.setVisible(true);
 			}
-			
+		   
 		});
 		
 		//Event handling for when defend button is pressed
@@ -541,6 +544,33 @@ public class BattlePhase {
 	 */
 	public void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
 			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc) {
+	    if (isMagic() == true) {
+		Timeline timeline = new Timeline(); 
+		timeline.setCycleCount(1);
+		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> mageTurn(hero, allEnemies, enemyStam, dialogue, 
+				dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin));
+		timeline.getKeyFrames().add(frame);
+		Timeline timelineTwo = new Timeline();
+		timelineTwo.setCycleCount(1);
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
+				dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen));
+		timelineTwo.getKeyFrames().add(frameTwo);
+		SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
+		sequence.play();
+
+		//Enable buttons after 2 seconds per enemy
+		Timeline enable = new Timeline(); 
+		enable.setCycleCount(1);
+		KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+		disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
+		enable.getKeyFrames().add(frameEnable);
+		enable.play();
+
+		chooseEnemyBtn.setVisible(false);
+		chooseEnemyTwoBtn.setVisible(false);
+		chooseEnemyThreeBtn.setVisible(false);
+		setMagic(false);
+	    } else {
 		Timeline timeline = new Timeline(); 
 		timeline.setCycleCount(1);
 		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
@@ -565,6 +595,7 @@ public class BattlePhase {
 		chooseEnemyBtn.setVisible(false);
 		chooseEnemyTwoBtn.setVisible(false);
 		chooseEnemyThreeBtn.setVisible(false);
+	    }
 	}
 
 	/**
@@ -625,10 +656,60 @@ public class BattlePhase {
 	}
 
 	/**
+	 * This method creates display text for when it is the heroes turn to attack and updates necessary variables.
+	 * 
+	 * @param allEnemies The arrayList of enemies the hero is currently fighting.
+	 * @param enemyStam The current stamina of the enemy
+	 * @param dialogue Text that updates the player on what is currently happening.
+	 * @param choice  The enemy character the hero would like to attack (if there are multiple)
+	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
+	 */
+	public void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
+			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin) {
+
+		//Move magic blast forward
+		Timeline timeline = new Timeline(); 
+		if (choice == 0) {
+			timeline.setCycleCount(580);
+		} else if (choice == 1) {
+			timeline.setCycleCount(380);
+		} else {
+			timeline.setCycleCount(180);
+		}
+		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> moveMagic(hero, gc, true, allEnemies, floor));
+		timeline.getKeyFrames().add(frame);
+		
+		//Play hit sound clip 
+//		Timeline sound = new Timeline();
+//		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> magicSound());
+//		sound.getKeyFrames().add(soundFrame);
+				
+		//Magic hits enemy
+		Timeline hit = new Timeline();
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(hero, allEnemies, choice, 
+				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead));
+		hit.getKeyFrames().add(frameTwo);
+
+		SequentialTransition sequence = new SequentialTransition(timeline,  hit); //sound,
+		sequence.play();    	
+	}
+
+	/**
 	 * This method plays the sword swing sound effect.
 	 */
 	public void swingSound() {
 		String musicFile = "./src/swing2.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.5);
+	}
+	
+	/**
+	 * This method plays the sword swing sound effect.
+	 */
+	public void magicSound() {
+		String musicFile = "./src/poof.mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
@@ -651,7 +732,20 @@ public class BattlePhase {
 			HashSet<Integer> dead) {
 		
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
-		int attackAmount = hero.attack(enemy);
+		int attackAmount = 0;
+		if (isMagic() == true) {
+		    attackAmount = hero.magicAttack(enemy);
+		    hero.setCurrentMana(hero.getCurrentMana() - 50);
+		    if (hero.getCurrentMana() > 0) {
+			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
+		    } else {
+			hero.setCurrentMana(0);
+		    	magicAtkBtn.setDisable(true);
+		    	heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
+		    }
+		} else {
+		    attackAmount = hero.attack(enemy);
+		}
 		totalEnemyHealth -= attackAmount;
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 
@@ -746,6 +840,46 @@ public class BattlePhase {
 			}				
 		}
 	}
+	
+	/**
+	 * This method allows us to move either the hero character or the enemies forward and
+	 * backward for the animation of an attack. It will first clear the current picture
+	 * off the canvas, move the X axis of image either forward or backward depending 
+	 * on the boolean and repaint in the new location
+	 * @param character The character we are moving
+	 * @param gc The GraphicsContext used to delete and repaint
+	 * @param forward Whether we are moving forward or backward
+	 */
+	public void moveMagic(GameCharacters character, GraphicsContext gc, boolean forward, 
+			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor) {
+
+		//Adding and drawing image
+	    	double x  = character.getX() + character.getWidth();
+	    	double y = character.getY() + 20;
+	    	gc.drawImage(fireblast, x , y);
+	    	gc.clearRect(x, y, 100, 50);
+	    	
+		 if (forward == true && x < 1290) {
+		     x = x + 1; 
+		 }
+		 
+		 gc.drawImage(fireblast, x , y);
+		 
+		 
+		if (allEnemies.get(floor).size() == 3) {
+			if (x >= allEnemies.get(floor).get(1).getX() && !dead.contains(1)) {
+				allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false);
+			}
+			if (x >= allEnemies.get(floor).get(2).getX() && !dead.contains(2)) {
+				allEnemies.get(floor).get(2).displayCharacter(gc, false, false, false);
+			}
+		} else if (allEnemies.get(floor).size() == 2) {
+			if (x >= allEnemies.get(floor).get(1).getX() && !dead.contains(1)) {
+				allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false);
+			}				
+		}
+	}
+	
 
 	/**
 	 * This method creates display text for when it is the enemies turn to attack and updates necessary variables.
@@ -946,4 +1080,38 @@ public class BattlePhase {
 		defendBtn.setDisable(disable);
 		magicAtkBtn.setDisable(disable);
 	}
+
+
+	/**
+	 * @return the magic
+	 */
+	public boolean isMagic() {
+	    return magic;
+	}
+
+
+	/**
+	 * @param magic the magic to set
+	 */
+	public void setMagic(boolean magic) {
+	    this.magic = magic;
+	}
+	
+	/**
+	 * @return the fireblast
+	 */
+	public Image getFireblast() {
+	    return fireblast;
+	}
+
+
+	/**
+	 * @param fireblast the fireblast to set
+	 */
+	public void setFireblast(Image fireblast) {
+	    this.fireblast = fireblast;
+	}
+
+
+	
 }

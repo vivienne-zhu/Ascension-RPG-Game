@@ -37,6 +37,7 @@ public class GameCharacters {
     private Image characterImage;
     private Image characterImageHurt;
     private Image characterImageHeal;
+    private Image magicAtkImage;
     private String type;
 
     /**
@@ -96,7 +97,7 @@ public class GameCharacters {
     public int magicAttack(GameCharacters character) {
 	setIsDefending(false);
 	int attackValue = this.getMagicAtk() - character.getDefense();
-	this.setCurrentMana(getCurrentMana() - 50);
+	//this.setCurrentMana(getCurrentMana() - 50);
 	if (character.getType().equals("Melee")) { // Add other type advantage here
 	    attackValue = (int) (attackValue * 1.2);
 	}
@@ -157,6 +158,9 @@ public class GameCharacters {
     public void revive() {
 	if (isHasRevive() == true) {
 	    setCurrentStamina(this.getStamina());
+	    if(getType().equals("Mage")) {
+		setCurrentMana(this.getMana());
+	    }
 	    setHasRevive(false);
 	}
     }
@@ -562,6 +566,19 @@ public class GameCharacters {
         this.currentMana = currentMana;
     }
     
-    
+    /**
+     * @return the magicAtkImage
+     */
+    public Image getMagicAtkImage() {
+        return magicAtkImage;
+    }
+
+    /**
+     * @param magicAtkImage the magicAtkImage to set
+     */
+    public void setMagicAtkImage(Image magicAtkImage) {
+        this.magicAtkImage = magicAtkImage;
+    }
+
 
 }
