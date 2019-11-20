@@ -15,19 +15,25 @@ public class RangedEnemy extends GameCharacters {
 	 * object, and also sets the values needed to display the image instance
 	 * variable in the GUI.
 	 */
-	public RangedEnemy(int floor) {
+	public RangedEnemy(int floor, int position) {
 		// Stat values will be changed
 		setAttack(75 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
 		setDefense(60 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
 		int startStam = 175 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
-		setX(1230);
-		setY(200);
-		setWidth(100);
-		setHeight(200);
+		if (position == 0) {
+			setX(950);
+		} else if (position == 1) {
+			setX(730);
+		} else {
+			setX(510);
+		}
+		setY(430);
+		setWidth(220);
+		setHeight(220);
 		setType("Ranged");
-		//setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
+		setCharacterImage(new Image("rangedEnemy.gif", getWidth(), getHeight(), false, false));
 		//setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
 
 	}

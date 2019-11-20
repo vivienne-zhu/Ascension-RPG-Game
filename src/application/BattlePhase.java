@@ -57,6 +57,9 @@ public class BattlePhase {
 	private int floor;
 	private HashSet<Integer> dead = new HashSet<Integer>();
 	private int totalEnemyHealth;
+	private Timeline animateOne;
+	private Timeline animateTwo;
+	private Timeline animateThree;
 	
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
@@ -420,6 +423,65 @@ public class BattlePhase {
 		return grid;
 	}
 	
+	public void idleAnimate(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc) {
+		if (allEnemies.get(floor).size() > 0) {
+			animateOne = new Timeline();
+			animateOne.setCycleCount(Timeline.INDEFINITE);
+			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(0).displayCharacter(gc, false, false, false));
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(0).displayCharacter(gc, true, false, false));
+			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(0).displayCharacter(gc, false, false, false));
+			animateOne.getKeyFrames().add(frame);
+			animateOne.getKeyFrames().add(frameTwo);
+			animateOne.getKeyFrames().add(frameThree);
+			animateOne.play();
+			if (dead.contains(0)) {
+				animateOne.stop();
+			}
+		}
+		
+		if (allEnemies.get(floor).size() > 1) {
+			animateTwo = new Timeline();
+			animateTwo.setCycleCount(Timeline.INDEFINITE);
+			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
+				allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false));
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(1).displayCharacter(gc, true, false, false));
+			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false));
+			animateTwo.getKeyFrames().add(frame);
+			animateTwo.getKeyFrames().add(frameTwo);
+			animateTwo.getKeyFrames().add(frameThree);
+			animateTwo.play();
+			if (dead.contains(1)) {
+				animateTwo.stop();
+			}
+		}
+		
+		if (allEnemies.get(floor).size() > 2) {;
+		
+			animateThree = new Timeline();
+			animateThree.setCycleCount(Timeline.INDEFINITE);
+			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(2).displayCharacter(gc, false, false, false));
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(2).displayCharacter(gc, true, false, false));
+			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
+			allEnemies.get(floor).get(2).displayCharacter(gc, false, false, false));
+			animateThree.getKeyFrames().add(frame);
+			animateThree.getKeyFrames().add(frameTwo);
+			animateThree.getKeyFrames().add(frameThree);
+			animateThree.play();
+			if (dead.contains(2)) {
+				animateThree.stop();
+			}
+		}
+		
+		
+	}
+	
 	/**
 	 * This method covers the events that occur after pressing a chooseEnemyBtn.
 	 * @param enemy The index of the enemy to be attacked
@@ -467,11 +529,11 @@ public class BattlePhase {
 		//Move hero forward
 		Timeline timeline = new Timeline(); 
 		if (choice == 0) {
-			timeline.setCycleCount(741);
+			timeline.setCycleCount(750);
 		} else if (choice == 1) {
-			timeline.setCycleCount(459);
+			timeline.setCycleCount(550);
 		} else {
-			timeline.setCycleCount(200);
+			timeline.setCycleCount(350);
 		}
 		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, true, allEnemies, floor));
 		timeline.getKeyFrames().add(frame);
@@ -485,11 +547,11 @@ public class BattlePhase {
 		//Move hero backward
 		Timeline timelineTwo = new Timeline();
 		if (choice == 0) {
-			timelineTwo.setCycleCount(741);
+			timelineTwo.setCycleCount(750);
 		} else if (choice == 1) {
-			timelineTwo.setCycleCount(459);
+			timelineTwo.setCycleCount(550);
 		} else {
-			timelineTwo.setCycleCount(200);
+			timelineTwo.setCycleCount(350);
 		}
 		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false, allEnemies, floor));
 		timelineTwo.getKeyFrames().add(frameThree);
@@ -510,7 +572,8 @@ public class BattlePhase {
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, HashSet<Integer> dead) {
+			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
+			HashSet<Integer> dead) {
 		
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = hero.attack(enemy);
@@ -523,6 +586,13 @@ public class BattlePhase {
 			dialogueTwo.setText("You have killed the enemy."); 
 			dialogueThree.setText("");//XP stuff and gold stuff will be here
 			enemy.displayCharacter(gc, true, false, false); //deleting picture
+			if (choice == 0) {
+				animateOne.stop();
+			} else if (choice == 1) {
+				animateTwo.stop();
+			} else {
+				animateThree.stop();
+			}
 		//	allEnemies.get(floor).remove(choice);	
 		} else {
 			//After 0.1 seconds revert color only if not dead

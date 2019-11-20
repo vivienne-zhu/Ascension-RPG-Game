@@ -24,17 +24,21 @@ public class MeleeEnemy extends GameCharacters {
 		setStamina(startStam);
 		setCurrentStamina(startStam);
 		if (position == 0) {
-			setX(1000);
+			setX(950);
 		} else if (position == 1) {
+			//setX(730);
 			setX(730);
 		} else {
-			setX(470);
+			//setX(470);
+			setX(510);
 		}
-		setY(390);
-		setWidth(240);
-		setHeight(260);
+		setY(430);
+		setWidth(220);
+		setHeight(220);
 		setType("Melee");
-		setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
+//		setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
+		setCharacterImage(new Image("meleeEnemy.gif", getWidth(), getHeight(), false, false));
+
 		setCharacterImageHurt(new Image("redMelee.png",getWidth(), getHeight(), false, false));
 
 	}

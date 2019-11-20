@@ -25,6 +25,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
@@ -33,7 +35,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +77,6 @@ public class GameGUI extends Application {
 		floor = new Floor();
 		shop = new Shop();
 		event = new Event();
-
 	}
 
 	/**
@@ -89,7 +90,6 @@ public class GameGUI extends Application {
 		
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
-
 
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
@@ -322,7 +322,11 @@ public class GameGUI extends Application {
 	public void fullGame(Stage primaryStage) {
 		//Below enemy created for testing purposes
 		//These will not be hard-coded in the future
-
+		String musicFile = "./src/fightmusic.mp3";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.1);
 //		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
 //		floorOne.add(orc);
 //		MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
@@ -342,15 +346,15 @@ public class GameGUI extends Application {
 		
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+		if (floor.getFloor() == 7 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+		} else if (floor.getFloor() == 1 || floor.getFloor() == 8 || floor.getFloor() == 9) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 2));
+			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
+			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
 		}
 		allEnemies.put(floor.getFloor(), floorEnemies);
 		totalEnemyHealth = 0;
@@ -367,8 +371,8 @@ public class GameGUI extends Application {
 		//tempEnemies = allEnemies.get(floor.getFloor()); --> get arrayList from enemy hashMap
 
 		// Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
-
 		Scene insideTower = new Scene(towerLevel, 1280, 720);
+		
 		primaryStage.setScene(insideTower);
 		primaryStage.show();
 
@@ -410,6 +414,7 @@ public class GameGUI extends Application {
 
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
+		battle.idleAnimate(allEnemies, gc);
 		battle.dispDialogue();
 		battle.initButtons();
 		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScene(primaryStage), gameOverScreen(primaryStage));
