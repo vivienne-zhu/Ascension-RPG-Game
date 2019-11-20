@@ -17,6 +17,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -490,9 +493,6 @@ public class BattlePhase {
 			animateOne.getKeyFrames().add(frameTwo);
 			animateOne.getKeyFrames().add(frameThree);
 			animateOne.play();
-			if (dead.contains(0)) {
-				animateOne.stop();
-			}
 		}
 		
 		if (allEnemies.get(floor).size() > 1) {
@@ -508,13 +508,9 @@ public class BattlePhase {
 			animateTwo.getKeyFrames().add(frameTwo);
 			animateTwo.getKeyFrames().add(frameThree);
 			animateTwo.play();
-			if (dead.contains(1)) {
-				animateTwo.stop();
-			}
 		}
 		
 		if (allEnemies.get(floor).size() > 2) {;
-		
 			animateThree = new Timeline();
 			animateThree.setCycleCount(Timeline.INDEFINITE);
 			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
@@ -527,12 +523,7 @@ public class BattlePhase {
 			animateThree.getKeyFrames().add(frameTwo);
 			animateThree.getKeyFrames().add(frameThree);
 			animateThree.play();
-			if (dead.contains(2)) {
-				animateThree.stop();
-			}
 		}
-		
-		
 	}
 	
 	/**
@@ -596,6 +587,19 @@ public class BattlePhase {
 		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
 		sound.getKeyFrames().add(soundFrame);
 		
+		Timeline enemyRed = new Timeline();
+		KeyFrame turnRed = new KeyFrame(Duration.millis(1), ae -> {
+			if (choice == 0) {
+				animateOne.stop();
+			} else if (choice == 1) {
+				animateTwo.stop();
+			} else {
+				animateThree.stop();
+			}
+			allEnemies.get(floor).get(choice).displayCharacter(gc, false, true, false);
+		});
+		enemyRed.getKeyFrames().add(turnRed);
+		
 		//Finish moving forward
 		Timeline finishMove = new Timeline(); 
 		finishMove.setCycleCount(130);
@@ -604,8 +608,17 @@ public class BattlePhase {
 		
 		//Hero hits enemy
 		Timeline hit = new Timeline();
-		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> hitEnemy(hero, allEnemies, choice, 
-				dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead));
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> {
+			if (choice == 0) {
+				animateOne.play();
+			} else if (choice == 1) {
+				animateTwo.play();
+			} else {
+				animateThree.play();
+			}
+			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead);
+		});
+				
 		hit.getKeyFrames().add(frameTwo);
 
 		//Move hero backward
@@ -620,7 +633,7 @@ public class BattlePhase {
 		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false, allEnemies, floor));
 		timelineTwo.getKeyFrames().add(frameThree);
 
-		SequentialTransition sequence = new SequentialTransition(timeline, sound, finishMove, hit, timelineTwo);
+		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, finishMove, hit, timelineTwo);
 		sequence.play();    	
 	}
 
@@ -632,7 +645,7 @@ public class BattlePhase {
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.5);
+		mediaPlayer.setVolume(0.1);
 	}
 	
 	/**
@@ -681,6 +694,14 @@ public class BattlePhase {
 		//If all enemies dead, move on to next floor
 		if (totalEnemyHealth == 0) {
 			//Transition to next screen after battle after 5 seconds
+			int xp = 50 * allEnemies.get(floor).size() + floor * 10;
+			System.out.println(hero.getXp());
+			hero.setXp(hero.getXp() + xp);
+			if (hero.getXp() > (50 + hero.getLevel() * 80)) {
+			    hero.levelUp();
+			    hero.setXp(0);
+			    hero.setLeveledThisTurn(true);
+			}
 			if (floor < 10) {
 			    Timeline moveOn = new Timeline();
 			    moveOn.setCycleCount(1);

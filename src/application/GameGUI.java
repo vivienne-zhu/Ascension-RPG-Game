@@ -35,6 +35,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,6 +64,7 @@ public class GameGUI extends Application {
 	private Shop shop;
 	private Event event;
 	private MediaPlayer mediaPlayer;
+	private boolean firstTime; //for music to only start once
 	
 
 	/**
@@ -79,6 +81,7 @@ public class GameGUI extends Application {
 		floor = new Floor();
 		shop = new Shop();
 		event = new Event();
+		firstTime = true;
 	}
 
 	/**
@@ -345,17 +348,26 @@ public class GameGUI extends Application {
 		String musicFile = "./src/fightmusic.mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.1);
-		
+
+		if (firstTime) {
+			mediaPlayer.setOnEndOfMedia(new Runnable() {
+				public void run() {
+					mediaPlayer.seek(Duration.ZERO);
+				}
+			});
+			mediaPlayer.play();
+			mediaPlayer.setVolume(0.03);
+			firstTime = false;
+		}
+
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		if (floor.getFloor() == 7 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-		} else if (floor.getFloor() == 1 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
 			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
@@ -805,28 +817,22 @@ public class GameGUI extends Application {
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-	
-		Text xpGained = new Text();
-		int xp = 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
-		hero.setXp(hero.getXp()+ xp);
-		xpGained.setText("You gained " + xp + " xp! Xp = " + hero.getXp());
-		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+				
 		
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
-		if (hero.getXp() > (50 + hero.getLevel() * 80)) {
-		    hero.levelUp();
-		    hero.setXp(0);
+		if (hero.getLeveledThisTurn() == true) {
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + hero.getLevel());
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		    levelUp.setFill(Color.PURPLE);
-		    
-		    //gain 20% health back, gonna move this back to levelUp method later, not sure why it doesnt work in there - david
-			int missingHealth = hero.getStamina() - hero.getCurrentStamina();
-			hero.setCurrentStamina(hero.getCurrentStamina() + (int) (missingHealth * 0.2));
-		    
+		    hero.setLeveledThisTurn(false);
 		}
 		
+		Text xpGained = new Text();
+		int xp = 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
+		//hero.setXp(hero.getXp() + xp);
+		xpGained.setText("You gained " + xp + " xp! Xp = " + hero.getXp());
+		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		//Creating VBox for user update text on gold and xp gained
 		VBox userUpdate = new VBox(30);
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
