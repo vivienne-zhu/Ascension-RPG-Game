@@ -761,7 +761,19 @@ public class BattlePhase {
 		mediaPlayer.play();
 		mediaPlayer.setVolume(0.08);
 	}
-
+	
+	/**
+	 * This method plays a sound when the enemy is killed.
+	 */
+	public void enemyDeathSound() {
+		String musicFile = "./src/enemyDeath.wav";
+		Media sound3 = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound3);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.8);
+		
+	}
+	
 	/**
 	 * This method is called when an hero hits an enemy. It is unique
 	 * from the hitHero method due to different dialogue that appears.
@@ -800,6 +812,9 @@ public class BattlePhase {
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
+			// Add death sound effect 		
+			enemyDeathSound();
+			
 			dead.add(choice);
 			dialogueTwo.setText("You have killed the enemy."); 
 			dialogueThree.setText("");//XP stuff and gold stuff will be here
