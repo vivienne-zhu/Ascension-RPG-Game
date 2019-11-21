@@ -668,7 +668,15 @@ public class GameGUI extends Application {
 		openBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		
 		openBtn.setOnAction(Event -> {
-		    	continueBtn.setDisable(false);
+			
+			// Open treasure chest sound effect 
+			String musicFile = "./src/chestOpening.wav";
+			Media sound = new Media(new File(musicFile).toURI().toString());
+			mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.play();
+			mediaPlayer.setVolume(0.8);
+			
+		    continueBtn.setDisable(false);
 			grid.getChildren().remove(closedIV);
 			grid.add(openIV, 2, 1);
 			
