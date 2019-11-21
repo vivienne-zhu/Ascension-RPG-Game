@@ -691,7 +691,7 @@ public class BattlePhase {
 		} else {
 			timeline.setCycleCount(180);
 		}
-		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> moveMagic(hero, gc, allEnemies, floor, choice));
+		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> moveMagic(hero, hero, gc, allEnemies, floor, true, choice));
 		hero.setMagicx(210);
 		hero.setMagicy(520);
 		timeline.getKeyFrames().add(frame);
@@ -895,7 +895,7 @@ public class BattlePhase {
 			}				
 		}
 	}
-
+	
 	/**
 	 * This method allows us to move the image of the magic attack towards the enemy
 	 * 
@@ -905,21 +905,22 @@ public class BattlePhase {
 	 * @param floor the floor number the hero is on
 	 * @param choice the enemy the hero has chosen to attack
 	 */
-	public void moveMagic(GameCharacters character, GraphicsContext gc, 
-			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, int choice) {
+	public void moveMagic(GameCharacters character, GameCharacters hero, GraphicsContext gc, 
+			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, Boolean isHero, int choice) {
 
 		//Clear current picture
 		character.displayMagicAtkImage(gc, true, character.getMagicx(),character.getMagicy());
 
 		//Move magic accordingly 
-		if (character.getMagicx() < allEnemies.get(floor).get(choice).getX()) {
+		if (isHero && character.getMagicx() < allEnemies.get(floor).get(choice).getX()) {
 			character.setMagicx(character.getMagicx() + 1);
-		} else if (character.getMagicx() == allEnemies.get(floor).get(choice).getX() ) {
-			character.displayMagicAtkImage(gc, true, character.getMagicx(),character.getMagicy());
+			character.displayMagicAtkImage(gc, false, character.getMagicx(),character.getMagicy());
+		} else if (!isHero) {
+			character.setMagicx(character.getMagicx() - 1);	
 		}
-
-		//Draw new picture
+		
 		character.displayMagicAtkImage(gc, false, character.getMagicx(),character.getMagicy());
+
 
 		if (allEnemies.get(floor).size() == 3) {
 			if (character.getMagicx() >= allEnemies.get(floor).get(1).getX() && !dead.contains(1)) {
@@ -972,39 +973,44 @@ public class BattlePhase {
 			Timeline posThreeForward = new Timeline();
 			Timeline posThreeHit = new Timeline();
 			Timeline posThreeBackward = new Timeline();
+			Timeline posOneNoise = new Timeline();
+			Timeline posTwoNoise = new Timeline();
+			Timeline posThreeNoise = new Timeline();
+			
 
 			if (!dead.contains(0)) {
 				enemyMoveTimeline(0, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, hero, reviveScene, gameOverScreen);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen);
 			}
 			if (!dead.contains(1) && (allEnemies.get(floor).size() == 2 || allEnemies.get(floor).size() == 3)) {
 				enemyMoveTimeline(1, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, hero, reviveScene, gameOverScreen);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen);
 			}
 			if (!dead.contains(2) && allEnemies.get(floor).size() == 3) {
 				enemyMoveTimeline(2, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, hero, reviveScene, gameOverScreen);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen);
 			}
 			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAA
-				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward, posTwoForward, posTwoHit, posTwoBackward, posThreeForward, posThreeHit, posThreeBackward);
+				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward, posTwoForward, posTwoNoise, posTwoHit, posTwoBackward, 
+						posThreeForward, posThreeNoise, posThreeHit, posThreeBackward);
 				sequence.play();
 			} else if (!dead.contains(0) && dead.contains(1) && dead.contains(2)) { //DDA
-				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward);
+				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward);
 				sequence.play();
 			} else if (dead.contains(0) && !dead.contains(1) && dead.contains(2)) { //DAD
-				SequentialTransition sequence = new SequentialTransition(posTwoForward, posTwoHit, posTwoBackward);
+				SequentialTransition sequence = new SequentialTransition(posTwoForward, posTwoNoise, posTwoHit, posTwoBackward);
 				sequence.play();
 			} else if (dead.contains(0) && dead.contains(1) && !dead.contains(2)) { //ADD
-				SequentialTransition sequence = new SequentialTransition(posThreeForward, posThreeHit, posThreeBackward);
+				SequentialTransition sequence = new SequentialTransition(posThreeForward, posThreeNoise, posThreeHit, posThreeBackward);
 				sequence.play();
 			} else if (!dead.contains(0) && !dead.contains(1) && dead.contains(2)) { //DAA
-				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward, posTwoForward, posTwoHit, posTwoBackward);
+				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward, posTwoForward, posTwoNoise, posTwoHit, posTwoBackward);
 				sequence.play();
 			} else if (dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAD
-				SequentialTransition sequence = new SequentialTransition(posTwoForward, posTwoHit, posTwoBackward, posThreeForward, posThreeHit, posThreeBackward);
+				SequentialTransition sequence = new SequentialTransition(posTwoForward, posTwoNoise, posTwoHit, posTwoBackward, posThreeForward, posThreeNoise, posThreeHit, posThreeBackward);
 				sequence.play();
 			} else if (!dead.contains(0) && dead.contains(1) && !dead.contains(2)) { //ADA
-				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneHit, posOneBackward, posThreeForward, posThreeHit, posThreeBackward);
+				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward, posThreeForward, posThreeNoise, posThreeHit, posThreeBackward);
 				sequence.play();
 			}
 		}
@@ -1032,13 +1038,67 @@ public class BattlePhase {
 	 */
 	public void enemyMoveTimeline(int position, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc,
 			Timeline posOneForward, Timeline posTwoForward, Timeline posThreeForward, Timeline posOneBackward, Timeline posTwoBackward, 
-			Timeline posThreeBackward, Timeline posOneHit, Timeline posTwoHit, Timeline posThreeHit,
+			Timeline posThreeBackward, Timeline posOneHit, Timeline posTwoHit, Timeline posThreeHit, Timeline posOneNoise, Timeline posTwoNoise, Timeline posThreeNoise,
 			GameCharacters hero, Scene reviveScene, Scene gameOverScreen) {
 		//Move enemy forward and backwards
-		KeyFrame moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, false,
-				allEnemies, floor));
-		KeyFrame moveBackward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, true,
-				allEnemies, floor));
+		KeyFrame moveForward;
+		KeyFrame moveBackward;
+		if (!(allEnemies.get(floor).get(position) instanceof RangedEnemy)) {
+			moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, false,
+					allEnemies, floor));
+			moveBackward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, true,
+					allEnemies, floor));
+		} else {
+			moveForward = new KeyFrame(Duration.millis(1), ae -> moveMagic(allEnemies.get(floor).get(position), 
+					hero, gc, allEnemies, floor, false, 0));
+			moveBackward = new KeyFrame(Duration.millis(1), ae -> {
+				allEnemies.get(floor).get(position).displayMagicAtkImage(gc, true, allEnemies.get(floor).get(position).getMagicx(), 
+						allEnemies.get(floor).get(position).getMagicy());
+				allEnemies.get(floor).get(position).setMagicx(allEnemies.get(floor).get(position).getOldMagicx()); 
+			});
+		}
+		
+		KeyFrame soundFrame;
+		KeyFrame soundFrameTwo;
+		KeyFrame soundFrameThree;
+		
+		//Hit noises
+		if (allEnemies.get(floor).size() > 0) {
+			posOneNoise.setCycleCount(1);
+			if (allEnemies.get(floor).get(0) instanceof RangedEnemy) {
+				soundFrame = new KeyFrame(Duration.millis(1), ae -> magicSound());
+			} else if (allEnemies.get(floor).get(0) instanceof MeleeEnemy) {
+				soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
+			} else {
+				soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
+			}
+			posOneNoise.getKeyFrames().add(soundFrame);
+		}
+			
+		if (allEnemies.get(floor).size() > 1) {
+			posTwoNoise.setCycleCount(1);
+			if (allEnemies.get(floor).get(1) instanceof RangedEnemy) {
+				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> magicSound());
+			} else if (allEnemies.get(floor).get(1) instanceof MeleeEnemy) {
+				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> swingSound());
+			} else {
+				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> swingSound());
+			}
+			posTwoNoise.getKeyFrames().add(soundFrameTwo);
+		}
+		
+		if (allEnemies.get(floor).size() > 2) {
+			posThreeNoise.setCycleCount(1);
+			if (allEnemies.get(floor).get(2) instanceof RangedEnemy) {
+				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> magicSound());
+			} else if (allEnemies.get(floor).get(2) instanceof MeleeEnemy) {
+				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> swingSound());
+			} else {
+				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> swingSound());
+			}
+			posThreeNoise.getKeyFrames().add(soundFrameThree);
+		}
+		
 		//Enemy hits hero	
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
 		hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen));
@@ -1049,15 +1109,15 @@ public class BattlePhase {
 			posOneBackward.getKeyFrames().add(moveBackward);
 			posOneHit.getKeyFrames().add(frameTwo);
 		} else if (position == 1) {
-			posTwoForward.setCycleCount(500);
+			posTwoForward.setCycleCount(505);
 			posTwoForward.getKeyFrames().add(moveForward);
-			posTwoBackward.setCycleCount(500);
+			posTwoBackward.setCycleCount(505);
 			posTwoBackward.getKeyFrames().add(moveBackward);
 			posTwoHit.getKeyFrames().add(frameTwo);
 		} else { 
-			posThreeForward.setCycleCount(240);
+			posThreeForward.setCycleCount(275);
 			posThreeForward.getKeyFrames().add(moveForward);
-			posThreeBackward.setCycleCount(240);
+			posThreeBackward.setCycleCount(275);
 			posThreeBackward.getKeyFrames().add(moveBackward);
 			posThreeHit.getKeyFrames().add(frameTwo);
 		}
