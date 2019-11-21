@@ -69,7 +69,7 @@ public class Event {
 	 * @param floor
 	 */
 	public void dropFloor(Floor floor) {
-		floor.setFloor(floor.getFloor() - 2);
+		floor.setFloor(floor.getFloor() - 1);
 	
 	}
 	
@@ -116,38 +116,34 @@ public class Event {
 	 */
 	public void eventGenerator(GameCharacters hero, Floor floor, Text display, ImageView iv) {
 		Random r = new Random();
-		// only jumpFloor event works  
 //		int selectedEvent = r.nextInt(4);
-		int selectedEvent = 0;
+		int selectedEvent = 3;
+		
 		DropShadow ds1 = new DropShadow();
 		ds1.setColor(Color.DARKRED);
 		DropShadow ds2 = new DropShadow();
 		ds2.setColor(Color.GOLDENROD);
 		
+		int newFloor = floor.getFloor() + 1;
+
+		
 		if (selectedEvent == 0) {
 			this.jumpFloor(floor);
-			int newFloor = floor.getFloor() + 1;
-
 			display.setText("A map that shows a secret path to avoide the enemies..."
 					+ "You get to floor " + newFloor + "!");
 			iv.setEffect(ds2);
 		} else if (selectedEvent == 1) {
-			// incomplete
-			this.dropFloor(floor);	
-			
-			display.setText("You dropeed to floor " + floor.getFloor() + " again!");
+			this.dropFloor(floor);				
+			display.setText("A hidden door underneath the box...you dropeed to floor " + newFloor + " again!");
 			iv.setEffect(ds1);
 		} else if (selectedEvent == 2) {
-			// incomplete 
-			double gold;
-			gold = this.gainGold(hero, floor);	
-			display.setText("You find gold in the box...You get " + gold + " gold.");
+			double gold = this.gainGold(hero, floor);	
+			display.setText(gold + " gold in the box...You now have " + hero.getGold() + " gold.");
 			iv.setEffect(ds2);
 		} else if (selectedEvent  == 3) {
-			// incomplete 
 			double lostGold;
 			lostGold = this.loseGold(hero, floor);		
-			display.setText("A Goblin appears and takes your gold away...You lost " + lostGold + " gold.");
+			display.setText("A Goblin appears and takes " + lostGold + " away...You now have " + hero.getGold() + " gold.");
 			iv.setEffect(ds1);
 		}
 	}
