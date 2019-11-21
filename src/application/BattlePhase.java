@@ -765,7 +765,7 @@ public class BattlePhase {
 		Media sound2 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound2);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.08);
+		mediaPlayer.setVolume(0.06);
 	}
 	
 	/**
@@ -776,7 +776,7 @@ public class BattlePhase {
 		Media sound3 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound3);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.7);
+		mediaPlayer.setVolume(0.2);
 		
 	}
 	
