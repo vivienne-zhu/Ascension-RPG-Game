@@ -40,6 +40,7 @@ public class GameCharacters {
     private Image magicAtkImage;
     private double magicx;
     private double magicy;
+    private double oldMagicx; //for ranged enemy
     private String type;
 
     /**
@@ -618,6 +619,20 @@ public class GameCharacters {
      */
     public void setMagicy(double magicy) {
         this.magicy = magicy;
+    }
+    
+    /**
+     * @return the oldMagicx
+     */
+    public double getOldMagicx() {
+        return oldMagicx;
+    }
+
+    /**
+     * @param magicy the oldMagicx to set
+     */
+    public void setOldMagicx(double oldMagicx) {
+        this.oldMagicx = oldMagicx;
     }
     
 }

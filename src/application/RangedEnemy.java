@@ -24,17 +24,26 @@ public class RangedEnemy extends GameCharacters {
 		setCurrentStamina(startStam);
 		if (position == 0) {
 			setX(950);
+			setMagicx(930);
+			setOldMagicx(930);
 		} else if (position == 1) {
 			setX(730);
+			setMagicx(710);
+			setOldMagicx(710);
 		} else {
 			setX(510);
+			setMagicx(490);
+			setOldMagicx(490);
 		}
 		setY(430);
 		setWidth(220);
 		setHeight(220);
 		setType("Ranged");
+		
+		setMagicy(520);
 		setCharacterImage(new Image("rangedEnemy.gif", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("rangedEnemyRed.png",getWidth(), getHeight(), false, false));
+		setMagicAtkImage(new Image("fireblastRev.png",100, 50, false, false));
 
 	}
 
