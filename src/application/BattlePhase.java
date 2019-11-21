@@ -1,19 +1,16 @@
 package application;
 
-import javafx.animation.FadeTransition;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,9 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -671,13 +665,19 @@ public class BattlePhase {
     }
 
     /**
-     * This method creates display text for when it is the heroes turn to attack and updates necessary variables.
+     * This method creates animation for when a mage a magic attack on their turn and updates necessary variables.
      * 
+     * @param hero the hero chosen by the player
      * @param allEnemies The arrayList of enemies the hero is currently fighting.
      * @param enemyStam The current stamina of the enemy
      * @param dialogue Text that updates the player on what is currently happening.
+     * @param dialogue2 Text that updates the player on what is currently happening.
+     * @param dialogue3 Text that updates the player on what is currently happening.
      * @param choice  The enemy character the hero would like to attack (if there are multiple)
      * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
+     * @param primaryStage the primary stage/ window of GUI
+     * @param transition the transition screen scene
+     * @param youWin the you win screen scene
      */
     public void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
 	    Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin) {
@@ -691,9 +691,9 @@ public class BattlePhase {
 	} else {
 	    timeline.setCycleCount(180);
 	}
-	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> moveMagic(hero, gc, true, allEnemies, floor, choice));
+	KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> moveMagic(hero, gc, allEnemies, floor, choice));
 	hero.setMagicx(210);
-	hero.setMagicy(470);
+	hero.setMagicy(520);
 	timeline.getKeyFrames().add(frame);
 
 	//Play hit sound clip 
@@ -746,14 +746,14 @@ public class BattlePhase {
     }
 
     /**
-     * This method plays the sword swing sound effect.
+     * This method plays the poof sound effect when magic is used.
      */
     public void magicSound() {
 	String musicFile = "./src/poof.mp3";
-	Media sound = new Media(new File(musicFile).toURI().toString());
-	mediaPlayer = new MediaPlayer(sound);
+	Media sound2 = new Media(new File(musicFile).toURI().toString());
+	mediaPlayer = new MediaPlayer(sound2);
 	mediaPlayer.play();
-	mediaPlayer.setVolume(0.1);
+	mediaPlayer.setVolume(1);
     }
 
     /**
@@ -784,11 +784,11 @@ public class BattlePhase {
 	    if (hero.getCurrentMana() < 50) {
 		magicAtkBtn.setDisable(true);
 	    }
-
+	    heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 	} else {
 	    attackAmount = hero.attack(enemy);
 	}
-	heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
+	
 	totalEnemyHealth -= attackAmount;
 	enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 
@@ -893,24 +893,24 @@ public class BattlePhase {
     }
 
     /**
-     * This method allows us to move either the hero character or the enemies forward and
-     * backward for the animation of an attack. It will first clear the current picture
-     * off the canvas, move the X axis of image either forward or backward depending 
-     * on the boolean and repaint in the new location
-     * @param character The character we are moving
+     * This method allows us to move the image of the magic attack towards the enemy
+     * 
+     * @param character The character using the magic attack
      * @param gc The GraphicsContext used to delete and repaint
-     * @param forward Whether we are moving forward or backward
+     * @param allEnemies  the HashMap with all the enemies
+     * @param floor the floor number the hero is on
+     * @param choice the enemy the hero has chosen to attack
      */
-    public void moveMagic(GameCharacters character, GraphicsContext gc, boolean forward, 
+    public void moveMagic(GameCharacters character, GraphicsContext gc, 
 	    HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, int choice) {
 	
 	//Clear current picture
 	character.displayMagicAtkImage(gc, true, character.getMagicx(),character.getMagicy());
 
-	//Move character accordingly depending on boolean
+	//Move magic accordingly 
 	if (character.getMagicx() < allEnemies.get(floor).get(choice).getX()) {
 	  character.setMagicx(character.getMagicx() + 1);
-	} else {
+	} else if (character.getMagicx() == allEnemies.get(floor).get(choice).getX() ) {
 	    character.displayMagicAtkImage(gc, true, character.getMagicx(),character.getMagicy());
 	}
 
@@ -1122,10 +1122,12 @@ public class BattlePhase {
     }
 
     /** This method disables/enables all user input buttons
+     * 
      * @param disable If true, disable all buttons. Enable otherwise.
      * @param attackBtn Button to attack
      * @param healBtn Button to use item
      * @param defendBtn Button to defend
+     * @param magicAtkBtn Button to do a magic attack
      */
     public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn, Button magicAtkBtn) {
 	attackBtn.setDisable(disable);

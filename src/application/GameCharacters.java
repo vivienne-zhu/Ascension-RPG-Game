@@ -217,7 +217,7 @@ public class GameCharacters {
     
     public void displayMagicAtkImage(GraphicsContext g, boolean delete, double x,double y) {
 	if (delete) {
-	    g.clearRect(getMagicx(),getMagicy() , 100, 50);
+	    g.clearRect(getMagicx(),getMagicy(), 100, 50);
 	} else {
 	    g.drawImage(getMagicAtkImage(), getMagicx(), getMagicy());
 	}
