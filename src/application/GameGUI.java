@@ -374,7 +374,7 @@ public class GameGUI extends Application {
 //		allEnemies.put(2, floorTwo);
 		
 		//Mediaplayer for music
-		String musicFile = "./src/fightmusic.mp3";
+		String musicFile = "./src/fightmusiccut.mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		if (firstTime) {
