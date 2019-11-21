@@ -1,5 +1,6 @@
 package application;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -34,6 +35,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -146,11 +148,17 @@ public class GameGUI extends Application {
 		title.setFill(fill);
 		
 		//Mediaplayer for music
-		    String musicFile = "./src/startMusic.wav";
-			Media sound = new Media(new File(musicFile).toURI().toString());
-			mediaPlayer = new MediaPlayer(sound);
-			mediaPlayer.play();
-			mediaPlayer.setVolume(0.8);
+		String musicFile = "./src/startMusic.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.8);
+		
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 		
 		//Adding background to Pane
 		Image background = new Image("Tower.jpg");
@@ -219,11 +227,19 @@ public class GameGUI extends Application {
 		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 		Background startScreen = new Background(background2);
+		
+		
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
 		display.setBackground(startScreen);
 		display.getChildren().addAll(mageBtn, warriorBtn, rougueBtn, charOption);
+		
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
@@ -300,6 +316,12 @@ public class GameGUI extends Application {
 		Pane display = new Pane();
 		display.setBackground(startScreen);
 		display.getChildren().addAll(getName);
+		
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
@@ -441,6 +463,12 @@ public class GameGUI extends Application {
 		battle.initButtons(hero);
 		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScene(primaryStage), gameOverScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
+		
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(500), towerLevels);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 
 		// Setting Background for Pane, adding grid to Pane  
 		towerLevels.setBackground(insideTowerBackground);
@@ -583,6 +611,12 @@ public class GameGUI extends Application {
 		Background shopBg2 = new Background(shopBg1);
 		root.setBackground(shopBg2);
 
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
+		
 		// Create the scene
 		Scene shopScene = new Scene(root, 1280, 720);
 		primaryStage.setScene(shopScene);
@@ -672,6 +706,12 @@ public class GameGUI extends Application {
 		Background towerBackground = new Background(background);
 		grid.setBackground(towerBackground);
 		
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
+		
 		// Create the scene
 		Scene eventScene = new Scene(grid, 1280, 720);
 		primaryStage.setScene(eventScene);
@@ -729,13 +769,18 @@ public class GameGUI extends Application {
 	    display.getChildren().addAll(reviveOption, hbBtn, revive);
 	
 	    // Set background 
-	 	Image tower = new Image("pixelBack.png");
-	 	BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+	    Image tower = new Image("pixelBack.png");
+	    BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 	 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	 	Background towerBackground = new Background(background);
-	 	display.setBackground(towerBackground);
+	    Background towerBackground = new Background(background);
+	    display.setBackground(towerBackground);
 
-
+	    //Fade Transition
+	    FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
+	    ft.setFromValue(0);
+	    ft.setToValue(1);
+	    ft.play();
+	    
 	    //Adding Pane to Scene and Scene to Stage
 	    Scene reviveScene = new Scene(display, 1280, 720);
 	    reviveScene.setFill(Color.ROYALBLUE);
@@ -808,6 +853,11 @@ public class GameGUI extends Application {
 		gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
 		gameWon.setStyle(" -fx-background-color: gold");
 
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameWon);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
@@ -870,6 +920,11 @@ public class GameGUI extends Application {
 		gameOver.getChildren().addAll(gameOverText2, hbBtn);
 		gameOver.setStyle(" -fx-background-color: black");
 
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameOver);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gOver = new Scene(gameOver, 1280, 720);
@@ -953,9 +1008,9 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
-			shopBtn.setDisable(true);
-		} 		
+//		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
+//			shopBtn.setDisable(true);
+//		} 		
 		shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
 		
@@ -963,6 +1018,11 @@ public class GameGUI extends Application {
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
 		display.setStyle(" -fx-background-color: cornflowerblue");
 
+		//Fade Transition
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
