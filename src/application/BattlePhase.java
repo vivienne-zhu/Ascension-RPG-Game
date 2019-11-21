@@ -613,7 +613,13 @@ public class BattlePhase {
 		Timeline sound = new Timeline();
 		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
 		sound.getKeyFrames().add(soundFrame);
-
+		
+		Timeline slash = new Timeline();
+		slash.setCycleCount(10);
+		KeyFrame slashFrame = new KeyFrame(Duration.millis(1), ae -> hero.displaySlashImage(gc, false, 
+				allEnemies.get(floor).get(choice).getX(), allEnemies.get(floor).get(choice).getY()));
+		slash.getKeyFrames().add(slashFrame);
+		
 		Timeline enemyRed = new Timeline();
 		KeyFrame turnRed = new KeyFrame(Duration.millis(1), ae -> {
 			if (choice == 0) {
@@ -660,7 +666,7 @@ public class BattlePhase {
 		KeyFrame frameThree = new KeyFrame(Duration.millis(1), ae -> move(hero, gc, false, allEnemies, floor));
 		timelineTwo.getKeyFrames().add(frameThree);
 
-		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, finishMove, hit, timelineTwo);
+		SequentialTransition sequence = new SequentialTransition(timeline, sound, slash, enemyRed, finishMove, hit, timelineTwo);
 		sequence.play();    	
 	}
 
