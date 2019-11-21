@@ -23,12 +23,12 @@ public class Rogue extends GameCharacters {
 		setCurrentStamina(getStamina());
 		setLevel(1);
 		setX(10);
-		setY(410);
-		setWidth(280);
-		setHeight(250);
-		setCharacterImage(new Image("rogue.png", getWidth(), getHeight(), false, false));
-		setCharacterImageHurt(new Image("redrogue.png",getWidth(), getHeight(), false, false));
-		setCharacterImageHeal(new Image("whiterogue.png",getWidth(), getHeight(), false, false));
+		setY(420);
+		setWidth(230);
+		setHeight(230);
+		setCharacterImage(new Image("rogue.gif", getWidth(), getHeight(), false, false));
+		setCharacterImageHurt(new Image("redrogue_gif.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("whiterogue_gif.png",getWidth(), getHeight(), false, false));
 		setType("Rogue");
     }
 }

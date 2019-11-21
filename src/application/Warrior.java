@@ -24,12 +24,12 @@ public class Warrior extends GameCharacters {
 		setCurrentStamina(getStamina());
 		setLevel(1);
 		setX(10);
-		setY(420);
-		setWidth(250);
-		setHeight(280);
-		setCharacterImage(new Image("pixelWarrior.png",getWidth(), getHeight(), false, false));
-		setCharacterImageHurt(new Image("redWarrior.png",getWidth(), getHeight(), false, false));
-		setCharacterImageHeal(new Image("whitewarrior.png",getWidth(), getHeight(), false, false));
+		setY(410);
+		setWidth(230);
+		setHeight(240);
+		setCharacterImage(new Image("warrior.gif",getWidth(), getHeight(), false, false));
+		setCharacterImageHurt(new Image("redWarrior_gif.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("whitewarrior_gif.png",getWidth(), getHeight(), false, false));
 		setCharacterImageSlash(new Image("slash.png", 200, 175, false, false));
 		setType("Warrior");
 	}
