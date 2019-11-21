@@ -776,7 +776,7 @@ public class BattlePhase {
 		Media sound3 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound3);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.8);
+		mediaPlayer.setVolume(0.1);
 		
 	}
 	
