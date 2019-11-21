@@ -375,8 +375,13 @@ public class GameGUI extends Application {
 			totalEnemyHealth += floorEnemies.get(i).getCurrentStamina();
 		}
 
+		//Replenishing hero stats before new floor
+		hero.setCurrentStamina(hero.getStamina());
+		hero.setCurrentMana(hero.getMana());
+		
 		// Creation of pane -->currently here for GUI testing
 		//System.out.println(allEnemies.get(0));
+		
 		Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
 
 		//Code to be added when enemy hashMap completed
@@ -418,7 +423,7 @@ public class GameGUI extends Application {
 		floorNum.setX(600);
 		floorNum.setY(50);
 
-		// TEST - Adding hero and boss images
+		// Adding hero and boss images
 		hero.displayCharacter(gc, false, false, false);
 		
 		for (int i = 0; i < floorCopy.size(); i++) {

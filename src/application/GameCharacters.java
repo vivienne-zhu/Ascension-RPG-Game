@@ -37,6 +37,9 @@ public class GameCharacters {
     private Image characterImage;
     private Image characterImageHurt;
     private Image characterImageHeal;
+    private Image magicAtkImage;
+    private double magicx;
+    private double magicy;
     private String type;
 
     /**
@@ -97,7 +100,6 @@ public class GameCharacters {
     public int magicAttack(GameCharacters character) {
 	setIsDefending(false);
 	int attackValue = this.getMagicAtk() - character.getDefense();
-	this.setCurrentMana(getCurrentMana() - 50);
 	if (character.getType().equals("Melee")) { // Add other type advantage here
 	    attackValue = (int) (attackValue * 1.2);
 	}
@@ -158,6 +160,9 @@ public class GameCharacters {
     public void revive() {
 	if (isHasRevive() == true) {
 	    setCurrentStamina(this.getStamina());
+	    if(getType().equals("Mage")) {
+		setCurrentMana(this.getMana());
+	    }
 	    setHasRevive(false);
 	}
     }
@@ -207,6 +212,15 @@ public class GameCharacters {
 	} else {
 	    g.drawImage(getCharacterImage(), getX(), getY());
 	}
+    }
+    
+    public void displayMagicAtkImage(GraphicsContext g, boolean delete, double x,double y) {
+	if (delete) {
+	    g.clearRect(getMagicx(),getMagicy(), 100, 50);
+	} else {
+	    g.drawImage(getMagicAtkImage(), getMagicx(), getMagicy());
+	}
+	
     }
 
     /**
@@ -562,6 +576,62 @@ public class GameCharacters {
      */
     public void setCurrentMana(int currentMana) {
         this.currentMana = currentMana;
+    }
+
+    /**
+     * @return whether leveledThisTurn is true or not
+     */
+    public Boolean getLeveledThisTurn() {
+        return leveledThisTurn;
+    }
+
+    /**
+     * @param currentMana set truthness of leveledThisTurn
+     */
+    public void setLeveledThisTurn(boolean leveledThisTurn) {
+        this.leveledThisTurn = leveledThisTurn;
+    }
+    
+    /**
+     * @return the magicAtkImage
+     */
+    public Image getMagicAtkImage() {
+        return magicAtkImage;
+    }
+
+    /**
+     * @param magicAtkImage the magicAtkImage to set
+     */
+    public void setMagicAtkImage(Image magicAtkImage) {
+        this.magicAtkImage = magicAtkImage;
+    }
+
+    /**
+     * @return the magicx
+     */
+    public double getMagicx() {
+        return magicx;
+    }
+
+    /**
+     * @param magicx the magicx to set
+     */
+    public void setMagicx(double magicx) {
+        this.magicx = magicx;
+    }
+
+    /**
+     * @return the magicy
+     */
+    public double getMagicy() {
+        return magicy;
+    }
+
+    /**
+     * @param magicy the magicy to set
+     */
+    public void setMagicy(double magicy) {
+        this.magicy = magicy;
     }
     
 }
