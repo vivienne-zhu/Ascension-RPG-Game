@@ -41,7 +41,6 @@ public class GameCharacters {
     private double magicx;
     private double magicy;
     private String type;
-    private Boolean leveledThisTurn;
 
     /**
      * The constructor initializes the necessary instance variables to O and false,
@@ -577,20 +576,6 @@ public class GameCharacters {
      */
     public void setCurrentMana(int currentMana) {
         this.currentMana = currentMana;
-    }
-
-    /**
-     * @return whether leveledThisTurn is true or not
-     */
-    public Boolean getLeveledThisTurn() {
-        return leveledThisTurn;
-    }
-
-    /**
-     * @param currentMana set truthness of leveledThisTurn
-     */
-    public void setLeveledThisTurn(boolean leveledThisTurn) {
-        this.leveledThisTurn = leveledThisTurn;
     }
     
     /**

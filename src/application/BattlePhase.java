@@ -825,12 +825,10 @@ public class BattlePhase {
 		if (totalEnemyHealth == 0) {
 			//Transition to next screen after battle after 5 seconds
 			int xp = 50 * allEnemies.get(floor).size() + floor * 10;
-			System.out.println(hero.getXp());
 			hero.setXp(hero.getXp() + xp);
 			if (hero.getXp() > (50 + hero.getLevel() * 80)) {
 				hero.levelUp();
 				hero.setXp(0);
-				hero.setLeveledThisTurn(true);
 			}
 			if (floor < 10) {
 				Timeline moveOn = new Timeline();
