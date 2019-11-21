@@ -28,6 +28,8 @@ public class Mage extends GameCharacters {
 		setLevel(1);
 		setX(50);
 		setY(470);
+		setMagicx(210);
+		setMagicy(470);
 		setWidth(160);
 		setHeight(180);
 		setCharacterImage(new Image("mage1.png", getWidth(), getHeight(), false, false));
