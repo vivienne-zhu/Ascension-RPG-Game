@@ -37,12 +37,9 @@ public class GameCharacters {
     private Image characterImage;
     private Image characterImageHurt;
     private Image characterImageHeal;
-    private Image characterImageSlash;
     private Image magicAtkImage;
     private double magicx;
     private double magicy;
-    private double slashx;
-    private double slashy;
     private double oldMagicx; //for ranged enemy
     private String type;
 
@@ -219,19 +216,12 @@ public class GameCharacters {
     }
     
     public void displayMagicAtkImage(GraphicsContext g, boolean delete, double x,double y) {
-    	if (delete) {
-    		g.clearRect(getMagicx(),getMagicy(), 100, 50);
-    	} else {
-    		g.drawImage(getMagicAtkImage(), getMagicx(), getMagicy());
-    	}
-    }
-
-    public void displaySlashImage(GraphicsContext g, boolean delete, double x, double y) {
-    	if (delete) {
-    		g.clearRect(getSlashx(),getSlashy(), 200, 125);
-    	} else {
-    		g.drawImage(getCharacterImageSlash(), x, y);
-    	}
+	if (delete) {
+	    g.clearRect(getMagicx(),getMagicy(), 100, 50);
+	} else {
+	    g.drawImage(getMagicAtkImage(), getMagicx(), getMagicy());
+	}
+	
     }
 
     /**
@@ -504,20 +494,6 @@ public class GameCharacters {
     public Image getCharacterImageHurt() {
 	return characterImageHurt;
     }
-    
-    /**
-     * @return the characterImageSlash when sword attack animation
-     */
-    public Image getCharacterImageSlash() {
-	return characterImageSlash;
-    }
-    
-    /**
-     * @param characterImageSlash the characterImageSlash to set
-     */
-    public void setCharacterImageSlash(Image characterImageSlash) {
-	this.characterImageSlash = characterImageSlash;
-    }
 
     /**
      * @param characterImage the characterImage to set
@@ -657,34 +633,6 @@ public class GameCharacters {
      */
     public void setOldMagicx(double oldMagicx) {
         this.oldMagicx = oldMagicx;
-    }
-    
-    /**
-     * @return the slashx
-     */
-    public double getSlashx() {
-        return slashx;
-    }
-
-    /**
-     * @param slashx the slashx to set
-     */
-    public void setSlashx(double slashx) {
-        this.slashx = slashx;
-    }
-    
-    /**
-     * @return the slashy
-     */
-    public double getSlashy() {
-        return slashy;
-    }
-
-    /**
-     * @param slashx the slashx to set
-     */
-    public void setSlashy(double slashy) {
-        this.slashy = slashy;
     }
     
 }
