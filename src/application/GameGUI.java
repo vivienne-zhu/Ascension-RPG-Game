@@ -652,11 +652,22 @@ public class GameGUI extends Application {
 		ImageView closedIV = new ImageView(event.getClosedBox());		
 		ImageView openIV = new ImageView(event.getOpenBox());
 		
+		//Creating continue button and adding event handling
+		Button continueBtn = new Button("NEXT FLOOR");
+		continueBtn.setDisable(true);
+		continueBtn.setLayoutX(500);
+		continueBtn.setLayoutY(700);
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
+		continueBtn.setOnAction(event -> {
+			floor.incrementFloor();
+			fullGame(primaryStage);
+					});
 		// Create 'Open' Button 
 		Button openBtn = new Button("OPEN");
 		openBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		
 		openBtn.setOnAction(Event -> {
+		    	continueBtn.setDisable(false);
 			grid.getChildren().remove(closedIV);
 			grid.add(openIV, 2, 1);
 			
@@ -667,15 +678,7 @@ public class GameGUI extends Application {
 			
 		}); 
 		
-		//Creating continue button and adding event handling
-		Button continueBtn = new Button("NEXT FLOOR");
-		continueBtn.setLayoutX(500);
-		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
-		continueBtn.setOnAction(event -> {
-				floor.incrementFloor();
-				fullGame(primaryStage);
-			});
+		
 		
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
