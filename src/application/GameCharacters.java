@@ -41,6 +41,7 @@ public class GameCharacters {
     private double magicx;
     private double magicy;
     private String type;
+    private Boolean leveledThisTurn;
 
     /**
      * The constructor initializes the necessary instance variables to O and false,
