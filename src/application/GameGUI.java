@@ -375,8 +375,6 @@ public class GameGUI extends Application {
 			totalEnemyHealth += floorEnemies.get(i).getCurrentStamina();
 		}
 
-		//Replenishing hero stats before new floor
-		hero.setCurrentStamina(hero.getStamina());
 		hero.setCurrentMana(hero.getMana());
 		
 		// Creation of pane -->currently here for GUI testing
