@@ -761,7 +761,7 @@ public class BattlePhase {
 	 * This method plays the poof sound effect when magic is used.
 	 */
 	public void magicSound() {
-		String musicFile = "./src/poof2.wav";
+		String musicFile = "./src/fireball.mp3";
 		Media sound2 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound2);
 		mediaPlayer.play();
