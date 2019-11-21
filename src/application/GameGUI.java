@@ -24,7 +24,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -35,7 +34,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -146,7 +144,14 @@ public class GameGUI extends Application {
 		Image brick = new Image("Brick.jpeg");
 		ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
 		title.setFill(fill);
-
+		
+		//Mediaplayer for music
+		    String musicFile = "./src/startMusic.wav";
+			Media sound = new Media(new File(musicFile).toURI().toString());
+			mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.play();
+			mediaPlayer.setVolume(0.8);
+		
 		//Adding background to Pane
 		Image background = new Image("Tower.jpg");
 		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
@@ -277,6 +282,7 @@ public class GameGUI extends Application {
 			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
 			error.setText("Please enter name to continue.");
 		    } else {
+			mediaPlayer.stop();
 			String name = charNameBox.getText();
 			setHeroName(name);
 			createHero();
@@ -536,11 +542,16 @@ public class GameGUI extends Application {
 		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
-		continueBtn.setOnAction(event -> {
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		 
+		this.event.eventHappen();
+		if (this.event.isEvent() == true) {
+		    continueBtn.setOnAction(event -> {
+			event(primaryStage);});
+		} else {
+		    continueBtn.setOnAction(event -> {
 			floor.incrementFloor();
-			fullGame(primaryStage);
-		});
+			fullGame(primaryStage);});
+		}
 		
 		// Add nodes to the grid pane
 		root.setGridLinesVisible(false);
@@ -846,6 +857,14 @@ public class GameGUI extends Application {
 		}});
 		
 
+		//Mediaplayer for music
+//		 String musicFile = "./src/gameoverMusic.wav";
+//		 Media sound = new Media(new File(musicFile).toURI().toString());
+//		 mediaPlayer = new MediaPlayer(sound);
+//		 mediaPlayer.play();
+//		 mediaPlayer.setVolume(0.8);	
+			  
+
 		//Creating Pane and adding nodes
 		Pane gameOver = new Pane();
 		gameOver.getChildren().addAll(gameOverText2, hbBtn);
@@ -934,9 +953,9 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-//		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
-//			shopBtn.setDisable(true);
-//		} 		
+		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
+			shopBtn.setDisable(true);
+		} 		
 		shopBtn.setOnAction(event -> {
 			shop(primaryStage);});
 		
