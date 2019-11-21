@@ -630,7 +630,6 @@ public class GameGUI extends Application {
 	 * @param primaryStage
 	 */
 	public void event(Stage primaryStage) {
-		// INCOMPLETE METHOD, WILL BE FINALIZED 
 		GridPane grid = new GridPane();
 		
 		// Text for the event 
@@ -669,11 +668,7 @@ public class GameGUI extends Application {
 		openBtn.setOnAction(Event -> {
 			
 			// Open treasure chest sound effect 
-			String musicFile = "./src/chestOpening.wav";
-			Media sound = new Media(new File(musicFile).toURI().toString());
-			mediaPlayer = new MediaPlayer(sound);
-			mediaPlayer.play();
-			mediaPlayer.setVolume(0.8);
+			event.openChestSound();
 			
 		    continueBtn.setDisable(false);
 			grid.getChildren().remove(closedIV);

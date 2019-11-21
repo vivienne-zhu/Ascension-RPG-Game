@@ -1,10 +1,13 @@
 package application;
 
+import java.io.File;
 import java.util.Random;
 
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -21,6 +24,7 @@ public class Event {
 	private boolean isEvent;
 	private Image closedBox;
 	private Image openBox;
+	private MediaPlayer mediaPlayer;
 	
 	/**
 	 * The constructor of the event class. 
@@ -53,10 +57,10 @@ public class Event {
 		Random r = new Random();
 		int newFloor = floor.getFloor() + r.nextInt(2) + 1;
 		
-		if (newFloor > 10) {
-			floor.setFloor(10);
+		if (newFloor >= 10) {
+			floor.setFloor(9);
 		} else {
-			floor.setFloor(floor.getFloor() + r.nextInt(2) + 1);				
+			floor.setFloor(newFloor);				
 		}
 			
 		return floor.getFloor();
@@ -68,8 +72,10 @@ public class Event {
 	 * 
 	 * @param floor
 	 */
-	public void dropFloor(Floor floor) {
-		floor.setFloor(floor.getFloor() - 1);
+	public int dropFloor(Floor floor) {
+		floor.decrementFloor();
+		
+		return floor.getFloor();
 	
 	}
 	
@@ -107,7 +113,7 @@ public class Event {
 	}
 	
 	/**
-	 * This method runs the event generating funtion. 
+	 * This method runs the event generating function. 
 	 * 
 	 * @param hero
 	 * @param floor
@@ -117,24 +123,21 @@ public class Event {
 	public void eventGenerator(GameCharacters hero, Floor floor, Text display, ImageView iv) {
 		Random r = new Random();
 //		int selectedEvent = r.nextInt(4);
-		int selectedEvent = 3;
+		int selectedEvent = 1;
 		
 		DropShadow ds1 = new DropShadow();
 		ds1.setColor(Color.DARKRED);
 		DropShadow ds2 = new DropShadow();
 		ds2.setColor(Color.GOLDENROD);
-		
-		int newFloor = floor.getFloor() + 1;
-
-		
+				
 		if (selectedEvent == 0) {
-			this.jumpFloor(floor);
+			int newFloor2 = this.jumpFloor(floor) + 1;
 			display.setText("A map that shows a secret path to avoide the enemies..."
-					+ "You get to floor " + newFloor + "!");
+					+ "You get to floor " + newFloor2 + "!");
 			iv.setEffect(ds2);
 		} else if (selectedEvent == 1) {
-			this.dropFloor(floor);				
-			display.setText("A hidden door underneath the box...you dropeed to floor " + newFloor + " again!");
+			int newFloor = this.dropFloor(floor) + 1;				
+			display.setText("A hidden door underneath the box...you droped to floor " + newFloor + " again!");
 			iv.setEffect(ds1);
 		} else if (selectedEvent == 2) {
 			double gold = this.gainGold(hero, floor);	
@@ -143,9 +146,21 @@ public class Event {
 		} else if (selectedEvent  == 3) {
 			double lostGold;
 			lostGold = this.loseGold(hero, floor);		
-			display.setText("A Goblin appears and takes " + lostGold + " away...You now have " + hero.getGold() + " gold.");
+			display.setText("A Goblin appears and takes " + lostGold + " gold away...You now have " + hero.getGold() + " gold.");
 			iv.setEffect(ds1);
 		}
+	}
+	
+	/**
+	 * This method creates the chest opening sound effect. 
+	 */
+	
+	public void openChestSound() {
+		String musicFile = "./src/chestOpening.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.8);		
 	}
 		
 	/**
