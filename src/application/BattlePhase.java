@@ -695,7 +695,7 @@ public class BattlePhase {
 		hero.setMagicx(210);
 		hero.setMagicy(520);
 		timeline.getKeyFrames().add(frame);
-
+		
 		//Play hit sound clip 
 		Timeline sound = new Timeline();
 		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> magicSound());
@@ -729,8 +729,14 @@ public class BattlePhase {
 		});
 
 		hit.getKeyFrames().add(frameTwo);
-
-		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, hit); //sound,
+		
+		Timeline magicClear = new Timeline();
+		KeyFrame clear = new KeyFrame(Duration.millis(1), ae ->  
+			hero.displayMagicAtkImage(gc, true, hero.getMagicx(),hero.getMagicy()));
+		magicClear.getKeyFrames().add(clear);
+		
+		
+		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, hit, magicClear); //sound,
 		sequence.play();    	
 	}
 
@@ -917,8 +923,6 @@ public class BattlePhase {
 		//Draw new picture
 		character.displayMagicAtkImage(gc, false, character.getMagicx(),character.getMagicy());
 
-
-
 		if (allEnemies.get(floor).size() == 3) {
 			if (character.getMagicx() >= allEnemies.get(floor).get(1).getX() && !dead.contains(1)) {
 				allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false);
@@ -932,7 +936,6 @@ public class BattlePhase {
 			}				
 		}
 	}
-
 
 	/**
 	 * This method creates display text for when it is the enemies turn to attack and updates necessary variables.
