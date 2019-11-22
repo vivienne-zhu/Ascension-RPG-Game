@@ -419,9 +419,9 @@ public class BattlePhase {
 			grid.add(enemyTwoStam, 2, 1);
 			grid.add(chooseEnemyTwoBtn, 2, 2);
 		} else {
-			grid.add(dialogue, 2, 3);
-			grid.add(dialogueTwo, 2, 4);
-			grid.add(dialogueThree, 2, 5);
+			grid.add(dialogue, 2, 5);
+			grid.add(dialogueTwo, 2, 6);
+			grid.add(dialogueThree, 2, 7);
 			grid.add(enemyName, 4, 0);
 			grid.add(enemyStam, 4, 1);
 			grid.add(chooseEnemyBtn, 4, 2);
