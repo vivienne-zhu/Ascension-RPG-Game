@@ -230,17 +230,17 @@ public class GameGUI extends Application {
 		mageBtn.setOnAction(event -> {
 		    	buttonSound();
 			setMage(true);
-			getCharName(primaryStage);
+			nameCharScreen(primaryStage);
 		});
 		warriorBtn.setOnAction(event -> {
 		    	buttonSound();
 			setWarrior(true);
-			getCharName(primaryStage);
+			nameCharScreen(primaryStage);
 		});
 		rougueBtn.setOnAction(event -> {
 		    	buttonSound();
 			setRogue(true);
-			getCharName(primaryStage);
+			nameCharScreen(primaryStage);
 		});
 
 		//Creating background for Pane
@@ -275,7 +275,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @return givenName String name entered by the user.
 	 */
-	public void getCharName(Stage primaryStage) {
+	public void nameCharScreen(Stage primaryStage) {
 		//Creating grid to be used to house text and text field
 		GridPane getName = new GridPane();
 
@@ -329,7 +329,7 @@ public class GameGUI extends Application {
 			createHero();
 			buttonSound();
 			openingMusic.stop();
-			fullGame(primaryStage);
+			battleScreen(primaryStage);
 		    }
 		});
 
@@ -380,7 +380,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
-	public void fullGame(Stage primaryStage) {
+	public void battleScreen(Stage primaryStage) {
 		//Below enemy created for testing purposes
 		//These will not be hard-coded in the future
 //		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
@@ -489,7 +489,7 @@ public class GameGUI extends Application {
 		battle.heroAnimate(hero, gc);
 		battle.dispDialogue();
 		battle.initButtons(hero);
-		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScene(primaryStage), gameOverScreen(primaryStage));
+		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage), gameOverScreen(primaryStage));
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
@@ -509,7 +509,7 @@ public class GameGUI extends Application {
 	 * This will generate the shop screen, where player is able to buy and sell
 	 * items.
 	 */
-	public void shop(Stage primaryStage) {
+	public void shopScreen(Stage primaryStage) {
 		// Create grid pane
 		GridPane root = new GridPane();
 
@@ -603,12 +603,12 @@ public class GameGUI extends Application {
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
 			buttonSound();
-			event(primaryStage);});
+			eventScreen(primaryStage);});
 		} else {
 		    continueBtn.setOnAction(event -> {
 			buttonSound();
 			floor.incrementFloor();
-			fullGame(primaryStage);});
+			battleScreen(primaryStage);});
 		}
 		
 		// Add nodes to the grid pane
@@ -659,7 +659,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage
 	 */
-	public void event(Stage primaryStage) {
+	public void eventScreen(Stage primaryStage) {
 		GridPane grid = new GridPane();
 		
 		// Text for the event 
@@ -690,7 +690,7 @@ public class GameGUI extends Application {
 		continueBtn.setOnAction(event -> {
 		    	buttonSound();
 			floor.incrementFloor();
-			fullGame(primaryStage);
+			battleScreen(primaryStage);
 					});
 		// Create 'Open' Button 
 		Button openBtn = new Button("OPEN");
@@ -757,7 +757,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage The primary stage or window of the GUI
 	 */
-	public Scene reviveScene(Stage primaryStage) {
+	public Scene reviveScreen(Stage primaryStage) {
 	    //Creating text for the page
 	    Text reviveOption = new Text();
 	    reviveOption.setText("Would you like to use a revive?");
@@ -783,7 +783,7 @@ public class GameGUI extends Application {
 	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	    reviveBtn.setOnAction(event-> {hero.revive();
 	    	buttonSound();
-		fullGame(primaryStage);
+		battleScreen(primaryStage);
 		});
 	    
 	    Button exitBtn = new Button("Don't use revive");
@@ -1044,12 +1044,12 @@ public class GameGUI extends Application {
 		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
 			    buttonSound();
-			    event(primaryStage);});
+			    eventScreen(primaryStage);});
 		} else {
 			continueBtn.setOnAction(event -> {
 			    buttonSound();
 			    floor.incrementFloor();
-			    fullGame(primaryStage);});
+			    battleScreen(primaryStage);});
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
@@ -1058,7 +1058,7 @@ public class GameGUI extends Application {
 //		} 		
 		shopBtn.setOnAction(event -> {
 		    	buttonSound();
-			shop(primaryStage);});
+			shopScreen(primaryStage);});
 		
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
