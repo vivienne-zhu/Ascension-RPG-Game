@@ -262,7 +262,7 @@ public class BattlePhase {
 		itemBag.setVisible(false);
 
 	}
-
+	
 	/**
 	 * This method attaches the proper events to button clicks. Namely it gives action
 	 * to the attack, defend, heal, and choose enemy buttons.
@@ -803,8 +803,7 @@ public class BattlePhase {
 		Media sound3 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound3);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.2);
-		
+		mediaPlayer.setVolume(0.3);		
 	}
 	
 	/**

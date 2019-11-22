@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+
 /**
  * This class represent the magic shop available to the player on floor 3,6 & 9.
  * 
@@ -9,6 +11,8 @@ package application;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 
 public class Shop {
@@ -47,6 +51,7 @@ public class Shop {
 			if (text.matches("[0-9]*")) {
 				double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
 				if (hero.getGold() >= cost) {
+					moneySound();
 					errorMsg.setVisible(false);
 					hero.setGold(hero.getGold() - cost);
 					hero.getPotionMap().put(potion,
@@ -83,6 +88,7 @@ public class Shop {
 			if (text.matches("[0-9]*")) {
 				double quantity = Double.parseDouble(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
+					moneySound();
 					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
 					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
 					display.setText(this.shopDisplay(hero));
@@ -114,6 +120,7 @@ public class Shop {
 				errorMsg.setVisible(true);
 			} else {
 				if (hero.getGold() >= 200) {
+					moneySound();
 					hero.setGold(hero.getGold() - 200);
 					hero.setHasRevive(true);
 					display.setText(this.shopDisplay(hero));
@@ -137,6 +144,7 @@ public class Shop {
 	public void sellRevive(GameCharacters hero, Button btn, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
 				if (hero.isHasRevive() == true) {
+					moneySound();
 					hero.setGold(hero.getGold() + 150);
 					hero.setHasRevive(false);
 					display.setText(this.shopDisplay(hero));
@@ -169,6 +177,18 @@ public class Shop {
 		}
 
 		return display;
+	}
+	
+	/**
+	 * This method plays a sound when the player buy or sell an item. 
+	 */
+	public void moneySound() {
+		String musicFile = "./src/goldSound.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());		
+	
+		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.3);		
 	}
 
 	/**

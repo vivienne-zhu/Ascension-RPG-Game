@@ -1,6 +1,8 @@
 package application;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -41,6 +43,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.sun.javafx.scene.text.TextLine;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
@@ -154,7 +158,7 @@ public class GameGUI extends Application {
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		openingMusic = new MediaPlayer(sound);
 		openingMusic.play();
-		openingMusic.setVolume(0.6);
+		openingMusic.setVolume(0.3);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -183,7 +187,7 @@ public class GameGUI extends Application {
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.3);
+		mediaPlayer.setVolume(0.1);
 	}
 
 	/**
@@ -697,19 +701,15 @@ public class GameGUI extends Application {
 			// Open treasure chest sound effect 
 			event.openChestSound();
 			
-		    continueBtn.setDisable(false);
-			grid.getChildren().remove(closedIV);
-			grid.add(openIV, 2, 1);
-			
-			GridPane.setHalignment(openIV, HPos.CENTER);
-			openBtn.setVisible(false);
-			
-			event.eventGenerator(hero, floor, display, openIV);
-			
+			Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			KeyFrame frame = new KeyFrame(Duration.millis(1500), ae -> 
+			event.openChest(hero, floor, continueBtn, grid, closedIV, openIV, openBtn, display));
+		
+			timeline.getKeyFrames().add(frame);
+			timeline.play();			
 		}); 
-		
-		
-		
+				
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
 			ColumnConstraints column = new ColumnConstraints(250);

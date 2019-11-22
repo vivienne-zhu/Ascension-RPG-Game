@@ -3,9 +3,12 @@ package application;
 import java.io.File;
 import java.util.Random;
 
+import javafx.geometry.HPos;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -42,7 +45,7 @@ public class Event {
 	 */
 	public void eventHappen() {
 		Random r = new Random();
-		int a = r.nextInt(5); 
+		int a = r.nextInt(1); 
 		if (a == 0) {
 			this.isEvent = true;			
 		}
@@ -53,12 +56,13 @@ public class Event {
 	 * 
 	 * @param floor the current floor the player is on.
 	 */
-	public int jumpFloor(Floor floor) {
+	public int jumpFloor(GameCharacters hero, Floor floor) {
 		Random r = new Random();
 		int newFloor = floor.getFloor() + r.nextInt(2) + 1;
 		
 		if (newFloor >= 10) {
 			floor.setFloor(9);
+			gainGold(hero);
 		} else {
 			floor.setFloor(newFloor);				
 		}
@@ -85,7 +89,7 @@ public class Event {
 	 * 
 	 * @param hero
 	 */
-	public Double gainGold(GameCharacters hero, Floor floor) { 
+	public Double gainGold(GameCharacters hero) { 
 		Random r = new Random();
 		double gold = r.nextInt(200) + 1;
 		hero.setGold(hero.getGold() + gold);	
@@ -130,7 +134,7 @@ public class Event {
 		ds2.setColor(Color.GOLDENROD);
 				
 		if (selectedEvent == 0) {
-			int newFloor2 = this.jumpFloor(floor) + 1;
+			int newFloor2 = this.jumpFloor(hero, floor) + 1;
 			display.setText("A map that shows a secret path to avoide the enemies..."
 					+ "You get to floor " + newFloor2 + "!");
 			iv.setEffect(ds2);
@@ -139,7 +143,7 @@ public class Event {
 			display.setText("A hidden door underneath the box...you droped to floor " + newFloor + " again!");
 			iv.setEffect(ds1);
 		} else if (selectedEvent == 2) {
-			double gold = this.gainGold(hero, floor);	
+			double gold = this.gainGold(hero);	
 			display.setText(gold + " gold in the box...You now have " + hero.getGold() + " gold.");
 			iv.setEffect(ds2);
 		} else if (selectedEvent  == 3) {
@@ -162,6 +166,27 @@ public class Event {
 		mediaPlayer.setVolume(0.8);		
 	}
 		
+	/**
+	 * This method is responsible for running the event phase. 
+	 * 
+	 * @param hero
+	 * @param floor
+	 * @param continueBtn
+	 * @param grid
+	 * @param closedIV
+	 * @param openIV
+	 * @param openBtn
+	 * @param display
+	 */
+	public void openChest(GameCharacters hero, Floor floor, Button continueBtn, GridPane grid, ImageView closedIV, ImageView openIV, Button openBtn, Text display) {
+		continueBtn.setDisable(false);
+		grid.getChildren().remove(closedIV);
+		grid.add(openIV, 2, 1);		
+		GridPane.setHalignment(openIV, HPos.CENTER);
+		openBtn.setVisible(false);		
+		eventGenerator(hero, floor, display, openIV);
+	}
+	
 	/**
 	 * @return the isEvent
 	 */
