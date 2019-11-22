@@ -90,6 +90,7 @@ public class GameGUI extends Application {
 		event = new Event();
 		se = new SoundEffect();
 		firstTime = true;
+		openingMusic = se.openingMusic();
 	}
 
 	/**
@@ -156,11 +157,8 @@ public class GameGUI extends Application {
 		title.setFill(fill);
 		
 		//Mediaplayer for music
-		String musicFile = "./src/startMusic.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		openingMusic = new MediaPlayer(sound);
 		openingMusic.play();
-		openingMusic.setVolume(0.2);
+		
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -181,17 +179,6 @@ public class GameGUI extends Application {
 		return startScene;
 	}
 	
-//	/**
-//	 * Method allows us to play the same sound when buttons are pressed
-//	 */
-//	public void buttonSound() {
-//	    	String musicFile = "./src/startSound.wav";
-//		Media sound = new Media(new File(musicFile).toURI().toString());
-//		mediaPlayer = new MediaPlayer(sound);
-//		mediaPlayer.play();
-//		mediaPlayer.setVolume(0.1);
-//	}
-
 	/**
 	 * This method houses the code needed for the screen that allows the player to
 	 * choose their character type/fighter.
@@ -317,21 +304,16 @@ public class GameGUI extends Application {
 		
 		submitBtn.setOnAction(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
-//			String musicFile = "./src/error.wav";
-//			Media sound = new Media(new File(musicFile).toURI().toString());
-//			mediaPlayer = new MediaPlayer(sound);
-//			mediaPlayer.play();
-//			mediaPlayer.setVolume(0.7);
-		    se.errorSound();
+			se.errorSound();
 			error.setFill(Color.RED);
 			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
 			error.setText("Please enter name to continue.");
 		    } else {
+			openingMusic.stop();
 			String name = charNameBox.getText();
 			setHeroName(name);
 			createHero();
 			se.transitionSound();
-			openingMusic.stop();
 			battleScreen(primaryStage);
 		    }
 		});
@@ -876,10 +858,15 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-
+		
+		//Mediaplayer for music
+//	       	mediaPlayer.stop();
+//		youWinMusic.play();
+		
 		//Adding eventHandling for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
+		    	se.youWinMusic().stop();
 		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
@@ -891,12 +878,6 @@ public class GameGUI extends Application {
 		gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
 		gameWon.setStyle(" -fx-background-color: gold");
 		
-		//Mediaplayer for music
-//		 String musicFile = "./src/youWinSong.wav";
-//		 Media sound = new Media(new File(musicFile).toURI().toString());
-//		 mediaPlayer = new MediaPlayer(sound);
-//		 mediaPlayer.play();
-//		 mediaPlayer.setVolume(0.8);	
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameWon);
@@ -940,26 +921,20 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(470);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-
 		
+//		//Mediaplayer to control the music playing
+//		mediaPlayer.stop();
+			  
 		//Adding eventHandlint for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
+		    	se.gameOverMusic().stop();
 		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
 			primaryStage.close();
 		}});
-		
-
-		//Mediaplayer for music
-//		 String musicFile = "./src/gameoverMusic.wav";
-//		 Media sound = new Media(new File(musicFile).toURI().toString());
-//		 mediaPlayer = new MediaPlayer(sound);
-//		 mediaPlayer.play();
-//		 mediaPlayer.setVolume(0.8);	
-			  
 
 		//Creating Pane and adding nodes
 		Pane gameOver = new Pane();

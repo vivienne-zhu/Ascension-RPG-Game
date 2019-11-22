@@ -42,6 +42,16 @@ public class SoundEffect {
 		mediaPlayer.play();
 		mediaPlayer.setVolume(0.5);		
 	}
+	/**
+	 * This method plays a sound when the hero is killed.
+	 */
+	public void heroDeathSound() {
+		String musicFile = "./src/heroDeath.wav";
+		Media sound3 = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound3);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.5);		
+	}
 	
 	/**
 	 * This method plays a sound when the hero uses any types of the potion. 
@@ -103,5 +113,43 @@ public class SoundEffect {
 		mediaPlayer.play();
 		mediaPlayer.setVolume(0.1);
 	}
+	
+	/**
+	 * Method creates opening music media player
+	 * @return opening  music media player
+	 */
+	public MediaPlayer openingMusic() {
+	    String musicFile = "./src/startMusic.wav";
+	    Media sound = new Media(new File(musicFile).toURI().toString());
+	    mediaPlayer = new MediaPlayer(sound);
+	    mediaPlayer.setVolume(0.2);
+	    return mediaPlayer;
+//	    MediaPlayer openingMusic = new MediaPlayer(sound);
+//	    openingMusic.setVolume(0.2);
+//	    return openingMusic;
+	}
+	
+	/**
+	 * Method creates opening music media player
+	 * @return opening  music media player
+	 */
+	public MediaPlayer gameOverMusic() {
+	    String musicFile = "./src/gameoverMusic.wav";
+	    Media sound = new Media(new File(musicFile).toURI().toString());
+	    mediaPlayer = new MediaPlayer(sound);
+	    mediaPlayer.setVolume(0.2);
+	    return mediaPlayer;
+	}
 
+	/**
+	 * Method creates opening music media player
+	 * @return opening  music media player
+	 */
+	public MediaPlayer youWinMusic() {
+	    String musicFile = "./src/youWinSong.wav";
+	    Media sound = new Media(new File(musicFile).toURI().toString());
+	    mediaPlayer = new MediaPlayer(sound);
+	    mediaPlayer.setVolume(0.2);
+	    return mediaPlayer;
+	}
 }

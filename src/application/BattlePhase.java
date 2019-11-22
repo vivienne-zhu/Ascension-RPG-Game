@@ -15,14 +15,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,7 +63,7 @@ public class BattlePhase {
 	private Timeline animateTwo;
 	private Timeline animateThree;
 	private Timeline animateHero;
-	private MediaPlayer mediaPlayer;
+	//private MediaPlayer mediaPlayer;
 	private boolean magic;
 	private SoundEffect se;
 
@@ -887,6 +883,7 @@ public class BattlePhase {
 				moveOn.getKeyFrames().add(frame);
 				moveOn.play();
 			} else if (floor == 10){
+			    	se.youWinMusic().isAutoPlay();
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
 				KeyFrame frame = new KeyFrame(Duration.millis(3000), ae -> primaryStage.setScene(youWin));
@@ -1222,6 +1219,7 @@ public class BattlePhase {
 
 		// if hero gets killed 
 		if (hero.getCurrentStamina() == 0) {
+		    se.heroDeathSound();
 			if (hero.isHasRevive() == true) {
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
@@ -1229,6 +1227,7 @@ public class BattlePhase {
 				moveOn.getKeyFrames().add(frame1);
 				moveOn.play();
 			} else {
+			    	se.gameOverMusic().play();
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
 				KeyFrame frame1 = new KeyFrame(Duration.millis(4000), ae ->  primaryStage.setScene(gameOverScreen));
