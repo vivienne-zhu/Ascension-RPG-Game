@@ -129,12 +129,12 @@ public class Event {
 				
 		if (selectedEvent == 0) {
 			int newFloor2 = this.jumpFloor(hero, floor) + 1;
-			display.setText("A map that shows a secret path to avoide the enemies..."
+			display.setText("A map that shows a secret path to avoid the enemies..."
 					+ "You get to floor " + newFloor2 + "!");
 			iv.setEffect(ds2);
 		} else if (selectedEvent == 1) {
 			int newFloor = this.dropFloor(floor) + 1;				
-			display.setText("A hidden door underneath the box...you droped to floor " + newFloor + " again!");
+			display.setText("A hidden door underneath the box...you dropped to floor " + newFloor + " again!");
 			iv.setEffect(ds1);
 		} else if (selectedEvent == 2) {
 			double gold = this.gainGold(hero);	

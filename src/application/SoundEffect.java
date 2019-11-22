@@ -165,4 +165,20 @@ public class SoundEffect {
 		mediaPlayer.setVolume(0.03);
 		return mediaPlayer;
 	}
+
+	/**
+	 * @return the mediaPlayer
+	 */
+	public MediaPlayer getMediaPlayer() {
+	    return mediaPlayer;
+	}
+
+	/**
+	 * @param mediaPlayer the mediaPlayer to set
+	 */
+	public void setMediaPlayer(MediaPlayer mediaPlayer) {
+	    this.mediaPlayer = mediaPlayer;
+	}
+	
+	
 }

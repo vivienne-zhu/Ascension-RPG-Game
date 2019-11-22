@@ -872,6 +872,7 @@ public class GameGUI extends Application {
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
 		    	//se.getMediaPlayer().stop();
+		    	floor.setFloor(1);
 		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
@@ -927,14 +928,13 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 		
-//		//Mediaplayer to control the music playing
-//		mediaPlayer.stop();
 			  
 		//Adding eventHandlint for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
 		    	//se.getMediaPlayer().stop();
 		    	se.transitionSound();
+		    	floor.setFloor(1);
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
