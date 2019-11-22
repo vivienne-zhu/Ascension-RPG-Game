@@ -65,7 +65,7 @@ public class GameGUI extends Application {
 	private Shop shop;
 	private Event event;
 	private MediaPlayer mediaPlayer;
-	private MediaPlayer mediaPlayer1;
+	private MediaPlayer openingMusic;
 	private boolean firstTime; //for music to only start once
 	
 
@@ -152,9 +152,9 @@ public class GameGUI extends Application {
 		//Mediaplayer for music
 		String musicFile = "./src/startMusic.wav";
 		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer1 = new MediaPlayer(sound);
-		mediaPlayer1.play();
-		mediaPlayer1.setVolume(0.6);
+		openingMusic = new MediaPlayer(sound);
+		openingMusic.play();
+		openingMusic.setVolume(0.6);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -320,11 +320,11 @@ public class GameGUI extends Application {
 			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
 			error.setText("Please enter name to continue.");
 		    } else {
-			mediaPlayer1.stop();
 			String name = charNameBox.getText();
 			setHeroName(name);
 			createHero();
 			buttonSound();
+			openingMusic.stop();
 			fullGame(primaryStage);
 		    }
 		});
