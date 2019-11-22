@@ -271,7 +271,8 @@ public class BattlePhase {
 	 * @param gc The GraphicsContext used to delete and draw pictures to canvas
 	 */
 	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, 
-			GraphicsContext gc, Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, MediaPlayer music) {
+			GraphicsContext gc, Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, 
+			MediaPlayer battleMusic, MediaPlayer gameOverMusic , MediaPlayer youWinMusic) {
 		//Event handling for when attack button is pressed
 		attackBtn.setOnAction(event -> {
 			itemBag.setVisible(false);
@@ -344,7 +345,7 @@ public class BattlePhase {
 			gc.drawImage(defendIcon, 100, 280); //draw defend icon
 			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn); //disable buttons
 			hero.setIsDefending(true);
-			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, music);
+			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
@@ -370,17 +371,17 @@ public class BattlePhase {
 
 		// Actions to take after button to choose enemy is chosen
 		chooseEnemyBtn.setOnAction(event -> {
-			chooseEnemyBtnEvent(0, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, music);
+			chooseEnemyBtnEvent(0, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic);
 		});
 
 		// Actions to take after button to choose enemy is chosen
 		chooseEnemyTwoBtn.setOnAction(event -> {
-			chooseEnemyBtnEvent(1, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, music);
+			chooseEnemyBtnEvent(1, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic);
 		});
 
 		// Actions to take after button to choose enemy is chosen
 		chooseEnemyThreeBtn.setOnAction(event -> {
-			chooseEnemyBtnEvent(2, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, music);
+			chooseEnemyBtnEvent(2, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic);
 		});
 	}
 
@@ -558,17 +559,17 @@ public class BattlePhase {
 	 * @param enemy The index of the enemy to be attacked
 	 */
 	public void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
-			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc, MediaPlayer music) {
+			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc, MediaPlayer battleMusic, MediaPlayer gameOverMusic,MediaPlayer youWinMusic) {
 		if (isMagic() == true) {
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> mageTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin, music));
+					dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin, battleMusic , youWinMusic));
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
 			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, music));
+					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -588,12 +589,12 @@ public class BattlePhase {
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin, music));
+					dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin, battleMusic, youWinMusic));
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
 			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, music));
+					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -622,9 +623,9 @@ public class BattlePhase {
 	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
 	 */
 	public void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
-			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin, MediaPlayer music) {
+			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic) {
 
-		//Move hero forward
+		//Move hero forward 
 		Timeline timeline = new Timeline(); 
 		if (choice == 0) {
 			timeline.setCycleCount(580);
@@ -676,7 +677,7 @@ public class BattlePhase {
 			} else {
 				animateThree.play();
 			}
-			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead, music);
+			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead, battleMusic, youWinMusic);
 		});
 
 		hit.getKeyFrames().add(frameTwo);
@@ -713,7 +714,7 @@ public class BattlePhase {
 	 * @param youWin the you win screen scene
 	 */
 	public void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
-			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin, MediaPlayer music) {
+			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic) {
 
 		//Move magic blast forward
 		Timeline timeline = new Timeline(); 
@@ -758,7 +759,7 @@ public class BattlePhase {
 			} else {
 				animateThree.play();
 			}
-			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead, music);
+			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead, battleMusic, youWinMusic); 
 		});
 
 		hit.getKeyFrames().add(frameTwo);
@@ -819,7 +820,7 @@ public class BattlePhase {
 	 */
 	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
 			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
-			HashSet<Integer> dead, MediaPlayer m) {
+			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic) {
 
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = 0;
@@ -884,8 +885,8 @@ public class BattlePhase {
 				moveOn.getKeyFrames().add(frame);
 				moveOn.play();
 			} else if (floor == 10){
-			    	m.stop();
-			    	se.youWinMusic().isAutoPlay();
+			    	battleMusic.stop(); 
+			    	youWinMusic.play();
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
 				KeyFrame frame = new KeyFrame(Duration.millis(3000), ae -> primaryStage.setScene(youWin));
@@ -993,7 +994,7 @@ public class BattlePhase {
 	 * @param dialogue Text that updates the player on what is currently happening.
 	 */
 	public void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text heroStam, Text dialogue, Text dialogueTwo, 
-			Text dialogueThree, GraphicsContext gc, int floor, Scene reviveScene, Scene gameOverScreen, MediaPlayer music) {
+			Text dialogueThree, GraphicsContext gc, int floor, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) {
 
 		//If enemies are still alive
 		if (totalEnemyHealth > 0) {
@@ -1004,12 +1005,12 @@ public class BattlePhase {
 			} else {
 				dialogueTwo.setText("It is the enemy's turn.");
 			}
-			singleEnemyAttacks(hero, allEnemies, gc, reviveScene, gameOverScreen, music);
+			singleEnemyAttacks(hero, allEnemies, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic); 
 		}
 	}
 
 	public void singleEnemyAttacks(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
-			GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer music) {
+			GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) {
 		if (hero.getCurrentStamina() > 0) {
 			//	final Integer innerI = new Integer(i);
 
@@ -1029,15 +1030,15 @@ public class BattlePhase {
 
 			if (!dead.contains(0)) {
 				enemyMoveTimeline(0, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, music);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, battleMusic, gameOverMusic); 
 			}
 			if (!dead.contains(1) && (allEnemies.get(floor).size() == 2 || allEnemies.get(floor).size() == 3)) {
 				enemyMoveTimeline(1, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, music);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
 			}
 			if (!dead.contains(2) && allEnemies.get(floor).size() == 3) {
 				enemyMoveTimeline(2, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, music);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
 			}
 			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAA
 				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward, posTwoForward, posTwoNoise, posTwoHit, posTwoBackward, 
@@ -1088,7 +1089,7 @@ public class BattlePhase {
 	public void enemyMoveTimeline(int position, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc,
 			Timeline posOneForward, Timeline posTwoForward, Timeline posThreeForward, Timeline posOneBackward, Timeline posTwoBackward, 
 			Timeline posThreeBackward, Timeline posOneHit, Timeline posTwoHit, Timeline posThreeHit, Timeline posOneNoise, Timeline posTwoNoise, Timeline posThreeNoise,
-			GameCharacters hero, Scene reviveScene, Scene gameOverScreen, MediaPlayer music) {
+			GameCharacters hero, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) {
 		//Move enemy forward and backwards
 		KeyFrame moveForward;
 		KeyFrame moveBackward;
@@ -1150,7 +1151,7 @@ public class BattlePhase {
 		
 		//Enemy hits hero	
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
-		hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, music));
+		hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic));
 		if (position == 0) {
 			posOneForward.setCycleCount(745);
 			posOneForward.getKeyFrames().add(moveForward);
@@ -1183,7 +1184,7 @@ public class BattlePhase {
 	 * @param gc GraphicsContext to clear character after death
 	 */
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
-			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer music) {
+			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) { 
 		int attackAmount = allEnemies.get(floor).get(i).attack(hero);
 		Timeline heroRed = new Timeline();
 		heroRed.setCycleCount(1);
@@ -1203,7 +1204,11 @@ public class BattlePhase {
 
 		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		if (hero.isDefending()) {
-			dialogueTwo.setText("You took " + attackAmount + " damage!");
+		    	if (attackAmount <= 0) {
+		    	    dialogueTwo.setText(""); // You took 0 damage!
+		    	} else {
+		    	    dialogueTwo.setText("You took " + attackAmount + " damage!");
+		    	}
 		} else {
 			dialogueThree.setText("You took " + attackAmount + " damage!");
 		}
@@ -1229,8 +1234,8 @@ public class BattlePhase {
 				moveOn.getKeyFrames().add(frame1);
 				moveOn.play();
 			} else {
-			    	music.stop();
-			    	se.gameOverMusic().play();
+			    	battleMusic.stop();
+			    	gameOverMusic.play();
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
 				KeyFrame frame1 = new KeyFrame(Duration.millis(4000), ae ->  primaryStage.setScene(gameOverScreen));

@@ -7,7 +7,6 @@ import javafx.scene.media.MediaPlayer;
 
 public class SoundEffect {
 	private MediaPlayer mediaPlayer;
-
 	
 	// Battle sound effect//
 	/**
@@ -166,19 +165,6 @@ public class SoundEffect {
 		return mediaPlayer;
 	}
 
-	/**
-	 * @return the mediaPlayer
-	 */
-	public MediaPlayer getMediaPlayer() {
-	    return mediaPlayer;
-	}
-
-	/**
-	 * @param mediaPlayer the mediaPlayer to set
-	 */
-	public void setMediaPlayer(MediaPlayer mediaPlayer) {
-	    this.mediaPlayer = mediaPlayer;
-	}
 	
 	
 }

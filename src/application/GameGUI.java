@@ -28,7 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -38,8 +37,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,7 +67,9 @@ public class GameGUI extends Application {
 	private Event event;
 	private MediaPlayer battleMusic; 
 	private MediaPlayer openingMusic;
-	private boolean firstTime; //for music to only start once
+	private MediaPlayer gameOverMusic;
+	private MediaPlayer youWinMusic;
+//	private boolean firstTime; //for music to only start once
 	private SoundEffect se;
 	
 
@@ -89,9 +88,11 @@ public class GameGUI extends Application {
 		shop = new Shop();
 		event = new Event();
 		se = new SoundEffect();
-		firstTime = true;
+//		firstTime = true;
 		openingMusic = se.openingMusic();
 		battleMusic = se.backgroundMusic();
+		gameOverMusic = se.gameOverMusic();
+		youWinMusic = se.youWinMusic();
 	}
 
 	/**
@@ -477,7 +478,8 @@ public class GameGUI extends Application {
 		battle.heroAnimate(hero, gc);
 		battle.dispDialogue();
 		battle.initButtons(hero);
-		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage), gameOverScreen(primaryStage), battleMusic);
+		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage), 
+			gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic);
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
@@ -772,6 +774,7 @@ public class GameGUI extends Application {
 	    Button reviveBtn = new Button("Use revive");
 	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	    reviveBtn.setOnAction(event-> {hero.revive();
+	    	battleMusic.stop();
 	    	se.transitionSound();
 		battleScreen(primaryStage);
 		});
@@ -871,7 +874,7 @@ public class GameGUI extends Application {
 		//Adding eventHandling for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
-		    	//se.getMediaPlayer().stop();
+		    	youWinMusic.stop();
 		    	floor.setFloor(1);
 		    	se.transitionSound();
 			start(primaryStage);
@@ -932,7 +935,7 @@ public class GameGUI extends Application {
 		//Adding eventHandlint for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
-		    	//se.getMediaPlayer().stop();
+		    	gameOverMusic.stop();
 		    	se.transitionSound();
 		    	floor.setFloor(1);
 			start(primaryStage);
