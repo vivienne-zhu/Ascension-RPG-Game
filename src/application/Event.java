@@ -1,8 +1,7 @@
 package application;
 
-import java.io.File;
-import java.util.Random;
 
+import java.util.Random;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;

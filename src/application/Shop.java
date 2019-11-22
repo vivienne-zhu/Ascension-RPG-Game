@@ -1,18 +1,15 @@
 package application;
 
-import java.io.File;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 
 /**
  * This class represent the magic shop available to the player on floor 3,6 & 9.
  * 
  * @author jiayuZhu
  */
-
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-
-import javafx.scene.text.Text;
 
 public class Shop {
 	private Image shopBg;
