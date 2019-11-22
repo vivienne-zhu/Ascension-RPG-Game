@@ -60,11 +60,13 @@ public class Shop {
 					quantity.setText("");
 					display.setText(this.shopDisplay(hero));
 				} else {
+					se.errorSound();
 					quantity.setText("");
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
 					errorMsg.setVisible(true);
 			}
 			} else {
+				se.errorSound();
 				quantity.setText("NUMBERS ONLY");
 			}
 		});
@@ -95,11 +97,13 @@ public class Shop {
 					display.setText(this.shopDisplay(hero));
 					q.setText("");
 				} else {
+					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 					errorMsg.setVisible(true);
 					q.setText("");
 				}
 			} else {
+				se.errorSound();
 				q.setText("NUMBERS ONLY");
 				
 			}
@@ -117,6 +121,7 @@ public class Shop {
 	public void buyRevive(GameCharacters hero, Button btn, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
 			if (hero.isHasRevive() == true) {
+				se.errorSound();
 				errorMsg.setText("YOU ALDREADY HAVE THAT ITEM");
 				errorMsg.setVisible(true);
 			} else {
@@ -126,6 +131,7 @@ public class Shop {
 					hero.setHasRevive(true);
 					display.setText(this.shopDisplay(hero));
 				} else {
+					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
 					errorMsg.setVisible(true);
 				}
@@ -150,6 +156,7 @@ public class Shop {
 					hero.setHasRevive(false);
 					display.setText(this.shopDisplay(hero));
 				} else {
+					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 					errorMsg.setVisible(true);
 				}

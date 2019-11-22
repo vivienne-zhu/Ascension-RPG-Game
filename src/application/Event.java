@@ -9,8 +9,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -24,7 +22,6 @@ public class Event {
 	private boolean isEvent;
 	private Image closedBox;
 	private Image openBox;
-	private MediaPlayer mediaPlayer;
 	
 	/**
 	 * The constructor of the event class. 
@@ -151,17 +148,6 @@ public class Event {
 		}
 	}
 	
-	/**
-	 * This method creates the chest opening sound effect. 
-	 */
-	
-	public void openChestSound() {
-		String musicFile = "./src/chestOpening.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.8);		
-	}
 		
 	/**
 	 * This method is responsible for running the event phase. 

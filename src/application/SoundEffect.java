@@ -9,6 +9,7 @@ public class SoundEffect {
 	private MediaPlayer mediaPlayer;
 
 	
+	// Battle sound effect//
 	/**
 	 * This method plays the sword swing sound effect.
 	 */
@@ -39,9 +40,11 @@ public class SoundEffect {
 		Media sound3 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound3);
 		mediaPlayer.play();
-		mediaPlayer.setVolume(0.3);		
+		mediaPlayer.setVolume(0.5);		
 	}
 	
+	
+	// Shop sound effect//
 	/**
 	 * This method plays a sound when the player buy or sell an item. 
 	 */
@@ -52,6 +55,42 @@ public class SoundEffect {
 		MediaPlayer mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
 		mediaPlayer.setVolume(0.3);		
+	}
+	
+	// Event sound effect//
+	/**
+	 * This method creates the chest opening sound effect. 
+	 */
+	
+	public void openChestSound() {
+		String musicFile = "./src/chestOpening.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.8);		
+	}
+	
+	// General sound effect//
+	
+	/**
+	 * This method plays a sound when there is an error.
+	 */
+	public void errorSound() {
+		String musicFile = "./src/error.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.6);		
+	}
+	/**
+	 * Method allows us to play the same sound when buttons are pressed
+	 */
+	public void transitionSound() {
+	    String musicFile = "./src/startSound.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.1);
 	}
 
 }

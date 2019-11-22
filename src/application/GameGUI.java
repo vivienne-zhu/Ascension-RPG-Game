@@ -71,6 +71,7 @@ public class GameGUI extends Application {
 	private MediaPlayer mediaPlayer;
 	private MediaPlayer openingMusic;
 	private boolean firstTime; //for music to only start once
+	private SoundEffect se;
 	
 
 	/**
@@ -87,6 +88,7 @@ public class GameGUI extends Application {
 		floor = new Floor();
 		shop = new Shop();
 		event = new Event();
+		se = new SoundEffect();
 		firstTime = true;
 	}
 
@@ -130,7 +132,7 @@ public class GameGUI extends Application {
 			@Override
 			public void handle(MouseEvent e) {
 				chooseCharacterScreen(primaryStage);
-				buttonSound();
+				se.transitionSound();
 			}
 		};
 
@@ -158,7 +160,7 @@ public class GameGUI extends Application {
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		openingMusic = new MediaPlayer(sound);
 		openingMusic.play();
-		openingMusic.setVolume(0.3);
+		openingMusic.setVolume(0.1);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -179,16 +181,16 @@ public class GameGUI extends Application {
 		return startScene;
 	}
 	
-	/**
-	 * Method allows us to play the same sound when buttons are pressed
-	 */
-	public void buttonSound() {
-	    	String musicFile = "./src/startSound.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.1);
-	}
+//	/**
+//	 * Method allows us to play the same sound when buttons are pressed
+//	 */
+//	public void buttonSound() {
+//	    	String musicFile = "./src/startSound.wav";
+//		Media sound = new Media(new File(musicFile).toURI().toString());
+//		mediaPlayer = new MediaPlayer(sound);
+//		mediaPlayer.play();
+//		mediaPlayer.setVolume(0.1);
+//	}
 
 	/**
 	 * This method houses the code needed for the screen that allows the player to
@@ -228,17 +230,17 @@ public class GameGUI extends Application {
 
 		//Event handling for when each button is pressed
 		mageBtn.setOnAction(event -> {
-		    	buttonSound();
+		    	se.transitionSound();
 			setMage(true);
 			nameCharScreen(primaryStage);
 		});
 		warriorBtn.setOnAction(event -> {
-		    	buttonSound();
+		    	se.transitionSound();
 			setWarrior(true);
 			nameCharScreen(primaryStage);
 		});
 		rougueBtn.setOnAction(event -> {
-		    	buttonSound();
+		    	se.transitionSound();
 			setRogue(true);
 			nameCharScreen(primaryStage);
 		});
@@ -315,11 +317,12 @@ public class GameGUI extends Application {
 		
 		submitBtn.setOnAction(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
-			String musicFile = "./src/error.wav";
-			Media sound = new Media(new File(musicFile).toURI().toString());
-			mediaPlayer = new MediaPlayer(sound);
-			mediaPlayer.play();
-			mediaPlayer.setVolume(0.7);
+//			String musicFile = "./src/error.wav";
+//			Media sound = new Media(new File(musicFile).toURI().toString());
+//			mediaPlayer = new MediaPlayer(sound);
+//			mediaPlayer.play();
+//			mediaPlayer.setVolume(0.7);
+		    se.errorSound();
 			error.setFill(Color.RED);
 			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
 			error.setText("Please enter name to continue.");
@@ -327,7 +330,7 @@ public class GameGUI extends Application {
 			String name = charNameBox.getText();
 			setHeroName(name);
 			createHero();
-			buttonSound();
+			se.transitionSound();
 			openingMusic.stop();
 			battleScreen(primaryStage);
 		    }
@@ -602,11 +605,11 @@ public class GameGUI extends Application {
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
-			buttonSound();
+			se.transitionSound();
 			eventScreen(primaryStage);});
 		} else {
 		    continueBtn.setOnAction(event -> {
-			buttonSound();
+			se.transitionSound();
 			floor.incrementFloor();
 			battleScreen(primaryStage);});
 		}
@@ -688,7 +691,7 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
 		continueBtn.setOnAction(event -> {
-		    	buttonSound();
+		    	se.transitionSound();
 			floor.incrementFloor();
 			battleScreen(primaryStage);
 					});
@@ -699,7 +702,7 @@ public class GameGUI extends Application {
 		openBtn.setOnAction(Event -> {
 			
 			// Open treasure chest sound effect 
-			event.openChestSound();
+			se.openChestSound();
 			
 			Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
@@ -782,7 +785,7 @@ public class GameGUI extends Application {
 	    Button reviveBtn = new Button("Use revive");
 	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	    reviveBtn.setOnAction(event-> {hero.revive();
-	    	buttonSound();
+	    	se.transitionSound();
 		battleScreen(primaryStage);
 		});
 	    
@@ -877,7 +880,7 @@ public class GameGUI extends Application {
 		//Adding eventHandling for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
-		    	buttonSound();
+		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
@@ -942,7 +945,7 @@ public class GameGUI extends Application {
 		//Adding eventHandlint for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
-		    	buttonSound();
+		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
@@ -1043,11 +1046,11 @@ public class GameGUI extends Application {
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
-			    buttonSound();
+			    se.transitionSound();
 			    eventScreen(primaryStage);});
 		} else {
 			continueBtn.setOnAction(event -> {
-			    buttonSound();
+			    se.transitionSound();
 			    floor.incrementFloor();
 			    battleScreen(primaryStage);});
 		}
@@ -1057,7 +1060,7 @@ public class GameGUI extends Application {
 //			shopBtn.setDisable(true);
 //		} 		
 		shopBtn.setOnAction(event -> {
-		    	buttonSound();
+		    	se.transitionSound();
 			shopScreen(primaryStage);});
 		
 		//Adding nodes to pane
