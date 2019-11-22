@@ -917,7 +917,7 @@ public class GameGUI extends Application {
 		DropShadow ds = new DropShadow();
 		ds.setColor(Color.DARKRED);
 		gameOverText2.setEffect(ds);
-		gameOverText2.setLayoutX(170);
+		gameOverText2.setLayoutX(180);
 		gameOverText2.setLayoutY(10);
 
 		//Creating the buttons to exit the game or play again
@@ -927,7 +927,7 @@ public class GameGUI extends Application {
 		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		HBox hbBtn = new HBox(25);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
-		hbBtn.setLayoutX(470);
+		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 		
@@ -1005,7 +1005,7 @@ public class GameGUI extends Application {
 		//Creating VBox for user update text on gold and xp gained
 		VBox userUpdate = new VBox(30);
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
-		userUpdate.setLayoutX(340);
+		userUpdate.setLayoutX(370);
 		userUpdate.setLayoutY(350);
 		userUpdate.setAlignment(Pos.CENTER);
 
@@ -1016,6 +1016,7 @@ public class GameGUI extends Application {
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Go to the Magic Shop");
 		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		shopBtn.setDisable(true);
 
 		Button continueBtn = new Button("Continue playing");
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
@@ -1040,9 +1041,9 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-//		if (floor.getFloor() != 3 ||  floor.getFloor() != 6 || floor.getFloor() != 9) {
-//			shopBtn.setDisable(true);
-//		} 		
+		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
+			shopBtn.setDisable(false);
+		} 		
 		shopBtn.setOnAction(event -> {
 		    	se.transitionSound();
 			shopScreen(primaryStage);});
