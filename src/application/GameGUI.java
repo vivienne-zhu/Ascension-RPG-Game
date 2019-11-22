@@ -44,7 +44,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sun.javafx.scene.text.TextLine;
+
 
 /**
  * This class represents the GUI of the game and houses the instance variables
