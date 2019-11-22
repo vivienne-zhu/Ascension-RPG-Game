@@ -68,7 +68,7 @@ public class GameGUI extends Application {
 	private Floor floor;
 	private Shop shop;
 	private Event event;
-	private MediaPlayer mediaPlayer;
+	private MediaPlayer battleMusic; 
 	private MediaPlayer openingMusic;
 	private boolean firstTime; //for music to only start once
 	private SoundEffect se;
@@ -91,6 +91,7 @@ public class GameGUI extends Application {
 		se = new SoundEffect();
 		firstTime = true;
 		openingMusic = se.openingMusic();
+		battleMusic = se.backgroundMusic();
 	}
 
 	/**
@@ -386,16 +387,18 @@ public class GameGUI extends Application {
 //		allEnemies.put(2, floorTwo);
 		
 		//Mediaplayer for music
-		String musicFile = "./src/fightmusiccut.mp3";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		if (firstTime) {
-			mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-			mediaPlayer.play();
-			mediaPlayer.play();
-			mediaPlayer.setVolume(0.03);
-			firstTime = false;
-		}
+//		String musicFile = "./src/fightmusiccut.mp3";
+//		Media sound = new Media(new File(musicFile).toURI().toString());
+//		battleMusic = new MediaPlayer(sound);
+//		if (firstTime) {
+//			battleMusic.setCycleCount(MediaPlayer.INDEFINITE);
+//			battleMusic.play();
+//			battleMusic.play();
+//			battleMusic.setVolume(0.03);
+//			firstTime = false;
+//		}
+	    	
+	    	battleMusic.play();
 
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
@@ -474,7 +477,7 @@ public class GameGUI extends Application {
 		battle.heroAnimate(hero, gc);
 		battle.dispDialogue();
 		battle.initButtons(hero);
-		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage), gameOverScreen(primaryStage));
+		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage), gameOverScreen(primaryStage), battleMusic);
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
@@ -591,6 +594,7 @@ public class GameGUI extends Application {
 			eventScreen(primaryStage);});
 		} else {
 		    continueBtn.setOnAction(event -> {
+			battleMusic.stop();
 			se.transitionSound();
 			floor.incrementFloor();
 			battleScreen(primaryStage);});
@@ -673,6 +677,7 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
 		continueBtn.setOnAction(event -> {
+		    	battleMusic.stop();
 		    	se.transitionSound();
 			floor.incrementFloor();
 			battleScreen(primaryStage);
@@ -866,7 +871,7 @@ public class GameGUI extends Application {
 		//Adding eventHandling for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
-		    	se.youWinMusic().stop();
+		    	//se.getMediaPlayer().stop();
 		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
@@ -928,7 +933,7 @@ public class GameGUI extends Application {
 		//Adding eventHandlint for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
-		    	se.gameOverMusic().stop();
+		    	//se.getMediaPlayer().stop();
 		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
@@ -1025,6 +1030,7 @@ public class GameGUI extends Application {
 			    eventScreen(primaryStage);});
 		} else {
 			continueBtn.setOnAction(event -> {
+			    battleMusic.stop();
 			    se.transitionSound();
 			    floor.incrementFloor();
 			    battleScreen(primaryStage);});
@@ -1150,6 +1156,21 @@ public class GameGUI extends Application {
 	 */
 	public void setFloor(Floor floor) {
 		this.floor = floor;
+	}
+	
+
+	/**
+	 * @return the battleMusic
+	 */
+	public MediaPlayer getBattleMusic() {
+	    return battleMusic;
+	}
+
+	/**
+	 * @param battleMusic the battleMusic to set
+	 */
+	public void setBattleMusic(MediaPlayer battleMusic) {
+	    this.battleMusic = battleMusic;
 	}
 
 	public static void main(String[] args) {

@@ -130,7 +130,7 @@ public class SoundEffect {
 	}
 	
 	/**
-	 * Method creates opening music media player
+	 * Method creates music media player for when the game is over
 	 * @return opening  music media player
 	 */
 	public MediaPlayer gameOverMusic() {
@@ -142,7 +142,7 @@ public class SoundEffect {
 	}
 
 	/**
-	 * Method creates opening music media player
+	 * Method creates music media player for when you win the game
 	 * @return opening  music media player
 	 */
 	public MediaPlayer youWinMusic() {
@@ -151,5 +151,18 @@ public class SoundEffect {
 	    mediaPlayer = new MediaPlayer(sound);
 	    mediaPlayer.setVolume(0.2);
 	    return mediaPlayer;
+	}
+	
+	/**
+	 * Method creates background music media player
+	 * @return opening  music media player
+	 */
+	public MediaPlayer backgroundMusic() {
+	    String musicFile = "./src/fightmusiccut.mp3";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		//mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		mediaPlayer.setVolume(0.03);
+		return mediaPlayer;
 	}
 }
