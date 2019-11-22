@@ -69,12 +69,15 @@ public class BattlePhase {
 	private Timeline animateHero;
 	private MediaPlayer mediaPlayer;
 	private boolean magic;
+	private SoundEffect se;
 
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
 		this.floor = floor;
 		this.totalEnemyHealth = totalEnemyHealth;
+		this.se = new SoundEffect();
 		setMagic(false);
+		
 	}
 
 	/**
@@ -638,7 +641,7 @@ public class BattlePhase {
 
 		//Play hit sound clip (needs to play before hero arrives)
 		Timeline sound = new Timeline();
-		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
+		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 		sound.getKeyFrames().add(soundFrame);
 		
 		Timeline slash = new Timeline();
@@ -731,7 +734,7 @@ public class BattlePhase {
 		
 		//Play hit sound clip 
 		Timeline sound = new Timeline();
-		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> magicSound());
+		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> se.magicSound());
 		sound.getKeyFrames().add(soundFrame);
 
 		Timeline enemyRed = new Timeline();
@@ -773,38 +776,38 @@ public class BattlePhase {
 		sequence.play();    	
 	}
 
-	/**
-	 * This method plays the sword swing sound effect.
-	 */
-	public void swingSound() {
-		String musicFile = "./src/swing2.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.1);
-	}
-
-	/**
-	 * This method plays the poof sound effect when magic is used.
-	 */
-	public void magicSound() {
-		String musicFile = "./src/fireball.mp3";
-		Media sound2 = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound2);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.06);
-	}
-	
-	/**
-	 * This method plays a sound when the enemy is killed.
-	 */
-	public void enemyDeathSound() {
-		String musicFile = "./src/enemyDeath.wav";
-		Media sound3 = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound3);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.3);		
-	}
+//	/**
+//	 * This method plays the sword swing sound effect.
+//	 */
+//	public void swingSound() {
+//		String musicFile = "./src/swing2.wav";
+//		Media sound = new Media(new File(musicFile).toURI().toString());
+//		mediaPlayer = new MediaPlayer(sound);
+//		mediaPlayer.play();
+//		mediaPlayer.setVolume(0.1);
+//	}
+//
+//	/**
+//	 * This method plays the poof sound effect when magic is used.
+//	 */
+//	public void magicSound() {
+//		String musicFile = "./src/fireball.mp3";
+//		Media sound2 = new Media(new File(musicFile).toURI().toString());
+//		mediaPlayer = new MediaPlayer(sound2);
+//		mediaPlayer.play();
+//		mediaPlayer.setVolume(0.06);
+//	}
+//	
+//	/**
+//	 * This method plays a sound when the enemy is killed.
+//	 */
+//	public void enemyDeathSound() {
+//		String musicFile = "./src/enemyDeath.wav";
+//		Media sound3 = new Media(new File(musicFile).toURI().toString());
+//		mediaPlayer = new MediaPlayer(sound3);
+//		mediaPlayer.play();
+//		mediaPlayer.setVolume(0.3);		
+//	}
 	
 	/**
 	 * This method is called when an hero hits an enemy. It is unique
@@ -845,7 +848,7 @@ public class BattlePhase {
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
 			// Add death sound effect 		
-			enemyDeathSound();
+			se.enemyDeathSound();
 			
 			dead.add(choice);
 			dialogueTwo.setText("You have killed the enemy."); 
@@ -1113,11 +1116,11 @@ public class BattlePhase {
 		if (allEnemies.get(floor).size() > 0) {
 			posOneNoise.setCycleCount(1);
 			if (allEnemies.get(floor).get(0) instanceof RangedEnemy) {
-				soundFrame = new KeyFrame(Duration.millis(1), ae -> magicSound());
+				soundFrame = new KeyFrame(Duration.millis(1), ae -> se.magicSound());
 			} else if (allEnemies.get(floor).get(0) instanceof MeleeEnemy) {
-				soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
+				soundFrame = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 			} else {
-				soundFrame = new KeyFrame(Duration.millis(1), ae -> swingSound());
+				soundFrame = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 			}
 			posOneNoise.getKeyFrames().add(soundFrame);
 		}
@@ -1125,11 +1128,11 @@ public class BattlePhase {
 		if (allEnemies.get(floor).size() > 1) {
 			posTwoNoise.setCycleCount(1);
 			if (allEnemies.get(floor).get(1) instanceof RangedEnemy) {
-				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> magicSound());
+				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> se.magicSound());
 			} else if (allEnemies.get(floor).get(1) instanceof MeleeEnemy) {
-				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> swingSound());
+				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 			} else {
-				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> swingSound());
+				soundFrameTwo = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 			}
 			posTwoNoise.getKeyFrames().add(soundFrameTwo);
 		}
@@ -1137,11 +1140,11 @@ public class BattlePhase {
 		if (allEnemies.get(floor).size() > 2) {
 			posThreeNoise.setCycleCount(1);
 			if (allEnemies.get(floor).get(2) instanceof RangedEnemy) {
-				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> magicSound());
+				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> se.magicSound());
 			} else if (allEnemies.get(floor).get(2) instanceof MeleeEnemy) {
-				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> swingSound());
+				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 			} else {
-				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> swingSound());
+				soundFrameThree = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 			}
 			posThreeNoise.getKeyFrames().add(soundFrameThree);
 		}
