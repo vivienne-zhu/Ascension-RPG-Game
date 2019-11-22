@@ -66,6 +66,7 @@ public class BattlePhase {
 	private Timeline animateOne;
 	private Timeline animateTwo;
 	private Timeline animateThree;
+	private Timeline animateHero;
 	private MediaPlayer mediaPlayer;
 	private boolean magic;
 
@@ -198,18 +199,20 @@ public class BattlePhase {
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 			potionBtn.setText(hero.itemInfo(hero.getCp()));
 			if (this.error.isVisible() == false) {
-				Timeline timeline = new Timeline(); 
+			    Timeline timeline = new Timeline(); 
 				timeline.setCycleCount(1);
-				KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
-				hero.displayCharacter(gc, false, false,true));
+				KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
+				animateHero.stop();
+				hero.displayCharacter(gc, false, false,true);});
 				timeline.getKeyFrames().addAll(frame);
 				Timeline timeline2 = new Timeline(); 
 				timeline2.setCycleCount(1);
 				KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
-				hero.displayCharacter(gc, false, false,false));
+				animateHero.play());
 				timeline2.getKeyFrames().addAll(frame2);
 				SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
 				sequence.play(); 
+				//hero.displayCharacter(gc, false, false,false));
 			}
 
 		});
@@ -226,16 +229,18 @@ public class BattlePhase {
 			if (this.error.isVisible() == false) {
 				Timeline timeline = new Timeline(); 
 				timeline.setCycleCount(1);
-				KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
-				hero.displayCharacter(gc, false, false,true));
+				KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
+				animateHero.stop();
+				hero.displayCharacter(gc, false, false,true);});
 				timeline.getKeyFrames().addAll(frame);
 				Timeline timeline2 = new Timeline(); 
 				timeline2.setCycleCount(1);
 				KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
-				hero.displayCharacter(gc, false, false,false));
+				animateHero.play());
 				timeline2.getKeyFrames().addAll(frame2);
 				SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
 				sequence.play(); 
+				//hero.displayCharacter(gc, false, false,false));
 			}
 		});
 
@@ -525,6 +530,28 @@ public class BattlePhase {
 		animateThree.play();
 		}
 	}
+	
+	/**
+	 * 
+	 * This animates the hero gif in the GUI
+	 * 
+	 * @param hero The chosen game character of the player
+	 * @param gc the GraphicsContext need to display/remove images from the GUI
+	 */
+	public void heroAnimate(GameCharacters hero, GraphicsContext gc) {
+			animateHero = new Timeline();
+			animateHero.setCycleCount(Timeline.INDEFINITE);
+			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
+			hero.displayCharacter(gc, false, false, false));
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
+			hero.displayCharacter(gc, true, false, false));
+			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
+			hero.displayCharacter(gc, false, false, false));
+			animateHero.getKeyFrames().add(frame);
+			animateHero.getKeyFrames().add(frameTwo);
+			animateHero.getKeyFrames().add(frameThree);
+			animateHero.play();
+		}
 
 	/**
 	 * This method covers the events that occur after pressing a chooseEnemyBtn.
@@ -742,7 +769,7 @@ public class BattlePhase {
 		magicClear.getKeyFrames().add(clear);
 		
 		
-		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, hit, magicClear); //sound,
+		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, hit, magicClear);
 		sequence.play();    	
 	}
 
@@ -1157,13 +1184,19 @@ public class BattlePhase {
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
 			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, Scene gameOverScreen) {
 		int attackAmount = allEnemies.get(floor).get(i).attack(hero);
-		hero.displayCharacter(gc, false, true, false); //turn hero red on attack
-
+		Timeline heroRed = new Timeline();
+		heroRed.setCycleCount(1);
+		KeyFrame redHero = new KeyFrame(Duration.millis(1), ae -> {
+		animateHero.stop();
+		hero.displayCharacter(gc, false, true, false);}); //turn hero red on attack
+		heroRed.getKeyFrames().add(redHero);
+		heroRed.play();
+		
 		//After 0.1 seconds revert color
 		Timeline timeline = new Timeline(); 
-		timeline.setCycleCount(1);
+		timeline.setCycleCount(1); //hero.displayCharacter(gc, false, false,false));
 		KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> 
-		hero.displayCharacter(gc, false, false,false));
+		animateHero.play());
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
 

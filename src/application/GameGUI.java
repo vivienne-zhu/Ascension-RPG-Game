@@ -459,6 +459,7 @@ public class GameGUI extends Application {
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.idleAnimate(allEnemies, gc);
+		battle.heroAnimate(hero, gc);
 		battle.dispDialogue();
 		battle.initButtons(hero);
 		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScene(primaryStage), gameOverScreen(primaryStage));
