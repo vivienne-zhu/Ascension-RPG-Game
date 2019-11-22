@@ -45,7 +45,7 @@ public class SoundEffect {
 	 * This method plays a sound when the hero is killed.
 	 */
 	public void heroDeathSound() {
-		String musicFile = "./src/heroDeath.wav";
+		String musicFile = "./src/heroDeath2.wav";
 		Media sound3 = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound3);
 		mediaPlayer.play();
