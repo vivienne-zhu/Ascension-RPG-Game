@@ -65,6 +65,7 @@ public class GameGUI extends Application {
 	private Shop shop;
 	private Event event;
 	private MediaPlayer mediaPlayer;
+	private MediaPlayer mediaPlayer1;
 	private boolean firstTime; //for music to only start once
 	
 
@@ -125,6 +126,7 @@ public class GameGUI extends Application {
 			@Override
 			public void handle(MouseEvent e) {
 				chooseCharacterScreen(primaryStage);
+				buttonSound();
 			}
 		};
 
@@ -150,9 +152,9 @@ public class GameGUI extends Application {
 		//Mediaplayer for music
 		String musicFile = "./src/startMusic.wav";
 		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.8);
+		mediaPlayer1 = new MediaPlayer(sound);
+		mediaPlayer1.play();
+		mediaPlayer1.setVolume(0.6);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -171,6 +173,17 @@ public class GameGUI extends Application {
 		root.getChildren().addAll(title, btn);
 		Scene startScene = new Scene(root, 1280, 720);
 		return startScene;
+	}
+	
+	/**
+	 * Method allows us to play the same sound when buttons are pressed
+	 */
+	public void buttonSound() {
+	    	String musicFile = "./src/startSound.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.3);
 	}
 
 	/**
@@ -207,17 +220,21 @@ public class GameGUI extends Application {
 		rougueBtn.setLayoutY(550);
 		rougueBtn.setPrefSize(100, 50);
 		rougueBtn.setFont(Font.font(20));
+		
 
 		//Event handling for when each button is pressed
 		mageBtn.setOnAction(event -> {
+		    	buttonSound();
 			setMage(true);
 			getCharName(primaryStage);
 		});
 		warriorBtn.setOnAction(event -> {
+		    	buttonSound();
 			setWarrior(true);
 			getCharName(primaryStage);
 		});
 		rougueBtn.setOnAction(event -> {
+		    	buttonSound();
 			setRogue(true);
 			getCharName(primaryStage);
 		});
@@ -294,14 +311,20 @@ public class GameGUI extends Application {
 		
 		submitBtn.setOnAction(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
+			String musicFile = "./src/error.wav";
+			Media sound = new Media(new File(musicFile).toURI().toString());
+			mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.play();
+			mediaPlayer.setVolume(0.7);
 			error.setFill(Color.RED);
 			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
 			error.setText("Please enter name to continue.");
 		    } else {
-			mediaPlayer.stop();
+			mediaPlayer1.stop();
 			String name = charNameBox.getText();
 			setHeroName(name);
 			createHero();
+			buttonSound();
 			fullGame(primaryStage);
 		    }
 		});
@@ -575,9 +598,11 @@ public class GameGUI extends Application {
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
+			buttonSound();
 			event(primaryStage);});
 		} else {
 		    continueBtn.setOnAction(event -> {
+			buttonSound();
 			floor.incrementFloor();
 			fullGame(primaryStage);});
 		}
@@ -659,6 +684,7 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
 		continueBtn.setOnAction(event -> {
+		    	buttonSound();
 			floor.incrementFloor();
 			fullGame(primaryStage);
 					});
@@ -756,6 +782,7 @@ public class GameGUI extends Application {
 	    Button reviveBtn = new Button("Use revive");
 	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 	    reviveBtn.setOnAction(event-> {hero.revive();
+	    	buttonSound();
 		fullGame(primaryStage);
 		});
 	    
@@ -850,6 +877,7 @@ public class GameGUI extends Application {
 		//Adding eventHandling for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
+		    	buttonSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
@@ -859,7 +887,14 @@ public class GameGUI extends Application {
 		//Adding nodes to pane
 		gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
 		gameWon.setStyle(" -fx-background-color: gold");
-
+		
+		//Mediaplayer for music
+//		 String musicFile = "./src/youWinSong.wav";
+//		 Media sound = new Media(new File(musicFile).toURI().toString());
+//		 mediaPlayer = new MediaPlayer(sound);
+//		 mediaPlayer.play();
+//		 mediaPlayer.setVolume(0.8);	
+		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameWon);
 		ft.setFromValue(0);
@@ -907,6 +942,7 @@ public class GameGUI extends Application {
 		//Adding eventHandlint for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();});
 		playAgainBtn.setOnAction(event-> {try {
+		    	buttonSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
 			// Temporary handling of exception, will change what happens once tested.
@@ -1007,11 +1043,13 @@ public class GameGUI extends Application {
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
-				event(primaryStage);});
+			    buttonSound();
+			    event(primaryStage);});
 		} else {
 			continueBtn.setOnAction(event -> {
-				floor.incrementFloor();
-				fullGame(primaryStage);});
+			    buttonSound();
+			    floor.incrementFloor();
+			    fullGame(primaryStage);});
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
@@ -1019,6 +1057,7 @@ public class GameGUI extends Application {
 //			shopBtn.setDisable(true);
 //		} 		
 		shopBtn.setOnAction(event -> {
+		    	buttonSound();
 			shop(primaryStage);});
 		
 		//Adding nodes to pane
