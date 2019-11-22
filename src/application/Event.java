@@ -42,7 +42,7 @@ public class Event {
 	 */
 	public void eventHappen() {
 		Random r = new Random();
-		int a = r.nextInt(1);  // 100% CHANCE TO HAPPEN, WILL BE CHANGED 
+		int a = r.nextInt(5); 
 		if (a == 0) {
 			this.isEvent = true;			
 		}
@@ -122,8 +122,7 @@ public class Event {
 	 */
 	public void eventGenerator(GameCharacters hero, Floor floor, Text display, ImageView iv) {
 		Random r = new Random();
-//		int selectedEvent = r.nextInt(4);
-		int selectedEvent = 1;
+		int selectedEvent = r.nextInt(4);
 		
 		DropShadow ds1 = new DropShadow();
 		ds1.setColor(Color.DARKRED);
