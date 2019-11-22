@@ -160,7 +160,7 @@ public class GameGUI extends Application {
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		openingMusic = new MediaPlayer(sound);
 		openingMusic.play();
-		openingMusic.setVolume(0.1);
+		openingMusic.setVolume(0.2);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);

@@ -45,6 +45,7 @@ public class GameCharacters {
     private double slashy;
     private double oldMagicx; //for ranged enemy
     private String type;
+    private SoundEffect se;
 
     /**
      * The constructor initializes the necessary instance variables to O and false,
@@ -59,7 +60,7 @@ public class GameCharacters {
 	this.potionMap.put(hp, 0.0);
 
 	// for testing purpose, set the gold to 10000 and xp to 0
-	this.gold = 10000;
+	this.gold = 250;
 	this.xp = 0;
 	this.isDefending = false;
 	this.x = 0;
@@ -67,6 +68,7 @@ public class GameCharacters {
 	this.height = 0.0;
 	this.width = 0.0;
 	this.hasRevive = false;
+	this.se = new SoundEffect();
 //	this.setLeveledThisTurn(false);
     }
 
@@ -141,9 +143,11 @@ public class GameCharacters {
     public void usePotion(Potion potion, Text error) {
 	if (getPotionMap().get(potion) > 0) {
 	    if (getCurrentStamina() == getStamina()) {
+	    se.errorSound();
 		error.setVisible(true);
 		error.setText("YOU HAVE REACHED THE MAX STAMINA");
 	    } else if (getCurrentStamina() + potion.getRestorePoint() > getStamina()) {
+	    se.healSound();
 		error.setVisible(false);
 		setCurrentStamina(getStamina());
 		getPotionMap().put(potion, getPotionMap().get(potion) - 1);
@@ -153,6 +157,7 @@ public class GameCharacters {
 		getPotionMap().put(potion, getPotionMap().get(potion) - 1);
 	    }
 	} else {
+		se.errorSound();
 	    error.setVisible(true);
 	    error.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 	}

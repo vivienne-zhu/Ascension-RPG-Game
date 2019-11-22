@@ -43,6 +43,17 @@ public class SoundEffect {
 		mediaPlayer.setVolume(0.5);		
 	}
 	
+	/**
+	 * This method plays a sound when the hero uses any types of the potion. 
+	 */
+	public void healSound() {
+		String musicFile = "./src/healSound.wav";
+		Media sound3 = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound3);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.5);		
+	}
+	
 	
 	// Shop sound effect//
 	/**
