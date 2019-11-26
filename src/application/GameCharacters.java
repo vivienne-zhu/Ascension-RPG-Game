@@ -49,7 +49,7 @@ public class GameCharacters {
 
     /**
      * The constructor initializes the necessary instance variables to O and false,
-     * initializes potionMap, cp, hp, and adds cp and hp to potionMap.
+     * initializes sound effects, potionMap, cp, hp, and adds cp and hp to potionMap.
      */
     public GameCharacters() {
 	// Initialize potion map
@@ -59,7 +59,7 @@ public class GameCharacters {
 	this.potionMap.put(cp, 0.0);
 	this.potionMap.put(hp, 0.0);
 
-	// for testing purpose, set the gold to 10000 and xp to 0
+	// for testing purpose, set the gold to 10000.
 	this.gold = 250;
 	this.xp = 0;
 	this.isDefending = false;
@@ -74,9 +74,10 @@ public class GameCharacters {
 
     /**
      * This method takes in a game character and makes changes to its stamina when
-     * it is attacked by another character.
+     * it is attacked by another character. Returns the value of that attack.
      * 
      * @param character The character currently being attacked.
+     * @return attackValue the int value of the attack dealt
      */
     public int attack(GameCharacters character) {
 	setIsDefending(false);
@@ -99,9 +100,10 @@ public class GameCharacters {
 
     /**
      * This method takes in a game character and makes changes to their stamina when
-     * they are attacked using a magic attack.
+     * they are attacked using a magic attack.Returns the value of that attack.
      * 
      * @param character The character currently being attacked.
+     * @return attackValue the int value of the magic attack dealt
      */
     public int magicAttack(GameCharacters character) {
 	setIsDefending(false);
@@ -139,6 +141,7 @@ public class GameCharacters {
      * error message when necessary.
      * 
      * @param potion Potion item being held by game character (hero or enemy)
+     * @param error The text error message that is displayed/updated as necessary
      */
     public void usePotion(Potion potion, Text error) {
 	if (getPotionMap().get(potion) > 0) {
@@ -164,7 +167,8 @@ public class GameCharacters {
     }
 
     /**
-     * This method allows the character to revive if the character has a revive
+     * This method allows the character to revive if the character has a revive.
+     * It replenishes both stamina and mana (depending on player type)
      */
     public void revive() {
 	if (isHasRevive() == true) {
@@ -177,8 +181,8 @@ public class GameCharacters {
     }
 
     /**
-     * This method increases the attack, defense and stamina of the hero when
-     * certain conditions are met.
+     * This method increases the attack, defense, stamina and mana of the hero when
+     * certain conditions are met. It also sets the level as it increases.
      */
     public void levelUp() {
 	int atk = this.getAttack();
@@ -209,7 +213,10 @@ public class GameCharacters {
     /**
      * This method allows us to display the game character image in the GUI.
      * 
-     * @param g GraphicsContext needed to draw the image in the GUI.
+     * @param g GraphicsContext needed to draw/remove the image in the GUI.
+     * @param delete Boolean saying whether to clear the image or not.
+     * @param hurt Boolean saying whether to display the image of the character when hurt.
+     * @param heal Boolean saying whether to display the image of the character when they heal.
      */
     public void displayCharacter(GraphicsContext g, boolean delete, boolean hurt, boolean heal) {
 	if (delete) {
@@ -223,6 +230,14 @@ public class GameCharacters {
 	}
     }
     
+    /**
+     * This method allows us to display and move the image of a magic attack
+     * 
+     * @param g GraphicsContext needed to draw/remove the image in the GUI.
+     * @param delete Boolean saying whether to clear the image or not.
+     * @param x x coordinate of the image
+     * @param y y coordinate of the image
+     */
     public void displayMagicAtkImage(GraphicsContext g, boolean delete, double x,double y) {
 	if (delete) {
 	    g.clearRect(getMagicx(),getMagicy(), 100, 50);
@@ -232,6 +247,14 @@ public class GameCharacters {
 	
     }
     
+    /**
+     * This method allows us to display a slash when attacking
+     * 
+     * @param g GraphicsContext needed to draw/remove the image in the GUI.
+     * @param delete Boolean saying whether to clear the image or not.
+     * @param x x coordinate of the image
+     * @param y y coordinate of the image
+     */
     public void displaySlashImage(GraphicsContext g, boolean delete, double x, double y) {
     	if (delete) {
     		g.clearRect(getSlashx(),getSlashy(), 200, 125);
@@ -244,7 +267,7 @@ public class GameCharacters {
      * This method returns a string that includes the name of the item and the
      * quantity of the item hero currently possesses.
      * 
-     * @return
+     * @return itemInfo name/type and amount of the item
      */
     public String itemInfo(Potion potion) {
 	String itemInfo = "";
