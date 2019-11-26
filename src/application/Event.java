@@ -23,7 +23,8 @@ public class Event {
 	private Image openBox;
 	
 	/**
-	 * The constructor of the event class. 
+	 * The constructor of the event class sets the necessary image instance variable
+	 * and initializes isEvent to false.
 	 */
 	public Event() {
 		this.isEvent = false;
@@ -47,7 +48,8 @@ public class Event {
 	/**
 	 * This method will allow the player to jump 1-2 floors.
 	 * 
-	 * @param floor the current floor the player is on.
+	 * @param floor The current floor the player is on.
+	 * @return new floor number
 	 */
 	public int jumpFloor(GameCharacters hero, Floor floor) {
 		Random r = new Random();
@@ -67,7 +69,8 @@ public class Event {
 	 * This method will trigger the drop floor event. 
 	 * The player will move down to the lower floor. 
 	 * 
-	 * @param floor
+	 * @param floor The current floor the player is on
+	 * @return new floor number
 	 */
 	public int dropFloor(Floor floor) {
 		floor.decrementFloor();
@@ -80,7 +83,8 @@ public class Event {
 	 * This method will trigger the get gold event. 
 	 * The player will receive a random amount of gold from 1-200.
 	 * 
-	 * @param hero
+	 * @param hero The players hero
+	 * @return gold the amount of gold the user gained
 	 */
 	public Double gainGold(GameCharacters hero) { 
 		Random r = new Random();
@@ -93,8 +97,9 @@ public class Event {
 	 * This method will trigger the lost gold event. 
 	 * The player will lose a random amount of gold from 0-100.
 	 * 
-	 * @param hero
-	 * 
+	 * @param hero The players chosen hero
+	 * @param floor the current floor the hero is on
+	 * @return gold the amount of gold the user lost
 	 */
 	public double loseGold(GameCharacters hero,  Floor floor) {
 		Random r = new Random();
@@ -112,10 +117,10 @@ public class Event {
 	/**
 	 * This method runs the event generating function. 
 	 * 
-	 * @param hero
-	 * @param floor
-	 * @param display
-	 * @param iv
+	 * @param hero The players chosen hero
+	 * @param floor The current floor the hero is on
+	 * @param display The text to let the user know the what event occurred
+	 * @param iv The image / image view to which effects will be added.
 	 */
 	public void eventGenerator(GameCharacters hero, Floor floor, Text display, ImageView iv) {
 		Random r = new Random();
@@ -151,14 +156,14 @@ public class Event {
 	/**
 	 * This method is responsible for running the event phase. 
 	 * 
-	 * @param hero
-	 * @param floor
-	 * @param continueBtn
-	 * @param grid
-	 * @param closedIV
-	 * @param openIV
-	 * @param openBtn
-	 * @param display
+	 * @param hero The player chosen hero
+	 * @param floor The current floor the player is on
+	 * @param continueBtn The button to continue playing
+	 * @param grid The grid currently housing the various nodes
+	 * @param closedIV The image view of the closed chest
+	 * @param openIV the image view of the open chest
+	 * @param openBtn The button to open the chest
+	 * @param display Text to update the user on the event that occurred
 	 */
 	public void openChest(GameCharacters hero, Floor floor, Button continueBtn, GridPane grid, ImageView closedIV, ImageView openIV, Button openBtn, Text display) {
 		continueBtn.setDisable(false);
