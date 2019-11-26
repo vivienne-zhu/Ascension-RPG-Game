@@ -11,9 +11,9 @@ import javafx.scene.image.Image;
  */
 public class Rogue extends GameCharacters {
     /**
-     * The constructor sets the stats(attack, defense and stamina etc) of the Rogue
-     * object, and also sets the values needed to display the image instance
-     * variable in the GUI.
+    The constructor sets the stats(attack, defense and stamina etc.) and type 
+	 * of the Rogue object, and also sets the values needed to display the 
+	 * image instance variables in the GUI.
      */
     public Rogue() {
 		// Stat values will be changed

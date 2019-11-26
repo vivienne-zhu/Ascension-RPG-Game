@@ -12,9 +12,9 @@ import javafx.scene.image.Image;
 public class Mage extends GameCharacters {
 	
 	/**
-	 * The constructor sets the stats(attack, defense and stamina etc.) of the Mage
-	 * object, and also sets the values needed to display the image instance
-	 * variable in the GUI.
+	 The constructor sets the stats(attack, defense and stamina etc.) and type 
+	 * of the Mage object, and also sets the values needed to display the 
+	 * image instance variables in the GUI.
 	 */
 	public Mage() {
 		// Stat values will be changed

@@ -12,9 +12,9 @@ import javafx.scene.image.Image;
 public class Warrior extends GameCharacters {
 	
 	/**
-	 * The constructor sets the stats(attack, defense and stamina etc.) of the Warrior
-	 * object, and also sets the values needed to display the image instance
-	 * variable in the GUI.
+	 * The constructor sets the stats(attack, defense and stamina etc.) and type 
+	 * of the Warrior object, and also sets the values needed to display the 
+	 * image instance variables in the GUI.
 	 */
 	public Warrior() {
 		// Stat values will be changed

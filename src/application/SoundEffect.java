@@ -1,14 +1,21 @@
 package application;
 
 import java.io.File;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * This class is responsible for creating and playing the sound 
+ * effects of the game. It has a single media player as its 
+ * instance variable.
+ * 
+ * @author JiayuZhu and Shari Sinclair
+ *
+ */
 public class SoundEffect {
 	private MediaPlayer mediaPlayer;
 	
-	// Battle sound effect//
+	// Battle sound effects//
 	/**
 	 * This method plays the sword swing sound effect.
 	 */
@@ -21,7 +28,7 @@ public class SoundEffect {
 	}
 
 	/**
-	 * This method plays the poof sound effect when magic is used.
+	 * This method plays the sound effect when magic is used.
 	 */
 	public void magicSound() {
 		String musicFile = "./src/fireball.mp3";
@@ -71,8 +78,7 @@ public class SoundEffect {
 	public void moneySound() {
 		String musicFile = "./src/goldSound.wav";
 		Media sound = new Media(new File(musicFile).toURI().toString());		
-	
-		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
 		mediaPlayer.setVolume(0.3);		
 	}
@@ -113,9 +119,12 @@ public class SoundEffect {
 		mediaPlayer.setVolume(0.1);
 	}
 	
+	// Creating media players for songs//
+	
 	/**
 	 * Method creates opening music media player
-	 * @return opening  music media player
+	 * 
+	 * @return mediaPlayer music media player
 	 */
 	public MediaPlayer openingMusic() {
 	    String musicFile = "./src/startMusic.wav";
@@ -123,14 +132,12 @@ public class SoundEffect {
 	    mediaPlayer = new MediaPlayer(sound);
 	    mediaPlayer.setVolume(0.2);
 	    return mediaPlayer;
-//	    MediaPlayer openingMusic = new MediaPlayer(sound);
-//	    openingMusic.setVolume(0.2);
-//	    return openingMusic;
 	}
 	
 	/**
 	 * Method creates music media player for when the game is over
-	 * @return opening  music media player
+	 * 
+	 * @return mediaPlayer  music media player
 	 */
 	public MediaPlayer gameOverMusic() {
 	    String musicFile = "./src/gameoverMusic.wav";
@@ -142,7 +149,8 @@ public class SoundEffect {
 
 	/**
 	 * Method creates music media player for when you win the game
-	 * @return opening  music media player
+	 * 
+	 * @return mediaPlayer  music media player
 	 */
 	public MediaPlayer youWinMusic() {
 	    String musicFile = "./src/youWinSong.wav";
@@ -153,14 +161,14 @@ public class SoundEffect {
 	}
 	
 	/**
-	 * Method creates background music media player
-	 * @return opening  music media player
+	 * Method creates background/battle music media player
+	 * 
+	 * @return mediaPlayer music media player
 	 */
 	public MediaPlayer backgroundMusic() {
 	    String musicFile = "./src/fightmusiccut.mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
-		//mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaPlayer.setVolume(0.03);
 		return mediaPlayer;
 	}
