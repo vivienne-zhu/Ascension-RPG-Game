@@ -45,10 +45,9 @@ import java.util.HashMap;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
- * needed to capture user input and run the game. Can be run to see preliminary phases of GUI 
- * (Start scene, Character selection and naming, floor 1&2 fighting, w/ healing and defending, magic shop). 
- * Currently this class is only to begin testing GUI elements and its design will be 
- * revised heavily before final submission (class will be made more cohesive and DRY).
+ * needed to capture user input and run the game. Game can be run to see game play up to floor 9. 
+ * The design of this class may be revised before final submission 
+ * (class will be made more cohesive and DRY).
  * 
  * @author Shari Sinclair, JiayuZhu and David Cai
  *
@@ -69,13 +68,13 @@ public class GameGUI extends Application {
 	private MediaPlayer openingMusic;
 	private MediaPlayer gameOverMusic;
 	private MediaPlayer youWinMusic;
-//	private boolean firstTime; //for music to only start once
 	private SoundEffect se;
 	
 
 	/**
 	 * The sets all booleans variables to false, and initializes the hero,
-	 *  allEnemies HashMap, the shop, event and floor variables.
+	 *  allEnemies HashMap, the shop, events,floors, sound effects and
+	 *  all necessary media players for music. 
 	 * (Still in testing phase, some variables may be removed/added later)
 	 */
 	public GameGUI() {
@@ -88,7 +87,6 @@ public class GameGUI extends Application {
 		shop = new Shop();
 		event = new Event();
 		se = new SoundEffect();
-//		firstTime = true;
 		openingMusic = se.openingMusic();
 		battleMusic = se.backgroundMusic();
 		gameOverMusic = se.gameOverMusic();
@@ -114,9 +112,11 @@ public class GameGUI extends Application {
 	}
 
 	/**
-	 * This method is responsible for displaying the start screen for the game.
+	 * This method is responsible for displaying the start screen for the game
+	 * and plays music for the opening scenes.
 	 * 
 	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
+	 * @return startScene The Scene startScene
 	 */
 	public Scene startScreen(Stage primaryStage) {
 		//Creating Pane which will display all the elements/ nodes
@@ -131,16 +131,9 @@ public class GameGUI extends Application {
 		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
 		//Event Handling for when Start button is pressed
-		EventHandler<MouseEvent> nextScreen = new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				chooseCharacterScreen(primaryStage);
-				se.transitionSound();
-			}
-		};
-
-		btn.addEventHandler(MouseEvent.MOUSE_CLICKED, nextScreen);
-
+		btn.setOnAction(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+		});
+		
 		//Creating Title/ start screen text with game name, adding style and configuration
 		Text title = new Text();
 		title.setText("Tower Challenge");
@@ -186,7 +179,6 @@ public class GameGUI extends Application {
 	 * choose their character type/fighter.
 	 * 
 	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
-	 * @return
 	 */
 	public void chooseCharacterScreen(Stage primaryStage) {
 		//Creating Text, positioning it and adding style and effects
@@ -264,6 +256,7 @@ public class GameGUI extends Application {
 	 * This method allows us to take in the character name from the user and use it
 	 * to set the hero name and create the new hero.
 	 * 
+	 * @param primaryStage The primary stage/ window to display the GUI.
 	 * @return givenName String name entered by the user.
 	 */
 	public void nameCharScreen(Stage primaryStage) {
@@ -362,8 +355,8 @@ public class GameGUI extends Application {
 
 	/**
 	 * INCOMPLETE METHOD. This method is the central point for full game play.
-	 * It creates the Pane for each floor of fighting, restores hero stamina, gets 
-	 * ArrayList of enemies for the floor from allEnemies HashMap.
+	 * It creates the Pane for each floor of fighting, restores hero mana, gets 
+	 * ArrayList of enemies for the floor from allEnemies HashMap, and plays battle music.
 	 * 
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
@@ -387,19 +380,9 @@ public class GameGUI extends Application {
 //		//	floorTwo.add(dummyTwo);
 //		allEnemies.put(2, floorTwo);
 		
-		//Mediaplayer for music
-//		String musicFile = "./src/fightmusiccut.mp3";
-//		Media sound = new Media(new File(musicFile).toURI().toString());
-//		battleMusic = new MediaPlayer(sound);
-//		if (firstTime) {
-//			battleMusic.setCycleCount(MediaPlayer.INDEFINITE);
-//			battleMusic.play();
-//			battleMusic.play();
-//			battleMusic.setVolume(0.03);
-//			firstTime = false;
-//		}
-	    	
+	    	//Mediaplayer for music
 	    	battleMusic.play();
+	    
 
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
@@ -442,10 +425,13 @@ public class GameGUI extends Application {
 	 * This method creates the backdrop, buttons and text needed for fighting inside
 	 * the Tower.
 	 * 
-	 * @return The Pane containing all the graphical elements needed for fights
-	 *         inside the Tower.
+	 * @param primaryStage The primary Stage/window to display the GUI.
+	 * @param floorcopy a copy of the ArrayList of enemies for that floor.
+	 * @return towerLevels The Pane containing all the graphical elements 
+	 *           needed for each fight inside the Tower.
 	 */
 	public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
+	    	//Creating pane
 		Pane towerLevels = new Pane();
 
 		// To display the background for the floor
@@ -465,21 +451,22 @@ public class GameGUI extends Application {
 		floorNum.setX(600);
 		floorNum.setY(50);
 
-		// Adding hero and boss images
+		// Adding hero and enemy images
 		hero.displayCharacter(gc, false, false, false);
 		
 		for (int i = 0; i < floorCopy.size(); i++) {
 			floorCopy.get(i).displayCharacter(gc, false, false, false);
 		}
 
+		//Code that controls the battle mechanics on each floor
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		battle.idleAnimate(allEnemies, gc);
 		battle.heroAnimate(hero, gc);
 		battle.dispDialogue();
 		battle.initButtons(hero);
-		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage), 
-			gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic);
+		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage),  
+			reviveScreen(primaryStage),gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic);
 		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
@@ -498,6 +485,8 @@ public class GameGUI extends Application {
 	/**
 	 * This will generate the shop screen, where player is able to buy and sell
 	 * items.
+	 * 
+	 * @param primaryStage The primary stage/ window to display the GUI.
 	 */
 	public void shopScreen(Stage primaryStage) {
 		// Create grid pane
@@ -648,9 +637,10 @@ public class GameGUI extends Application {
 	/**
 	 * This method creates the screen when a special event occurs. 
 	 * 
-	 * @param primaryStage
+	 * @param primaryStage The primary stage/window to display the GUI.
 	 */
 	public void eventScreen(Stage primaryStage) {
+	    	// Creating the grid
 		GridPane grid = new GridPane();
 		
 		// Text for the event 
@@ -672,7 +662,7 @@ public class GameGUI extends Application {
 		ImageView closedIV = new ImageView(event.getClosedBox());		
 		ImageView openIV = new ImageView(event.getOpenBox());
 		
-		//Creating continue button and adding event handling
+		// Creating continue button and adding event handling
 		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setDisable(true);
 		continueBtn.setLayoutX(500);
@@ -684,7 +674,7 @@ public class GameGUI extends Application {
 			floor.incrementFloor();
 			battleScreen(primaryStage);
 					});
-		// Create 'Open' Button 
+		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
 		openBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		
@@ -748,6 +738,7 @@ public class GameGUI extends Application {
 	 * This method creates a transition scene after death if the player has a revive
 	 * 
 	 * @param primaryStage The primary stage or window of the GUI
+	 * @return reviveScene The scene giving the player the option to revive
 	 */
 	public Scene reviveScreen(Stage primaryStage) {
 	    //Creating text for the page
@@ -820,6 +811,7 @@ public class GameGUI extends Application {
 	 * This method creates screen when the player wins the game
 	 * 
 	 * @param primaryStage The primary stage/ window for displaying the GUI.
+	 * @return gWon The scene that is displayed of the player wins the game.
 	 */
 	public Scene youWinScreen(Stage primaryStage) {
 
@@ -867,10 +859,6 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 		
-		//Mediaplayer for music
-//	       	mediaPlayer.stop();
-//		youWinMusic.play();
-		
 		//Adding eventHandling for buttons
 		exitBtn.setOnAction(event-> {primaryStage.close();;});
 		playAgainBtn.setOnAction(event-> {try {
@@ -908,6 +896,7 @@ public class GameGUI extends Application {
 	 * This method creates game over screen when the player loses to the enemy
 	 * 
 	 * @param primaryStage The primary stage/ window for displaying the GUI.
+	 * @return gOver The scene displayed when the player loses the game.
 	 */
 	public Scene gameOverScreen(Stage primaryStage) {
 
@@ -967,6 +956,7 @@ public class GameGUI extends Application {
 	 * This method creates the transition page after the user has cleared the floor.
 	 * 
 	 * @param primaryStage The primary stage/window of the GUI.
+	 * @return transition The scene displayed after a battle to update the user 
 	 */
 	public Scene transitionScreen(Stage primaryStage) {
 	    	//Creating text for the page
@@ -1009,7 +999,7 @@ public class GameGUI extends Application {
 		userUpdate.setLayoutY(350);
 		userUpdate.setAlignment(Pos.CENTER);
 
-		//Creating Pane and 
+		//Creating Pane 
 		Pane display = new Pane();
 		
 
