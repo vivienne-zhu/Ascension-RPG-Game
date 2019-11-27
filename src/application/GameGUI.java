@@ -388,12 +388,12 @@ public class GameGUI extends Application {
 
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		if (floor.getFloor() == 7 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-		} else if (floor.getFloor() == 1 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
 			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
@@ -547,10 +547,16 @@ public class GameGUI extends Application {
 		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
 
 		// Description for revive
-		Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
+		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		revive.setFill(Color.WHITE);
 		GridPane.setHalignment(revive, HPos.CENTER);
+		
+		// Description for revive quantity
+		Text reviveQuant = new Text("Max 1 AT A TIME");
+		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		reviveQuant.setFill(Color.WHITE);
+		GridPane.setHalignment(reviveQuant, HPos.CENTER);
 
 		// Buy and sell for revive 
 		Button btnBuy3 = new Button("Buy");
@@ -567,6 +573,12 @@ public class GameGUI extends Application {
 		ivPotion1.setEffect(ds2);
 		ivPotion2.setEffect(ds2);
 		ivRevive.setEffect(ds2);
+		HBox hbox = new HBox();
+	    HBox hbox1 = new HBox();
+		HBox hbox2 = new HBox();
+		hbox.getChildren().add(ivPotion1);
+		hbox1.getChildren().add(ivPotion2);
+		hbox2.getChildren().add(ivRevive);
 
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
@@ -598,20 +610,21 @@ public class GameGUI extends Application {
 		root.setHgap(10);
 		root.setVgap(5);
 		root.add(welcome, 2, 0);
-		root.add(ivPotion1, 1, 1);
+		root.add(hbox, 1, 1);
 		root.add(potion1, 1, 2);
 		root.add(quantity1, 1, 3);
 		root.add(btnBuy1, 1, 4);
 		root.add(btnSell1, 1, 5);
-		root.add(ivPotion2, 2, 1);
+		root.add(hbox1, 2, 1);
 		root.add(potion2, 2, 2);
 		root.add(quantity2, 2, 3);
 		root.add(btnBuy2, 2, 4);
 		root.add(btnSell2, 2, 5);
-		root.add(ivRevive, 3, 1);
+		root.add(hbox2, 3, 1);
 		root.add(revive, 3, 2);
-		root.add(btnBuy3, 3, 3);
-		root.add(btnSell3, 3, 4);
+		root.add(reviveQuant, 3, 3);
+		root.add(btnBuy3, 3, 4);
+		root.add(btnSell3, 3, 5);
 		root.add(potionList, 2, 8);
 		root.add(errorMsg, 2, 9);
 
@@ -623,8 +636,13 @@ public class GameGUI extends Application {
 		potion2.setTextAlignment(TextAlignment.CENTER);
 		quantity2.setAlignment(Pos.CENTER);
 		revive.setTextAlignment(TextAlignment.CENTER);
+		reviveQuant.setTextAlignment(TextAlignment.CENTER);
 		potionList.setTextAlignment(TextAlignment.CENTER);
 		errorMsg.setTextAlignment(TextAlignment.CENTER);
+		
+		hbox.setAlignment(Pos.CENTER);
+		hbox1.setAlignment(Pos.CENTER);
+		hbox2.setAlignment(Pos.CENTER);
 		
 		GridPane.setHalignment(welcome, HPos.CENTER);
 		GridPane.setHalignment(potion1, HPos.CENTER);
@@ -641,7 +659,6 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(btnSell2, HPos.CENTER);
 		GridPane.setHalignment(btnBuy3, HPos.CENTER);
 		GridPane.setHalignment(btnSell3, HPos.CENTER);
-
 		
 		errorMsg.setWrappingWidth(200);
 
@@ -745,11 +762,6 @@ public class GameGUI extends Application {
 		// Set background 
 		grid.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
 			"    -fx-background-size: cover;");
-//		Image tower = new Image("pixelBack.png");
-//		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-//				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-//		Background towerBackground = new Background(background);
-//		grid.setBackground(towerBackground);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -983,60 +995,107 @@ public class GameGUI extends Application {
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 		clearedFloor.setX(280);
-		clearedFloor.setY(200);
+		clearedFloor.setY(100);
 		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		clearedFloor.setStroke(Color.WHITE);
+		clearedFloor.setStrokeWidth(1);
 		DropShadow ds = new DropShadow();
-		ds.setColor(Color.BLUE);
+		ds.setColor(Color.GOLD);
 		clearedFloor.setEffect(ds);
+		
+		//Creating the buttons play for the player to continue on
+		Button shopBtn = new Button("Go to the Magic Shop");
+		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif'");
+		shopBtn.setDisable(true);
+		
+		Button next = new Button("Next");
+		next.setStyle(" -fx-font: normal bold 20px 'serif'");
+		next.setVisible(false);;
+
+		Button continueBtn = new Button("Continue playing");
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(15);
+		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
+		hbBtn.setLayoutX(430);
+		hbBtn.setLayoutY(600);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+		
+		//Creating VBox and setting alignment
+		VBox userUpdate = new VBox(20);
+		userUpdate.setLayoutX(370);
+		userUpdate.setLayoutY(250);
+		userUpdate.setAlignment(Pos.CENTER);
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
 		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
+		goldGained.setFill(Color.WHITE);
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 			
 		Text xpGained = new Text();
 		int xp= 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
 		xpCount += xp;
-		//hero.setXp(hero.getXp() + xp); done in battlephase already
 		xpGained.setText("You gained " + xp + " xp! Xp = " + xpCount);
+		xpGained.setFill(Color.WHITE);
 		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
+		Text atkUp = new Text();
+		Text stamUp = new Text();
+		Text defUp = new Text();
+		Text mAtkUp = new Text();
+		Text manaUp = new Text();
+		
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
-		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1));
+		    continueBtn.setVisible(false);
+		    shopBtn.setVisible(false);
+		    userUpdate.setLayoutX(320);
+		    userUpdate.setLayoutY(180);
+		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
+			    + "! \n\t\t You regained 20% stamina! \n");
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		    levelUp.setFill(Color.PURPLE);
+		    levelUp.setFill(Color.GOLD);
+		    levelUp.setStroke(Color.WHITE);
+		    levelUp.setStrokeWidth(0.5);
 		    xpCount = 0;
+		    next.setVisible(true);
+		    next.setOnAction(event->{ next.setVisible(false);
+		    continueBtn.setVisible(true);
+		    shopBtn.setVisible(true);
+			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
+			atkUp.setFill(Color.WHITE);
+			atkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			stamUp.setText("Your stamina went up by " + hero.getStaminaUp() + ". Stamina =  " + hero.getStamina());
+			stamUp.setFill(Color.WHITE);
+			stamUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			defUp.setText("Your defense went up by " + hero.getDefenseUp() + ". Defense =  " + hero.getDefense());
+			defUp.setFill(Color.WHITE);
+			defUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+		    
+			if(hero.getType().contentEquals("Mage")) {
+			    mAtkUp.setText("Your  magic attack went up by " + hero.getMagicAtkUp() + ". Magic Attack =  " + hero.getMagicAtk());
+			    mAtkUp.setFill(Color.WHITE);
+			    mAtkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			    manaUp.setText("Your attack went up by " + hero.getManaUp() + ". Mana =  " + hero.getMana());
+			    manaUp.setFill(Color.WHITE);
+			    manaUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			};});
+		   	    
 		}
 		
-		//Creating VBox for user update text on gold and xp gained
-		VBox userUpdate = new VBox(30);
-		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
-		userUpdate.setLayoutX(370);
-		userUpdate.setLayoutY(350);
-		userUpdate.setAlignment(Pos.CENTER);
-
-		//Creating Pane 
+		//Adding nodes to VBox
+		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp, atkUp, stamUp, defUp, mAtkUp, manaUp);
+	
+		//Creating Pane and setting background
 		Pane display = new Pane();
+		display.setStyle(" -fx-background-image: url(\"transition.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 		
 
-		//Creating the buttons play for the player to continue on
-		Button shopBtn = new Button("Go to the Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		shopBtn.setDisable(true);
-
-		Button continueBtn = new Button("Continue playing");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		HBox hbBtn = new HBox(15);
-		hbBtn.getChildren().addAll(shopBtn, continueBtn);
-		hbBtn.setLayoutX(430);
-		hbBtn.setLayoutY(600);
-		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-
-		// Event handling for special event 
+		// Event handling for if there is a special event 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
@@ -1051,7 +1110,7 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
+		if (floor.getFloor() == 1 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
 			shopBtn.setDisable(false);
 		} 		
 		shopBtn.setOnAction(event -> {
@@ -1060,8 +1119,7 @@ public class GameGUI extends Application {
 		
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
-		display.setStyle(" -fx-background-color: cornflowerblue");
-
+		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
 		ft.setFromValue(0);
@@ -1070,7 +1128,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
-		transition.setFill(Color.GREY);
+		//transition.setFill(Color.GREY);
 		return transition;
 	}
 
