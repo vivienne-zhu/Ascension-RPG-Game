@@ -105,6 +105,7 @@ public class GameGUI extends Application {
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
 	    	
+	    	
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
 		primaryStage.setScene(start);
@@ -943,10 +944,10 @@ public class GameGUI extends Application {
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 		clearedFloor.setX(280);
-		clearedFloor.setY(200);
+		clearedFloor.setY(100);
 		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
 		DropShadow ds = new DropShadow();
-		ds.setColor(Color.BLUE);
+		ds.setColor(Color.GOLD);
 		clearedFloor.setEffect(ds);
 			
 		//Creating text for gold and xp gained
@@ -954,6 +955,7 @@ public class GameGUI extends Application {
 		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
+		goldGained.setFill(Color.WHITE);
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 			
 		Text xpGained = new Text();
@@ -961,6 +963,7 @@ public class GameGUI extends Application {
 		xpCount += xp;
 		//hero.setXp(hero.getXp() + xp); done in battlephase already
 		xpGained.setText("You gained " + xp + " xp! Xp = " + xpCount);
+		xpGained.setFill(Color.WHITE);
 		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		
 		//Creating text for level up and the conditions to display it
@@ -968,24 +971,26 @@ public class GameGUI extends Application {
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1));
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		    levelUp.setFill(Color.PURPLE);
+		    levelUp.setFill(Color.GREEN);
 		    xpCount = 0;
 		}
 		
 		//Creating VBox for user update text on gold and xp gained
 		VBox userUpdate = new VBox(30);
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
-		userUpdate.setLayoutX(370);
-		userUpdate.setLayoutY(350);
+		userUpdate.setLayoutX(350);
+		userUpdate.setLayoutY(250);
 		userUpdate.setAlignment(Pos.CENTER);
 
-		//Creating Pane 
+		//Creating Pane and setting background
 		Pane display = new Pane();
+		display.setStyle(" -fx-background-image: url(\"transition.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 		
 
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Go to the Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif'");
 		shopBtn.setDisable(true);
 
 		Button continueBtn = new Button("Continue playing");
@@ -1020,7 +1025,7 @@ public class GameGUI extends Application {
 		
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
-		display.setStyle(" -fx-background-color: cornflowerblue");
+		//display.setStyle(" -fx-background-color: cornflowerblue");
 
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
@@ -1030,7 +1035,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
-		transition.setFill(Color.GREY);
+		//transition.setFill(Color.GREY);
 		return transition;
 	}
 
