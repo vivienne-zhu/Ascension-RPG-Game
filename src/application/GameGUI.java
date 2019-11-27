@@ -402,7 +402,8 @@ public class GameGUI extends Application {
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
 		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
+		    	floorEnemies.add(new BossEnemy(floor.getFloor()));
+			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
@@ -410,6 +411,8 @@ public class GameGUI extends Application {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
 			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
+		} else if (floor.getFloor() == 10) {
+		    	floorEnemies.add(new BossEnemy(10));
 		}
 		allEnemies.put(floor.getFloor(), floorEnemies);
 		totalEnemyHealth = 0;
