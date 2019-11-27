@@ -872,14 +872,14 @@ public class BattlePhase {
 		//Move magic blast forward
 		Timeline timeline = new Timeline(); 
 		if (choice == 0) {
-			timeline.setCycleCount(580);
+			timeline.setCycleCount(600);
 		} else if (choice == 1) {
-			timeline.setCycleCount(380);
+			timeline.setCycleCount(400);
 		} else {
-			timeline.setCycleCount(180);
+			timeline.setCycleCount(200);
 		}
 		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> moveMagic(hero, hero, gc, allEnemies, floor, true, choice));
-		hero.setMagicx(210);
+		hero.setMagicx(290);
 		hero.setMagicy(520);
 		timeline.getKeyFrames().add(frame);
 		

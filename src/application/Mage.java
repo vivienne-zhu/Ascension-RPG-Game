@@ -28,7 +28,7 @@ public class Mage extends GameCharacters {
 		setLevel(1);
 		setX(80);
 		setY(420);
-		setMagicx(210);
+		setMagicx(290);
 		setMagicy(520);
 		setWidth(230);
 		setHeight(230);
