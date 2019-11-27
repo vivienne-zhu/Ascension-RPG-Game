@@ -22,6 +22,7 @@ public class GameCharacters {
     private int magicAtk;
     private boolean hasRevive;
     private boolean isDefending;
+    private boolean isEmpowered;
     private double gold;
     private int xp;
     private int mana;
@@ -84,11 +85,14 @@ public class GameCharacters {
      * @param character The character currently being attacked.
      * @return attackValue the int value of the attack dealt
      */
-    public int attack(GameCharacters character, Boolean outrage) {
+    public int attack(GameCharacters character, Boolean outrage, Boolean empowered) {
 	setIsDefending(false);
 	int attackValue = this.getAttack() - character.getDefense();
 	if (outrage) {
 		attackValue = attackValue * 3;
+	}
+	if (empowered) {
+		attackValue = attackValue * 2;
 	}
 	if (character.isDefending()) {
 	    attackValue = attackValue / 2;
@@ -479,6 +483,21 @@ public class GameCharacters {
      */
     public void setIsDefending(boolean isDefending) {
 	this.isDefending = isDefending;
+    }
+    
+    /**
+     * @return The boolean value of the isEmpowered instance variable.
+     */
+    public boolean isEmpowered() {
+	return isEmpowered;
+    }
+    
+    /**
+     * @param isEmpowered The boolean value to be set to the isEmpowered instance
+     *                    variable.
+     */
+    public void setIsEmpowered(boolean isEmpowered) {
+	this.isEmpowered = isEmpowered;
     }
 
     /**

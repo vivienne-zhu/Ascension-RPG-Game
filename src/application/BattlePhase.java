@@ -440,9 +440,10 @@ public class BattlePhase {
 			setMagic(false);
 
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
-			gc.drawImage(defendIcon, 100, 280); //draw defend icon
+			gc.drawImage(defendIcon, 150, 280); //draw defend icon
 			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn); //disable buttons
 			hero.setIsDefending(true);
+			hero.setIsEmpowered(true);
 			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
@@ -456,7 +457,7 @@ public class BattlePhase {
 			Timeline icon = new Timeline(); 
 			icon.setCycleCount(1);
 			KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			gc.clearRect(100, 280, 80, 80));
+			gc.clearRect(150, 280, 80, 80));
 			icon.getKeyFrames().add(iconDisable);
 			icon.play();
 		});
@@ -963,7 +964,7 @@ public class BattlePhase {
 				enemyThreeStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			}
 		} else {
-			attackAmount = hero.attack(enemy, false);
+			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
 			if (choice == 0) {
 				enemyOneStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else if (choice == 1) {
@@ -974,6 +975,7 @@ public class BattlePhase {
 		}
 
 		totalEnemyHealth -= attackAmount;
+		hero.setIsEmpowered(false);
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 
 		//If enemy dies, update information and delete enemy picture
@@ -1363,7 +1365,7 @@ public class BattlePhase {
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
 			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, 
 			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage) { 
-		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage);
+		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage, false);
 		Timeline heroRed = new Timeline();
 		heroRed.setCycleCount(1);
 		KeyFrame redHero = new KeyFrame(Duration.millis(1), ae -> {
