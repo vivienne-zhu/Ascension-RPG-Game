@@ -27,6 +27,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -123,17 +124,31 @@ public class GameGUI extends Application {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
 
-		//Creating Start button, adding style and necessary configurations
-		Button btn = new Button("START");
-		btn.setLayoutX(600);
-		btn.setLayoutY(500);
-		btn.setAlignment(Pos.CENTER);
-		btn.setPrefSize(100, 50);
-		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+//		Creating Start button, adding style and necessary configurations
+//		Button btn = new Button("START");
+		Image btn = new Image("startButton.png", 250, 80, false, false);		
+		ImageView iv = new ImageView(btn);
+	    Text start = new Text("START");
+		start.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 35));
+		start.setFill(Color.BLACK);
+		
+	    StackPane pane = new StackPane();
+	    pane.getChildren().addAll(iv, start);
+	    pane.setAlignment(Pos.CENTER);
+	    pane.setLayoutX(525);
+	    pane.setLayoutY(470);
+	    pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+		});
+		
+//		btn.setLayoutX(600);
+//		btn.setLayoutY(500);
+//		btn.setAlignment(Pos.CENTER);
+//		btn.setPrefSize(100, 50);
+//		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
 		//Event Handling for when Start button is pressed
-		btn.setOnAction(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
-		});
+//		btn.setOnAction(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+//		});
 		
 		//Creating Title/ start screen text with game name, adding style and configuration
 		Text title = new Text();
@@ -167,7 +182,7 @@ public class GameGUI extends Application {
 			"    -fx-background-size: cover;");
 
 		//Adding other element/nodes to Pane, then Pane to Scene
-		root.getChildren().addAll(title, btn);
+		root.getChildren().addAll(title, pane);
 		Scene startScene = new Scene(root, 1280, 720);
 		return startScene;
 	}
