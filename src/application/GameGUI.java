@@ -104,7 +104,7 @@ public class GameGUI extends Application {
 		
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
-
+	    	
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
 		primaryStage.setScene(start);
@@ -161,12 +161,9 @@ public class GameGUI extends Application {
 		ft.setToValue(1);
 		ft.play();
 		
-		//Adding background to Pane
-		Image background = new Image("Tower.jpg");
-		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-		Background startScreen = new Background(background2);
-		root.setBackground(startScreen);
+		//Adding background image to Pane
+		root.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, btn);
@@ -226,18 +223,12 @@ public class GameGUI extends Application {
 			nameCharScreen(primaryStage);
 		});
 
-		//Creating background for Pane
-		Image background = new Image("Tower.jpg");
-		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-		Background startScreen = new Background(background2);
-		
-		
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
-		display.setBackground(startScreen);
 		display.getChildren().addAll(mageBtn, warriorBtn, rougueBtn, charOption);
+		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -313,16 +304,11 @@ public class GameGUI extends Application {
 		    }
 		});
 
-		//Adding background to Pane
-		Image background = new Image("Tower.jpg");
-		BackgroundImage background2 = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-		Background startScreen = new Background(background2);
-
-		//Creating Pane, adding above nodes to Pane, and then Pane to Scene
+		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
-		display.setBackground(startScreen);
 		display.getChildren().addAll(getName);
+		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -435,10 +421,9 @@ public class GameGUI extends Application {
 		Pane towerLevels = new Pane();
 
 		// To display the background for the floor
-		Image tower = new Image("pixelBackLower.png");
-		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-		Background insideTowerBackground = new Background(background);
+		towerLevels.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
+			"    -fx-background-size: cover;");
+		
 		Canvas canvas = new Canvas(1280, 720);
 		towerLevels.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -476,7 +461,7 @@ public class GameGUI extends Application {
 		ft.play();
 
 		// Setting Background for Pane, adding grid to Pane  
-		towerLevels.setBackground(insideTowerBackground);
+		//towerLevels.setBackground(insideTowerBackground);
 		towerLevels.getChildren().addAll(grid, floorNum);
 		
 		return towerLevels;
@@ -620,6 +605,9 @@ public class GameGUI extends Application {
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		Background shopBg2 = new Background(shopBg1);
 		root.setBackground(shopBg2);
+		
+//		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
+//				"    -fx-background-size: cover;");
 
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -715,11 +703,13 @@ public class GameGUI extends Application {
 		grid.setHgap(20); 
 		
 		// Set background 
-		Image tower = new Image("pixelBack.png");
-		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-		Background towerBackground = new Background(background);
-		grid.setBackground(towerBackground);
+		grid.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
+			"    -fx-background-size: cover;");
+//		Image tower = new Image("pixelBack.png");
+//		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+//				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+//		Background towerBackground = new Background(background);
+//		grid.setBackground(towerBackground);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -787,11 +777,8 @@ public class GameGUI extends Application {
 	    display.getChildren().addAll(reviveOption, hbBtn, revive);
 	
 	    // Set background 
-	    Image tower = new Image("pixelBack.png");
-	    BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-	 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-	    Background towerBackground = new Background(background);
-	    display.setBackground(towerBackground);
+	    display.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
+			"    -fx-background-size: cover;");
 
 	    //Fade Transition
 	    FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
@@ -814,36 +801,28 @@ public class GameGUI extends Application {
 	 * @return gWon The scene that is displayed of the player wins the game.
 	 */
 	public Scene youWinScreen(Stage primaryStage) {
-
-		//Creating the treasure images for the Pane and adding effects
-		Image treasureChest = new Image("gold_treasure.png");
-		ImageView treasureChest1 = new ImageView(treasureChest);
-		Image treasureChest2 = new Image("gold_treasure.png");
-		ImageView treasureChest3 = new ImageView(treasureChest2);
-		Image treasureChest4 = new Image("closed_treasure.png");
-		ImageView treasureChest5 = new ImageView(treasureChest4);
-		treasureChest1.setLayoutX(250);
-		treasureChest1.setLayoutY(300);
-		treasureChest3.setLayoutX(750);
-		treasureChest3.setLayoutY(300);
-		treasureChest5.setLayoutX(500);
-		treasureChest5.setLayoutY(200);
-
+	    
 		//Adding text to Pane
 		Text youWin = new Text();
 		youWin.setText("Congratulations. YOU WON!");
-		youWin.setX(120);
+		youWin.setX(200);
 		youWin.setY(130);
-		youWin.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		youWin.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 80));
+		youWin.setStroke(Color.WHITE);
+		youWin.setStrokeWidth(1);
 		DropShadow ds = new DropShadow();
-		ds.setColor(Color.CHOCOLATE);
+		ds.setColor(Color.WHITE);
 		youWin.setEffect(ds);
 		Text thankYou = new Text();
 		thankYou.setText("Thank you for playing!");
-		thankYou.setX(350);
+		thankYou.setX(380);
 		thankYou.setY(550);
-		thankYou.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
-		thankYou.setEffect(ds);
+		thankYou.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 60));
+		thankYou.setStroke(Color.WHITE);
+		thankYou.setStrokeWidth(1);
+		DropShadow ds1 = new DropShadow();
+		ds1.setColor(Color.CORNFLOWERBLUE);
+		thankYou.setEffect(ds1);
 
 		//Creating Pane 
 		Pane gameWon = new Pane();
@@ -871,9 +850,10 @@ public class GameGUI extends Application {
 			primaryStage.close();
 		}});
 
-		//Adding nodes to pane
-		gameWon.getChildren().addAll(treasureChest1,treasureChest3,treasureChest5, hbBtn, youWin, thankYou);
-		gameWon.setStyle(" -fx-background-color: gold");
+		//Adding nodes to pane and set pane background
+		gameWon.getChildren().addAll(hbBtn, youWin, thankYou);
+		gameWon.setStyle(" -fx-background-image: url(\"youWin1a.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 		
 		
 		//Fade Transition
