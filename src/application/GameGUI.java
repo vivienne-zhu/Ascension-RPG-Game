@@ -100,7 +100,6 @@ public class GameGUI extends Application {
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
 	    	
-	    	//Scene test = reviveScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
 		primaryStage.setScene(start);
@@ -119,7 +118,6 @@ public class GameGUI extends Application {
 		Pane root = new Pane();
 
 //		Creating Start button, adding style and necessary configurations
-//		Button btn = new Button("START");
 		Image btn = new Image("startButton.png", 250, 80, false, false);		
 		ImageView iv = new ImageView(btn);
 		Text start = new Text("START");
