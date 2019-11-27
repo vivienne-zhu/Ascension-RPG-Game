@@ -35,6 +35,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
@@ -69,7 +70,6 @@ public class GameGUI extends Application {
 	private MediaPlayer gameOverMusic;
 	private MediaPlayer youWinMusic;
 	private SoundEffect se;
-	int atkUp;
 	
 
 	/**
@@ -92,7 +92,6 @@ public class GameGUI extends Application {
 		battleMusic = se.backgroundMusic();
 		gameOverMusic = se.gameOverMusic();
 		youWinMusic = se.youWinMusic();
-		atkUp = hero.getAttackUp();
 	}
 
 	/**
@@ -106,7 +105,6 @@ public class GameGUI extends Application {
 		
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
-	    	
 	    	
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
@@ -580,7 +578,8 @@ public class GameGUI extends Application {
 		}
 		
 		// Add nodes to the grid pane
-		root.setGridLinesVisible(false);
+		root.setAlignment(Pos.CENTER);
+		root.setGridLinesVisible(true);
 		root.setHgap(10);
 		root.setVgap(5);
 		root.add(welcome, 2, 0);
@@ -598,17 +597,39 @@ public class GameGUI extends Application {
 		root.add(revive, 3, 2);
 		root.add(btnBuy3, 3, 3);
 		root.add(btnSell3, 3, 4);
-		root.add(potionList, 1, 7);
-		root.add(errorMsg, 1, 8);
-		root.setAlignment(Pos.CENTER);
-		root.add(continueBtn, 4, 9);
+		root.add(potionList, 2, 8);
+		root.add(errorMsg, 2, 9);
 
-		// Set background
-//		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
-//				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-//		Background shopBg2 = new Background(shopBg1);
-//		root.setBackground(shopBg2);
+		root.add(continueBtn, 4, 9);
 		
+		welcome.setTextAlignment(TextAlignment.CENTER);
+		potion1.setTextAlignment(TextAlignment.CENTER);
+		quantity1.setAlignment(Pos.CENTER);
+		potion2.setTextAlignment(TextAlignment.CENTER);
+		quantity2.setAlignment(Pos.CENTER);
+		revive.setTextAlignment(TextAlignment.CENTER);
+		potionList.setTextAlignment(TextAlignment.CENTER);
+		errorMsg.setTextAlignment(TextAlignment.CENTER);
+		
+		GridPane.setHalignment(welcome, HPos.CENTER);
+		GridPane.setHalignment(potion1, HPos.CENTER);
+		GridPane.setHalignment(quantity1, HPos.CENTER);
+		GridPane.setHalignment(potion2, HPos.CENTER);
+		GridPane.setHalignment(quantity2, HPos.CENTER);
+		GridPane.setHalignment(revive, HPos.CENTER);
+		GridPane.setHalignment(potionList, HPos.CENTER);
+		GridPane.setHalignment(errorMsg, HPos.CENTER);
+		
+		GridPane.setHalignment(btnBuy1, HPos.CENTER);
+		GridPane.setHalignment(btnSell1, HPos.CENTER);
+		GridPane.setHalignment(btnBuy2, HPos.CENTER);
+		GridPane.setHalignment(btnSell2, HPos.CENTER);
+		GridPane.setHalignment(btnBuy3, HPos.CENTER);
+		GridPane.setHalignment(btnSell3, HPos.CENTER);
+		
+		errorMsg.setWrappingWidth(200);
+
+		// Set background		
 		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
 				"    -fx-background-size: cover;");
 
