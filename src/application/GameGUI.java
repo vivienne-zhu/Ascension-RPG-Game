@@ -373,12 +373,12 @@ public class GameGUI extends Application {
 
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		if (floor.getFloor() == 7 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-		} else if (floor.getFloor() == 1 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
 			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
@@ -532,10 +532,16 @@ public class GameGUI extends Application {
 		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
 
 		// Description for revive
-		Text revive = new Text("+REVIVE STONE+ \n MAGIC POWER \n BRING THE DEAD BACK TO LIFE \n PRICE: 200 GOLD");
+		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		revive.setFill(Color.WHITE);
 		GridPane.setHalignment(revive, HPos.CENTER);
+		
+		// Description for revive quantity
+		Text reviveQuant = new Text("Max 1 AT A TIME");
+		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		reviveQuant.setFill(Color.WHITE);
+		GridPane.setHalignment(reviveQuant, HPos.CENTER);
 
 		// Buy and sell for revive 
 		Button btnBuy3 = new Button("Buy");
@@ -552,6 +558,12 @@ public class GameGUI extends Application {
 		ivPotion1.setEffect(ds2);
 		ivPotion2.setEffect(ds2);
 		ivRevive.setEffect(ds2);
+		HBox hbox = new HBox();
+	    HBox hbox1 = new HBox();
+		HBox hbox2 = new HBox();
+		hbox.getChildren().add(ivPotion1);
+		hbox1.getChildren().add(ivPotion2);
+		hbox2.getChildren().add(ivRevive);
 
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
@@ -583,20 +595,21 @@ public class GameGUI extends Application {
 		root.setHgap(10);
 		root.setVgap(5);
 		root.add(welcome, 2, 0);
-		root.add(ivPotion1, 1, 1);
+		root.add(hbox, 1, 1);
 		root.add(potion1, 1, 2);
 		root.add(quantity1, 1, 3);
 		root.add(btnBuy1, 1, 4);
 		root.add(btnSell1, 1, 5);
-		root.add(ivPotion2, 2, 1);
+		root.add(hbox1, 2, 1);
 		root.add(potion2, 2, 2);
 		root.add(quantity2, 2, 3);
 		root.add(btnBuy2, 2, 4);
 		root.add(btnSell2, 2, 5);
-		root.add(ivRevive, 3, 1);
+		root.add(hbox2, 3, 1);
 		root.add(revive, 3, 2);
-		root.add(btnBuy3, 3, 3);
-		root.add(btnSell3, 3, 4);
+		root.add(reviveQuant, 3, 3);
+		root.add(btnBuy3, 3, 4);
+		root.add(btnSell3, 3, 5);
 		root.add(potionList, 2, 8);
 		root.add(errorMsg, 2, 9);
 
@@ -608,8 +621,13 @@ public class GameGUI extends Application {
 		potion2.setTextAlignment(TextAlignment.CENTER);
 		quantity2.setAlignment(Pos.CENTER);
 		revive.setTextAlignment(TextAlignment.CENTER);
+		reviveQuant.setTextAlignment(TextAlignment.CENTER);
 		potionList.setTextAlignment(TextAlignment.CENTER);
 		errorMsg.setTextAlignment(TextAlignment.CENTER);
+		
+		hbox.setAlignment(Pos.CENTER);
+		hbox1.setAlignment(Pos.CENTER);
+		hbox2.setAlignment(Pos.CENTER);
 		
 		GridPane.setHalignment(welcome, HPos.CENTER);
 		GridPane.setHalignment(potion1, HPos.CENTER);
@@ -1077,7 +1095,7 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
+		if (floor.getFloor() == 1 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
 			shopBtn.setDisable(false);
 		} 		
 		shopBtn.setOnAction(event -> {
