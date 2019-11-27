@@ -630,9 +630,14 @@ public class GameGUI extends Application {
 		
 		errorMsg.setWrappingWidth(200);
 
-		// Set background		
-		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
-				"    -fx-background-size: cover;");
+		// Set background
+		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		Background shopBg2 = new Background(shopBg1);
+		root.setBackground(shopBg2);
+		
+//		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
+//				"    -fx-background-size: cover;");
 
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);

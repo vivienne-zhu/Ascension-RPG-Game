@@ -12,6 +12,8 @@ import javafx.scene.text.Text;
  */
 
 public class Shop {
+	private Image shopBg;
+
 	private Image cpImage;
 	private Image hpImage;
 	private Image reviveImage;
@@ -21,6 +23,7 @@ public class Shop {
 	 * Constructor of the shop class
 	 */
 	public Shop() {
+		this.shopBg = new Image("shop.jpg", 1280, 720, false, false);
 		this.cpImage = new Image("cheapPotion.png", 150, 150, false, false);
 		this.hpImage = new Image("hyperPotion.png", 150, 150, false, false);
 		this.reviveImage = new Image("revive.png", 150, 150, false, false);
@@ -179,6 +182,21 @@ public class Shop {
 		}
 
 		return display;
+	}
+	
+
+	/**
+	 * @return the shopBg
+	 */
+	public Image getShopBg() {
+		return shopBg;
+	}
+
+	/**
+	 * @param shopBg the shopBg to set
+	 */
+	public void setShopBg(Image shopBg) {
+		this.shopBg = shopBg;
 	}
 
 	/**
