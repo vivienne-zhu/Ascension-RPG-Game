@@ -174,14 +174,14 @@ public class BattlePhase {
 			heroMana.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			
 			// Initialize mana bar
-			manaBar = new Rectangle(150.0, 10, Color.BLUE);
+			manaBar = new Rectangle(200.0, 10, Color.BLUE);
 		    manaBar.setArcWidth(20.0); 
 		    manaBar.setArcHeight(15.0);  
 		    manaBar.setStroke(Color.BLACK);
 		    manaBar.setVisible(false);
 		    
 			// Initialize full mana bar
-			fullManaBar = new Rectangle(150.0, 10, Color.BLACK);
+			fullManaBar = new Rectangle(200.0, 10, Color.BLACK);
 		    fullManaBar.setArcWidth(20.0); 
 		    fullManaBar.setArcHeight(15.0);  
 		    fullManaBar.setStroke(Color.BLACK);
@@ -511,14 +511,14 @@ public class BattlePhase {
 			GridPane.setHalignment(magicAtkBtn, HPos.CENTER);
 		}
 		if (enemyCount == 1) {
-			grid.add(dialogue, 1, 5);
-			grid.add(dialogueTwo, 1, 6);
-			grid.add(dialogueThree, 1, 7);
-			grid.add(enemyName, 3, 0);
-			grid.add(enemyStam, 3, 1);
-			grid.add(enemyOneFullStamBar, 3, 2);
-			grid.add(enemyOneStamBar, 3, 2);
-			grid.add(chooseEnemyBtn, 3, 3);
+			grid.add(dialogue, 2, 5);
+			grid.add(dialogueTwo, 2, 6);
+			grid.add(dialogueThree, 2, 7);
+			grid.add(enemyName, 4, 0);
+			grid.add(enemyStam, 4, 1);
+			grid.add(enemyOneFullStamBar, 4, 2);
+			grid.add(enemyOneStamBar, 4, 2);
+			grid.add(chooseEnemyBtn, 4, 3);
 		} else if (enemyCount == 2) {
 			grid.add(dialogue, 1, 5);
 			grid.add(dialogueTwo, 1, 6);
@@ -556,7 +556,7 @@ public class BattlePhase {
 
 		//Set vertical and horizontal gap spacing
 		grid.setVgap(10);
-		grid.setHgap(20);
+		grid.setHgap(30);
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setAlignment(Pos.TOP_CENTER);
 
@@ -568,20 +568,21 @@ public class BattlePhase {
 		//Add specific size constraints to lock in formatting
 		if (enemyCount == 1) {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(150));
-			grid.getColumnConstraints().add(new ColumnConstraints(400));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 		} else if (enemyCount == 2) {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(150));
-			grid.getColumnConstraints().add(new ColumnConstraints(160));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
 			GridPane.setHalignment(enemyTwoStam, HPos.CENTER);
 		} else {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(150));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
@@ -964,7 +965,7 @@ public class BattlePhase {
 				magicAtkBtn.setDisable(true);
 			}
 			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
-			manaBar.setWidth(150 * (double) hero.getCurrentMana() / (double) hero.getMana());
+			manaBar.setWidth(200 * (double) hero.getCurrentMana() / (double) hero.getMana());
 			if (choice == 0) {
 				enemyOneStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else if (choice == 1) {

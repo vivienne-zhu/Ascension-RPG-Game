@@ -22,7 +22,7 @@ public class Rogue extends GameCharacters {
 		setStamina(400);
 		setCurrentStamina(getStamina());
 		setLevel(1);
-		setX(10);
+		setX(80);
 		setY(420);
 		setWidth(230);
 		setHeight(230);

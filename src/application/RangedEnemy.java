@@ -23,17 +23,17 @@ public class RangedEnemy extends GameCharacters {
 		setStamina(startStam);
 		setCurrentStamina(startStam);
 		if (position == 0) {
-			setX(950);
-			setMagicx(930);
-			setOldMagicx(930);
+			setX(1030);
+			setMagicx(1020);
+			setOldMagicx(1020);
 		} else if (position == 1) {
-			setX(730);
-			setMagicx(710);
-			setOldMagicx(710);
+			setX(810);
+			setMagicx(800);
+			setOldMagicx(800);
 		} else {
-			setX(510);
-			setMagicx(490);
-			setOldMagicx(490);
+			setX(590);
+			setMagicx(580);
+			setOldMagicx(580);
 		}
 		setY(430);
 		setWidth(220);

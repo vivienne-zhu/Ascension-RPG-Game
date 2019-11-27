@@ -25,11 +25,11 @@ public class HealerEnemy extends GameCharacters {
 		setCurrentStamina(startStam);
 		setMana(200 + 20 * floor);
 		if (position == 0) {
-			setX(950);
+			setX(1050);
 		} else if (position == 1) {
-			setX(730);
+			setX(830);
 		} else {
-			setX(510);
+			setX(610);
 		}
 		setY(430);
 		setWidth(220);

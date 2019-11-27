@@ -22,7 +22,7 @@ public class BossEnemy extends GameCharacters {
 		int startStam = 500 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
-		setX(950);
+		setX(1020);
 		setY(350);
 		setMagicx(930);
 		setOldMagicx(930);

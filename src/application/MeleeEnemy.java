@@ -24,13 +24,11 @@ public class MeleeEnemy extends GameCharacters {
 		setStamina(startStam);
 		setCurrentStamina(startStam);
 		if (position == 0) {
-			setX(950);
+			setX(1030);
 		} else if (position == 1) {
-			//setX(730);
-			setX(730);
+			setX(810);
 		} else {
-			//setX(470);
-			setX(510);
+			setX(590);
 		}
 		setY(430);
 		setWidth(220);
