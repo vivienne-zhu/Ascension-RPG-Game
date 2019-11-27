@@ -986,6 +986,12 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(430);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+		
+		//Creating VBox and setting alignment
+		VBox userUpdate = new VBox(20);
+		userUpdate.setLayoutX(370);
+		userUpdate.setLayoutY(250);
+		userUpdate.setAlignment(Pos.CENTER);
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
@@ -1011,8 +1017,10 @@ public class GameGUI extends Application {
 		Text manaUp = new Text();
 		
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
-		    continueBtn.setDisable(true);
+		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
+		    userUpdate.setLayoutX(320);
+		    userUpdate.setLayoutY(180);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
 			    + "! \n\t\t You regained 20% stamina! \n");
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
@@ -1022,7 +1030,7 @@ public class GameGUI extends Application {
 		    xpCount = 0;
 		    next.setVisible(true);
 		    next.setOnAction(event->{ next.setVisible(false);
-		    continueBtn.setDisable(false);
+		    continueBtn.setVisible(true);
 		    shopBtn.setVisible(true);
 			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
 			atkUp.setFill(Color.WHITE);
@@ -1045,13 +1053,9 @@ public class GameGUI extends Application {
 		   	    
 		}
 		
-		//Creating VBox for user update text on gold and xp gained
-		VBox userUpdate = new VBox(20);
+		//Adding nodes to VBox
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp, atkUp, stamUp, defUp, mAtkUp, manaUp);
-		userUpdate.setLayoutX(320);
-		userUpdate.setLayoutY(180);
-		userUpdate.setAlignment(Pos.CENTER);
-
+	
 		//Creating Pane and setting background
 		Pane display = new Pane();
 		display.setStyle(" -fx-background-image: url(\"transition.jpg\");\n" + 
