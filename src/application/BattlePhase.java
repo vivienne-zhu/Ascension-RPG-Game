@@ -566,28 +566,17 @@ public class BattlePhase {
 		grid.setMinSize(1200, 700);
 
 		//Add specific size constraints to lock in formatting
-		if (enemyCount == 1) {
-			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-		} else if (enemyCount == 2) {
-			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
+		grid.getColumnConstraints().add(new ColumnConstraints(300));
+		grid.getColumnConstraints().add(new ColumnConstraints(200));
+		grid.getColumnConstraints().add(new ColumnConstraints(200));
+		grid.getColumnConstraints().add(new ColumnConstraints(200));
+		grid.getColumnConstraints().add(new ColumnConstraints(200));
+		
+		if (enemyCount > 1) {
 			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
 			GridPane.setHalignment(enemyTwoStam, HPos.CENTER);
-		} else {
-			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			grid.getColumnConstraints().add(new ColumnConstraints(200));
-			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
-			GridPane.setHalignment(enemyTwoStam, HPos.CENTER);
+		}
+		if (enemyCount > 2) {
 			GridPane.setHalignment(enemyThreeName, HPos.CENTER);
 			GridPane.setHalignment(enemyThreeStam, HPos.CENTER);
 		}
