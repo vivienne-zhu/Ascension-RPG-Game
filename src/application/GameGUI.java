@@ -376,28 +376,9 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
 	public void battleScreen(Stage primaryStage) {
-		//Below enemy created for testing purposes
-		//These will not be hard-coded in the future
-//		MeleeEnemy orc = new MeleeEnemy(floor.getFloor(), 0);
-//		floorOne.add(orc);
-//		MeleeEnemy dummy = new MeleeEnemy(floor.getFloor(), 1);
-//		floorOne.add(dummy);
-//		MeleeEnemy dummy2 = new MeleeEnemy(floor.getFloor(), 2);
-//		floorOne.add(dummy2);
-//		allEnemies.put(1, floorOne);
-//
-//
-//
-//		ArrayList<GameCharacters> floorTwo = new ArrayList<GameCharacters>();
-//		MeleeEnemy orcTwo = new MeleeEnemy(floor.getFloor(), 0);
-//		floorTwo.add(orcTwo);
-//		//	MeleeEnemy dummyTwo = new MeleeEnemy(floor.getFloor(), 1);
-//		//	floorTwo.add(dummyTwo);
-//		allEnemies.put(2, floorTwo);
 		
-	    	//Mediaplayer for music
-	    	battleMusic.play();
-	    
+	    //Mediaplayer for music
+	   	battleMusic.play();
 
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
@@ -423,13 +404,7 @@ public class GameGUI extends Application {
 		hero.setCurrentMana(hero.getMana());
 		
 		// Creation of pane -->currently here for GUI testing
-		//System.out.println(allEnemies.get(0));
-		
 		Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
-
-		//Code to be added when enemy hashMap completed
-		//ArrayList<GameCharacters> tempEnemies = new ArrayList<>();
-		//tempEnemies = allEnemies.get(floor.getFloor()); --> get arrayList from enemy hashMap
 
 		// Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
 		Scene insideTower = new Scene(towerLevel, 1280, 720);
@@ -449,7 +424,7 @@ public class GameGUI extends Application {
 	 *           needed for each fight inside the Tower.
 	 */
 	private Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
-	    	//Creating pane
+	    //Creating pane
 		Pane towerLevels = new Pane();
 
 		// To display the background for the floor
