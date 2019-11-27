@@ -98,12 +98,12 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		//Scene start = startScreen(primaryStage);
+		Scene start = startScreen(primaryStage);
 	    	
-	    	Scene test = reviveScreen(primaryStage);
+	    	//Scene test = reviveScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		primaryStage.setScene(test);
+		primaryStage.setScene(start);
 		primaryStage.show();
 	}
 
@@ -597,7 +597,8 @@ public class GameGUI extends Application {
 		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		 
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: gold");		 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -720,7 +721,8 @@ public class GameGUI extends Application {
 		continueBtn.setDisable(true);
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");		
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: indianred");	
 		continueBtn.setOnAction(event -> {
 		    	battleMusic.stop();
 		    	se.transitionSound();
@@ -729,7 +731,8 @@ public class GameGUI extends Application {
 					});
 		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
-		openBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		openBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: gold");
 		
 		openBtn.setOnAction(Event -> {
 			
@@ -1030,7 +1033,7 @@ public class GameGUI extends Application {
 
 		Button continueBtn = new Button("Continue playing");
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: brown");
+			"-fx-background-color: indianred");
 		HBox hbBtn = new HBox(15);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
 		hbBtn.setLayoutX(430);
