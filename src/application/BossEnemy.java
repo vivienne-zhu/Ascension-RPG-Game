@@ -27,6 +27,9 @@ public class BossEnemy extends GameCharacters {
 		setWidth(100);
 		setHeight(200);
 		setType("Boss");
+		setCharacterImage(new Image("bossEnemy.gif", getWidth(), getHeight(), false, false));
+		setCharacterImageHurt(new Image("bossEnemyRed.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("bossEnemyWhite.png",getWidth(), getHeight(), false, false));
     }
 
 }

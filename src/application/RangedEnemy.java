@@ -43,6 +43,7 @@ public class RangedEnemy extends GameCharacters {
 		setMagicy(520);
 		setCharacterImage(new Image("rangedEnemy.gif", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("rangedEnemyRed.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("rangedEnemyWhite.png",getWidth(), getHeight(), false, false));
 		setMagicAtkImage(new Image("fireblastRev.png",100, 50, false, false));
 
 	}
