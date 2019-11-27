@@ -134,16 +134,7 @@ public class GameGUI extends Application {
 		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
 		});
 		
-//		btn.setLayoutX(600);
-//		btn.setLayoutY(500);
-//		btn.setAlignment(Pos.CENTER);
-//		btn.setPrefSize(100, 50);
-//		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
-		//Event Handling for when Start button is pressed
-//		btn.setOnAction(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
-//		});
-		
 		//Creating Title/ start screen text with game name, adding style and configuration
 		Text title = new Text();
 		title.setText("Tower Challenge");
@@ -199,33 +190,34 @@ public class GameGUI extends Application {
 		charOption.setEffect(ds);
 		
 		//Creating buttons for user selection, positioning and adding style
-		Image mageBtn = new Image("startButton.png", 250, 80, false, false);
-		ImageView ivMage = new ImageView(mageBtn);
+		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
+		//Mage btn
+		ImageView ivMage = new ImageView(btnBackGround);
 		Text mage = new Text("Mage");
+		mage.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		mage.setFill(Color.BLACK);
 		StackPane magePane = new StackPane();
 		magePane.getChildren().addAll(ivMage,mage);
 		magePane.setAlignment(Pos.CENTER);
-		mage.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		mage.setFill(Color.BLACK);
-		magePane.setPrefSize(100, 50);
-		Image warriorBtn = new Image("startButton.png", 250, 80, false, false);
-		ImageView ivWarrior = new ImageView(warriorBtn);
+//		magePane.setPrefSize(100, 50);
+		//Warrior btn
+		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
 		warrior.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		warrior.setFill(Color.BLACK);
 		StackPane warriorPane = new StackPane();
 		warriorPane.getChildren().addAll(ivWarrior,warrior);
 		warriorPane.setAlignment(Pos.CENTER);
-		warriorPane.setPrefSize(100, 50);
-		Image rogueBtn = new Image("startButton.png", 250, 80, false, false);
-		ImageView ivRogue = new ImageView(rogueBtn);
+//		warriorPane.setPrefSize(100, 50);
+		//Rogue btn
+		ImageView ivRogue = new ImageView(btnBackGround);
 		Text rogue = new Text("Rogue");
 		rogue.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		rogue.setFill(Color.BLACK);
 		StackPane roguePane = new StackPane();
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
-		roguePane.setPrefSize(100, 50);
+//		roguePane.setPrefSize(100, 50);
 
 		
 
@@ -306,18 +298,28 @@ public class GameGUI extends Application {
 		charName.setEffect(ds);
 
 		//Creating button and creating event handling for when the button is pressed
-		Button submitBtn = new Button("Enter Tower Floor 1");
-		submitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		Image btnBackGround = new Image("startButton.png", 400, 60, false, false);
+		ImageView submitBtn = new ImageView(btnBackGround);
+		Text submit = new Text("Enter Tower Floor 1");
+		submit.setStroke(Color.BROWN);
+		submit.setStrokeWidth(0.5);
+		submit.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		submit.setFill(Color.BLACK);
+		StackPane submitPane = new StackPane();
+		submitPane.getChildren().addAll(submitBtn,submit);
+		submitPane.setAlignment(Pos.CENTER);
+		
+		//Creating horizontal box, adding pane and adding it to grid
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(submitBtn);
-		getName.add(hbBtn, 0, 2);
+		hbBtn.getChildren().add(submitPane);
+		getName.add(hbBtn, 0, 4);
 		
 		//EventHandling and error checking for empty textfield
 		Text error = new Text();
-		getName.add(error, 0, 4);
+		getName.add(error, 0, 6);
 		
-		submitBtn.setOnAction(event -> {
+		submitPane.setOnMouseClicked(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
 			se.errorSound();
 			error.setFill(Color.RED);
