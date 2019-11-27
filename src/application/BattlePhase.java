@@ -585,6 +585,8 @@ public class BattlePhase {
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
+			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
+			GridPane.setHalignment(enemyTwoStam, HPos.CENTER);
 			GridPane.setHalignment(enemyThreeName, HPos.CENTER);
 			GridPane.setHalignment(enemyThreeStam, HPos.CENTER);
 		}
