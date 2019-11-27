@@ -117,9 +117,12 @@ public class GameCharacters {
      * @param character The character currently being attacked.
      * @return attackValue the int value of the magic attack dealt
      */
-    public int magicAttack(GameCharacters character) {
+    public int magicAttack(GameCharacters character, Boolean isEmpowered) {
 	setIsDefending(false);
 	int attackValue = this.getMagicAtk() - character.getDefense();
+	if (isEmpowered) {
+		attackValue = attackValue * 2;
+	}
 	if (character.getType().equals("Melee")) { // Add other type advantage here
 	    attackValue = (int) (attackValue * 1.2);
 	}

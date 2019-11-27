@@ -944,7 +944,7 @@ public class BattlePhase {
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = 0;
 		if (isMagic() == true) {
-			attackAmount = hero.magicAttack(enemy);
+			attackAmount = hero.magicAttack(enemy, hero.isEmpowered());
 			setMagic(false);
 			if (hero.getCurrentMana() < 0) {
 				hero.setCurrentMana(0);
