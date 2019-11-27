@@ -37,7 +37,7 @@ public class HealerEnemy extends GameCharacters {
 		setType("Healer");
 		setCharacterImage(new Image("healerEnemy.gif", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("healerEnemyRed.png",getWidth(), getHeight(), false, false));
-		setCharacterImageHeal(new Image("healerEnemyWhite.png",getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("healEnemyWhite.png",getWidth(), getHeight(), false, false));
 
 	}
 
