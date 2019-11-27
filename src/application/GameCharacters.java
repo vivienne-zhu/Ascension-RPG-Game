@@ -84,9 +84,12 @@ public class GameCharacters {
      * @param character The character currently being attacked.
      * @return attackValue the int value of the attack dealt
      */
-    public int attack(GameCharacters character) {
+    public int attack(GameCharacters character, Boolean outrage) {
 	setIsDefending(false);
 	int attackValue = this.getAttack() - character.getDefense();
+	if (outrage) {
+		attackValue = attackValue * 3;
+	}
 	if (character.isDefending()) {
 	    attackValue = attackValue / 2;
 	}

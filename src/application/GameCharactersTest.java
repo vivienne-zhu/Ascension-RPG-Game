@@ -24,7 +24,7 @@ class GameCharactersTest {
 
 		int orcAttack = orc.getAttack();
 		int expected = 400 - (orcAttack - 60);
-		orc.attack(legolas);
+		orc.attack(legolas, false);
 
 		assertEquals(expected, legolas.getCurrentStamina());
 	}
@@ -36,7 +36,7 @@ class GameCharactersTest {
 		MeleeEnemy  orc = new MeleeEnemy(4, 0);
 
 		legolas.defend();
-		orc.attack(legolas);
+		orc.attack(legolas, false);
 		int orcAttack = orc.getAttack();
 		int expected = 400 - ((orcAttack - 60)/2);
 
@@ -50,7 +50,7 @@ class GameCharactersTest {
 		Warrior boromir = new Warrior();
 
 		aragorn.defend();
-		boromir.attack(aragorn);
+		boromir.attack(aragorn, false);
 		assertEquals(448, aragorn.getCurrentStamina());
 	}
 
