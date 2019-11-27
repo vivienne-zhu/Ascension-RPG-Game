@@ -4,7 +4,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,12 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -105,11 +98,12 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		Scene start = startScreen(primaryStage);
+		//Scene start = startScreen(primaryStage);
 	    	
+	    	Scene test = gameOverScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		primaryStage.setScene(start);
+		primaryStage.setScene(test);
 		primaryStage.show();
 	}
 
@@ -128,7 +122,7 @@ public class GameGUI extends Application {
 //		Button btn = new Button("START");
 		Image btn = new Image("startButton.png", 250, 80, false, false);		
 		ImageView iv = new ImageView(btn);
-	    Text start = new Text("START");
+		Text start = new Text("START");
 		start.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 35));
 		start.setFill(Color.BLACK);
 		
@@ -895,9 +889,11 @@ public class GameGUI extends Application {
 
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
-		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: cornflowerblue");
 		Button playAgainBtn = new Button("Play again");
-		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: cornflowerblue");
 		HBox hbBtn = new HBox(10);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
@@ -919,7 +915,7 @@ public class GameGUI extends Application {
 		//Adding nodes to pane and set pane background
 		gameWon.getChildren().addAll(hbBtn, youWin, thankYou);
 		gameWon.setStyle(" -fx-background-image: url(\"youWin1a.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+			"-fx-background-size: cover;");
 		
 		
 		//Fade Transition
@@ -957,9 +953,11 @@ public class GameGUI extends Application {
 
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
-		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: red");
 		Button playAgainBtn = new Button("Play again");
-		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: red");
 		HBox hbBtn = new HBox(25);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
@@ -1008,9 +1006,9 @@ public class GameGUI extends Application {
 	    	//Creating text for the page
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
-		clearedFloor.setX(280);
-		clearedFloor.setY(100);
-		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		clearedFloor.setX(320);
+		clearedFloor.setY(120);
+		clearedFloor.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 75));
 		clearedFloor.setStroke(Color.WHITE);
 		clearedFloor.setStrokeWidth(1);
 		DropShadow ds = new DropShadow();
@@ -1019,15 +1017,18 @@ public class GameGUI extends Application {
 		
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Go to the Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif'");
+		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: darkgoldenrod");
 		shopBtn.setDisable(true);
 		
 		Button next = new Button("Next");
-		next.setStyle(" -fx-font: normal bold 20px 'serif'");
+		next.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: darkgoldenrod");
 		next.setVisible(false);;
 
 		Button continueBtn = new Button("Continue playing");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: brown");
 		HBox hbBtn = new HBox(15);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
 		hbBtn.setLayoutX(430);
@@ -1036,7 +1037,7 @@ public class GameGUI extends Application {
 		
 		//Creating VBox and setting alignment
 		VBox userUpdate = new VBox(20);
-		userUpdate.setLayoutX(370);
+		userUpdate.setLayoutX(380);
 		userUpdate.setLayoutY(250);
 		userUpdate.setAlignment(Pos.CENTER);
 			
@@ -1066,11 +1067,13 @@ public class GameGUI extends Application {
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
 		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
-		    userUpdate.setLayoutX(320);
+		    goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 26));
+		    xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 26));
+		    userUpdate.setLayoutX(340);
 		    userUpdate.setLayoutY(180);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
 			    + "! \n\t\t You regained 20% stamina! \n");
-		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 27));
 		    levelUp.setFill(Color.GOLD);
 		    levelUp.setStroke(Color.WHITE);
 		    levelUp.setStrokeWidth(0.5);
