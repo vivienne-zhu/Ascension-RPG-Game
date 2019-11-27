@@ -20,7 +20,7 @@ public class Warrior extends GameCharacters {
 		// Stat values will be changed
 		setAttack(175);
 		setDefense(70);
-		setStamina(500);
+		setStamina(2000); //testing
 		setCurrentStamina(getStamina());
 		setLevel(1);
 		setX(80);
