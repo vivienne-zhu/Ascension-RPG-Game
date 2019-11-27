@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 /**
  * This class represent the magic shop available to the player on floor 3,6 & 9.
  * 
- * @author jiayuZhu
+ * @author JiayuZhu
  */
 
 public class Shop {

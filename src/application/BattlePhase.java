@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -18,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -31,7 +31,7 @@ import java.util.HashSet;
  * user the ability to actually fight the enemy via various effect linked buttons. Finally, this
  * class contains the logic behind battle animations, level up mechanics, and enemy decision making.
  * 
- * @author David Cai and Shari Sinclair
+ * @author David Cai, Shari Sinclair and Jiayu Zhu
  */
 public class BattlePhase {
 
@@ -65,7 +65,8 @@ public class BattlePhase {
 	private Timeline animateTwo;
 	private Timeline animateThree;
 	private Timeline animateHero;
-	//private MediaPlayer mediaPlayer;
+	private Rectangle staminaBar;
+	private Rectangle manaBar;
 	private boolean magic;
 	private SoundEffect se;
 	private int atkUp;
@@ -89,38 +90,53 @@ public class BattlePhase {
 		// To display current stamina of hero and enemy (using tester enemy[0]).
 		heroName = new Text(hero.getType() + ": " + hero.getName());
 		heroName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		heroName.setFill(Color.WHITE);
+		heroName.setFill(Color.DODGERBLUE);
 		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		heroStam.setFill(Color.WHITE);
+		heroStam.setFill(Color.DODGERBLUE);
 		heroStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
 		enemyName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		enemyName.setFill(Color.WHITE);
+		enemyName.setFill(Color.DARKRED);
 		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina());
 		enemyStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		enemyStam.setFill(Color.WHITE);
+		enemyStam.setFill(Color.DARKRED);
 		if (hero.getType().equals("Mage")) {
 			heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
-			heroMana.setFill(Color.LIGHTBLUE);
+			heroMana.setFill(Color.GREEN);
 			heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
+			
+			// Initialize mana bar
+			manaBar = new Rectangle(220.0, 10, Color.GREEN);
+		    manaBar.setArcWidth(20.0); 
+		    manaBar.setArcHeight(15.0);  
+		    manaBar.setStroke(Color.BLACK);
+		    manaBar.setVisible(false);
 		}
 
 		if (allEnemies.get(floor).size() > 1) {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
 			enemyTwoName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyTwoName.setFill(Color.WHITE);
+			enemyTwoName.setFill(Color.DARKRED);
 			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina());
 			enemyTwoStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyTwoStam.setFill(Color.WHITE);
+			enemyTwoStam.setFill(Color.DARKRED);
 		}
 		if (allEnemies.get(floor).size() > 2) {
 			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
 			enemyThreeName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyThreeName.setFill(Color.WHITE);
+			enemyThreeName.setFill(Color.DARKRED);
 			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina());
 			enemyThreeStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyThreeStam.setFill(Color.WHITE);
+			enemyThreeStam.setFill(Color.DARKRED);
 		}
+		
+		// Initialize stamina bar
+		staminaBar = new Rectangle(220.0, 10, Color.RED);
+		staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+	    staminaBar.setArcWidth(20.0); 
+	    staminaBar.setArcHeight(15.0);  
+	    staminaBar.setStroke(Color.BLACK);
+
 	}
 
 	/**
@@ -128,19 +144,15 @@ public class BattlePhase {
 	 */
 	public void dispDialogue() {
 		// To display dialogue and other relevant battle info
-		DropShadow d = new DropShadow(10, Color.BLACK);
 		dialogue = new Text("");
-		dialogue.setStyle("-fx-font: normal bold 24px 'serif'");
+		dialogue.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		dialogue.setFill(Color.WHITE);
-		dialogue.setEffect(d);
 		dialogueTwo = new Text("");
-		dialogueTwo.setStyle("-fx-font: normal bold 24px 'serif'");
+		dialogueTwo.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		dialogueTwo.setFill(Color.WHITE);
-		dialogueTwo.setEffect(d);
 		dialogueThree = new Text("");
-		dialogueThree.setStyle("-fx-font: normal bold 24px 'serif'");
+		dialogueThree.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		dialogueThree.setFill(Color.WHITE);
-		dialogueThree.setEffect(d);
 	}
 
 	/**
@@ -161,10 +173,11 @@ public class BattlePhase {
 		magicAtkBtn.setVisible(false);
 		if(hero.getType().equals("Mage")) {
 			magicAtkBtn.setVisible(true);
+			manaBar.setVisible(true);
 		} 		
 
 		this.hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.CENTER);
+		hbBtn.setAlignment(Pos.CENTER_LEFT);
 		hbBtn.getChildren().addAll(attackBtn, defendBtn, healBtn);
 
 		// Button to choose enemy
@@ -205,6 +218,7 @@ public class BattlePhase {
 		potionBtn.setOnAction(event -> {
 			hero.usePotion(hero.getCp(), this.error);
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+			staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 			potionBtn.setText(hero.itemInfo(hero.getCp()));
 			if (this.error.isVisible() == false) {
 			    Timeline timeline = new Timeline(); 
@@ -234,6 +248,7 @@ public class BattlePhase {
 			hero.usePotion(hero.getHp(), this.error);
 			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+			staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 			if (this.error.isVisible() == false) {
 				Timeline timeline = new Timeline(); 
 				timeline.setCycleCount(1);
@@ -414,11 +429,14 @@ public class BattlePhase {
 		//Placements for various textboxes and buttons
 		grid.add(heroName, 0, 0);
 		grid.add(heroStam, 0, 1);
-		grid.add(error, 0, 4);
-		grid.add(itemBag, 0, 3);
-		grid.add(magicAtkBtn, 1, 2);
+		grid.add(staminaBar, 0, 2);
+		grid.add(hbBtn, 0, 3);
+		grid.add(itemBag, 0, 4);
+		grid.add(error, 0, 5);
+		grid.add(magicAtkBtn, 1, 3);
 		if(hero.getType().equals("Mage")) {
 			grid.add(heroMana, 1, 1);
+			grid.add(manaBar, 1, 2);
 		}
 		if (enemyCount == 1) {
 			grid.add(dialogue, 1, 5);
@@ -451,7 +469,6 @@ public class BattlePhase {
 			grid.add(enemyThreeStam, 2, 1);
 			grid.add(chooseEnemyThreeBtn, 2, 2);
 		}
-		grid.add(hbBtn, 0, 2);
 
 		//Set vertical and horizontal gap spacing
 		grid.setVgap(10);
@@ -486,18 +503,19 @@ public class BattlePhase {
 		GridPane.setHalignment(dialogue, HPos.CENTER);
 		GridPane.setHalignment(dialogueTwo, HPos.CENTER);
 		GridPane.setHalignment(dialogueThree, HPos.CENTER);
-		GridPane.setHalignment(heroName, HPos.CENTER);
-		GridPane.setHalignment(heroStam, HPos.CENTER);
-		GridPane.setHalignment(enemyName, HPos.CENTER);
-		GridPane.setHalignment(enemyStam, HPos.CENTER);
-		GridPane.setHalignment(chooseEnemyBtn, HPos.CENTER);
-		GridPane.setHalignment(chooseEnemyTwoBtn, HPos.CENTER);
-		GridPane.setHalignment(chooseEnemyThreeBtn, HPos.CENTER);
-		GridPane.setHalignment(hbBtn, HPos.CENTER);
+		GridPane.setHalignment(heroName, HPos.LEFT);
+		GridPane.setHalignment(heroStam, HPos.LEFT);
+		GridPane.setHalignment(staminaBar, HPos.LEFT);
+		GridPane.setHalignment(hbBtn, HPos.LEFT);
+		GridPane.setHalignment(enemyName, HPos.RIGHT);
+		GridPane.setHalignment(enemyStam, HPos.RIGHT);
+		GridPane.setHalignment(chooseEnemyBtn, HPos.RIGHT);
+		GridPane.setHalignment(chooseEnemyTwoBtn, HPos.RIGHT);
+		GridPane.setHalignment(chooseEnemyThreeBtn, HPos.RIGHT);
 		GridPane.setHalignment(itemBag, HPos.CENTER);
 
 		//Make gridlines visible - only for development phase
-		grid.setGridLinesVisible(false);
+		grid.setGridLinesVisible(true);
 
 		return grid;
 	}
@@ -855,6 +873,7 @@ public class BattlePhase {
 				magicAtkBtn.setDisable(true);
 			}
 			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
+			manaBar.setWidth(220 * (double) hero.getCurrentMana() / (double) hero.getMana());
 		} else {
 			attackAmount = hero.attack(enemy);
 		}
@@ -1254,6 +1273,7 @@ public class BattlePhase {
 		timeline.play();
 
 		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+		staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 		if (hero.isDefending()) {
 		    	if (attackAmount <= 0) {
 		    	    dialogueTwo.setText(""); // You took 0 damage!
@@ -1310,7 +1330,6 @@ public class BattlePhase {
 		defendBtn.setDisable(disable);
 		magicAtkBtn.setDisable(disable);
 	}
-
 
 	/**
 	 * @return the magic

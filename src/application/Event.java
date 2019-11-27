@@ -39,7 +39,7 @@ public class Event {
 	 */
 	public void eventHappen() {
 		Random r = new Random();
-		int a = r.nextInt(1); 
+		int a = r.nextInt(9); // 10% chance to get an event  
 		if (a == 0) {
 			this.isEvent = true;			
 		}
