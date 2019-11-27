@@ -157,31 +157,31 @@ public class BattlePhase {
 				
 		// To display current stamina of hero and enemy (using tester enemy[0]).
 		heroName = new Text(hero.getType() + ": " + hero.getName());
-		heroName.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		heroName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		heroName.setFill(Color.WHITE);
 		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		heroStam.setFill(Color.WHITE);
-		heroStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		heroStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
-		enemyName.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		enemyName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		enemyName.setFill(Color.WHITE);
 		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina());
-		enemyStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		enemyStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		enemyStam.setFill(Color.WHITE);
 		if (hero.getType().equals("Mage")) {
 			heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
 			heroMana.setFill(Color.LIGHTBLUE);
-			heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
+			heroMana.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			
 			// Initialize mana bar
-			manaBar = new Rectangle(220.0, 10, Color.BLUE);
+			manaBar = new Rectangle(150.0, 10, Color.BLUE);
 		    manaBar.setArcWidth(20.0); 
 		    manaBar.setArcHeight(15.0);  
 		    manaBar.setStroke(Color.BLACK);
 		    manaBar.setVisible(false);
 		    
 			// Initialize full mana bar
-			fullManaBar = new Rectangle(220.0, 10, Color.BLACK);
+			fullManaBar = new Rectangle(150.0, 10, Color.BLACK);
 		    fullManaBar.setArcWidth(20.0); 
 		    fullManaBar.setArcHeight(15.0);  
 		    fullManaBar.setStroke(Color.BLACK);
@@ -190,18 +190,18 @@ public class BattlePhase {
 
 		if (allEnemies.get(floor).size() > 1) {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
-			enemyTwoName.setStyle(" -fx-font: normal bold 24px 'serif' ");
+			enemyTwoName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyTwoName.setFill(Color.WHITE);
 			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina());
-			enemyTwoStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
+			enemyTwoStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyTwoStam.setFill(Color.WHITE);
 		}
 		if (allEnemies.get(floor).size() > 2) {
 			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
-			enemyThreeName.setStyle(" -fx-font: normal bold 24px 'serif' ");
+			enemyThreeName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyThreeName.setFill(Color.WHITE);
 			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina());
-			enemyThreeStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
+			enemyThreeStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyThreeStam.setFill(Color.WHITE);
 		}
 	}
@@ -502,22 +502,15 @@ public class BattlePhase {
 		grid.add(hbBtn, 0, 3);
 		grid.add(itemBag, 0, 4);
 		grid.add(error, 0, 5);
-		grid.add(magicAtkBtn, 1, 3);
 		if(hero.getType().equals("Mage")) {
 			grid.add(heroMana, 1, 1);
 			grid.add(fullManaBar, 1, 2);
 			grid.add(manaBar, 1, 2);
+			grid.add(magicAtkBtn, 1, 3);
+			GridPane.setHalignment(heroMana, HPos.CENTER);
+			GridPane.setHalignment(magicAtkBtn, HPos.CENTER);
 		}
 		if (enemyCount == 1) {
-			grid.add(dialogue, 1, 5);
-			grid.add(dialogueTwo, 1, 6);
-			grid.add(dialogueThree, 1, 7);
-			grid.add(enemyName, 2, 0);
-			grid.add(enemyStam, 2, 1);
-			grid.add(enemyOneFullStamBar, 2, 2);
-			grid.add(enemyOneStamBar, 2, 2);
-			grid.add(chooseEnemyBtn, 2, 3);
-		} else if (enemyCount == 2) {
 			grid.add(dialogue, 1, 5);
 			grid.add(dialogueTwo, 1, 6);
 			grid.add(dialogueThree, 1, 7);
@@ -526,11 +519,20 @@ public class BattlePhase {
 			grid.add(enemyOneFullStamBar, 3, 2);
 			grid.add(enemyOneStamBar, 3, 2);
 			grid.add(chooseEnemyBtn, 3, 3);
-			grid.add(enemyTwoName, 2, 0);
-			grid.add(enemyTwoStam, 2, 1);
-			grid.add(enemyTwoFullStamBar, 2, 2);
-			grid.add(enemyTwoStamBar, 2, 2);
-			grid.add(chooseEnemyTwoBtn, 2, 3);
+		} else if (enemyCount == 2) {
+			grid.add(dialogue, 1, 5);
+			grid.add(dialogueTwo, 1, 6);
+			grid.add(dialogueThree, 1, 7);
+			grid.add(enemyName, 4, 0);
+			grid.add(enemyStam, 4, 1);
+			grid.add(enemyOneFullStamBar, 4, 2);
+			grid.add(enemyOneStamBar, 4, 2);
+			grid.add(chooseEnemyBtn, 4, 3);
+			grid.add(enemyTwoName, 3, 0);
+			grid.add(enemyTwoStam, 3, 1);
+			grid.add(enemyTwoFullStamBar, 3, 2);
+			grid.add(enemyTwoStamBar, 3, 2);
+			grid.add(chooseEnemyTwoBtn, 3, 3);
 		} else {
 			grid.add(dialogue, 2, 5);
 			grid.add(dialogueTwo, 2, 6);
@@ -566,11 +568,13 @@ public class BattlePhase {
 		//Add specific size constraints to lock in formatting
 		if (enemyCount == 1) {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(650));
+			grid.getColumnConstraints().add(new ColumnConstraints(150));
+			grid.getColumnConstraints().add(new ColumnConstraints(400));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 		} else if (enemyCount == 2) {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(350));
+			grid.getColumnConstraints().add(new ColumnConstraints(150));
+			grid.getColumnConstraints().add(new ColumnConstraints(160));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
@@ -958,7 +962,7 @@ public class BattlePhase {
 				magicAtkBtn.setDisable(true);
 			}
 			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
-			manaBar.setWidth(220 * (double) hero.getCurrentMana() / (double) hero.getMana());
+			manaBar.setWidth(150 * (double) hero.getCurrentMana() / (double) hero.getMana());
 			if (choice == 0) {
 				enemyOneStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else if (choice == 1) {
