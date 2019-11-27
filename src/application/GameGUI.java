@@ -100,7 +100,7 @@ public class GameGUI extends Application {
 		//Start Screen Scene creation
 		//Scene start = startScreen(primaryStage);
 	    	
-	    	Scene test = youWinScreen(primaryStage);
+	    	Scene test = reviveScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
 		primaryStage.setScene(test);
@@ -807,13 +807,14 @@ public class GameGUI extends Application {
 	    revive.setLayoutX(550);
 	    revive.setLayoutY(300);
 	    DropShadow ds1 = new DropShadow();
-	    ds1.setColor(Color.PURPLE);
+	    ds1.setColor(Color.MEDIUMSPRINGGREEN);
 	    revive.setEffect(ds1);
 	    
 	    
 	    //Creating buttons and adding event handling
 	    Button reviveBtn = new Button("Use revive");
-	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: lightgreen");
 	    reviveBtn.setOnAction(event-> {hero.revive();
 	    	battleMusic.stop();
 	    	se.transitionSound();
@@ -821,14 +822,15 @@ public class GameGUI extends Application {
 		});
 	    
 	    Button exitBtn = new Button("Don't use revive");
-	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: indianred");
 	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
 		});
 	    
 	    //Creating HBox, adding nodes and style
-	    HBox hbBtn = new HBox(10);
+	    HBox hbBtn = new HBox(40);
 	    hbBtn.getChildren().addAll(reviveBtn, exitBtn);
-	    hbBtn.setLayoutX(500);
+	    hbBtn.setLayoutX(470);
 	    hbBtn.setLayoutY(550);
 	    hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 	    
