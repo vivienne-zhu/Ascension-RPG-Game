@@ -963,7 +963,7 @@ public class BattlePhase {
 				enemyThreeStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			}
 		} else {
-			attackAmount = hero.attack(enemy);
+			attackAmount = hero.attack(enemy, false);
 			if (choice == 0) {
 				enemyOneStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else if (choice == 1) {
@@ -1308,14 +1308,27 @@ public class BattlePhase {
 		}
 		
 		//Enemy hits hero	
-		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> 
-		hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic));
-		if (position == 0) {
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> {
+			hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, false);
+		});
+		
+		//Boss Outrage hits hero	
+		KeyFrame bossHit = new KeyFrame(Duration.millis(1), ae -> {
+			hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, true);
+		});
+		
+		if (position == 0) { //boss can only be this position
 			posOneForward.setCycleCount(745);
 			posOneForward.getKeyFrames().add(moveForward);
 			posOneBackward.setCycleCount(745);
-			posOneBackward.getKeyFrames().add(moveBackward);
-			posOneHit.getKeyFrames().add(frameTwo);
+			posOneBackward.getKeyFrames().add(moveBackward);	
+			if (allEnemies.get(floor).get(0) instanceof BossEnemy && 
+					((double) allEnemies.get(floor).get(0).getCurrentStamina() / 
+							(double) allEnemies.get(floor).get(0).getStamina() < 0.34)) {
+				posOneHit.getKeyFrames().add(bossHit);
+			} else {
+				posOneHit.getKeyFrames().add(frameTwo);
+			}
 		} else if (position == 1) {
 			posTwoForward.setCycleCount(505);
 			posTwoForward.getKeyFrames().add(moveForward);
@@ -1349,8 +1362,8 @@ public class BattlePhase {
 	 */
 	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
 			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, 
-			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) { 
-		int attackAmount = allEnemies.get(floor).get(i).attack(hero);
+			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage) { 
+		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage);
 		Timeline heroRed = new Timeline();
 		heroRed.setCycleCount(1);
 		KeyFrame redHero = new KeyFrame(Duration.millis(1), ae -> {

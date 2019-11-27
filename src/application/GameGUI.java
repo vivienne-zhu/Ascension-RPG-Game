@@ -385,11 +385,11 @@ public class GameGUI extends Application {
 		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			//floorEnemies.add(new HealerEnemy(floor.getFloor(), 0));
 		    //floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
-			floorEnemies.add(new BossEnemy(10));
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
+			floorEnemies.add(new BossEnemy(1));
+			//floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
 			//floorEnemies.add(new RangedEnemy(floor.getFloor(), 0));
 			//floorEnemies.add(new RangedEnemy(floor.getFloor(), 1));
-			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
+			//floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
