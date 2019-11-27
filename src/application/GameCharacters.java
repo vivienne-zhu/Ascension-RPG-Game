@@ -191,26 +191,32 @@ public class GameCharacters {
      */
     public void levelUp() {
 	int atk = this.getAttack();
-	attackUp = 5 + (int) (Math.random() * ((9 - 5) + 1)); // min 5, max 9
+	int atkRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); // min 5, max 9
+	setAttackUp(atkRand);
 	atk = atk + attackUp;
 	setAttack(atk); 
-	defenseUp = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
+	int defRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
 	int defense = this.getDefense();
+	setDefenseUp(defRand);
 	defense = defense + defenseUp;
 	setDefense(defense);
-	staminaUp = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
+	int stamRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
+	setStaminaUp(stamRand);
 	int stam = this.getStamina();
 	stam = stam + staminaUp;
 	setStamina(stam);
 	//manaUp = 0; 
 	if (this instanceof Mage) {
-	    manaUp = 5 + (int) (Math.random() * ((9 - 5) + 1));
-	    mana = mana + manaUp;
-	    setMana(mana);
-	    int magicAtk = this.getMagicAtk();
-	    magicAtkUp = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
-	    magicAtk = magicAtk + magicAtkUp;
-	    setMagicAtk(magicAtk); 
+	    int m = this.getMana();
+	    int manaRand = 5 + (int) (Math.random() * ((9 - 5) + 1));
+	    setManaUp(manaRand);
+	    m = m + manaUp;
+	    setMana(m);
+	    int mAtk = this.getMagicAtk();
+	    int magicAtkRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
+	    setMagicAtkUp(magicAtkRand);
+	    mAtk = mAtk + magicAtkUp;
+	    setMagicAtk(mAtk); 
 	}
 	this.setLevel(this.getLevel() + 1);
 	int missingHealth = this.getStamina() - this.getCurrentStamina();
@@ -753,12 +759,47 @@ public class GameCharacters {
         return manaUp;
     }
 
-
     /**
      * @return the magicAtkUp
      */
     public int getMagicAtkUp() {
         return magicAtkUp;
     }
+
+    /**
+     * @param attackUp the attackUp to set
+     */
+    public void setAttackUp(int attackUp) {
+        this.attackUp = attackUp;
+    }
+
+    /**
+     * @param defenseUp the defenseUp to set
+     */
+    public void setDefenseUp(int defenseUp) {
+        this.defenseUp = defenseUp;
+    }
+
+    /**
+     * @param staminaUp the staminaUp to set
+     */
+    public void setStaminaUp(int staminaUp) {
+        this.staminaUp = staminaUp;
+    }
+
+    /**
+     * @param manaUp the manaUp to set
+     */
+    public void setManaUp(int manaUp) {
+        this.manaUp = manaUp;
+    }
+
+    /**
+     * @param magicAtkUp the magicAtkUp to set
+     */
+    public void setMagicAtkUp(int magicAtkUp) {
+        this.magicAtkUp = magicAtkUp;
+    }
+    
     
 }

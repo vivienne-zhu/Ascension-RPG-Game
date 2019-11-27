@@ -67,6 +67,7 @@ public class BattlePhase {
 	//private MediaPlayer mediaPlayer;
 	private boolean magic;
 	private SoundEffect se;
+	private int atkUp;
 
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
@@ -890,6 +891,7 @@ public class BattlePhase {
 			if (hero.getXp() >= (50 + hero.getLevel() * 80)) {
 				hero.levelUp();
 				hero.setXp(0);
+				
 			}
 			if (floor < 10) {
 				Timeline moveOn = new Timeline();
@@ -1313,6 +1315,5 @@ public class BattlePhase {
 	public void setMagic(boolean magic) {
 		this.magic = magic;
 	}
-
 
 }

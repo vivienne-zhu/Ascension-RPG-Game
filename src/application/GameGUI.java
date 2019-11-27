@@ -69,6 +69,7 @@ public class GameGUI extends Application {
 	private MediaPlayer gameOverMusic;
 	private MediaPlayer youWinMusic;
 	private SoundEffect se;
+	int atkUp;
 	
 
 	/**
@@ -91,6 +92,7 @@ public class GameGUI extends Application {
 		battleMusic = se.backgroundMusic();
 		gameOverMusic = se.gameOverMusic();
 		youWinMusic = se.youWinMusic();
+		atkUp = hero.getAttackUp();
 	}
 
 	/**
@@ -941,9 +943,28 @@ public class GameGUI extends Application {
 		clearedFloor.setX(280);
 		clearedFloor.setY(100);
 		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		clearedFloor.setStroke(Color.WHITE);
+		clearedFloor.setStrokeWidth(1);
 		DropShadow ds = new DropShadow();
-		ds.setColor(Color.WHITE);
+		ds.setColor(Color.GOLD);
 		clearedFloor.setEffect(ds);
+		
+		//Creating the buttons play for the player to continue on
+		Button shopBtn = new Button("Go to the Magic Shop");
+		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif'");
+		shopBtn.setDisable(true);
+		
+		Button next = new Button("Next");
+		next.setStyle(" -fx-font: normal bold 20px 'serif'");
+		next.setVisible(false);;
+
+		Button continueBtn = new Button("Continue playing");
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(15);
+		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
+		hbBtn.setLayoutX(430);
+		hbBtn.setLayoutY(600);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
@@ -967,36 +988,47 @@ public class GameGUI extends Application {
 		Text defUp = new Text();
 		Text mAtkUp = new Text();
 		Text manaUp = new Text();
+		
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
-		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) + "\n You regain 20% stamina!");
+		    continueBtn.setDisable(true);
+		    shopBtn.setVisible(false);
+		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
+			    + "! \n\t\t You regained 20% stamina! \n");
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		    levelUp.setFill(Color.GOLD);
+		    levelUp.setStroke(Color.WHITE);
+		    levelUp.setStrokeWidth(0.5);
 		    xpCount = 0;
-		    atkUp.setText("You attack went up by " + hero.getAttackUp() + " .Attack =  " + hero.getAttack());
-		    atkUp.setFill(Color.WHITE);
-		    atkUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		    stamUp.setText("You stamina went up by " + hero.getStaminaUp() + " .Stamina =  " + hero.getStamina());
-		    stamUp.setFill(Color.WHITE);
-		    stamUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		    defUp.setText("You defense went up by " + hero.getDefenseUp() + " .Defense =  " + hero.getDefense());
-		    defUp.setFill(Color.WHITE);
-		    defUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		    next.setVisible(true);
+		    next.setOnAction(event->{ next.setVisible(false);
+		    continueBtn.setDisable(false);
+		    shopBtn.setVisible(true);
+			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
+			atkUp.setFill(Color.WHITE);
+			atkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			stamUp.setText("Your stamina went up by " + hero.getStaminaUp() + ". Stamina =  " + hero.getStamina());
+			stamUp.setFill(Color.WHITE);
+			stamUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			defUp.setText("Your defense went up by " + hero.getDefenseUp() + ". Defense =  " + hero.getDefense());
+			defUp.setFill(Color.WHITE);
+			defUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
 		    
-		    if(hero.getType().contentEquals("Mage")) {
-			mAtkUp.setText("You  magic attack went up by " + hero.getMagicAtkUp() + " .Magic Attack =  " + hero.getMagicAtk());
-			mAtkUp.setFill(Color.WHITE);
-			mAtkUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-			manaUp.setText("You attack went up by " + hero.getManaUp() + " .Mana =  " + hero.getMana());
-			manaUp.setFill(Color.WHITE);
-			manaUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		    }
+			if(hero.getType().contentEquals("Mage")) {
+			    mAtkUp.setText("Your  magic attack went up by " + hero.getMagicAtkUp() + ". Magic Attack =  " + hero.getMagicAtk());
+			    mAtkUp.setFill(Color.WHITE);
+			    mAtkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			    manaUp.setText("Your attack went up by " + hero.getManaUp() + ". Mana =  " + hero.getMana());
+			    manaUp.setFill(Color.WHITE);
+			    manaUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			};});
+		   	    
 		}
 		
 		//Creating VBox for user update text on gold and xp gained
-		VBox userUpdate = new VBox(30);
+		VBox userUpdate = new VBox(20);
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp, atkUp, stamUp, defUp, mAtkUp, manaUp);
-		userUpdate.setLayoutX(330);
-		userUpdate.setLayoutY(200);
+		userUpdate.setLayoutX(320);
+		userUpdate.setLayoutY(180);
 		userUpdate.setAlignment(Pos.CENTER);
 
 		//Creating Pane and setting background
@@ -1005,20 +1037,7 @@ public class GameGUI extends Application {
 			"    -fx-background-size: cover;");
 		
 
-		//Creating the buttons play for the player to continue on
-		Button shopBtn = new Button("Go to the Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif'");
-		shopBtn.setDisable(true);
-
-		Button continueBtn = new Button("Continue playing");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		HBox hbBtn = new HBox(15);
-		hbBtn.getChildren().addAll(shopBtn, continueBtn);
-		hbBtn.setLayoutX(430);
-		hbBtn.setLayoutY(600);
-		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-
-		// Event handling for special event 
+		// Event handling for if there is a special event 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
