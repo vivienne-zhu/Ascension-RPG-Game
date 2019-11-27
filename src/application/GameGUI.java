@@ -644,18 +644,12 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(btnSell2, HPos.CENTER);
 		GridPane.setHalignment(btnBuy3, HPos.CENTER);
 		GridPane.setHalignment(btnSell3, HPos.CENTER);
-
 		
 		errorMsg.setWrappingWidth(200);
 
-		// Set background
-		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		Background shopBg2 = new Background(shopBg1);
-		root.setBackground(shopBg2);
-		
-//		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
-//				"    -fx-background-size: cover;");
+		// Set background		
+		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
+				"    -fx-background-size: cover;");
 
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -753,11 +747,6 @@ public class GameGUI extends Application {
 		// Set background 
 		grid.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
 			"    -fx-background-size: cover;");
-//		Image tower = new Image("pixelBack.png");
-//		BackgroundImage background = new BackgroundImage(tower, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-//				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-//		Background towerBackground = new Background(background);
-//		grid.setBackground(towerBackground);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -991,60 +980,103 @@ public class GameGUI extends Application {
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 		clearedFloor.setX(280);
-		clearedFloor.setY(200);
+		clearedFloor.setY(100);
 		clearedFloor.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
+		clearedFloor.setStroke(Color.WHITE);
+		clearedFloor.setStrokeWidth(1);
 		DropShadow ds = new DropShadow();
-		ds.setColor(Color.BLUE);
+		ds.setColor(Color.GOLD);
 		clearedFloor.setEffect(ds);
+		
+		//Creating the buttons play for the player to continue on
+		Button shopBtn = new Button("Go to the Magic Shop");
+		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif'");
+		shopBtn.setDisable(true);
+		
+		Button next = new Button("Next");
+		next.setStyle(" -fx-font: normal bold 20px 'serif'");
+		next.setVisible(false);;
+
+		Button continueBtn = new Button("Continue playing");
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		HBox hbBtn = new HBox(15);
+		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
+		hbBtn.setLayoutX(430);
+		hbBtn.setLayoutY(600);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
 		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
+		goldGained.setFill(Color.WHITE);
 		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 			
 		Text xpGained = new Text();
 		int xp= 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
 		xpCount += xp;
-		//hero.setXp(hero.getXp() + xp); done in battlephase already
 		xpGained.setText("You gained " + xp + " xp! Xp = " + xpCount);
+		xpGained.setFill(Color.WHITE);
 		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
 		
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
+		Text atkUp = new Text();
+		Text stamUp = new Text();
+		Text defUp = new Text();
+		Text mAtkUp = new Text();
+		Text manaUp = new Text();
+		
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
-		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1));
+		    continueBtn.setDisable(true);
+		    shopBtn.setVisible(false);
+		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
+			    + "! \n\t\t You regained 20% stamina! \n");
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		    levelUp.setFill(Color.PURPLE);
+		    levelUp.setFill(Color.GOLD);
+		    levelUp.setStroke(Color.WHITE);
+		    levelUp.setStrokeWidth(0.5);
 		    xpCount = 0;
+		    next.setVisible(true);
+		    next.setOnAction(event->{ next.setVisible(false);
+		    continueBtn.setDisable(false);
+		    shopBtn.setVisible(true);
+			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
+			atkUp.setFill(Color.WHITE);
+			atkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			stamUp.setText("Your stamina went up by " + hero.getStaminaUp() + ". Stamina =  " + hero.getStamina());
+			stamUp.setFill(Color.WHITE);
+			stamUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			defUp.setText("Your defense went up by " + hero.getDefenseUp() + ". Defense =  " + hero.getDefense());
+			defUp.setFill(Color.WHITE);
+			defUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+		    
+			if(hero.getType().contentEquals("Mage")) {
+			    mAtkUp.setText("Your  magic attack went up by " + hero.getMagicAtkUp() + ". Magic Attack =  " + hero.getMagicAtk());
+			    mAtkUp.setFill(Color.WHITE);
+			    mAtkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			    manaUp.setText("Your attack went up by " + hero.getManaUp() + ". Mana =  " + hero.getMana());
+			    manaUp.setFill(Color.WHITE);
+			    manaUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			};});
+		   	    
 		}
 		
 		//Creating VBox for user update text on gold and xp gained
-		VBox userUpdate = new VBox(30);
-		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp);
-		userUpdate.setLayoutX(370);
-		userUpdate.setLayoutY(350);
+		VBox userUpdate = new VBox(20);
+		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp, atkUp, stamUp, defUp, mAtkUp, manaUp);
+		userUpdate.setLayoutX(320);
+		userUpdate.setLayoutY(180);
 		userUpdate.setAlignment(Pos.CENTER);
 
-		//Creating Pane 
+		//Creating Pane and setting background
 		Pane display = new Pane();
+		display.setStyle(" -fx-background-image: url(\"transition.jpg\");\n" + 
+			"    -fx-background-size: cover;");
 		
 
-		//Creating the buttons play for the player to continue on
-		Button shopBtn = new Button("Go to the Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		shopBtn.setDisable(true);
-
-		Button continueBtn = new Button("Continue playing");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		HBox hbBtn = new HBox(15);
-		hbBtn.getChildren().addAll(shopBtn, continueBtn);
-		hbBtn.setLayoutX(430);
-		hbBtn.setLayoutY(600);
-		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-
-		// Event handling for special event 
+		// Event handling for if there is a special event 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 			continueBtn.setOnAction(event -> {
@@ -1068,8 +1100,7 @@ public class GameGUI extends Application {
 		
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
-		display.setStyle(" -fx-background-color: cornflowerblue");
-
+		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
 		ft.setFromValue(0);
@@ -1078,7 +1109,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
-		transition.setFill(Color.GREY);
+		//transition.setFill(Color.GREY);
 		return transition;
 	}
 
