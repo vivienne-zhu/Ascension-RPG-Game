@@ -126,12 +126,12 @@ public class GameGUI extends Application {
 		start.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 35));
 		start.setFill(Color.BLACK);
 		
-	    StackPane pane = new StackPane();
-	    pane.getChildren().addAll(iv, start);
-	    pane.setAlignment(Pos.CENTER);
-	    pane.setLayoutX(525);
-	    pane.setLayoutY(470);
-	    pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(iv,start);
+		pane.setAlignment(Pos.CENTER);
+		pane.setLayoutX(525);
+		pane.setLayoutY(470);
+		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
 		});
 		
 //		btn.setLayoutX(600);
@@ -197,46 +197,65 @@ public class GameGUI extends Application {
 		DropShadow ds = new DropShadow();
 		ds.setColor(Color.WHITE);
 		charOption.setEffect(ds);
-
+		
 		//Creating buttons for user selection, positioning and adding style
-		Button mageBtn = new Button("Mage");
-		mageBtn.setLayoutX(600);
-		mageBtn.setLayoutY(400);
-		mageBtn.setPrefSize(100, 50);
-		mageBtn.setFont(Font.font(20));
-		Button warriorBtn = new Button("Warrior");
-		warriorBtn.setLayoutX(600);
-		warriorBtn.setLayoutY(475);
-		warriorBtn.setPrefSize(100, 50);
-		warriorBtn.setFont(Font.font(20));
-		Button rougueBtn = new Button("Rogue");
-		rougueBtn.setLayoutX(600);
-		rougueBtn.setLayoutY(550);
-		rougueBtn.setPrefSize(100, 50);
-		rougueBtn.setFont(Font.font(20));
+		Image mageBtn = new Image("startButton.png", 250, 80, false, false);
+		ImageView ivMage = new ImageView(mageBtn);
+		Text mage = new Text("Mage");
+		StackPane magePane = new StackPane();
+		magePane.getChildren().addAll(ivMage,mage);
+		magePane.setAlignment(Pos.CENTER);
+		mage.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		mage.setFill(Color.BLACK);
+		magePane.setPrefSize(100, 50);
+		Image warriorBtn = new Image("startButton.png", 250, 80, false, false);
+		ImageView ivWarrior = new ImageView(warriorBtn);
+		Text warrior = new Text("Warrior");
+		warrior.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		warrior.setFill(Color.BLACK);
+		StackPane warriorPane = new StackPane();
+		warriorPane.getChildren().addAll(ivWarrior,warrior);
+		warriorPane.setAlignment(Pos.CENTER);
+		warriorPane.setPrefSize(100, 50);
+		Image rogueBtn = new Image("startButton.png", 250, 80, false, false);
+		ImageView ivRogue = new ImageView(rogueBtn);
+		Text rogue = new Text("Rogue");
+		rogue.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		rogue.setFill(Color.BLACK);
+		StackPane roguePane = new StackPane();
+		roguePane.getChildren().addAll(ivRogue,rogue);
+		roguePane.setAlignment(Pos.CENTER);
+		roguePane.setPrefSize(100, 50);
+
 		
 
-		//Event handling for when each button is pressed
-		mageBtn.setOnAction(event -> {
+		//Event handling for when each button pane is pressed
+		magePane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setMage(true);
 			nameCharScreen(primaryStage);
 		});
-		warriorBtn.setOnAction(event -> {
+		warriorPane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setWarrior(true);
 			nameCharScreen(primaryStage);
 		});
-		rougueBtn.setOnAction(event -> {
+		roguePane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setRogue(true);
 			nameCharScreen(primaryStage);
 		});
 
+		//Creating vertical box for buttons 
+		VBox btns = new VBox(15);
+		btns.setAlignment(Pos.CENTER);
+		btns.setLayoutX(500);
+		btns.setLayoutY(400);
+		btns.getChildren().addAll(magePane, warriorPane, roguePane);
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
-		display.getChildren().addAll(mageBtn, warriorBtn, rougueBtn, charOption);
+		display.getChildren().addAll(charOption, btns);
 		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
 			"    -fx-background-size: cover;");
 		
