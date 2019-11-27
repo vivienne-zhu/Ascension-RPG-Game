@@ -22,10 +22,12 @@ public class BossEnemy extends GameCharacters {
 		int startStam = 500 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
-		setX(1230);
-		setY(200);
-		setWidth(100);
-		setHeight(200);
+		setX(950);
+		setY(350);
+		setMagicx(930);
+		setOldMagicx(930);
+		setWidth(250);
+		setHeight(300);
 		setType("Boss");
 		setCharacterImage(new Image("bossEnemy.gif", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("bossEnemyRed.png",getWidth(), getHeight(), false, false));
