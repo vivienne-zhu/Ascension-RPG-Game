@@ -27,6 +27,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -123,17 +124,31 @@ public class GameGUI extends Application {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
 
-		//Creating Start button, adding style and necessary configurations
-		Button btn = new Button("START");
-		btn.setLayoutX(600);
-		btn.setLayoutY(500);
-		btn.setAlignment(Pos.CENTER);
-		btn.setPrefSize(100, 50);
-		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+//		Creating Start button, adding style and necessary configurations
+//		Button btn = new Button("START");
+		Image btn = new Image("startButton.png", 250, 80, false, false);		
+		ImageView iv = new ImageView(btn);
+	    Text start = new Text("START");
+		start.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 35));
+		start.setFill(Color.BLACK);
+		
+	    StackPane pane = new StackPane();
+	    pane.getChildren().addAll(iv, start);
+	    pane.setAlignment(Pos.CENTER);
+	    pane.setLayoutX(525);
+	    pane.setLayoutY(470);
+	    pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+		});
+		
+//		btn.setLayoutX(600);
+//		btn.setLayoutY(500);
+//		btn.setAlignment(Pos.CENTER);
+//		btn.setPrefSize(100, 50);
+//		btn.setStyle(" -fx-font: normal bold 20px 'serif' ");
 
 		//Event Handling for when Start button is pressed
-		btn.setOnAction(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
-		});
+//		btn.setOnAction(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+//		});
 		
 		//Creating Title/ start screen text with game name, adding style and configuration
 		Text title = new Text();
@@ -167,7 +182,7 @@ public class GameGUI extends Application {
 			"    -fx-background-size: cover;");
 
 		//Adding other element/nodes to Pane, then Pane to Scene
-		root.getChildren().addAll(title, btn);
+		root.getChildren().addAll(title, pane);
 		Scene startScene = new Scene(root, 1280, 720);
 		return startScene;
 	}
@@ -1018,6 +1033,12 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(430);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+		
+		//Creating VBox and setting alignment
+		VBox userUpdate = new VBox(20);
+		userUpdate.setLayoutX(370);
+		userUpdate.setLayoutY(250);
+		userUpdate.setAlignment(Pos.CENTER);
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
@@ -1043,8 +1064,10 @@ public class GameGUI extends Application {
 		Text manaUp = new Text();
 		
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
-		    continueBtn.setDisable(true);
+		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
+		    userUpdate.setLayoutX(320);
+		    userUpdate.setLayoutY(180);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
 			    + "! \n\t\t You regained 20% stamina! \n");
 		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
@@ -1054,7 +1077,7 @@ public class GameGUI extends Application {
 		    xpCount = 0;
 		    next.setVisible(true);
 		    next.setOnAction(event->{ next.setVisible(false);
-		    continueBtn.setDisable(false);
+		    continueBtn.setVisible(true);
 		    shopBtn.setVisible(true);
 			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
 			atkUp.setFill(Color.WHITE);
@@ -1077,13 +1100,9 @@ public class GameGUI extends Application {
 		   	    
 		}
 		
-		//Creating VBox for user update text on gold and xp gained
-		VBox userUpdate = new VBox(20);
+		//Adding nodes to VBox
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp, atkUp, stamUp, defUp, mAtkUp, manaUp);
-		userUpdate.setLayoutX(320);
-		userUpdate.setLayoutY(180);
-		userUpdate.setAlignment(Pos.CENTER);
-
+	
 		//Creating Pane and setting background
 		Pane display = new Pane();
 		display.setStyle(" -fx-background-image: url(\"transition.jpg\");\n" + 
