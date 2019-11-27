@@ -96,15 +96,15 @@ public class BattlePhase {
 	 */
 	public void dispCombatInfo(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor) {
 		// Initialize stamina bar for hero
-		staminaBar = new Rectangle(200.0, 10, Color.RED);
-		staminaBar.setWidth(200 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+		staminaBar = new Rectangle(300.0, 10, Color.RED);
+		staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 		staminaBar.setArcWidth(20.0); 
 		staminaBar.setArcHeight(15.0);  
 		staminaBar.setStroke(Color.BLACK);
 
 		// Initialize full stamina bar for hero
-		fullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-		fullStamBar.setWidth(200 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+		fullStamBar = new Rectangle(300.0, 10, Color.BLACK);
+		fullStamBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 		fullStamBar.setArcWidth(20.0); 
 		fullStamBar.setArcHeight(15.0);  
 		fullStamBar.setStroke(Color.BLACK);
@@ -286,7 +286,7 @@ public class BattlePhase {
 		potionBtn.setOnAction(event -> {
 			hero.usePotion(hero.getCp(), this.error);
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-			staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+			staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 			potionBtn.setText(hero.itemInfo(hero.getCp()));
 			if (this.error.isVisible() == false) {
 			    Timeline timeline = new Timeline(); 
@@ -316,7 +316,7 @@ public class BattlePhase {
 			hero.usePotion(hero.getHp(), this.error);
 			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-			staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+			staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 			if (this.error.isVisible() == false) {
 				Timeline timeline = new Timeline(); 
 				timeline.setCycleCount(1);
@@ -566,35 +566,38 @@ public class BattlePhase {
 		//Add specific size constraints to lock in formatting
 		if (enemyCount == 1) {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
-			grid.getColumnConstraints().add(new ColumnConstraints(550));
-			grid.getColumnConstraints().add(new ColumnConstraints(300));
+			grid.getColumnConstraints().add(new ColumnConstraints(650));
+			grid.getColumnConstraints().add(new ColumnConstraints(200));
 		} else if (enemyCount == 2) {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
 			grid.getColumnConstraints().add(new ColumnConstraints(350));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
+			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
+			GridPane.setHalignment(enemyTwoStam, HPos.CENTER);
 		} else {
 			grid.getColumnConstraints().add(new ColumnConstraints(300));
 			grid.getColumnConstraints().add(new ColumnConstraints(150));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
 			grid.getColumnConstraints().add(new ColumnConstraints(200));
+			GridPane.setHalignment(enemyThreeName, HPos.CENTER);
+			GridPane.setHalignment(enemyThreeStam, HPos.CENTER);
 		}
 
 		//Center all text within each grid panel
 		GridPane.setHalignment(dialogue, HPos.CENTER);
 		GridPane.setHalignment(dialogueTwo, HPos.CENTER);
 		GridPane.setHalignment(dialogueThree, HPos.CENTER);
-		GridPane.setHalignment(heroName, HPos.LEFT);
-		GridPane.setHalignment(heroStam, HPos.LEFT);
-		GridPane.setHalignment(staminaBar, HPos.LEFT);
-		GridPane.setHalignment(hbBtn, HPos.LEFT);
-		GridPane.setHalignment(enemyName, HPos.RIGHT);
-		GridPane.setHalignment(enemyStam, HPos.RIGHT);
-		GridPane.setHalignment(chooseEnemyBtn, HPos.RIGHT);
-		GridPane.setHalignment(chooseEnemyTwoBtn, HPos.RIGHT);
-		GridPane.setHalignment(chooseEnemyThreeBtn, HPos.RIGHT);
+		GridPane.setHalignment(heroName, HPos.CENTER);
+		GridPane.setHalignment(heroStam, HPos.CENTER);
+		GridPane.setHalignment(enemyName, HPos.CENTER);
+		GridPane.setHalignment(enemyStam, HPos.CENTER);
+		GridPane.setHalignment(chooseEnemyBtn, HPos.CENTER);
+		GridPane.setHalignment(chooseEnemyTwoBtn, HPos.CENTER);
+		GridPane.setHalignment(chooseEnemyThreeBtn, HPos.CENTER);
 		GridPane.setHalignment(itemBag, HPos.CENTER);
+		hbBtn.setAlignment(Pos.CENTER);
 
 		//Make gridlines visible - only for development phase
 		grid.setGridLinesVisible(true);
@@ -1369,7 +1372,7 @@ public class BattlePhase {
 		timeline.play();
 
 		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		staminaBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+		staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
 		if (hero.isDefending()) {
 		    	if (attackAmount <= 0) {
 		    	    dialogueTwo.setText(""); // You took 0 damage!
