@@ -67,6 +67,8 @@ public class BattlePhase {
 	private Timeline animateHero;
 	private Rectangle staminaBar;
 	private Rectangle manaBar;
+	private Rectangle fullStamBar;
+	private Rectangle fullManaBar;
 	private boolean magic;
 	private SoundEffect se;
 	private int atkUp;
@@ -90,44 +92,51 @@ public class BattlePhase {
 		// To display current stamina of hero and enemy (using tester enemy[0]).
 		heroName = new Text(hero.getType() + ": " + hero.getName());
 		heroName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		heroName.setFill(Color.DODGERBLUE);
+		heroName.setFill(Color.WHITE);
 		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		heroStam.setFill(Color.DODGERBLUE);
+		heroStam.setFill(Color.WHITE);
 		heroStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
 		enemyName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		enemyName.setFill(Color.DARKRED);
+		enemyName.setFill(Color.WHITE);
 		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina());
 		enemyStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		enemyStam.setFill(Color.DARKRED);
+		enemyStam.setFill(Color.WHITE);
 		if (hero.getType().equals("Mage")) {
 			heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
-			heroMana.setFill(Color.GREEN);
+			heroMana.setFill(Color.LIGHTBLUE);
 			heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
 			
 			// Initialize mana bar
-			manaBar = new Rectangle(220.0, 10, Color.GREEN);
+			manaBar = new Rectangle(220.0, 10, Color.BLUE);
 		    manaBar.setArcWidth(20.0); 
 		    manaBar.setArcHeight(15.0);  
 		    manaBar.setStroke(Color.BLACK);
 		    manaBar.setVisible(false);
+		    
+			// Initialize full mana bar
+			fullManaBar = new Rectangle(220.0, 10, Color.BLACK);
+		    fullManaBar.setArcWidth(20.0); 
+		    fullManaBar.setArcHeight(15.0);  
+		    fullManaBar.setStroke(Color.BLACK);
+		    fullManaBar.setVisible(false);
 		}
 
 		if (allEnemies.get(floor).size() > 1) {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
 			enemyTwoName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyTwoName.setFill(Color.DARKRED);
+			enemyTwoName.setFill(Color.WHITE);
 			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina());
 			enemyTwoStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyTwoStam.setFill(Color.DARKRED);
+			enemyTwoStam.setFill(Color.WHITE);
 		}
 		if (allEnemies.get(floor).size() > 2) {
 			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
 			enemyThreeName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyThreeName.setFill(Color.DARKRED);
+			enemyThreeName.setFill(Color.WHITE);
 			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina());
 			enemyThreeStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyThreeStam.setFill(Color.DARKRED);
+			enemyThreeStam.setFill(Color.WHITE);
 		}
 		
 		// Initialize stamina bar
@@ -136,6 +145,13 @@ public class BattlePhase {
 	    staminaBar.setArcWidth(20.0); 
 	    staminaBar.setArcHeight(15.0);  
 	    staminaBar.setStroke(Color.BLACK);
+	    
+	    // Initialize full stamina bar
+		fullStamBar = new Rectangle(220.0, 10, Color.BLACK);
+		fullStamBar.setWidth(220 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+	    fullStamBar.setArcWidth(20.0); 
+	    fullStamBar.setArcHeight(15.0);  
+	    fullStamBar.setStroke(Color.BLACK);
 
 	}
 
@@ -174,6 +190,7 @@ public class BattlePhase {
 		if(hero.getType().equals("Mage")) {
 			magicAtkBtn.setVisible(true);
 			manaBar.setVisible(true);
+			fullManaBar.setVisible(true);
 		} 		
 
 		this.hbBtn = new HBox(10);
@@ -429,6 +446,7 @@ public class BattlePhase {
 		//Placements for various textboxes and buttons
 		grid.add(heroName, 0, 0);
 		grid.add(heroStam, 0, 1);
+		grid.add(fullStamBar, 0, 2);
 		grid.add(staminaBar, 0, 2);
 		grid.add(hbBtn, 0, 3);
 		grid.add(itemBag, 0, 4);
@@ -436,6 +454,7 @@ public class BattlePhase {
 		grid.add(magicAtkBtn, 1, 3);
 		if(hero.getType().equals("Mage")) {
 			grid.add(heroMana, 1, 1);
+			grid.add(fullManaBar, 1, 2);
 			grid.add(manaBar, 1, 2);
 		}
 		if (enemyCount == 1) {
