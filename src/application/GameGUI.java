@@ -477,6 +477,9 @@ public class GameGUI extends Application {
 	public void shopScreen(Stage primaryStage) {
 		// Create grid pane
 		GridPane root = new GridPane();
+		
+		//Create black dropshadow
+		DropShadow d = new DropShadow(10, Color.BLACK);
 
 		// Create the magic shop text
 		Text welcome = new Text("Magic Shop");
@@ -489,19 +492,23 @@ public class GameGUI extends Application {
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
-		errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		errorMsg.setFill(Color.WHITE);
 		errorMsg.setVisible(false);
 
 		// Display all items currently in the hero's bag
 		Text potionList = new Text(shop.shopDisplay(hero));
-		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potionList.setFill(Color.WHITE);
+		potionList.setEffect(d);
+		potionList.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
 
 		// Description for cheap potion
 		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
-		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potion1.setFill(Color.WHITE);
+		potion1.setEffect(d);
+		potion1.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
 
 		// Input quantity for cheap potion
 		TextField quantity1 = new TextField("Quantity");
@@ -516,8 +523,10 @@ public class GameGUI extends Application {
 
 		// Description for hyper potion
 		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
-		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potion2.setFill(Color.WHITE);
+		potion2.setEffect(d);
+		potion2.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
 
 		// Input quantity for hyper potion
 		TextField quantity2 = new TextField("Quantity");
@@ -533,14 +542,18 @@ public class GameGUI extends Application {
 
 		// Description for revive
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
-		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		revive.setFill(Color.WHITE);
+		revive.setEffect(d);
+		revive.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
 		GridPane.setHalignment(revive, HPos.CENTER);
 		
 		// Description for revive quantity
-		Text reviveQuant = new Text("Max 1 AT A TIME");
-		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		Text reviveQuant = new Text("MAX ONE AT A TIME");
+		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		reviveQuant.setFill(Color.WHITE);
+		reviveQuant.setEffect(d);
+		reviveQuant.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
 		GridPane.setHalignment(reviveQuant, HPos.CENTER);
 
 		// Buy and sell for revive 
@@ -590,9 +603,9 @@ public class GameGUI extends Application {
 		}
 		
 		// Add nodes to the grid pane
+		root.setHgap(60);
 		root.setAlignment(Pos.CENTER);
-		root.setGridLinesVisible(true);
-		root.setHgap(10);
+		root.setGridLinesVisible(false);
 		root.setVgap(5);
 		root.add(welcome, 2, 0);
 		root.add(hbox, 1, 1);
@@ -613,7 +626,7 @@ public class GameGUI extends Application {
 		root.add(potionList, 2, 8);
 		root.add(errorMsg, 2, 9);
 
-		root.add(continueBtn, 4, 9);
+		root.add(continueBtn, 3, 9);
 		
 		welcome.setTextAlignment(TextAlignment.CENTER);
 		potion1.setTextAlignment(TextAlignment.CENTER);
@@ -644,6 +657,7 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(btnSell2, HPos.CENTER);
 		GridPane.setHalignment(btnBuy3, HPos.CENTER);
 		GridPane.setHalignment(btnSell3, HPos.CENTER);
+		GridPane.setHalignment(continueBtn, HPos.CENTER);
 		
 		errorMsg.setWrappingWidth(200);
 

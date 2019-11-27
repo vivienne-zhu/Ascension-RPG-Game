@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -88,37 +89,37 @@ public class BattlePhase {
 		// To display current stamina of hero and enemy (using tester enemy[0]).
 		heroName = new Text(hero.getType() + ": " + hero.getName());
 		heroName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		heroName.setFill(Color.DODGERBLUE);
+		heroName.setFill(Color.WHITE);
 		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		heroStam.setFill(Color.DODGERBLUE);
+		heroStam.setFill(Color.WHITE);
 		heroStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
 		enemyName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		enemyName.setFill(Color.DARKRED);
+		enemyName.setFill(Color.WHITE);
 		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina());
 		enemyStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		enemyStam.setFill(Color.DARKRED);
+		enemyStam.setFill(Color.WHITE);
 		if (hero.getType().equals("Mage")) {
 			heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
-			heroMana.setFill(Color.GREEN);
+			heroMana.setFill(Color.LIGHTBLUE);
 			heroMana.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		}
 
 		if (allEnemies.get(floor).size() > 1) {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
 			enemyTwoName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyTwoName.setFill(Color.DARKRED);
+			enemyTwoName.setFill(Color.WHITE);
 			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina());
 			enemyTwoStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyTwoStam.setFill(Color.DARKRED);
+			enemyTwoStam.setFill(Color.WHITE);
 		}
 		if (allEnemies.get(floor).size() > 2) {
 			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
 			enemyThreeName.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyThreeName.setFill(Color.DARKRED);
+			enemyThreeName.setFill(Color.WHITE);
 			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina());
 			enemyThreeStam.setStyle(" -fx-font: normal bold 24px 'serif' ");
-			enemyThreeStam.setFill(Color.DARKRED);
+			enemyThreeStam.setFill(Color.WHITE);
 		}
 	}
 
@@ -127,15 +128,19 @@ public class BattlePhase {
 	 */
 	public void dispDialogue() {
 		// To display dialogue and other relevant battle info
+		DropShadow d = new DropShadow(10, Color.BLACK);
 		dialogue = new Text("");
-		dialogue.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		dialogue.setStyle("-fx-font: normal bold 24px 'serif'");
 		dialogue.setFill(Color.WHITE);
+		dialogue.setEffect(d);
 		dialogueTwo = new Text("");
-		dialogueTwo.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		dialogueTwo.setStyle("-fx-font: normal bold 24px 'serif'");
 		dialogueTwo.setFill(Color.WHITE);
+		dialogueTwo.setEffect(d);
 		dialogueThree = new Text("");
-		dialogueThree.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		dialogueThree.setStyle("-fx-font: normal bold 24px 'serif'");
 		dialogueThree.setFill(Color.WHITE);
+		dialogueThree.setEffect(d);
 	}
 
 	/**
@@ -492,7 +497,7 @@ public class BattlePhase {
 		GridPane.setHalignment(itemBag, HPos.CENTER);
 
 		//Make gridlines visible - only for development phase
-		grid.setGridLinesVisible(true);
+		grid.setGridLinesVisible(false);
 
 		return grid;
 	}
