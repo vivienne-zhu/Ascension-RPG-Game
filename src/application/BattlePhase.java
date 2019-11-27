@@ -48,6 +48,7 @@ public class BattlePhase {
 	private Text dialogue;
 	private Text dialogueTwo;
 	private Text dialogueThree;
+	private Text empowered;
 	private Text heroStam;
 	private Text heroMana;
 	private Text enemyStam;
@@ -220,6 +221,10 @@ public class BattlePhase {
 		dialogueThree = new Text("");
 		dialogueThree.setStyle(" -fx-font: normal bold 24px 'serif' ");
 		dialogueThree.setFill(Color.WHITE);
+		empowered = new Text("EMPOWERED");
+		empowered.setStyle(" -fx-font: normal bold 24px 'serif' ");
+		empowered.setFill(Color.RED);
+		empowered.setVisible(false);
 	}
 
 	/**
@@ -440,10 +445,11 @@ public class BattlePhase {
 			setMagic(false);
 
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
-			gc.drawImage(defendIcon, 150, 280); //draw defend icon
+			gc.drawImage(defendIcon, 140, 280); //draw defend icon
 			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn); //disable buttons
 			hero.setIsDefending(true);
 			hero.setIsEmpowered(true);
+			empowered.setVisible(true);
 			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
@@ -457,7 +463,7 @@ public class BattlePhase {
 			Timeline icon = new Timeline(); 
 			icon.setCycleCount(1);
 			KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			gc.clearRect(150, 280, 80, 80));
+			gc.clearRect(140, 280, 80, 80));
 			icon.getKeyFrames().add(iconDisable);
 			icon.play();
 		});
@@ -503,6 +509,7 @@ public class BattlePhase {
 		grid.add(hbBtn, 0, 3);
 		grid.add(itemBag, 0, 4);
 		grid.add(error, 0, 5);
+		grid.add(empowered, 0, 7);
 		if(hero.getType().equals("Mage")) {
 			grid.add(heroMana, 1, 1);
 			grid.add(fullManaBar, 1, 2);
@@ -586,6 +593,7 @@ public class BattlePhase {
 		GridPane.setHalignment(dialogue, HPos.CENTER);
 		GridPane.setHalignment(dialogueTwo, HPos.CENTER);
 		GridPane.setHalignment(dialogueThree, HPos.CENTER);
+		GridPane.setHalignment(empowered, HPos.CENTER);
 		GridPane.setHalignment(heroName, HPos.CENTER);
 		GridPane.setHalignment(heroStam, HPos.CENTER);
 		GridPane.setHalignment(enemyName, HPos.CENTER);
@@ -693,6 +701,7 @@ public class BattlePhase {
 	 */
 	public void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
 			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc, MediaPlayer battleMusic, MediaPlayer gameOverMusic,MediaPlayer youWinMusic) {
+		empowered.setVisible(false);
 		if (isMagic() == true) {
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
