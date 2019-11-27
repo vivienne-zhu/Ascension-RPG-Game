@@ -113,7 +113,7 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
 	 * @return startScene The Scene startScene
 	 */
-	public Scene startScreen(Stage primaryStage) {
+	private Scene startScreen(Stage primaryStage) {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
 
@@ -176,7 +176,7 @@ public class GameGUI extends Application {
 	 * 
 	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
 	 */
-	public void chooseCharacterScreen(Stage primaryStage) {
+	private void chooseCharacterScreen(Stage primaryStage) {
 		//Creating Text, positioning it and adding style and effects
 		Text charOption = new Text();
 		charOption.setText("Choose your character type");
@@ -269,7 +269,7 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary stage/ window to display the GUI.
 	 * @return givenName String name entered by the user.
 	 */
-	public void nameCharScreen(Stage primaryStage) {
+	private void nameCharScreen(Stage primaryStage) {
 		//Creating grid to be used to house text and text field
 		GridPane getName = new GridPane();
 
@@ -355,7 +355,7 @@ public class GameGUI extends Application {
 	/**
 	 * This method creates a hero character and sets its name.
 	 */
-	public void createHero() {
+	private void createHero() {
 		if (isMage == true) {
 			hero = new Mage();
 			hero.setName(heroName);
@@ -445,7 +445,7 @@ public class GameGUI extends Application {
 	 * @return towerLevels The Pane containing all the graphical elements 
 	 *           needed for each fight inside the Tower.
 	 */
-	public Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
+	private Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
 	    	//Creating pane
 		Pane towerLevels = new Pane();
 
