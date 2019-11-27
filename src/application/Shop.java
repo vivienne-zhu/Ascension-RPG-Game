@@ -24,9 +24,9 @@ public class Shop {
 	 */
 	public Shop() {
 		this.shopBg = new Image("shop.jpg", 1280, 720, false, false);
-		this.cpImage = new Image("cheapPotion.jpg", 150, 150, false, false);
+		this.cpImage = new Image("cheapPotion.png", 150, 150, false, false);
 		this.hpImage = new Image("hyperPotion.png", 150, 150, false, false);
-		this.reviveImage = new Image("revive.jpg", 150, 150, false, false);
+		this.reviveImage = new Image("revive.png", 150, 150, false, false);
 		this.se = new SoundEffect();
 	}
 

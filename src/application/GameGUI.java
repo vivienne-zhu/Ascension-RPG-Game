@@ -35,6 +35,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
@@ -372,12 +373,12 @@ public class GameGUI extends Application {
 
 		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
 		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		if (floor.getFloor() == 7 || floor.getFloor() == 2 || floor.getFloor() == 3) {
+		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
-		} else if (floor.getFloor() == 1 || floor.getFloor() == 8 || floor.getFloor() == 9) {
+		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
 			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
 			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
@@ -577,7 +578,8 @@ public class GameGUI extends Application {
 		}
 		
 		// Add nodes to the grid pane
-		root.setGridLinesVisible(false);
+		root.setAlignment(Pos.CENTER);
+		root.setGridLinesVisible(true);
 		root.setHgap(10);
 		root.setVgap(5);
 		root.add(welcome, 2, 0);
@@ -595,10 +597,38 @@ public class GameGUI extends Application {
 		root.add(revive, 3, 2);
 		root.add(btnBuy3, 3, 3);
 		root.add(btnSell3, 3, 4);
-		root.add(potionList, 1, 7);
-		root.add(errorMsg, 1, 8);
-		root.setAlignment(Pos.CENTER);
+		root.add(potionList, 2, 8);
+		root.add(errorMsg, 2, 9);
+
 		root.add(continueBtn, 4, 9);
+		
+		welcome.setTextAlignment(TextAlignment.CENTER);
+		potion1.setTextAlignment(TextAlignment.CENTER);
+		quantity1.setAlignment(Pos.CENTER);
+		potion2.setTextAlignment(TextAlignment.CENTER);
+		quantity2.setAlignment(Pos.CENTER);
+		revive.setTextAlignment(TextAlignment.CENTER);
+		potionList.setTextAlignment(TextAlignment.CENTER);
+		errorMsg.setTextAlignment(TextAlignment.CENTER);
+		
+		GridPane.setHalignment(welcome, HPos.CENTER);
+		GridPane.setHalignment(potion1, HPos.CENTER);
+		GridPane.setHalignment(quantity1, HPos.CENTER);
+		GridPane.setHalignment(potion2, HPos.CENTER);
+		GridPane.setHalignment(quantity2, HPos.CENTER);
+		GridPane.setHalignment(revive, HPos.CENTER);
+		GridPane.setHalignment(potionList, HPos.CENTER);
+		GridPane.setHalignment(errorMsg, HPos.CENTER);
+		
+		GridPane.setHalignment(btnBuy1, HPos.CENTER);
+		GridPane.setHalignment(btnSell1, HPos.CENTER);
+		GridPane.setHalignment(btnBuy2, HPos.CENTER);
+		GridPane.setHalignment(btnSell2, HPos.CENTER);
+		GridPane.setHalignment(btnBuy3, HPos.CENTER);
+		GridPane.setHalignment(btnSell3, HPos.CENTER);
+
+		
+		errorMsg.setWrappingWidth(200);
 
 		// Set background
 		BackgroundImage shopBg1 = new BackgroundImage(this.shop.getShopBg(), BackgroundRepeat.NO_REPEAT,
@@ -1011,7 +1041,7 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
+		if (floor.getFloor() == 1 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
 			shopBtn.setDisable(false);
 		} 		
 		shopBtn.setOnAction(event -> {
