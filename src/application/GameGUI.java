@@ -100,7 +100,7 @@ public class GameGUI extends Application {
 		//Start Screen Scene creation
 		//Scene start = startScreen(primaryStage);
 	    	
-	    	Scene test = gameOverScreen(primaryStage);
+	    	Scene test = youWinScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
 		primaryStage.setScene(test);
@@ -875,7 +875,7 @@ public class GameGUI extends Application {
 		youWin.setEffect(ds);
 		Text thankYou = new Text();
 		thankYou.setText("Thank you for playing!");
-		thankYou.setX(380);
+		thankYou.setX(360);
 		thankYou.setY(550);
 		thankYou.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 60));
 		thankYou.setStroke(Color.WHITE);
@@ -890,10 +890,10 @@ public class GameGUI extends Application {
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
 		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: cornflowerblue");
+			"-fx-background-color: white");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: cornflowerblue");
+			"-fx-background-color: lightblue");
 		HBox hbBtn = new HBox(10);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
