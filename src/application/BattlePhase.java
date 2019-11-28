@@ -78,7 +78,6 @@ public class BattlePhase {
 	private Rectangle enemyThreeFullStamBar;
 	private boolean magic;
 	private SoundEffect se;
-	private int atkUp;
 
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
