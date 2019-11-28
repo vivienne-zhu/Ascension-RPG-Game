@@ -78,6 +78,7 @@ public class BattlePhase {
 	private Rectangle enemyThreeFullStamBar;
 	private boolean magic;
 	private SoundEffect se;
+	private boolean healerTargetAvail;
 
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth) {
 		this.primaryStage = primaryStage;
@@ -965,20 +966,20 @@ public class BattlePhase {
 			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 			manaBar.setWidth(200 * (double) hero.getCurrentMana() / (double) hero.getMana());
 			if (choice == 0) {
-				enemyOneStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				enemyOneStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else if (choice == 1) {
-				enemyTwoStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				enemyTwoStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else {
-				enemyThreeStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				enemyThreeStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			}
 		} else {
 			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
 			if (choice == 0) {
-				enemyOneStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				enemyOneStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else if (choice == 1) {
-				enemyTwoStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				enemyTwoStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			} else {
-				enemyThreeStamBar.setWidth(220 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				enemyThreeStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
 			}
 		}
 
@@ -1056,7 +1057,7 @@ public class BattlePhase {
 			enemyThreeStam.setText("Stamina: " + enemy.getCurrentStamina());
 		}
 		dialogue.setText("You dealt " + attackAmount + " damage!");
-		//dialogueTwo.setText("");
+		dialogueTwo.setText("");
 		dialogueThree.setText("");
 	}
 
@@ -1164,13 +1165,9 @@ public class BattlePhase {
 
 		//If enemies are still alive
 		if (totalEnemyHealth > 0) {
-			if (hero.isDefending()) {
-				dialogue.setText("It is the enemy's turn.");
-				dialogueTwo.setText("");
-				dialogueThree.setText("");
-			} else {
-				dialogueTwo.setText("It is the enemy's turn.");
-			}
+			dialogue.setText("It is the enemy's turn.");
+			dialogueTwo.setText("");
+			dialogueThree.setText("");
 			singleEnemyAttacks(hero, allEnemies, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic); 
 		}
 	}
@@ -1264,12 +1261,15 @@ public class BattlePhase {
 		//Move enemy forward and backwards
 		KeyFrame moveForward;
 		KeyFrame moveBackward;
-		if (!(allEnemies.get(floor).get(position) instanceof RangedEnemy)) {
+		
+		KeyFrame heal = null;
+		
+		if ((allEnemies.get(floor).get(position) instanceof MeleeEnemy ||allEnemies.get(floor).get(position) instanceof BossEnemy)) {
 			moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, false,
 					allEnemies, floor));
 			moveBackward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, true,
 					allEnemies, floor));
-		} else {
+		} else if (allEnemies.get(floor).get(position) instanceof RangedEnemy){
 			moveForward = new KeyFrame(Duration.millis(1), ae -> moveMagic(allEnemies.get(floor).get(position), 
 					hero, gc, allEnemies, floor, false, 0));
 			moveBackward = new KeyFrame(Duration.millis(1), ae -> {
@@ -1277,6 +1277,40 @@ public class BattlePhase {
 						allEnemies.get(floor).get(position).getMagicy());
 				allEnemies.get(floor).get(position).setMagicx(allEnemies.get(floor).get(position).getOldMagicx()); 
 			});
+		} else { //healer enemy
+			int maxMissingHealth = 0;
+			GameCharacters mostHurtEnemy = null;
+			int enemyPosition = 0;
+			for (int i = 0; i < allEnemies.get(floor).size(); i++) { //finding enemy with the most missing health
+				int missingHealth = allEnemies.get(floor).get(i).getStamina() - allEnemies.get(floor).get(i).getCurrentStamina();
+				if (missingHealth != allEnemies.get(floor).get(i).getStamina()) { //tests for not dead
+					if (missingHealth > maxMissingHealth) {
+						maxMissingHealth = missingHealth;
+						mostHurtEnemy = allEnemies.get(floor).get(i);
+						enemyPosition = i;
+					}
+				}
+			}
+			GameCharacters outerMostHurtEnemy = mostHurtEnemy;
+			if (mostHurtEnemy != null) {
+				healerTargetAvail = true;
+				int outerPosition = enemyPosition;
+				moveBackward = new KeyFrame(Duration.millis(744), ae -> {
+					//do nothing
+				});	
+				heal = new KeyFrame(Duration.millis(1), ae -> {
+					enemyHeal(outerMostHurtEnemy, outerPosition, allEnemies, position, gc);
+				});	
+				moveForward = new KeyFrame(Duration.millis(1), ae -> {
+					//do nothing
+				});	
+			} else {
+				healerTargetAvail = false;
+				moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, false,
+						allEnemies, floor));
+				moveBackward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), gc, true,
+						allEnemies, floor));
+			}
 		}
 		
 		KeyFrame soundFrame;
@@ -1333,8 +1367,13 @@ public class BattlePhase {
 		if (position == 0) { //boss can only be this position
 			posOneForward.setCycleCount(745);
 			posOneForward.getKeyFrames().add(moveForward);
-			posOneBackward.setCycleCount(745);
-			posOneBackward.getKeyFrames().add(moveBackward);	
+			if (allEnemies.get(floor).get(position) instanceof HealerEnemy && (healerTargetAvail)) {
+				posOneBackward.setCycleCount(1);
+				posOneBackward.getKeyFrames().add(heal);
+			} else { 
+				posOneBackward.setCycleCount(745);
+			}
+			posOneBackward.getKeyFrames().add(moveBackward);
 			if (allEnemies.get(floor).get(0) instanceof BossEnemy && 
 					((double) allEnemies.get(floor).get(0).getCurrentStamina() / 
 							(double) allEnemies.get(floor).get(0).getStamina() < 0.34)) {
@@ -1345,18 +1384,88 @@ public class BattlePhase {
 		} else if (position == 1) {
 			posTwoForward.setCycleCount(505);
 			posTwoForward.getKeyFrames().add(moveForward);
-			posTwoBackward.setCycleCount(505);
+			if ((allEnemies.get(floor).get(position) instanceof HealerEnemy  && (healerTargetAvail))) {
+				posTwoBackward.setCycleCount(1);
+				posTwoBackward.getKeyFrames().add(heal);
+			} else {
+				posTwoBackward.setCycleCount(505);
+			}
 			posTwoBackward.getKeyFrames().add(moveBackward);
 			posTwoHit.getKeyFrames().add(frameTwo);
 		} else { 
 			posThreeForward.setCycleCount(275);
 			posThreeForward.getKeyFrames().add(moveForward);
-			posThreeBackward.setCycleCount(275);
+			if ((allEnemies.get(floor).get(position) instanceof HealerEnemy && (healerTargetAvail))) {
+				posThreeBackward.setCycleCount(1);
+				posThreeBackward.getKeyFrames().add(heal);
+			} else {
+				posThreeBackward.setCycleCount(275);
+			}
 			posThreeBackward.getKeyFrames().add(moveBackward);
 			posThreeHit.getKeyFrames().add(frameTwo);
 		}
 	}
+	
+	/**
+	 * This method is called when the enemy healer heals itself or its teammates
+	 * @param outerMostHurtEnemy The GameCharacters enemy missing the most health
+	 * @param outerPosition The int position of enemy missing most health
+	 * @param allEnemies HashMap storing all enemies for every floor
+	 * @param position The int position of the healer
+	 * @param gc GraphicsContext used to draw images
+	 */
+	public void enemyHeal(GameCharacters outerMostHurtEnemy, int outerPosition, 
+			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int position, GraphicsContext gc) {
+		
+		int healAmt = allEnemies.get(floor).get(position).enemyHeal(outerMostHurtEnemy);
+		outerMostHurtEnemy.displayCharacter(gc, false, false, true);
 
+		Timeline enemyWhite = new Timeline();
+		enemyWhite.setCycleCount(1);
+		KeyFrame whiteEnemy = new KeyFrame(Duration.millis(1), ae -> {
+			if (outerPosition == 0) {
+				animateOne.stop();
+				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn enemy white on heal
+			} else if (outerPosition == 1) {
+				animateTwo.stop();
+				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn enemy white on heal
+			} else {
+				animateThree.stop();
+				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn enemy white on heal
+			}
+		});
+		enemyWhite.getKeyFrames().add(whiteEnemy);
+		enemyWhite.play();
+		
+		//After 0.1 seconds revert color
+		Timeline timeline = new Timeline(); 
+		timeline.setCycleCount(1);
+		KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
+			if (outerPosition == 0) {
+				animateOne.play();
+			} else if (outerPosition == 1) {
+				animateTwo.play();
+			} else {
+				animateThree.play();
+			}
+			});
+		timeline.getKeyFrames().add(frame);
+		timeline.play();
+		
+		if (outerPosition == 0) {
+			enemyStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
+			enemyOneStamBar.setWidth(200 * ((double) outerMostHurtEnemy.getCurrentStamina() / (double) outerMostHurtEnemy.getStamina()));
+		} else if (outerPosition == 1) {
+			enemyTwoStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
+			enemyTwoStamBar.setWidth(200 * ((double) outerMostHurtEnemy.getCurrentStamina() / (double) outerMostHurtEnemy.getStamina()));
+		} else {
+			enemyThreeStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
+			enemyThreeStamBar.setWidth(200 * ((double) outerMostHurtEnemy.getCurrentStamina() / (double) outerMostHurtEnemy.getStamina()));
+		}
+		dialogueTwo.setText("Healer healed " + outerMostHurtEnemy.getType() + " for " + healAmt + " health!");
+		dialogueThree.setText("");
+	}
+	
 	/**
 	 * This method is called when an enemy hits the hero. It is unique
 	 * from the hitEnemy method due to different dialogue that appears.
@@ -1395,14 +1504,10 @@ public class BattlePhase {
 
 		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
-		if (hero.isDefending()) {
-		    	if (attackAmount <= 0) {
-		    	    dialogueTwo.setText(""); // You took 0 damage!
-		    	} else {
-		    	    dialogueTwo.setText("You took " + attackAmount + " damage!");
-		    	}
+		if (attackAmount <= 0) {
+			dialogueTwo.setText("You took 0 damage!"); // You took 0 damage!
 		} else {
-			dialogueThree.setText("You took " + attackAmount + " damage!");
+		    dialogueTwo.setText(allEnemies.get(floor).get(i).getType() + " dealt " + attackAmount + " damage to you!");
 		}
 		if (attackAmount <= 0) {
 			dialogueThree.setText("The enemy's attack had no effect on you!");

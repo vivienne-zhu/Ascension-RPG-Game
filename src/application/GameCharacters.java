@@ -141,6 +141,24 @@ public class GameCharacters {
 	}
 	return attackValue;
     }
+    
+    /**
+     * This method is used by enemy healer exclusively to heal itself or rest of team
+     * @param character GameCharacters chosen to get heal
+     * @return Amount of health healed
+     */
+    public int enemyHeal(GameCharacters character) {
+    	int healValue = this.getAttack() * 4;
+    	int oldHealth = character.getCurrentStamina();
+    	int newHealth = oldHealth + healValue;
+    	if (newHealth < character.getStamina()) {
+    		character.setCurrentStamina(newHealth);
+    	} else {
+    		healValue = character.getStamina() - character.getCurrentStamina();
+    		character.setCurrentStamina(character.getStamina());
+    	}
+    	return healValue;
+    }
 
     /**
      * This method changes isDefending to true when a game character chooses the
