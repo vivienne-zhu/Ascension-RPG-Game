@@ -999,14 +999,17 @@ public class BattlePhase {
 				animateOne.stop();
 				enemyStam.setVisible(false);
 				enemyName.setVisible(false);
+				enemyOneFullStamBar.setVisible(false);
 			} else if (choice == 1) {
 				animateTwo.stop();
 				enemyTwoStam.setVisible(false);
 				enemyTwoName.setVisible(false);
+				enemyTwoFullStamBar.setVisible(false);
 			} else {
 				animateThree.stop();
 				enemyThreeStam.setVisible(false);
 				enemyThreeName.setVisible(false);
+				enemyThreeFullStamBar.setVisible(false);
 			}
 			//	allEnemies.get(floor).remove(choice);	
 		} else {
