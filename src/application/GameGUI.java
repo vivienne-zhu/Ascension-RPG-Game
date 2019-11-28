@@ -301,8 +301,10 @@ public class GameGUI extends Application {
 		
 		// Create back button
 		Button backBtn = new Button("Back");
-		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");	
+		backBtn.setId("backBtn");
+		backBtn.getStyleClass().add("backBtn");
+//		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
+//			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
 		backBtn.setMinWidth(100);
 		backBtn.setLayoutX(100);
 		backBtn.setLayoutY(600);
@@ -378,6 +380,7 @@ public class GameGUI extends Application {
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
+		chooseCharName.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseCharName);
 		primaryStage.show();
 

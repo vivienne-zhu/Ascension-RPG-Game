@@ -1,0 +1,13 @@
+#backBtn {
+	-fx-font-weight: bold;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;
+    -fx-background-color: 
+       #9E7C0C,
+        linear-gradient(#FBED1E, #EFB909),
+        linear-gradient(#FBED1E 0%, #FBED1E 49%, #EFB909 50%, #EFB909 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 30 3 30;
+}
