@@ -20,6 +20,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -216,7 +217,11 @@ public class GameGUI extends Application {
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
 //		roguePane.setPrefSize(100, 50);
-
+		
+		// Clear prior assigned character type
+		setMage(false);
+		setWarrior(false);
+		setRogue(false);
 		
 
 		//Event handling for when each button pane is pressed
@@ -277,10 +282,74 @@ public class GameGUI extends Application {
 		Label charName = new Label("Character Name: ");
 		TextField charNameBox = new TextField();
 
+		//Creating submit button and creating event handling for when the button is pressed
+//		Image btnBackGround = new Image("startButton.png", 400, 60, false, false);
+//		ImageView submitBtn = new ImageView(btnBackGround);
+//		Text submit = new Text("Enter Tower Floor 1");
+//		submit.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+//		submit.setFill(Color.BLACK);
+//		StackPane submitPane = new StackPane();
+//		submitPane.getChildren().addAll(submitBtn,submit);
+//		submitPane.setAlignment(Pos.CENTER);
+		
+		Button submitBtn = new Button("Enter Floor 1");
+		submitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: darkgoldenrod");	
+		submitBtn.setLayoutX(1100);
+		submitBtn.setLayoutY(600);
+		
+		
+		// Create back button
+		Button backBtn = new Button("Back");
+		backBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: darkgoldenrod");	
+		backBtn.setMinWidth(100);
+		backBtn.setLayoutX(70);
+		backBtn.setLayoutY(600);
+		
+		// Event handling to back button 
+		backBtn.setOnAction(event -> {se.transitionSound();
+			chooseCharacterScreen(primaryStage);
+			});
+		
+//		//Creating horizontal box, adding pane and adding it to grid
+//		HBox hbBtn = new HBox(10);
+//		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+//		hbBtn.getChildren().add(submitPane);
+		
+		//EventHandling and error checking for empty textfield
+		Text error = new Text();
+		
+		submitBtn.setOnMouseClicked(event -> {
+		    if (charNameBox.getText().isEmpty() == true) {
+			se.errorSound();
+			error.setFill(Color.WHITE);
+			DropShadow d = new DropShadow(10, Color.BLACK);
+			error.setEffect(d);
+			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
+			error.setText("Please Enter Your Name");
+		    } else {
+			openingMusic.stop();
+			String name = charNameBox.getText();
+			setHeroName(name);
+			createHero();
+			se.transitionSound();
+			battleScreen(primaryStage);
+		    }
+		});
+		
 		//Adding label and text field to grid
 		getName.add(charName, 0, 0);
 		getName.add(charNameBox, 0, 1);
+		getName.add(error, 0, 2);
 
+
+		// Fixed height for rows 
+		for (int i = 0; i < 3; i++) {
+			RowConstraints row = new RowConstraints(40);
+			getName.getRowConstraints().add(row);
+		}
+		
 		//Configuring and style to grid and label
 		getName.setVgap(10);
 		getName.setHgap(10);
@@ -294,48 +363,10 @@ public class GameGUI extends Application {
 		ds.setColor(Color.ANTIQUEWHITE);
 		charName.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
 		charName.setEffect(ds);
-
-		//Creating button and creating event handling for when the button is pressed
-		Image btnBackGround = new Image("startButton.png", 400, 60, false, false);
-		ImageView submitBtn = new ImageView(btnBackGround);
-		Text submit = new Text("Enter Tower Floor 1");
-		submit.setStroke(Color.BROWN);
-		submit.setStrokeWidth(0.5);
-		submit.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		submit.setFill(Color.BLACK);
-		StackPane submitPane = new StackPane();
-		submitPane.getChildren().addAll(submitBtn,submit);
-		submitPane.setAlignment(Pos.CENTER);
 		
-		//Creating horizontal box, adding pane and adding it to grid
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(submitPane);
-		getName.add(hbBtn, 0, 4);
-		
-		//EventHandling and error checking for empty textfield
-		Text error = new Text();
-		getName.add(error, 0, 6);
-		
-		submitPane.setOnMouseClicked(event -> {
-		    if (charNameBox.getText().isEmpty() == true) {
-			se.errorSound();
-			error.setFill(Color.RED);
-			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
-			error.setText("Please enter name to continue.");
-		    } else {
-			openingMusic.stop();
-			String name = charNameBox.getText();
-			setHeroName(name);
-			createHero();
-			se.transitionSound();
-			battleScreen(primaryStage);
-		    }
-		});
-
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
-		display.getChildren().addAll(getName);
+		display.getChildren().addAll(getName, backBtn, submitBtn);
 		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
 			"    -fx-background-size: cover;");
 		
@@ -486,7 +517,7 @@ public class GameGUI extends Application {
 	public void shopScreen(Stage primaryStage) {
 		// Create grid pane
 		GridPane root = new GridPane();
-		
+				
 		//Create black dropshadow
 		DropShadow d = new DropShadow(10, Color.BLACK);
 
@@ -558,7 +589,7 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(revive, HPos.CENTER);
 		
 		// Description for revive quantity
-		Text reviveQuant = new Text("MAX ONE AT A TIME");
+		Text reviveQuant = new Text("MAX: 1");
 		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		reviveQuant.setFill(Color.WHITE);
 		reviveQuant.setEffect(d);
@@ -594,11 +625,9 @@ public class GameGUI extends Application {
 		}
 
 		//Creating continue button and adding event handling
-		Button continueBtn = new Button("NEXT FLOOR");
-		continueBtn.setLayoutX(500);
-		continueBtn.setLayoutY(700);
+		Button continueBtn = new Button("Next Floor");
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: gold");		 
+			"-fx-background-color: darkgoldenrod");		 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -636,7 +665,7 @@ public class GameGUI extends Application {
 		root.add(potionList, 2, 8);
 		root.add(errorMsg, 2, 9);
 
-		root.add(continueBtn, 3, 9);
+		root.add(continueBtn, 4, 9);
 		
 		welcome.setTextAlignment(TextAlignment.CENTER);
 		potion1.setTextAlignment(TextAlignment.CENTER);
@@ -667,7 +696,7 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(btnSell2, HPos.CENTER);
 		GridPane.setHalignment(btnBuy3, HPos.CENTER);
 		GridPane.setHalignment(btnSell3, HPos.CENTER);
-		GridPane.setHalignment(continueBtn, HPos.CENTER);
+		GridPane.setHalignment(continueBtn, HPos.LEFT);
 		
 		errorMsg.setWrappingWidth(200);
 
@@ -1021,7 +1050,7 @@ public class GameGUI extends Application {
 		clearedFloor.setEffect(ds);
 		
 		//Creating the buttons play for the player to continue on
-		Button shopBtn = new Button("Go to the Magic Shop");
+		Button shopBtn = new Button("Magic Shop");
 		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
 			"-fx-background-color: darkgoldenrod");
 		shopBtn.setDisable(true);
@@ -1031,7 +1060,7 @@ public class GameGUI extends Application {
 			"-fx-background-color: darkgoldenrod");
 		next.setVisible(false);;
 
-		Button continueBtn = new Button("Continue playing");
+		Button continueBtn = new Button("Next Floor");
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
 			"-fx-background-color: indianred");
 		HBox hbBtn = new HBox(15);
@@ -1136,8 +1165,9 @@ public class GameGUI extends Application {
 			shopBtn.setDisable(false);
 		} 		
 		shopBtn.setOnAction(event -> {
-		    	se.transitionSound();
-			shopScreen(primaryStage);});
+			se.shopSound();
+			shopScreen(primaryStage);
+			});
 		
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
