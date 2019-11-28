@@ -73,6 +73,18 @@ public class SoundEffect {
 	
 	// Shop sound effect//
 	/**
+	 * This method plays a sound when the player enters the shop. 
+	 */
+	public void shopSound() {
+		String musicFile = "./src/shopWelcome.wav";
+		Media sound = new Media(new File(musicFile).toURI().toString());		
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
+		mediaPlayer.setVolume(0.3);		
+	}	
+
+	
+	/**
 	 * This method plays a sound when the player buy or sell an item. 
 	 */
 	public void moneySound() {
