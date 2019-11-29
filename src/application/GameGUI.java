@@ -209,9 +209,6 @@ public class GameGUI extends Application {
 		setMage(false);
 		setWarrior(false);
 		setRogue(false);
-		//-fx-background-repeat: no-repeat;
-		    //-fx-background-position:center;
-		//-fx-background-size: 254px, 30px;
 		
 
 		//Event handling for when each button pane is pressed
