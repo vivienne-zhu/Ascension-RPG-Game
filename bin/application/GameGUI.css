@@ -3,13 +3,10 @@
 	-fx-background-size: cover;
 }
 #yellowBtn {
-	-fx-padding: 8 15 15 15;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+	-fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #A0522D 0%, #8B4513 100%),
-       	#A0522D,
-        #B8860B,
         radial-gradient(center 50% 50%, radius 100%, #FFD800, #B8860B);
    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
    	-fx-font-weight: bold;
@@ -31,13 +28,10 @@
 }
 
 #redBtn {
-    -fx-padding: 8 15 15 15;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
         radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;

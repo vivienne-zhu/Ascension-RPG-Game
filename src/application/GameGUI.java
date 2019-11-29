@@ -284,32 +284,16 @@ public class GameGUI extends Application {
 		Label charName = new Label("Character Name: ");
 		TextField charNameBox = new TextField();
 
-		//Creating submit button and creating event handling for when the button is pressed
-//		Image btnBackGround = new Image("startButton.png", 400, 60, false, false);
-//		ImageView submitBtn = new ImageView(btnBackGround);
-//		Text submit = new Text("Enter Tower Floor 1");
-//		submit.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-//		submit.setFill(Color.BLACK);
-//		StackPane submitPane = new StackPane();
-//		submitPane.getChildren().addAll(submitBtn,submit);
-//		submitPane.setAlignment(Pos.CENTER);
-		
+		//Creating submit button 
 		Button submitBtn = new Button("Enter Floor 1");
-//		submitBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
-//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black " );
 		submitBtn.setId("yellowBtn");
-		submitBtn.getStyleClass().add("yellowBtn");
 		submitBtn.setLayoutX(1050);
 		submitBtn.setLayoutY(600);
 		
 		
 		// Create back button
 		Button backBtn = new Button("Back");
-//		backBtn.setId("yellowBtn");
-//		backBtn.getStyleClass().add("yellowBtn");
-		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
-			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
-		backBtn.setMinWidth(100);
+		backBtn.setId("yellowBtn");
 		backBtn.setLayoutX(100);
 		backBtn.setLayoutY(600);
 		
@@ -317,11 +301,7 @@ public class GameGUI extends Application {
 		backBtn.setOnAction(event -> {se.transitionSound();
 			chooseCharacterScreen(primaryStage);
 			});
-		
-//		//Creating horizontal box, adding pane and adding it to grid
-//		HBox hbBtn = new HBox(10);
-//		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-//		hbBtn.getChildren().add(submitPane);
+	
 		
 		//EventHandling and error checking for empty textfield
 		Text error = new Text();
