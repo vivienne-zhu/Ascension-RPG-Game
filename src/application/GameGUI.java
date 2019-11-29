@@ -198,7 +198,6 @@ public class GameGUI extends Application {
 		StackPane magePane = new StackPane();
 		magePane.getChildren().addAll(ivMage,mage);
 		magePane.setAlignment(Pos.CENTER);
-//		magePane.setPrefSize(100, 50);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
@@ -207,7 +206,6 @@ public class GameGUI extends Application {
 		StackPane warriorPane = new StackPane();
 		warriorPane.getChildren().addAll(ivWarrior,warrior);
 		warriorPane.setAlignment(Pos.CENTER);
-//		warriorPane.setPrefSize(100, 50);
 		//Rogue btn
 		ImageView ivRogue = new ImageView(btnBackGround);
 		Text rogue = new Text("Rogue");
@@ -216,7 +214,6 @@ public class GameGUI extends Application {
 		StackPane roguePane = new StackPane();
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
-//		roguePane.setPrefSize(100, 50);
 		
 		// Clear prior assigned character type
 		setMage(false);
@@ -309,7 +306,7 @@ public class GameGUI extends Application {
 //			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
 		backBtn.setMinWidth(100);
 		backBtn.setLayoutX(100);
-		backBtn.setLayoutY(600);//#DAA400
+		backBtn.setLayoutY(600);
 		
 		// Event handling to back button 
 		backBtn.setOnAction(event -> {se.transitionSound();
