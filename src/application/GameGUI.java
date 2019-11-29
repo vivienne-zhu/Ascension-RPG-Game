@@ -327,11 +327,7 @@ public class GameGUI extends Application {
 		getName.setLayoutX(300);
 		getName.setLayoutY(150);
 		getName.setMinSize(600, 400);
-		charName.setTextFill(Color.BLACK);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.ANTIQUEWHITE);
-		charName.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 50));
-		charName.setEffect(ds);
+		charName.setId("characterNameText");
 		
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
@@ -473,7 +469,6 @@ public class GameGUI extends Application {
 		//towerLevels.setBackground(insideTowerBackground);
 		towerLevels.getChildren().addAll(grid, floorNum);
 		towerLevels.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
-
 		return towerLevels;
 	}
 

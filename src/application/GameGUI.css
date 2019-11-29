@@ -26,7 +26,7 @@
 	-fx-font-size: 100px;
 	-fx-font-weight: bold;
 	-fx-font-style: italic;
-	-fx-effect:dropshadow(gaussian, rgba(210,105,30),10, 0.5, 0.5, 0.5); 
+	-fx-effect:dropshadow(gaussian, rgba(210,105,30),10, 0.5, 0.0, 0.0); 
 }
 
 #characterOptionText {
@@ -34,7 +34,15 @@
 	-fx-font-family: helvetica;
 	-fx-font-size: 75px;
 	-fx-font-weight: bold;
-	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 10, 0.5, 0.0, 0.0); 
+	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 5, 0.5, 0.0, 0.0); 
+}
+
+#characterNameText {
+	-fx-fill: black;
+	-fx-font-family: helvetica;
+	-fx-font-size: 50px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 2, 0.5, 0.0, 0.0); 
 }
 
 #BtnText {
