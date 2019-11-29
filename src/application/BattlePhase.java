@@ -719,7 +719,7 @@ public class BattlePhase {
 			//Enable buttons after 2 seconds per enemy
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+			KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
@@ -744,7 +744,7 @@ public class BattlePhase {
 			//Enable buttons after 2 seconds per enemy
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1600 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+			KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
@@ -1295,9 +1295,19 @@ public class BattlePhase {
 			if (mostHurtEnemy != null) {
 				healerTargetAvail = true;
 				int outerPosition = enemyPosition;
-				moveBackward = new KeyFrame(Duration.millis(744), ae -> {
-					//do nothing
-				});	
+				if (position == 0) {
+					moveBackward = new KeyFrame(Duration.millis(744), ae -> {
+						//do nothing
+					});	
+				} else if (position == 1) {
+					moveBackward = new KeyFrame(Duration.millis(504), ae -> {
+						//do nothing
+					});	
+				} else {
+					moveBackward = new KeyFrame(Duration.millis(274), ae -> {
+						//do nothing
+					});	
+				}
 				heal = new KeyFrame(Duration.millis(1), ae -> {
 					enemyHeal(outerMostHurtEnemy, outerPosition, allEnemies, position, gc);
 				});	
