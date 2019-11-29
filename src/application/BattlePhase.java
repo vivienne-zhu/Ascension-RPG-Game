@@ -166,7 +166,7 @@ public class BattlePhase {
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
 		enemyName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		enemyName.setFill(Color.WHITE);
-		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina());
+		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina() + " / " + allEnemies.get(floor).get(0).getStamina());
 		enemyStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 		enemyStam.setFill(Color.WHITE);
 		if (hero.getType().equals("Mage")) {
@@ -193,7 +193,7 @@ public class BattlePhase {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
 			enemyTwoName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyTwoName.setFill(Color.WHITE);
-			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina());
+			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina() + " / " + allEnemies.get(floor).get(1).getStamina());
 			enemyTwoStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyTwoStam.setFill(Color.WHITE);
 		}
@@ -201,7 +201,7 @@ public class BattlePhase {
 			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
 			enemyThreeName.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyThreeName.setFill(Color.WHITE);
-			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina());
+			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina() + " / " + allEnemies.get(floor).get(2).getStamina());
 			enemyThreeStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			enemyThreeStam.setFill(Color.WHITE);
 		}
@@ -1050,11 +1050,11 @@ public class BattlePhase {
 		}
 
 		if (choice == 0 ) {
-			enemyStam.setText("Stamina: " + enemy.getCurrentStamina());
+			enemyStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		} else if (choice == 1) {
-			enemyTwoStam.setText("Stamina: " + enemy.getCurrentStamina());
+			enemyTwoStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		} else {
-			enemyThreeStam.setText("Stamina: " + enemy.getCurrentStamina());
+			enemyThreeStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		}
 		dialogue.setText("You dealt " + attackAmount + " damage!");
 		dialogueTwo.setText("");

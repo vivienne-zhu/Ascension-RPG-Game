@@ -630,8 +630,10 @@ public class GameGUI extends Application {
 
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Next Floor");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
+		continueBtn.setId("yellowBtn");
+		continueBtn.getStyleClass().add("yellowBtn");
+//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -1055,18 +1057,24 @@ public class GameGUI extends Application {
 		
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
+		shopBtn.setId("yellowBtn");
+		shopBtn.getStyleClass().add("yellowBtn");
+//		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
 		shopBtn.setDisable(true);
 		
 		Button next = new Button("Next");
-		next.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
+		next.setId("yellowBtn");
+		next.getStyleClass().add("yellowBtn");
+//		next.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
 		next.setVisible(false);;
 
 		Button continueBtn = new Button("Next Floor");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");
+		continueBtn.setId("redBtn");
+		continueBtn.getStyleClass().add("redBtn");
+//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");
 		HBox hbBtn = new HBox(15);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
 		hbBtn.setLayoutX(430);
