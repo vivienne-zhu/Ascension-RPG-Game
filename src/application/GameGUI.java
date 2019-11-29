@@ -682,6 +682,7 @@ public class GameGUI extends Application {
 		
 		// Create the scene
 		Scene shopScene = new Scene(root, 1280, 720);
+		shopScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(shopScene);
 		primaryStage.show();
 
