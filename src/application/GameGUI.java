@@ -162,12 +162,15 @@ public class GameGUI extends Application {
 		ft.play();
 		
 		//Adding background image to Pane
-		root.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+		root.setId("startBackground");
+		root.getStyleClass().add("startBackground");
+//		root.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+//			"    -fx-background-size: cover;");
 
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, pane);
 		Scene startScene = new Scene(root, 1280, 720);
+		startScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return startScene;
 	}
 	
@@ -248,8 +251,10 @@ public class GameGUI extends Application {
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
 		display.getChildren().addAll(charOption, btns);
-		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+		display.setId("startBackground");
+		display.getStyleClass().add("startBackground");
+//		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+//			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -259,7 +264,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
-
+		chooseChar.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
 	}
@@ -368,8 +373,10 @@ public class GameGUI extends Application {
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
 		display.getChildren().addAll(getName, backBtn, submitBtn);
-		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+		display.setId("startBackground");
+		display.getStyleClass().add("startBackground");
+//		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+//			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
