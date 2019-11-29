@@ -454,7 +454,7 @@ public class BattlePhase {
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+			KeyFrame frame = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
@@ -462,7 +462,7 @@ public class BattlePhase {
 			//Delete icon after 1.5 secs per enemy
 			Timeline icon = new Timeline(); 
 			icon.setCycleCount(1);
-			KeyFrame iconDisable = new KeyFrame(Duration.millis(1500 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+			KeyFrame iconDisable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
 			gc.clearRect(140, 280, 80, 80));
 			icon.getKeyFrames().add(iconDisable);
 			icon.play();
@@ -986,15 +986,17 @@ public class BattlePhase {
 		totalEnemyHealth -= attackAmount;
 		hero.setIsEmpowered(false);
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
+		
+		dialogue.setText("You dealt " + attackAmount + " damage!");
+		dialogueTwo.setText("");
+		dialogueThree.setText("");
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
 			// Add death sound effect 		
-			se.enemyDeathSound();
-			
+			se.enemyDeathSound();		
 			dead.add(choice);
 			dialogueTwo.setText("You have killed the enemy."); 
-			dialogueThree.setText("");//XP stuff and gold stuff will be here
 			enemy.displayCharacter(gc, true, false, false); //deleting picture
 			if (choice == 0) {
 				animateOne.stop();
@@ -1012,7 +1014,6 @@ public class BattlePhase {
 				enemyThreeName.setVisible(false);
 				enemyThreeFullStamBar.setVisible(false);
 			}
-			//	allEnemies.get(floor).remove(choice);	
 		} else {
 			//After 0.1 seconds revert color only if not dead
 			Timeline timeline = new Timeline(); 
@@ -1025,6 +1026,7 @@ public class BattlePhase {
 		//If all enemies dead, move on to next floor
 		if (totalEnemyHealth == 0) {
 			//Transition to next screen after battle after 5 seconds
+			dialogueTwo.setText("You have killed all enemies."); 
 			int xp = 50 * allEnemies.get(floor).size() + floor * 10;
 			hero.setXp(hero.getXp() + xp);
 			if (hero.getXp() >= (50 + hero.getLevel() * 80)) {
@@ -1056,9 +1058,6 @@ public class BattlePhase {
 		} else {
 			enemyThreeStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		}
-		dialogue.setText("You dealt " + attackAmount + " damage!");
-		dialogueTwo.setText("");
-		dialogueThree.setText("");
 	}
 
 	/**
