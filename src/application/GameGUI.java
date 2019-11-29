@@ -305,10 +305,10 @@ public class GameGUI extends Application {
 		
 		// Create back button
 		Button backBtn = new Button("Back");
-		backBtn.setId("yellowBtn");
-		backBtn.getStyleClass().add("yellowBtn");
-//		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
-//			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
+//		backBtn.setId("yellowBtn");
+//		backBtn.getStyleClass().add("yellowBtn");
+		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
+			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
 		backBtn.setMinWidth(100);
 		backBtn.setLayoutX(100);
 		backBtn.setLayoutY(600);
