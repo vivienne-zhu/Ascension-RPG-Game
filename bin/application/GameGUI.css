@@ -62,6 +62,14 @@
 	-fx-effect:dropshadow(gaussian, rgba(255,0,0),10, 0.5, 0.0, 0.0); 
 }
 
+#getNameGrid {
+	-fx-vgap:10;
+	-fx-hgap:10;
+	-fx-padding:10;
+	-fx-alignment: center;
+	-fx-size: 600px,400px;
+}
+
 #clearedFloorText {
 	-fx-fill: black;
 	-fx-stroke: white;
@@ -98,6 +106,18 @@
 	-fx-fill: white;
 	-fx-font-family: helvetica;
 	-fx-font-size: 20px;
+}
+
+#woodenBtn {
+	-fx-background-image: url("/startButton.png");
+	-fx-background-size: 250px, 80px;
+    -fx-background-repeat: no-repeat;
+    -fx-border-width:250px;
+    -fx-padding: 15, 80;
+	-fx-text-fill: black;
+	-fx-font-family: helvetica;
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
 }
 
 #yellowBtn {

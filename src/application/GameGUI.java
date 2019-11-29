@@ -183,12 +183,14 @@ public class GameGUI extends Application {
 		//Creating buttons for user selection, positioning and adding style
 		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
 		//Mage btn
-		ImageView ivMage = new ImageView(btnBackGround);
-		Text mage = new Text("Mage");
-		mage.setId("BtnText");
-		StackPane magePane = new StackPane();
-		magePane.getChildren().addAll(ivMage,mage);
-		magePane.setAlignment(Pos.CENTER);
+		Button mageBtn = new Button("Mage");
+		mageBtn.setId("woodenBtn");
+//		ImageView ivMage = new ImageView(btnBackGround);
+//		Text mage = new Text("Mage");
+//		mage.setId("BtnText");
+//		StackPane magePane = new StackPane();
+//		magePane.getChildren().addAll(ivMage,mage);
+//		magePane.setAlignment(Pos.CENTER);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
@@ -211,7 +213,7 @@ public class GameGUI extends Application {
 		
 
 		//Event handling for when each button pane is pressed
-		magePane.setOnMouseClicked(event -> {
+		mageBtn.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setMage(true);
 			nameCharScreen(primaryStage);
@@ -232,7 +234,7 @@ public class GameGUI extends Application {
 		btns.setAlignment(Pos.CENTER);
 		btns.setLayoutX(500);
 		btns.setLayoutY(400);
-		btns.getChildren().addAll(magePane, warriorPane, roguePane);
+		btns.getChildren().addAll(mageBtn, warriorPane, roguePane);
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
@@ -263,19 +265,19 @@ public class GameGUI extends Application {
 		//Creating grid to be used to house text and text field
 		GridPane getName = new GridPane();
 
-		//Creating label field and text
+		//Creating label field and text, adding style
 		Label charName = new Label("Character Name: ");
 		charName.setId("characterNameText");
 		TextField charNameBox = new TextField();
 
-		//Creating submit button 
+		//Creating submit button, adding style
 		Button submitBtn = new Button("Enter Floor 1");
 		submitBtn.setId("yellowBtn");
 		submitBtn.setLayoutX(1050);
 		submitBtn.setLayoutY(600);
 		
 		
-		// Create back button
+		// Create back button, adding style
 		Button backBtn = new Button("Back");
 		backBtn.setId("yellowBtn");
 		backBtn.setLayoutX(100);
@@ -318,13 +320,9 @@ public class GameGUI extends Application {
 		}
 		
 		//Configuring and style to grid and label
-		getName.setVgap(10);
-		getName.setHgap(10);
-		getName.setPadding(new Insets(10, 10, 10, 10));
-		getName.setAlignment(Pos.CENTER);
-		getName.setLayoutX(300);
-		getName.setLayoutY(150);
-		getName.setMinSize(600, 400);
+		getName.setId("getNameGrid");
+		getName.setLayoutX(400);
+		getName.setLayoutY(250);
 		;
 		
 		//Creating Pane, adding above nodes and background to Pane
@@ -573,7 +571,7 @@ public class GameGUI extends Application {
 		ivPotion2.setEffect(ds2);
 		ivRevive.setEffect(ds2);
 		HBox hbox = new HBox();
-	    HBox hbox1 = new HBox();
+		HBox hbox1 = new HBox();
 		HBox hbox2 = new HBox();
 		hbox.getChildren().add(ivPotion1);
 		hbox1.getChildren().add(ivPotion2);
@@ -587,10 +585,7 @@ public class GameGUI extends Application {
 
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Next Floor");
-		continueBtn.setId("yellowBtn");
-
-//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
+		continueBtn.setId("yellowBtn");	 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -714,9 +709,7 @@ public class GameGUI extends Application {
 		continueBtn.setDisable(true);
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setId("yellowBtn");
-//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");	
+		continueBtn.setId("redBtn");	
 		continueBtn.setOnAction(event -> {
 		    	battleMusic.stop();
 		    	se.transitionSound();
@@ -725,10 +718,7 @@ public class GameGUI extends Application {
 					});
 		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
-		openBtn.setId("redBtn");
-//		openBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: gold;\n" + "-fx-text-fill: black ");
-		
+		openBtn.setId("yellowBtn");		
 		openBtn.setOnAction(Event -> {
 			
 			// Open treasure chest sound effect 
