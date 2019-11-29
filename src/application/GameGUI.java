@@ -184,34 +184,28 @@ public class GameGUI extends Application {
 		charOption.setText("Choose your character type");
 		charOption.setX(180);
 		charOption.setY(350);
-		charOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.WHITE);
-		charOption.setEffect(ds);
+		charOption.setId("characterOptionText");
 		
 		//Creating buttons for user selection, positioning and adding style
 		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
 		//Mage btn
 		ImageView ivMage = new ImageView(btnBackGround);
 		Text mage = new Text("Mage");
-		mage.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		mage.setFill(Color.BLACK);
+		mage.setId("heroBtnText");
 		StackPane magePane = new StackPane();
 		magePane.getChildren().addAll(ivMage,mage);
 		magePane.setAlignment(Pos.CENTER);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
-		warrior.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		warrior.setFill(Color.BLACK);
+		warrior.setId("heroBtnText");
 		StackPane warriorPane = new StackPane();
 		warriorPane.getChildren().addAll(ivWarrior,warrior);
 		warriorPane.setAlignment(Pos.CENTER);
 		//Rogue btn
 		ImageView ivRogue = new ImageView(btnBackGround);
 		Text rogue = new Text("Rogue");
-		rogue.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-		rogue.setFill(Color.BLACK);
+		rogue.setId("heroBtnText");
 		StackPane roguePane = new StackPane();
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
