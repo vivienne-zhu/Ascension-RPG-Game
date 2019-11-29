@@ -349,9 +349,6 @@ public class GameGUI extends Application {
 		Pane display = new Pane();
 		display.getChildren().addAll(getName, backBtn, submitBtn);
 		display.setId("startBackground");
-		display.getStyleClass().add("startBackground");
-//		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-//			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -609,10 +606,10 @@ public class GameGUI extends Application {
 
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Next Floor");
-//		continueBtn.setId("yellowBtn");
-//		continueBtn.getStyleClass().add("yellowBtn");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
+		continueBtn.setId("yellowBtn");
+
+//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -735,8 +732,9 @@ public class GameGUI extends Application {
 		continueBtn.setDisable(true);
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");	
+		continueBtn.setId("yellowBtn");
+//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");	
 		continueBtn.setOnAction(event -> {
 		    	battleMusic.stop();
 		    	se.transitionSound();
@@ -745,8 +743,9 @@ public class GameGUI extends Application {
 					});
 		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
-		openBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: gold;\n" + "-fx-text-fill: black ");
+		openBtn.setId("redBtn");
+//		openBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: gold;\n" + "-fx-text-fill: black ");
 		
 		openBtn.setOnAction(Event -> {
 			
@@ -830,8 +829,7 @@ public class GameGUI extends Application {
 	    
 	    //Creating buttons and adding event handling
 	    Button reviveBtn = new Button("Use revive");
-	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: lightgreen;\n" + "-fx-text-fill: black ");
+	    reviveBtn.setId("whiteBtn");
 	    reviveBtn.setOnAction(event-> {hero.revive();
 	    	battleMusic.stop();
 	    	se.transitionSound();
@@ -839,8 +837,7 @@ public class GameGUI extends Application {
 		});
 	    
 	    Button exitBtn = new Button("Don't use revive");
-	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");
+	    exitBtn.setId("whiteBtn");
 	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
 		});
 	    
@@ -907,11 +904,9 @@ public class GameGUI extends Application {
 
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
-		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: white;\n" + "-fx-text-fill: black ");
+		exitBtn.setId("whiteBtn");
 		Button playAgainBtn = new Button("Play again");
-		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: lightblue;\n" + "-fx-text-fill: black ");
+		playAgainBtn.setId("whiteBtn");
 		HBox hbBtn = new HBox(10);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
@@ -933,7 +928,6 @@ public class GameGUI extends Application {
 		//Adding nodes to pane and set pane background
 		gameWon.getChildren().addAll(hbBtn, youWin, thankYou);
 		gameWon.setId("youWinBackground");
-		
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameWon);
