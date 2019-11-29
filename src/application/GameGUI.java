@@ -163,9 +163,6 @@ public class GameGUI extends Application {
 		
 		//Adding background image to Pane
 		root.setId("startBackground");
-		root.getStyleClass().add("startBackground");
-//		root.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-//			"    -fx-background-size: cover;");
 
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, pane);
@@ -252,10 +249,7 @@ public class GameGUI extends Application {
 		Pane display = new Pane();
 		display.getChildren().addAll(charOption, btns);
 		display.setId("startBackground");
-		display.getStyleClass().add("startBackground");
-//		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-//			"    -fx-background-size: cover;");
-		
+
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
 		ft.setFromValue(0);
@@ -447,12 +441,11 @@ public class GameGUI extends Application {
 	 *           needed for each fight inside the Tower.
 	 */
 	private Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
-	    //Creating pane
+	    	//Creating pane
 		Pane towerLevels = new Pane();
 
 		// To display the background for the floor
-		towerLevels.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
-			"    -fx-background-size: cover;");
+		towerLevels.setId("insideTower");
 		
 		Canvas canvas = new Canvas(1280, 720);
 		towerLevels.getChildren().add(canvas);
@@ -493,7 +486,8 @@ public class GameGUI extends Application {
 		// Setting Background for Pane, adding grid to Pane  
 		//towerLevels.setBackground(insideTowerBackground);
 		towerLevels.getChildren().addAll(grid, floorNum);
-		
+		towerLevels.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
+
 		return towerLevels;
 	}
 
@@ -790,8 +784,7 @@ public class GameGUI extends Application {
 		grid.setHgap(20); 
 		
 		// Set background 
-		grid.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
-			"    -fx-background-size: cover;");
+		grid.setId("insideTower");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -801,6 +794,7 @@ public class GameGUI extends Application {
 		
 		// Create the scene
 		Scene eventScene = new Scene(grid, 1280, 720);
+		eventScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(eventScene);
 		primaryStage.show();
 		
@@ -861,8 +855,7 @@ public class GameGUI extends Application {
 	    display.getChildren().addAll(reviveOption, hbBtn, revive);
 	
 	    // Set background 
-	    display.setStyle(" -fx-background-image: url(\"pixelBackLower1.png\");\n" + 
-			"    -fx-background-size: cover;");
+	    display.setId("insideTower");
 
 	    //Fade Transition
 	    FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
@@ -872,7 +865,7 @@ public class GameGUI extends Application {
 	    
 	    //Adding Pane to Scene and Scene to Stage
 	    Scene reviveScene = new Scene(display, 1280, 720);
-	    reviveScene.setFill(Color.ROYALBLUE);
+	    reviveScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 	    primaryStage.setScene(reviveScene);
 	    primaryStage.show();
 	    return reviveScene;	    
@@ -950,7 +943,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
-		gWon.setFill(Color.GOLD);
+		//gWon.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(gWon);
 		primaryStage.show();
 		return gWon;
@@ -1015,6 +1008,7 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene gOver = new Scene(gameOver, 1280, 720);
 		gOver.setFill(Color.BLACK);
+		gOver.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(gOver);
 		primaryStage.show();
 		return gOver;
@@ -1042,23 +1036,14 @@ public class GameGUI extends Application {
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Magic Shop");
 		shopBtn.setId("yellowBtn");
-		shopBtn.getStyleClass().add("yellowBtn");
-//		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
 		shopBtn.setDisable(true);
 		
 		Button next = new Button("Next");
 		next.setId("yellowBtn");
-		next.getStyleClass().add("yellowBtn");
-//		next.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
 		next.setVisible(false);;
 
 		Button continueBtn = new Button("Next Floor");
 		continueBtn.setId("redBtn");
-		continueBtn.getStyleClass().add("redBtn");
-//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");
 		HBox hbBtn = new HBox(15);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
 		hbBtn.setLayoutX(430);
@@ -1177,7 +1162,6 @@ public class GameGUI extends Application {
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
 		transition.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
-		//transition.setFill(Color.GREY);
 		return transition;
 	}
 

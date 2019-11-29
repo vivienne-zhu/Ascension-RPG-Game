@@ -2,6 +2,11 @@
 	-fx-background-image: url("/Tower.jpg");
 	-fx-background-size: cover;
 }
+
+#insideTower {
+	-fx-background-image: url("/pixelBackLower1.png"); 
+	-fx-background-size: cover;
+}
 #yellowBtn {
 	-fx-padding: 15 15 15 15;
     -fx-background-insets: 0,1,2,3;
