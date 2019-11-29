@@ -29,7 +29,7 @@
 	-fx-effect:dropshadow(gaussian, rgba(210,105,30),10, 0.5, 0.0, 0.0); 
 }
 
-#optionText {
+#characterOptionText {
 	-fx-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 75px;
@@ -113,6 +113,16 @@
 	-fx-fill: white;
 	-fx-font-family: helvetica;
 	-fx-font-size: 20px;
+}
+
+#revive {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-stroke: grey;
+	-fx-stroke-width:0.5;
+	-fx-font-size: 75px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(224,255,255), 15, 0.8, 0.5, 0.5); 
 }
 
 #congrats {

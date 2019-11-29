@@ -99,11 +99,11 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		Scene start = startScreen(primaryStage);
-	    	//Scene test = gameOverScreen(primaryStage);
+		//Scene start = startScreen(primaryStage);
+	    	Scene test = reviveScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		primaryStage.setScene(start);
+		primaryStage.setScene(test);
 		primaryStage.show();
 	}
 
@@ -178,7 +178,7 @@ public class GameGUI extends Application {
 		charOption.setText("Choose your character type");
 		charOption.setX(180);
 		charOption.setY(350);
-		charOption.setId("optionText");
+		charOption.setId("characterOptionText");
 		
 		//Creating buttons for user selection, positioning and adding style
 		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
@@ -780,7 +780,7 @@ public class GameGUI extends Application {
 	    //Creating text for the page
 	    Text reviveOption = new Text();
 	    reviveOption.setText("Would you like to use a revive?");
-	    reviveOption.setId("optionText");
+	    reviveOption.setId("revive");
 	    reviveOption.setX(100);
 	    reviveOption.setY(200);
 	    
