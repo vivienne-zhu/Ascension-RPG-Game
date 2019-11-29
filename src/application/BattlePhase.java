@@ -105,6 +105,8 @@ public class BattlePhase {
 	
 	/**
 	 * This method reset the width of the bar based on game characters' stats in the game.
+	 * If type is equal to 0, it means that it is a stamina bar. 
+	 * If type is equal to 1, it means that it is a mana bar. 
 	 * 
 	 * @param type
 	 * @param barType
