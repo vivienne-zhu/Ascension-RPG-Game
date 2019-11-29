@@ -292,10 +292,7 @@ public class GameGUI extends Application {
 		submitBtn.setOnMouseClicked(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
 			se.errorSound();
-			error.setFill(Color.WHITE);
-			DropShadow d = new DropShadow(10, Color.RED);
-			error.setEffect(d);
-			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
+			error.setId("charNameErrorText");
 			error.setText("Please Enter A Name");
 		    } else {
 			openingMusic.stop();
@@ -328,6 +325,7 @@ public class GameGUI extends Application {
 		getName.setLayoutY(150);
 		getName.setMinSize(600, 400);
 		charName.setId("characterNameText");
+		;
 		
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
