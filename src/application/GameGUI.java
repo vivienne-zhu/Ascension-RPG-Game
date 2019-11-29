@@ -178,19 +178,19 @@ public class GameGUI extends Application {
 		charOption.setText("Choose your character type");
 		charOption.setX(180);
 		charOption.setY(350);
-		charOption.setId("characterOptionText");
+		charOption.setId("optionText");
 		
 		//Creating buttons for user selection, positioning and adding style
 		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
 		//Mage btn
-		Button mageBtn = new Button("Mage");
-		mageBtn.setId("woodenBtn");
-//		ImageView ivMage = new ImageView(btnBackGround);
-//		Text mage = new Text("Mage");
-//		mage.setId("BtnText");
-//		StackPane magePane = new StackPane();
-//		magePane.getChildren().addAll(ivMage,mage);
-//		magePane.setAlignment(Pos.CENTER);
+//		Button mageBtn = new Button("Mage");
+//		mageBtn.setId("woodenBtn");
+		ImageView ivMage = new ImageView(btnBackGround);
+		Text mage = new Text("Mage");
+		mage.setId("BtnText");
+		StackPane magePane = new StackPane();
+		magePane.getChildren().addAll(ivMage,mage);
+		magePane.setAlignment(Pos.CENTER);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
@@ -210,10 +210,13 @@ public class GameGUI extends Application {
 		setMage(false);
 		setWarrior(false);
 		setRogue(false);
+		//-fx-background-repeat: no-repeat;
+		    //-fx-background-position:center;
+		//-fx-background-size: 254px, 30px;
 		
 
 		//Event handling for when each button pane is pressed
-		mageBtn.setOnMouseClicked(event -> {
+		magePane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setMage(true);
 			nameCharScreen(primaryStage);
@@ -234,7 +237,7 @@ public class GameGUI extends Application {
 		btns.setAlignment(Pos.CENTER);
 		btns.setLayoutX(500);
 		btns.setLayoutY(400);
-		btns.getChildren().addAll(mageBtn, warriorPane, roguePane);
+		btns.getChildren().addAll(magePane, warriorPane, roguePane);
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
@@ -398,12 +401,9 @@ public class GameGUI extends Application {
 
 		hero.setCurrentMana(hero.getMana());
 		
-		// Creation of pane -->currently here for GUI testing
+		// Creation of pane, and scene. Adding pane to scene, and scene to stage
 		Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
-
-		// Pane towerLevel = createTowerLevels(primaryStage, tempEnemies); --> Will replace above code
 		Scene insideTower = new Scene(towerLevel, 1280, 720);
-		
 		primaryStage.setScene(insideTower);
 		primaryStage.show();
 
@@ -432,8 +432,7 @@ public class GameGUI extends Application {
 		//To display floor number
 		Text floorNum = new Text();
 		floorNum.setText("Floor " + floor.getFloor());
-		floorNum.setStyle(" -fx-font: normal bold 40px 'serif' ");
-		floorNum.setFill(Color.WHITE);
+		floorNum.setId("floorNumberText");
 		floorNum.setX(600);
 		floorNum.setY(50);
 
@@ -461,8 +460,7 @@ public class GameGUI extends Application {
 		ft.setToValue(1);
 		ft.play();
 
-		// Setting Background for Pane, adding grid to Pane  
-		//towerLevels.setBackground(insideTowerBackground);
+		// Adding grid to Pane , adding stylesheet to pane
 		towerLevels.getChildren().addAll(grid, floorNum);
 		towerLevels.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return towerLevels;
@@ -782,13 +780,9 @@ public class GameGUI extends Application {
 	    //Creating text for the page
 	    Text reviveOption = new Text();
 	    reviveOption.setText("Would you like to use a revive?");
+	    reviveOption.setId("optionText");
 	    reviveOption.setX(100);
 	    reviveOption.setY(200);
-	    reviveOption.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 75));
-	    reviveOption.setFill(Color.WHITE);
-	    DropShadow ds = new DropShadow();
-	    ds.setColor(Color.WHITE);
-	    reviveOption.setEffect(ds);
 	    
 	    //Adding image of revive 
 	    ImageView revive = new ImageView(shop.getReviveImage());
@@ -854,22 +848,12 @@ public class GameGUI extends Application {
 		youWin.setText("Congratulations. YOU WON!");
 		youWin.setX(200);
 		youWin.setY(130);
-		youWin.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 80));
-		youWin.setStroke(Color.WHITE);
-		youWin.setStrokeWidth(1);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.WHITE);
-		youWin.setEffect(ds);
+		youWin.setId("congrats");
 		Text thankYou = new Text();
 		thankYou.setText("Thank you for playing!");
 		thankYou.setX(360);
 		thankYou.setY(550);
-		thankYou.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 60));
-		thankYou.setStroke(Color.WHITE);
-		thankYou.setStrokeWidth(1);
-		DropShadow ds1 = new DropShadow();
-		ds1.setColor(Color.CORNFLOWERBLUE);
-		thankYou.setEffect(ds1);
+		thankYou.setId("thankYou");
 
 		//Creating Pane 
 		Pane gameWon = new Pane();

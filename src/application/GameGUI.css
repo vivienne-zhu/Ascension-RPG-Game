@@ -29,7 +29,7 @@
 	-fx-effect:dropshadow(gaussian, rgba(210,105,30),10, 0.5, 0.0, 0.0); 
 }
 
-#characterOptionText {
+#optionText {
 	-fx-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 75px;
@@ -70,6 +70,13 @@
 	-fx-size: 600px,400px;
 }
 
+#floorNumberText{
+	-fx-fill: white;
+	-fx-font-family: serif;
+	-fx-font-size: 40px;
+	-fx-font-weight: bold;
+}
+
 #clearedFloorText {
 	-fx-fill: black;
 	-fx-stroke: white;
@@ -108,12 +115,32 @@
 	-fx-font-size: 20px;
 }
 
-#woodenBtn {
+#congrats {
+	-fx-fill: black;
+	-fx-stroke: white;
+	-fx-stroke-width:1;
+	-fx-font-family: impact;
+	-fx-font-size: 80px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 10, 0.5, 0.0, 0.0); 
+}
+
+#thankYou {
+	-fx-fill: black;
+	-fx-stroke: white;
+	-fx-stroke-width:1;
+	-fx-font-family: impact;
+	-fx-font-size: 60px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(100,149,237), 10, 0.5, 0.0, 0.0); 
+}
+
+#woodenBtn.button {
 	-fx-background-image: url("/startButton.png");
-	-fx-background-size: 250px, 80px;
-    -fx-background-repeat: no-repeat;
-    -fx-border-width:250px;
-    -fx-padding: 15, 80;
+	-fx-background-size:230px,70px;
+    -fx-min-width:230px;
+    -fx-min-height:70px;
+    -fx-border-color: none;
 	-fx-text-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 30px;
