@@ -8,7 +8,7 @@
         #B8860B,
         radial-gradient(center 50% 50%, radius 100%, #FFD800, #B8860B);
    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-   	 -fx-font-weight: bold;
+   	-fx-font-weight: bold;
 	-fx-font-family: serif;
 	-fx-text-fill: black;
     -fx-font-size: 20px;   
@@ -37,7 +37,9 @@
         radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;  
 }
 #redBtn:hover {
     -fx-background-color: 
@@ -49,8 +51,4 @@
 #redBtn:pressed {
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
-}
-#redBtn Text {
-    -fx-fill: white;
-    -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
 }

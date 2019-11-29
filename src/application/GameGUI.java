@@ -630,10 +630,10 @@ public class GameGUI extends Application {
 
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Next Floor");
-		continueBtn.setId("yellowBtn");
-		continueBtn.getStyleClass().add("yellowBtn");
-//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
+//		continueBtn.setId("yellowBtn");
+//		continueBtn.getStyleClass().add("yellowBtn");
+		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -1192,6 +1192,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
+		transition.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		//transition.setFill(Color.GREY);
 		return transition;
 	}
