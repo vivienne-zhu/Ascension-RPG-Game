@@ -162,12 +162,15 @@ public class GameGUI extends Application {
 		ft.play();
 		
 		//Adding background image to Pane
-		root.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+		root.setId("startBackground");
+		root.getStyleClass().add("startBackground");
+//		root.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+//			"    -fx-background-size: cover;");
 
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, pane);
 		Scene startScene = new Scene(root, 1280, 720);
+		startScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return startScene;
 	}
 	
@@ -198,7 +201,6 @@ public class GameGUI extends Application {
 		StackPane magePane = new StackPane();
 		magePane.getChildren().addAll(ivMage,mage);
 		magePane.setAlignment(Pos.CENTER);
-//		magePane.setPrefSize(100, 50);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
@@ -207,7 +209,6 @@ public class GameGUI extends Application {
 		StackPane warriorPane = new StackPane();
 		warriorPane.getChildren().addAll(ivWarrior,warrior);
 		warriorPane.setAlignment(Pos.CENTER);
-//		warriorPane.setPrefSize(100, 50);
 		//Rogue btn
 		ImageView ivRogue = new ImageView(btnBackGround);
 		Text rogue = new Text("Rogue");
@@ -216,7 +217,6 @@ public class GameGUI extends Application {
 		StackPane roguePane = new StackPane();
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
-//		roguePane.setPrefSize(100, 50);
 		
 		// Clear prior assigned character type
 		setMage(false);
@@ -251,8 +251,10 @@ public class GameGUI extends Application {
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
 		display.getChildren().addAll(charOption, btns);
-		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+		display.setId("startBackground");
+		display.getStyleClass().add("startBackground");
+//		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+//			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -262,7 +264,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
-
+		chooseChar.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
 	}
@@ -293,18 +295,22 @@ public class GameGUI extends Application {
 //		submitPane.setAlignment(Pos.CENTER);
 		
 		Button submitBtn = new Button("Enter Floor 1");
-		submitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod");	
-		submitBtn.setLayoutX(1100);
+//		submitBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black " );
+		submitBtn.setId("yellowBtn");
+		submitBtn.getStyleClass().add("yellowBtn");
+		submitBtn.setLayoutX(1050);
 		submitBtn.setLayoutY(600);
 		
 		
 		// Create back button
 		Button backBtn = new Button("Back");
-		backBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod");	
+		backBtn.setId("yellowBtn");
+		backBtn.getStyleClass().add("yellowBtn");
+//		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
+//			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
 		backBtn.setMinWidth(100);
-		backBtn.setLayoutX(70);
+		backBtn.setLayoutX(100);
 		backBtn.setLayoutY(600);
 		
 		// Event handling to back button 
@@ -324,10 +330,10 @@ public class GameGUI extends Application {
 		    if (charNameBox.getText().isEmpty() == true) {
 			se.errorSound();
 			error.setFill(Color.WHITE);
-			DropShadow d = new DropShadow(10, Color.BLACK);
+			DropShadow d = new DropShadow(10, Color.RED);
 			error.setEffect(d);
 			error.setStyle(" -fx-font: normal bold 30px 'serif' ");
-			error.setText("Please Enter Your Name");
+			error.setText("Please Enter A Name");
 		    } else {
 			openingMusic.stop();
 			String name = charNameBox.getText();
@@ -367,8 +373,10 @@ public class GameGUI extends Application {
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
 		display.getChildren().addAll(getName, backBtn, submitBtn);
-		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
-			"    -fx-background-size: cover;");
+		display.setId("startBackground");
+		display.getStyleClass().add("startBackground");
+//		display.setStyle(" -fx-background-image: url(\"Tower.jpg\");\n" + 
+//			"    -fx-background-size: cover;");
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
@@ -378,6 +386,7 @@ public class GameGUI extends Application {
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
+		chooseCharName.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseCharName);
 		primaryStage.show();
 
@@ -525,8 +534,7 @@ public class GameGUI extends Application {
 		Text welcome = new Text("Magic Shop");
 		welcome.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
 		welcome.setFill(Color.WHITE);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.MEDIUMSLATEBLUE);
+		DropShadow ds = new DropShadow(10, Color.MEDIUMSLATEBLUE);
 		welcome.setEffect(ds);
 		GridPane.setHalignment(welcome, HPos.CENTER);
 
@@ -541,14 +549,14 @@ public class GameGUI extends Application {
 		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potionList.setFill(Color.WHITE);
 		potionList.setEffect(d);
-		potionList.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
+		potionList.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 
 		// Description for cheap potion
 		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
 		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potion1.setFill(Color.WHITE);
 		potion1.setEffect(d);
-		potion1.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
+		potion1.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 
 		// Input quantity for cheap potion
 		TextField quantity1 = new TextField("Quantity");
@@ -566,7 +574,7 @@ public class GameGUI extends Application {
 		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potion2.setFill(Color.WHITE);
 		potion2.setEffect(d);
-		potion2.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
+		potion2.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 
 		// Input quantity for hyper potion
 		TextField quantity2 = new TextField("Quantity");
@@ -585,7 +593,7 @@ public class GameGUI extends Application {
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		revive.setFill(Color.WHITE);
 		revive.setEffect(d);
-		revive.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
+		revive.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 		GridPane.setHalignment(revive, HPos.CENTER);
 		
 		// Description for revive quantity
@@ -593,7 +601,7 @@ public class GameGUI extends Application {
 		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		reviveQuant.setFill(Color.WHITE);
 		reviveQuant.setEffect(d);
-		reviveQuant.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 0.5;");
+		reviveQuant.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 		GridPane.setHalignment(reviveQuant, HPos.CENTER);
 
 		// Buy and sell for revive 
@@ -626,8 +634,10 @@ public class GameGUI extends Application {
 
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Next Floor");
+//		continueBtn.setId("yellowBtn");
+//		continueBtn.getStyleClass().add("yellowBtn");
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod");		 
+			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");		 
 		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
 		    continueBtn.setOnAction(event -> {
@@ -751,7 +761,7 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutX(500);
 		continueBtn.setLayoutY(700);
 		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: indianred");	
+			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");	
 		continueBtn.setOnAction(event -> {
 		    	battleMusic.stop();
 		    	se.transitionSound();
@@ -761,7 +771,7 @@ public class GameGUI extends Application {
 		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
 		openBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: gold");
+			"-fx-background-color: gold;\n" + "-fx-text-fill: black ");
 		
 		openBtn.setOnAction(Event -> {
 			
@@ -846,7 +856,7 @@ public class GameGUI extends Application {
 	    //Creating buttons and adding event handling
 	    Button reviveBtn = new Button("Use revive");
 	    reviveBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: lightgreen");
+			"-fx-background-color: lightgreen;\n" + "-fx-text-fill: black ");
 	    reviveBtn.setOnAction(event-> {hero.revive();
 	    	battleMusic.stop();
 	    	se.transitionSound();
@@ -855,7 +865,7 @@ public class GameGUI extends Application {
 	    
 	    Button exitBtn = new Button("Don't use revive");
 	    exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: indianred");
+			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");
 	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
 		});
 	    
@@ -924,10 +934,10 @@ public class GameGUI extends Application {
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
 		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: white");
+			"-fx-background-color: white;\n" + "-fx-text-fill: black ");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: lightblue");
+			"-fx-background-color: lightblue;\n" + "-fx-text-fill: black ");
 		HBox hbBtn = new HBox(10);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
@@ -988,10 +998,10 @@ public class GameGUI extends Application {
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
 		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: red");
+			"-fx-background-color: red;\n" + "-fx-text-fill: black ");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: red");
+			"-fx-background-color: red;\n" + "-fx-text-fill: black ");
 		HBox hbBtn = new HBox(25);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
@@ -1051,18 +1061,24 @@ public class GameGUI extends Application {
 		
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Magic Shop");
-		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod");
+		shopBtn.setId("yellowBtn");
+		shopBtn.getStyleClass().add("yellowBtn");
+//		shopBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
 		shopBtn.setDisable(true);
 		
 		Button next = new Button("Next");
-		next.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod");
+		next.setId("yellowBtn");
+		next.getStyleClass().add("yellowBtn");
+//		next.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black ");
 		next.setVisible(false);;
 
 		Button continueBtn = new Button("Next Floor");
-		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: indianred");
+		continueBtn.setId("redBtn");
+		continueBtn.getStyleClass().add("redBtn");
+//		continueBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
+//			"-fx-background-color: indianred;\n" + "-fx-text-fill: black ");
 		HBox hbBtn = new HBox(15);
 		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
 		hbBtn.setLayoutX(430);
@@ -1180,6 +1196,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
+		transition.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		//transition.setFill(Color.GREY);
 		return transition;
 	}
