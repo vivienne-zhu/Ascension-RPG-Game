@@ -293,21 +293,23 @@ public class GameGUI extends Application {
 //		submitPane.setAlignment(Pos.CENTER);
 		
 		Button submitBtn = new Button("Enter Floor 1");
-		submitBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
-			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black " );
+//		submitBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
+//			"-fx-background-color: darkgoldenrod;\n" + "-fx-text-fill: black " );
+		submitBtn.setId("yellowBtn");
+		submitBtn.getStyleClass().add("yellowBtn");
 		submitBtn.setLayoutX(1050);
 		submitBtn.setLayoutY(600);
 		
 		
 		// Create back button
 		Button backBtn = new Button("Back");
-		backBtn.setId("backBtn");
-		backBtn.getStyleClass().add("backBtn");
+		backBtn.setId("yellowBtn");
+		backBtn.getStyleClass().add("yellowBtn");
 //		backBtn.setStyle(" -fx-font: normal bold 23px 'serif';\n" + 
 //			"-fx-text-fill: black;\n " + "-fx-background-color: darkgoldenrod;\n"  );	
 		backBtn.setMinWidth(100);
 		backBtn.setLayoutX(100);
-		backBtn.setLayoutY(600);
+		backBtn.setLayoutY(600);//#DAA400
 		
 		// Event handling to back button 
 		backBtn.setOnAction(event -> {se.transitionSound();
