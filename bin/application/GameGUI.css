@@ -18,102 +18,15 @@
 	-fx-background-size: cover;
 }
 
-#yellowBtn {
-	-fx-padding: 15 15 15 15;
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 6;
-    -fx-background-color: 
-        radial-gradient(center 50% 50%, radius 100%, #FFD800, #B8860B);
-   	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-   	-fx-font-weight: bold;
-	-fx-font-family: serif;
-	-fx-text-fill: black;
-    -fx-font-size: 20px;   
-  }
-  
-#yellowBtn:hover {
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #A0522D 0%, #8B4513 100%),
-        #A0522D,
-        #B8860B,
-        radial-gradient(center 50% 50%, radius 100%, #FFFF00, #DAA520);
-}
-#yellowBtn:pressed {
-    -fx-padding: 10 15 13 15;
-    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
-}
-
-#redBtn {
-    -fx-padding: 15 15 15 15;
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 6;
-    -fx-background-color: 
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-	-fx-font-family: serif;
-	-fx-text-fill: black;
-    -fx-font-size: 20px;  
-}
-#redBtn:hover {
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #FF8C00, #c54e2c);
-}
-#redBtn:pressed {
-    -fx-padding: 10 15 13 15;
-    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
-}
-
-#whiteBtn {
-	-fx-padding: 15 15 15 15;
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 6;
-    -fx-background-color: 
-        radial-gradient(center 50% 50%, radius 100%, #FFFFFF, #E0FFFF);
-   	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-   	-fx-font-weight: bold;
-	-fx-font-family: serif;
-	-fx-text-fill: black;
-    -fx-font-size: 20px;   
-  }
-  
-#whiteBtn:hover {
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #A9A9A9 0%, #C0C0C0 100%),
-        #B0C4DE,
-        #87CEFA,
-        radial-gradient(center 50% 50%, radius 100%, #E0FFFF, #ADD8E6);
-}
-#whiteBtn:pressed {
-    -fx-padding: 10 15 13 15;
-    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
-}
-
-#gameOverBtn {
-    -fx-padding: 15 15 15 15;
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 6;
-    -fx-background-color: 
-        radial-gradient(center 50% 50%, radius 100%, #DC143C, #B22222);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-	-fx-font-family: serif;
-	-fx-text-fill: black;
-    -fx-font-size: 20px;  
-}
-#gameOverBtn:hover {
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #CD5C5C 0%, #8B0000 100%),
-        #B22222,
-        #8B0000,
-        radial-gradient(center 50% 50%, radius 100%, #FF0000, #8B0000);
-}
-#gameOverBtn:pressed {
-    -fx-padding: 10 15 13 15;
-    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+#startText {
+	-fx-fill: url("/Brick.jpeg");
+	-fx-stroke: black;
+	-fx-stroke-width:3;
+	-fx-font-family: helvetica;
+	-fx-font-size: 100px;
+	-fx-font-weight: bold;
+	-fx-font-style: italic;
+	-fx-effect:dropshadow(gaussian, rgba(210,105,30),10, 0.5, 0.5, 0.5); 
 }
 
 #characterOptionText {
@@ -124,7 +37,7 @@
 	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 10, 0.5, 0.0, 0.0); 
 }
 
-#heroBtnText {
+#BtnText {
 	-fx-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 30px;
@@ -169,6 +82,108 @@
 	-fx-font-size: 20px;
 }
 
+#yellowBtn {
+	-fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 6;
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 100%, #FFD800, #B8860B);
+   	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+   	-fx-font-weight: bold;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;   
+}
+  
+#yellowBtn:hover {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #A0522D 0%, #8B4513 100%),
+        #A0522D,
+        #B8860B,
+        radial-gradient(center 50% 50%, radius 100%, #FFFF00, #DAA520);
+}
 
+#yellowBtn:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+#redBtn {
+    -fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 6;
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;  
+}
+
+#redBtn:hover {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #FF8C00, #c54e2c);
+}
+
+#redBtn:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+#whiteBtn {
+	-fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 6;
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 100%, #FFFFFF, #E0FFFF);
+   	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+   	-fx-font-weight: bold;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;   
+  }
+  
+#whiteBtn:hover {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #A9A9A9 0%, #C0C0C0 100%),
+        #B0C4DE,
+        #87CEFA,
+        radial-gradient(center 50% 50%, radius 100%, #E0FFFF, #ADD8E6);
+}
+
+#whiteBtn:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+#gameOverBtn {
+    -fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 6;
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 100%, #DC143C, #B22222);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;  
+}
+
+#gameOverBtn:hover {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #CD5C5C 0%, #8B0000 100%),
+        #B22222,
+        #8B0000,
+        radial-gradient(center 50% 50%, radius 100%, #FF0000, #8B0000);
+}
+
+#gameOverBtn:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
 #startPane {
 }

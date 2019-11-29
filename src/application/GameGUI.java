@@ -122,12 +122,11 @@ public class GameGUI extends Application {
 		Image btn = new Image("startButton.png", 250, 80, false, false);		
 		ImageView iv = new ImageView(btn);
 		Text start = new Text("START");
-		start.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 35));
-		start.setFill(Color.BLACK);
+		start.setId("BtnText");
 		
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(iv,start);
-		pane.setId("startPane");
+		//pane.setId("startPane");
 		pane.setAlignment(Pos.CENTER);
 		pane.setLayoutX(525);
 		pane.setLayoutY(470);
@@ -140,17 +139,12 @@ public class GameGUI extends Application {
 		title.setText("Tower Challenge");
 		title.setX(250);
 		title.setY(400);
-		title.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.ITALIC, 100));
-		title.setStroke(Color.BLACK);
-		title.setStrokeWidth(3);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.FIREBRICK);
-		title.setEffect(ds);
+		title.setId("startText");
 
 		//Adding image fill to Title text
-		Image brick = new Image("Brick.jpeg");
-		ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
-		title.setFill(fill);
+//		Image brick = new Image("Brick.jpeg");
+//		ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
+//		title.setFill(fill);
 		
 		//Mediaplayer for music
 		openingMusic.play();
@@ -191,21 +185,21 @@ public class GameGUI extends Application {
 		//Mage btn
 		ImageView ivMage = new ImageView(btnBackGround);
 		Text mage = new Text("Mage");
-		mage.setId("heroBtnText");
+		mage.setId("BtnText");
 		StackPane magePane = new StackPane();
 		magePane.getChildren().addAll(ivMage,mage);
 		magePane.setAlignment(Pos.CENTER);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
-		warrior.setId("heroBtnText");
+		warrior.setId("BtnText");
 		StackPane warriorPane = new StackPane();
 		warriorPane.getChildren().addAll(ivWarrior,warrior);
 		warriorPane.setAlignment(Pos.CENTER);
 		//Rogue btn
 		ImageView ivRogue = new ImageView(btnBackGround);
 		Text rogue = new Text("Rogue");
-		rogue.setId("heroBtnText");
+		rogue.setId("BtnText");
 		StackPane roguePane = new StackPane();
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
