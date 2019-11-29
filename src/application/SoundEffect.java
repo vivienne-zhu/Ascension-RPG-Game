@@ -15,59 +15,51 @@ import javafx.scene.media.MediaPlayer;
 public class SoundEffect {
 	private MediaPlayer mediaPlayer;
 	
+	/**
+	 * This method adds the necessary music file to the media player 
+	 * instance variable and sets the volume
+	 * @param musicFile The string name of the music/sound file path
+	 * @param volume The double of the volume to be set
+	 */
+	private MediaPlayer createSound(String musicFile, double volume) {
+	    	Media sound = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.setVolume(volume);
+		return mediaPlayer;
+	}
 	// Battle sound effects//
 	/**
 	 * This method plays the sword swing sound effect.
 	 */
 	public void swingSound() {
-		String musicFile = "./src/swing2.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.1);
+	    createSound("./src/swing2.wav", 0.1).play();
 	}
 
 	/**
 	 * This method plays the sound effect when magic is used.
 	 */
 	public void magicSound() {
-		String musicFile = "./src/fireball.mp3";
-		Media sound2 = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound2);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.06);
+	    createSound("./src/fireball.mp3", 0.06).play();
 	}
 	
 	/**
 	 * This method plays a sound when the enemy is killed.
 	 */
 	public void enemyDeathSound() {
-		String musicFile = "./src/enemyDeath.wav";
-		Media sound3 = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound3);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.5);		
+	    createSound("./src/enemyDeath.wav", 0.5).play();		
 	}
 	/**
 	 * This method plays a sound when the hero is killed.
 	 */
 	public void heroDeathSound() {
-		String musicFile = "./src/heroDeath2.wav";
-		Media sound3 = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound3);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.5);		
+	    createSound("./src/heroDeath2.wav", 0.5).play();		
 	}
 	
 	/**
 	 * This method plays a sound when the hero uses any types of the potion. 
 	 */
 	public void healSound() {
-		String musicFile = "./src/healSound.wav";
-		Media sound3 = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound3);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.5);		
+	    createSound("./src/healSound.wav", 0.5).play();		
 	}
 	
 	
@@ -76,11 +68,7 @@ public class SoundEffect {
 	 * This method plays a sound when the player enters the shop. 
 	 */
 	public void shopSound() {
-		String musicFile = "./src/shopWelcome.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());		
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.3);		
+	    createSound("./src/shopWelcome.wav", 0.3).play();	
 	}	
 
 	
@@ -88,11 +76,7 @@ public class SoundEffect {
 	 * This method plays a sound when the player buy or sell an item. 
 	 */
 	public void moneySound() {
-		String musicFile = "./src/goldSound.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());		
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.3);		
+	    createSound("./src/goldSound.wav", 0.3).play();	
 	}
 	
 	// Event sound effect//
@@ -101,11 +85,7 @@ public class SoundEffect {
 	 */
 	
 	public void openChestSound() {
-		String musicFile = "./src/chestOpening.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.8);		
+	    createSound("./src/chestOpening.wav", 0.8).play();	
 	}
 	
 	// General sound effect//
@@ -114,21 +94,13 @@ public class SoundEffect {
 	 * This method plays a sound when there is an error.
 	 */
 	public void errorSound() {
-		String musicFile = "./src/error.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.6);		
+	    createSound("./src/error.wav", 0.6).play();	
 	}
 	/**
 	 * Method allows us to play the same sound when buttons are pressed
 	 */
 	public void transitionSound() {
-	    String musicFile = "./src/startSound.wav";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-		mediaPlayer.setVolume(0.1);
+	    createSound("./src/startSound.wav", 0.1).play();
 	}
 	
 	// Creating media players for songs//
@@ -139,11 +111,8 @@ public class SoundEffect {
 	 * @return mediaPlayer music media player
 	 */
 	public MediaPlayer openingMusic() {
-	    String musicFile = "./src/startMusic.wav";
-	    Media sound = new Media(new File(musicFile).toURI().toString());
-	    mediaPlayer = new MediaPlayer(sound);
-	    mediaPlayer.setVolume(0.2);
-	    return mediaPlayer;
+	    
+	    return createSound( "./src/startMusic.wav", 0.2);
 	}
 	
 	/**
@@ -152,11 +121,7 @@ public class SoundEffect {
 	 * @return mediaPlayer  music media player
 	 */
 	public MediaPlayer gameOverMusic() {
-	    String musicFile = "./src/gameoverMusic.wav";
-	    Media sound = new Media(new File(musicFile).toURI().toString());
-	    mediaPlayer = new MediaPlayer(sound);
-	    mediaPlayer.setVolume(0.2);
-	    return mediaPlayer;
+	    return createSound("./src/gameoverMusic.wav", 0.2);
 	}
 
 	/**
@@ -165,11 +130,7 @@ public class SoundEffect {
 	 * @return mediaPlayer  music media player
 	 */
 	public MediaPlayer youWinMusic() {
-	    String musicFile = "./src/youWinSong.wav";
-	    Media sound = new Media(new File(musicFile).toURI().toString());
-	    mediaPlayer = new MediaPlayer(sound);
-	    mediaPlayer.setVolume(0.2);
-	    return mediaPlayer;
+	    return createSound("./src/youWinSong.wav", 0.2);
 	}
 	
 	/**
@@ -178,11 +139,7 @@ public class SoundEffect {
 	 * @return mediaPlayer music media player
 	 */
 	public MediaPlayer backgroundMusic() {
-	    String musicFile = "./src/fightmusiccut.mp3";
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.setVolume(0.03);
-		return mediaPlayer;
+	    return createSound("./src/fightmusiccut.mp3", 0.03);
 	}
 
 	
