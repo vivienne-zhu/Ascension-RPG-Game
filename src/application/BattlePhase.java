@@ -1418,6 +1418,7 @@ public class BattlePhase {
 			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int position, GraphicsContext gc) {
 		
 		int healAmt = allEnemies.get(floor).get(position).enemyHeal(outerMostHurtEnemy);
+		totalEnemyHealth += healAmt;
 		outerMostHurtEnemy.displayCharacter(gc, false, false, true);
 
 		Timeline enemyWhite = new Timeline();
