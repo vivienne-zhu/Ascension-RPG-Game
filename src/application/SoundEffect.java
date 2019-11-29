@@ -100,7 +100,7 @@ public class SoundEffect {
 	 * Method allows us to play the same sound when buttons are pressed
 	 */
 	public void transitionSound() {
-	    createSound("./src/startSound.wav", 0.1).play();
+	    createSound("./src/startSound.wav", 0.2).play();
 	}
 	
 	// Creating media players for songs//
@@ -112,7 +112,7 @@ public class SoundEffect {
 	 */
 	public MediaPlayer openingMusic() {
 	    
-	    return createSound( "./src/startMusic.wav", 0.2);
+	    return createSound( "./src/startMusic.wav", 0.5);
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class SoundEffect {
 	 * @return mediaPlayer  music media player
 	 */
 	public MediaPlayer gameOverMusic() {
-	    return createSound("./src/gameoverMusic.wav", 0.2);
+	    return createSound("./src/gameoverMusic.wav", 0.5);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class SoundEffect {
 	 * @return mediaPlayer  music media player
 	 */
 	public MediaPlayer youWinMusic() {
-	    return createSound("./src/youWinSong.wav", 0.2);
+	    return createSound("./src/youWinSong.wav", 0.5);
 	}
 	
 	/**

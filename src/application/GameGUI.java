@@ -99,11 +99,11 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		//Scene start = startScreen(primaryStage);
-	    	Scene test = gameOverScreen(primaryStage);
+		Scene start = startScreen(primaryStage);
+	    	//Scene test = gameOverScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		primaryStage.setScene(test);
+		primaryStage.setScene(start);
 		primaryStage.show();
 	}
 
@@ -1023,14 +1023,9 @@ public class GameGUI extends Application {
 	    	//Creating text for the page
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
+		clearedFloor.setId("clearedFloorText");
 		clearedFloor.setX(320);
 		clearedFloor.setY(120);
-		clearedFloor.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, 75));
-		clearedFloor.setStroke(Color.WHITE);
-		clearedFloor.setStrokeWidth(1);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.GOLD);
-		clearedFloor.setEffect(ds);
 		
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Magic Shop");
@@ -1060,15 +1055,13 @@ public class GameGUI extends Application {
 		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
-		goldGained.setFill(Color.WHITE);
-		goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
-			
+		goldGained.setId("xpAndGoldText");
+		
 		Text xpGained = new Text();
 		int xp= 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
 		xpCount += xp;
 		xpGained.setText("You gained " + xp + " xp! Xp = " + xpCount);
-		xpGained.setFill(Color.WHITE);
-		xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		xpGained.setId("xpAndGoldText");
 		
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
@@ -1097,22 +1090,17 @@ public class GameGUI extends Application {
 		    continueBtn.setVisible(true);
 		    shopBtn.setVisible(true);
 			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
-			atkUp.setFill(Color.WHITE);
-			atkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			atkUp.setId("staminaLevelUpdates");
 			stamUp.setText("Your stamina went up by " + hero.getStaminaUp() + ". Stamina =  " + hero.getStamina());
-			stamUp.setFill(Color.WHITE);
-			stamUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			stamUp.setId("staminaLevelUpdates");
 			defUp.setText("Your defense went up by " + hero.getDefenseUp() + ". Defense =  " + hero.getDefense());
-			defUp.setFill(Color.WHITE);
-			defUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			defUp.setId("staminaLevelUpdates");
 		    
 			if(hero.getType().contentEquals("Mage")) {
 			    mAtkUp.setText("Your  magic attack went up by " + hero.getMagicAtkUp() + ". Magic Attack =  " + hero.getMagicAtk());
-			    mAtkUp.setFill(Color.WHITE);
-			    mAtkUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			    mAtkUp.setId("staminaLevelUpdates");
 			    manaUp.setText("Your attack went up by " + hero.getManaUp() + ". Mana =  " + hero.getMana());
-			    manaUp.setFill(Color.WHITE);
-			    manaUp.setFont(Font.font("helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			    manaUp.setId("staminaLevelUpdates");
 			};});
 		   	    
 		}

@@ -79,6 +79,27 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
 
+#clearedFloorText {
+	-fx-fill: black;
+	-fx-stroke: white;
+	-fx-stroke-width:1;
+	-fx-font-family: impact;
+	-fx-font-size: 75px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(255,215,0), 10, 0.5, 0.0, 0.0); 
+}
+#xpAndGoldText {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
+}
+
+#staminaLevelUpdates {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-font-size: 20px;
+}
 
 #startPane {
 }
