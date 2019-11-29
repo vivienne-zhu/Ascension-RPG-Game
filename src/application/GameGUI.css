@@ -55,3 +55,30 @@
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
+#gameOverBtn {
+    -fx-padding: 15 15 15 15;
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 6;
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 100%, #DC143C, #B22222);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+	-fx-font-family: serif;
+	-fx-text-fill: black;
+    -fx-font-size: 20px;  
+}
+#gameOverBtn:hover {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #CD5C5C 0%, #8B0000 100%),
+        #B22222,
+        #8B0000,
+        radial-gradient(center 50% 50%, radius 100%, #FF0000, #8B0000);
+}
+#gameOverBtn:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+
+#startPane {
+}

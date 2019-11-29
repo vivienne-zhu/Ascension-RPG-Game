@@ -99,11 +99,11 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		Scene start = startScreen(primaryStage);
-	    	
+		//Scene start = startScreen(primaryStage);
+	    	Scene test = gameOverScreen(primaryStage);
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		primaryStage.setScene(start);
+		primaryStage.setScene(test);
 		primaryStage.show();
 	}
 
@@ -127,6 +127,7 @@ public class GameGUI extends Application {
 		
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(iv,start);
+		pane.setId("startPane");
 		pane.setAlignment(Pos.CENTER);
 		pane.setLayoutX(525);
 		pane.setLayoutY(470);
@@ -970,15 +971,13 @@ public class GameGUI extends Application {
 
 		//Creating the buttons to exit the game or play again
 		Button exitBtn = new Button("Exit game");
-		exitBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: red;\n" + "-fx-text-fill: black ");
+		exitBtn.setId("gameOverBtn");
 		Button playAgainBtn = new Button("Play again");
-		playAgainBtn.setStyle(" -fx-font: normal bold 20px 'serif';\n" + 
-			"-fx-background-color: red;\n" + "-fx-text-fill: black ");
+		playAgainBtn.setId("gameOverBtn");
 		HBox hbBtn = new HBox(25);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
-		hbBtn.setLayoutY(600);
+		hbBtn.setLayoutY(630);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 		
 			  
