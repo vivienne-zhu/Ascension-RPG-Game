@@ -932,8 +932,7 @@ public class GameGUI extends Application {
 
 		//Adding nodes to pane and set pane background
 		gameWon.getChildren().addAll(hbBtn, youWin, thankYou);
-		gameWon.setStyle(" -fx-background-image: url(\"youWin1a.jpg\");\n" + 
-			"-fx-background-size: cover;");
+		gameWon.setId("youWinBackground");
 		
 		
 		//Fade Transition
@@ -944,7 +943,7 @@ public class GameGUI extends Application {
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
-		//gWon.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
+		gWon.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(gWon);
 		primaryStage.show();
 		return gWon;
@@ -959,7 +958,6 @@ public class GameGUI extends Application {
 	 * @return gOver The scene displayed when the player loses the game.
 	 */
 	public Scene gameOverScreen(Stage primaryStage) {
-
 		//Creating the game over image text for the Pane and adding effects
 		Image gameOverText = new Image("gameover.png");
 		ImageView gameOverText2 = new ImageView(gameOverText);
@@ -1074,16 +1072,13 @@ public class GameGUI extends Application {
 		if (xpCount >= (50 + hero.getLevel() * 80)) {
 		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
-		    goldGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 26));
-		    xpGained.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 26));
+		    goldGained.setId("xpAndGoldTwoText");
+		    xpGained.setId("xpAndGoldTwoText");
 		    userUpdate.setLayoutX(340);
 		    userUpdate.setLayoutY(180);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
 			    + "! \n\t\t You regained 20% stamina! \n");
-		    levelUp.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 27));
-		    levelUp.setFill(Color.GOLD);
-		    levelUp.setStroke(Color.WHITE);
-		    levelUp.setStrokeWidth(0.5);
+		    levelUp.setId("levelUpText");
 		    xpCount = 0;
 		    next.setVisible(true);
 		    next.setOnAction(event->{ next.setVisible(false);
@@ -1110,9 +1105,7 @@ public class GameGUI extends Application {
 	
 		//Creating Pane and setting background
 		Pane display = new Pane();
-		display.setStyle(" -fx-background-image: url(\"transition.jpg\");\n" + 
-			"    -fx-background-size: cover;");
-		
+		display.setId("transitionBackground");	
 
 		// Event handling for if there is a special event 
 		this.event.eventHappen();

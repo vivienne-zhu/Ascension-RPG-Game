@@ -7,6 +7,17 @@
 	-fx-background-image: url("/pixelBackLower1.png"); 
 	-fx-background-size: cover;
 }
+
+#transitionBackground {
+	-fx-background-image: url("/transition.jpg");
+	-fx-background-size: cover;
+}
+
+#youWinBackground {
+	-fx-background-image: url("/youWin1a.jpg"); 
+	-fx-background-size: cover;
+}
+
 #yellowBtn {
 	-fx-padding: 15 15 15 15;
     -fx-background-insets: 0,1,2,3;
@@ -95,11 +106,28 @@
 	-fx-font-weight: bold;
 }
 
+#xpAndGoldTwoText {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-font-size: 26px;
+	-fx-font-weight: bold;
+}
+
+#levelUpText {
+	-fx-fill: gold;
+	-fx-font-family: helvetica;
+	-fx-font-size: 27px;
+	-fx-font-weight: bold;
+	-fx-stroke: white;
+	-fx-stroke-width:0.5;
+}
+
 #staminaLevelUpdates {
 	-fx-fill: white;
 	-fx-font-family: helvetica;
 	-fx-font-size: 20px;
 }
+
 
 #startPane {
 }
