@@ -265,6 +265,7 @@ public class GameGUI extends Application {
 
 		//Creating label field and text
 		Label charName = new Label("Character Name: ");
+		charName.setId("characterNameText");
 		TextField charNameBox = new TextField();
 
 		//Creating submit button 
@@ -324,7 +325,6 @@ public class GameGUI extends Application {
 		getName.setLayoutX(300);
 		getName.setLayoutY(150);
 		getName.setMinSize(600, 400);
-		charName.setId("characterNameText");
 		;
 		
 		//Creating Pane, adding above nodes and background to Pane

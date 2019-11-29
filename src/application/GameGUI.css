@@ -38,11 +38,11 @@
 }
 
 #characterNameText {
-	-fx-fill: black;
+	-fx-text-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 50px;
 	-fx-font-weight: bold;
-	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 2, 0.5, 0.0, 0.0); 
+	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 5, 0.5, 0.0, 0.0); 
 }
 
 #BtnText {
@@ -131,7 +131,7 @@
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+        radial-gradient(center 50% 50%, radius 100%, #D86E3A, #C54E2C);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
 	-fx-font-family: serif;
@@ -141,10 +141,10 @@
 
 #redBtn:hover {
     -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #FF8C00, #c54e2c);
+        linear-gradient(from 0% 93% to 0% 100%, #A34313 0%, #903B12 100%),
+        #9D4024,
+        #D86E3A,
+        radial-gradient(center 50% 50%, radius 100%, #FF8C00, #C54E2C);
 }
 
 #redBtn:pressed {
