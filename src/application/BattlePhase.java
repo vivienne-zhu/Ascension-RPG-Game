@@ -88,6 +88,38 @@ public class BattlePhase {
 		setMagic(false);
 		
 	}
+	
+	/**
+	 * This method initializes the style for any types of the bars in the game.
+	 * 
+	 * @param barType
+	 * @param width
+	 * @param gm
+	 */
+	public void infoBar(Rectangle barType, double width, GameCharacters gm) {
+			barType.setArcWidth(20.0); 
+			barType.setArcHeight(15.0);  
+			barType.setStroke(Color.BLACK);	
+
+	}
+	
+	/**
+	 * This method reset the width of the bar based on game characters' stats in the game.
+	 * 
+	 * @param type
+	 * @param barType
+	 * @param width
+	 * @param gm
+	 */
+	public void resetInfoBar(int type, Rectangle barType, double width, GameCharacters gm) {
+		if (type == 0) {
+			barType.setWidth(width * (double) gm.getCurrentStamina() / (double) gm.getStamina());
+		} else if (type == 1) {
+			barType.setWidth(width * (double) gm.getCurrentMana() / (double) gm.getMana());
+
+		}
+		
+	}
 
 	/**
 	 * This method will display relevant combat information like  player/enemy names and health
@@ -97,63 +129,40 @@ public class BattlePhase {
 	 */
 	public void dispCombatInfo(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor) {
 		// Initialize stamina bar for hero
-		staminaBar = new Rectangle(300.0, 10, Color.RED);
-		staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
-		staminaBar.setArcWidth(20.0); 
-		staminaBar.setArcHeight(15.0);  
-		staminaBar.setStroke(Color.BLACK);
+		staminaBar = new Rectangle(300, 10, Color.RED);
+		infoBar(staminaBar, 300.0, hero);
+		resetInfoBar(0, staminaBar, 300, hero);
 
 		// Initialize full stamina bar for hero
 		fullStamBar = new Rectangle(300.0, 10, Color.BLACK);
-		fullStamBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
-		fullStamBar.setArcWidth(20.0); 
-		fullStamBar.setArcHeight(15.0);  
-		fullStamBar.setStroke(Color.BLACK);
+		infoBar(fullStamBar, 300.0, hero);
 
 		// Initialize stamina bar for enemy one
 		enemyOneStamBar = new Rectangle(200.0, 10, Color.RED);
-		enemyOneStamBar.setWidth(200 * (double) allEnemies.get(floor).get(0).getCurrentStamina() / (double) allEnemies.get(floor).get(0).getStamina());
-		enemyOneStamBar.setArcWidth(20.0); 
-		enemyOneStamBar.setArcHeight(15.0);  
-		enemyOneStamBar.setStroke(Color.BLACK);
+		infoBar(enemyOneStamBar, 200, allEnemies.get(floor).get(0));
 
 		// Initialize full stamina bar for enemy one
 		enemyOneFullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-		enemyOneFullStamBar.setWidth(200 * (double) allEnemies.get(floor).get(0).getCurrentStamina() / (double) allEnemies.get(floor).get(0).getStamina());
-		enemyOneFullStamBar.setArcWidth(20.0); 
-		enemyOneFullStamBar.setArcHeight(15.0);  
-		enemyOneFullStamBar.setStroke(Color.BLACK);
+		infoBar(enemyOneFullStamBar, 200, allEnemies.get(floor).get(0));
 
 		if (allEnemies.get(floor).size() > 1) {
 			// Initialize stamina bar for enemy two
 			enemyTwoStamBar = new Rectangle(200.0, 10, Color.RED);
-			enemyTwoStamBar.setWidth(200 * (double) allEnemies.get(floor).get(1).getCurrentStamina() / (double) allEnemies.get(floor).get(1).getStamina());
-			enemyTwoStamBar.setArcWidth(20.0); 
-			enemyTwoStamBar.setArcHeight(15.0);  
-			enemyTwoStamBar.setStroke(Color.BLACK);
+			infoBar(enemyTwoStamBar, 200, allEnemies.get(floor).get(1));
 
 			// Initialize full stamina bar for enemy two
 			enemyTwoFullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-			enemyTwoFullStamBar.setWidth(200 * (double) allEnemies.get(floor).get(1).getCurrentStamina() / (double) allEnemies.get(floor).get(1).getStamina());
-			enemyTwoFullStamBar.setArcWidth(20.0); 
-			enemyTwoFullStamBar.setArcHeight(15.0);  
-			enemyTwoFullStamBar.setStroke(Color.BLACK);
+			infoBar(enemyTwoFullStamBar, 200, allEnemies.get(floor).get(1));
 		}
 
 		if (allEnemies.get(floor).size() > 2) {
 			// Initialize stamina bar for enemy three
 			enemyThreeStamBar = new Rectangle(200.0, 10, Color.RED);
-			enemyThreeStamBar.setWidth(200 * (double) allEnemies.get(floor).get(2).getCurrentStamina() / (double) allEnemies.get(floor).get(2).getStamina());
-			enemyThreeStamBar.setArcWidth(20.0); 
-			enemyThreeStamBar.setArcHeight(15.0);  
-			enemyThreeStamBar.setStroke(Color.BLACK);
+			infoBar(enemyThreeStamBar, 200, allEnemies.get(floor).get(2));
 
 			// Initialize full stamina bar for enemy three
 			enemyThreeFullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-			enemyThreeFullStamBar.setWidth(200 * (double) allEnemies.get(floor).get(2).getCurrentStamina() / (double) allEnemies.get(floor).get(2).getStamina());
-			enemyThreeFullStamBar.setArcWidth(20.0); 
-			enemyThreeFullStamBar.setArcHeight(15.0);  
-			enemyThreeFullStamBar.setStroke(Color.BLACK);
+			infoBar(enemyThreeFullStamBar, 200, allEnemies.get(floor).get(2));
 		}
 				
 		// To display current stamina of hero and enemy (using tester enemy[0]).
@@ -175,17 +184,13 @@ public class BattlePhase {
 			heroMana.setStyle(" -fx-font: normal bold 20px 'serif' ");
 			
 			// Initialize mana bar
-			manaBar = new Rectangle(200.0, 10, Color.BLUE);
-		    manaBar.setArcWidth(20.0); 
-		    manaBar.setArcHeight(15.0);  
-		    manaBar.setStroke(Color.BLACK);
+			manaBar = new Rectangle(200.0, 10, Color.BLUE);		
+			infoBar(manaBar, 200, hero);
 		    manaBar.setVisible(false);
 		    
 			// Initialize full mana bar
 			fullManaBar = new Rectangle(200.0, 10, Color.BLACK);
-		    fullManaBar.setArcWidth(20.0); 
-		    fullManaBar.setArcHeight(15.0);  
-		    fullManaBar.setStroke(Color.BLACK);
+			infoBar(fullManaBar, 200, hero);
 		    fullManaBar.setVisible(false);
 		}
 
@@ -291,7 +296,7 @@ public class BattlePhase {
 		potionBtn.setOnAction(event -> {
 			hero.usePotion(hero.getCp(), this.error);
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-			staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+			resetInfoBar(0, staminaBar, 300, hero);
 			potionBtn.setText(hero.itemInfo(hero.getCp()));
 			if (this.error.isVisible() == false) {
 			    Timeline timeline = new Timeline(); 
@@ -321,7 +326,7 @@ public class BattlePhase {
 			hero.usePotion(hero.getHp(), this.error);
 			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
 			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-			staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+			resetInfoBar(0, staminaBar, 300, hero);
 			if (this.error.isVisible() == false) {
 				Timeline timeline = new Timeline(); 
 				timeline.setCycleCount(1);
@@ -964,22 +969,22 @@ public class BattlePhase {
 				magicAtkBtn.setDisable(true);
 			}
 			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
-			manaBar.setWidth(200 * (double) hero.getCurrentMana() / (double) hero.getMana());
+			resetInfoBar(1, manaBar, 200, hero);
 			if (choice == 0) {
-				enemyOneStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				resetInfoBar(0, enemyOneStamBar, 200, enemy);
 			} else if (choice == 1) {
-				enemyTwoStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				resetInfoBar(0, enemyTwoStamBar, 200, enemy);
 			} else {
-				enemyThreeStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				resetInfoBar(0, enemyThreeStamBar, 200, enemy);
 			}
 		} else {
 			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
 			if (choice == 0) {
-				enemyOneStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				resetInfoBar(0, enemyOneStamBar, 200, enemy);
 			} else if (choice == 1) {
-				enemyTwoStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				resetInfoBar(0, enemyTwoStamBar, 200, enemy);
 			} else {
-				enemyThreeStamBar.setWidth(200 * (double) enemy.getCurrentStamina() / (double) enemy.getStamina());
+				resetInfoBar(0, enemyThreeStamBar, 200, enemy);
 			}
 		}
 
@@ -1464,13 +1469,13 @@ public class BattlePhase {
 		
 		if (outerPosition == 0) {
 			enemyStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
-			enemyOneStamBar.setWidth(200 * ((double) outerMostHurtEnemy.getCurrentStamina() / (double) outerMostHurtEnemy.getStamina()));
+			resetInfoBar(0, enemyOneStamBar, 200, outerMostHurtEnemy);
 		} else if (outerPosition == 1) {
 			enemyTwoStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
-			enemyTwoStamBar.setWidth(200 * ((double) outerMostHurtEnemy.getCurrentStamina() / (double) outerMostHurtEnemy.getStamina()));
+			resetInfoBar(0, enemyTwoStamBar, 200, outerMostHurtEnemy);
 		} else {
 			enemyThreeStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
-			enemyThreeStamBar.setWidth(200 * ((double) outerMostHurtEnemy.getCurrentStamina() / (double) outerMostHurtEnemy.getStamina()));
+			resetInfoBar(0, enemyThreeStamBar, 200, outerMostHurtEnemy);
 		}
 		dialogueTwo.setText("Healer healed " + outerMostHurtEnemy.getType() + " for " + healAmt + " health!");
 		dialogueThree.setText("");
@@ -1513,7 +1518,7 @@ public class BattlePhase {
 		timeline.play();
 
 		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		staminaBar.setWidth(300 * (double) hero.getCurrentStamina() / (double) hero.getStamina());
+		resetInfoBar(0, staminaBar, 300, hero);
 		if (attackAmount <= 0) {
 			dialogueTwo.setText("You took 0 damage!"); // You took 0 damage!
 		} else {
