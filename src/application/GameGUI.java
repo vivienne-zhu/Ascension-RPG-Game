@@ -99,11 +99,11 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		//Scene start = startScreen(primaryStage);
-	    	Scene test = reviveScreen(primaryStage);
+		Scene start = startScreen(primaryStage);
+	    	
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		primaryStage.setScene(test);
+		primaryStage.setScene(start);
 		primaryStage.show();
 	}
 
@@ -126,7 +126,6 @@ public class GameGUI extends Application {
 		
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(iv,start);
-		//pane.setId("startPane");
 		pane.setAlignment(Pos.CENTER);
 		pane.setLayoutX(525);
 		pane.setLayoutY(470);
