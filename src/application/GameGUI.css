@@ -9,7 +9,7 @@
 }
 
 #shopBackground {
-	-fx-background-image: url("/shop2.jpg");
+	-fx-background-image: url("/shop1.jpg");
 	-fx-background-size: cover;
 }
 

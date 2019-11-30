@@ -99,11 +99,11 @@ public class GameGUI extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
 		
 		//Start Screen Scene creation
-		//Scene start = startScreen(primaryStage);
-	    	eventScreen(primaryStage);
+		Scene start = startScreen(primaryStage);
+	    	
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
-		//primaryStage.setScene(start);
+		primaryStage.setScene(start);
 		primaryStage.show();
 	}
 
@@ -536,7 +536,7 @@ public class GameGUI extends Application {
 		Button btnSell3 = new Button("Sell");
 		this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
 		
-		//White Button test 
+		//Setting style for shop buttons
 		btnBuy1.setId("whiteBtn");
 		btnSell1.setId("whiteBtn");
 		btnBuy2.setId("whiteBtn");
