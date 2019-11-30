@@ -471,37 +471,24 @@ public class GameGUI extends Application {
 	public void shopScreen(Stage primaryStage) {
 		// Create grid pane
 		GridPane root = new GridPane();
-				
-//		//Create black dropshadow
-//		DropShadow d = new DropShadow(10, Color.BLACK);
-
+		
 		// Create the magic shop text
 		Text welcome = new Text("Magic Shop");
-		welcome.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
-		welcome.setFill(Color.WHITE);
-		DropShadow ds = new DropShadow(10, Color.MEDIUMSLATEBLUE);
-		welcome.setEffect(ds);
+		welcome.setId("shopTitle");
 		GridPane.setHalignment(welcome, HPos.CENTER);
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
-		errorMsg.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
-		errorMsg.setFill(Color.WHITE);
+		errorMsg.setId("shopText");
 		errorMsg.setVisible(false);
 
 		// Display all items currently in the hero's bag
 		Text potionList = new Text(shop.shopDisplay(hero));
-		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
-		potionList.setFill(Color.WHITE);
-//		potionList.setEffect(d);
-//		potionList.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+		potionList.setId("shopText");
 
 		// Description for cheap potion
 		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
-		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
-		potion1.setFill(Color.WHITE);
-//		potion1.setEffect(d);
-//		potion1.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+		potion1.setId("shopText");
 
 		// Input quantity for cheap potion
 		TextField quantity1 = new TextField("Quantity");
@@ -514,13 +501,13 @@ public class GameGUI extends Application {
 		this.shop.buyPotion(this.hero, btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
 		Button btnSell1 = new Button("Sell");
 		this.shop.sellPotion(this.hero, btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
+		btnBuy1.setId("whiteBtn");
+		btnSell1.setId("whiteBtn");
 
 		// Description for hyper potion
 		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
-		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
-		potion2.setFill(Color.WHITE);
-//		potion2.setEffect(d);
-//		potion2.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+		potion2.setId("shopText");
+
 
 		// Input quantity for hyper potion
 		TextField quantity2 = new TextField("Quantity");
@@ -531,24 +518,19 @@ public class GameGUI extends Application {
 		// Buy and sell buttons for hyper potion
 		Button btnBuy2 = new Button("Buy");
 		this.shop.buyPotion(this.hero, btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
-
 		Button btnSell2 = new Button("Sell");
 		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
+		btnBuy2.setId("whiteBtn");
+		btnSell2.setId("whiteBtn");
 
 		// Description for revive
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
-		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
-		revive.setFill(Color.WHITE);
-//		revive.setEffect(d);
-//		revive.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+		revive.setId("shopText");
 		GridPane.setHalignment(revive, HPos.CENTER);
 		
 		// Description for revive quantity
 		Text reviveQuant = new Text("MAX: 1");
-		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
-		reviveQuant.setFill(Color.WHITE);
-//		reviveQuant.setEffect(d);
-		reviveQuant.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+		reviveQuant.setId("shopText");
 		GridPane.setHalignment(reviveQuant, HPos.CENTER);
 
 		// Buy and sell for revive 
@@ -556,13 +538,16 @@ public class GameGUI extends Application {
 		this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
 		Button btnSell3 = new Button("Sell");
 		this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
-
+		btnBuy3.setId("whiteBtn");
+		btnSell3.setId("whiteBtn");
+		
 		// Create imageView for the items at the shop
 		ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
 		ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
 		ImageView ivRevive = new ImageView(this.shop.getReviveImage());
 		DropShadow ds2 = new DropShadow();
 		ds2.setColor(Color.MEDIUMPURPLE);
+		ds2.setWidth(0.8);
 		ivPotion1.setEffect(ds2);
 		ivPotion2.setEffect(ds2);
 		ivRevive.setEffect(ds2);
@@ -655,8 +640,7 @@ public class GameGUI extends Application {
 		errorMsg.setWrappingWidth(200);
 
 		// Set background		
-		root.setStyle(" -fx-background-image: url(\"shop.jpg\");\n" + 
-				"    -fx-background-size: cover;");
+		root.setId("shopBackground");
 
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);

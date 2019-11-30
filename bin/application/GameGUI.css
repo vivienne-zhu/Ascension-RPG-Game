@@ -8,6 +8,11 @@
 	-fx-background-size: cover;
 }
 
+#shopBackground {
+	-fx-background-image: url("/shop.jpg");
+	-fx-background-size: cover;
+}
+
 #transitionBackground {
 	-fx-background-image: url("/transition.jpg");
 	-fx-background-size: cover;
@@ -75,6 +80,27 @@
 	-fx-font-family: serif;
 	-fx-font-size: 40px;
 	-fx-font-weight: bold;
+}
+
+#shopTitle {
+	-fx-fill: white;
+	-fx-stroke: darkslateblue;
+	-fx-stroke-width: 0.3;
+	-fx-font-family: helvetica;
+	-fx-font-size: 70px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(123,104,238),10, 0.5, 0.0, 0.0); 
+}
+
+#shopText {
+	-fx-fill: white;
+	-fx-background-color:anitquewhite ;
+	-fx-stroke: darkslateblue;
+	-fx-stroke-width: 0.2;
+	-fx-font-family: helvetica;
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(123,104,238),10, 0.5, 0.0, 0.0); 
 }
 
 #clearedFloorText {
