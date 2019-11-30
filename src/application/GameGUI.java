@@ -501,8 +501,7 @@ public class GameGUI extends Application {
 		this.shop.buyPotion(this.hero, btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
 		Button btnSell1 = new Button("Sell");
 		this.shop.sellPotion(this.hero, btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
-		btnBuy1.setId("whiteBtn");
-		btnSell1.setId("whiteBtn");
+		
 
 		// Description for hyper potion
 		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
@@ -520,9 +519,7 @@ public class GameGUI extends Application {
 		this.shop.buyPotion(this.hero, btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
 		Button btnSell2 = new Button("Sell");
 		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
-		btnBuy2.setId("whiteBtn");
-		btnSell2.setId("whiteBtn");
-
+		
 		// Description for revive
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
 		revive.setId("shopText");
@@ -538,6 +535,12 @@ public class GameGUI extends Application {
 		this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
 		Button btnSell3 = new Button("Sell");
 		this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
+		
+		//White Button test 
+		btnBuy1.setId("whiteBtn");
+		btnSell1.setId("whiteBtn");
+		btnBuy2.setId("whiteBtn");
+		btnSell2.setId("whiteBtn");
 		btnBuy3.setId("whiteBtn");
 		btnSell3.setId("whiteBtn");
 		
@@ -667,17 +670,12 @@ public class GameGUI extends Application {
 		
 		// Text for the event 
 		Text txtEvent = new Text("A MYSTERIOUS BOX...");
-		txtEvent.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 70));
-		txtEvent.setFill(Color.GOLDENROD);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.GOLDENROD);
-		txtEvent.setEffect(ds);
+		txtEvent.setId("eventTitle");
 		
 		// Text for the description of the triggered event 
 		Text display = new Text("");
 		display.maxWidth(300);
-		display.setFill(Color.WHITE);
-		display.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		display.setId("eventText");
 		GridPane.setHalignment(display, HPos.CENTER);
 		
 		// Image for the treasure chest 
