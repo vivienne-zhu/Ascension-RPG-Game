@@ -107,6 +107,14 @@
 	-fx-font-family: helvetica;
 	-fx-font-size: 70px;
 	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(184,134,11),5, 0.5, 0.0, 0.0); 
+}
+
+#eventText {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
 }
 
 #clearedFloorText {
