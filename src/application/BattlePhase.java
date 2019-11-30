@@ -169,26 +169,21 @@ public class BattlePhase {
 				
 		// To display current stamina of hero and enemy (using tester enemy[0]).
 		heroName = new Text(hero.getType() + ": " + hero.getName());
-		heroName.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		heroName.setFill(Color.WHITE);
+		heroName.setId("battlePhase");
 		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		heroStam.setFill(Color.WHITE);
-		heroStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		heroStam.setId("battlePhase");
 		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
-		enemyName.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		enemyName.setFill(Color.WHITE);
+		enemyName.setId("battlePhase");
 		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina() + " / " + allEnemies.get(floor).get(0).getStamina());
-		enemyStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
-		enemyStam.setFill(Color.WHITE);
+		enemyStam.setId("battlePhase");
 		if (hero.getType().equals("Mage")) {
 			heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
-			heroMana.setFill(Color.LIGHTBLUE);
-			heroMana.setStyle(" -fx-font: normal bold 20px 'serif' ");
+			heroMana.setId("battlePhaseMana");
 			
 			// Initialize mana bar
 			manaBar = new Rectangle(200.0, 10, Color.BLUE);		
 			infoBar(manaBar, 200, hero);
-		    manaBar.setVisible(false);
+			manaBar.setVisible(false);
 		    
 			// Initialize full mana bar
 			fullManaBar = new Rectangle(200.0, 10, Color.BLACK);
@@ -198,19 +193,15 @@ public class BattlePhase {
 
 		if (allEnemies.get(floor).size() > 1) {
 			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
-			enemyTwoName.setStyle(" -fx-font: normal bold 20px 'serif' ");
-			enemyTwoName.setFill(Color.WHITE);
+			enemyTwoName.setId("battlePhase");
 			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina() + " / " + allEnemies.get(floor).get(1).getStamina());
-			enemyTwoStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
-			enemyTwoStam.setFill(Color.WHITE);
+			enemyTwoStam.setId("battlePhase");
 		}
 		if (allEnemies.get(floor).size() > 2) {
 			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
-			enemyThreeName.setStyle(" -fx-font: normal bold 20px 'serif' ");
-			enemyThreeName.setFill(Color.WHITE);
+			enemyThreeName.setId("battlePhase");
 			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina() + " / " + allEnemies.get(floor).get(2).getStamina());
-			enemyThreeStam.setStyle(" -fx-font: normal bold 20px 'serif' ");
-			enemyThreeStam.setFill(Color.WHITE);
+			enemyThreeStam.setId("battlePhase");
 		}
 	}
 
@@ -220,17 +211,13 @@ public class BattlePhase {
 	public void dispDialogue() {
 		// To display dialogue and other relevant battle info
 		dialogue = new Text("");
-		dialogue.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		dialogue.setFill(Color.WHITE);
+		dialogue.setId("battlePhaseDialogue");
 		dialogueTwo = new Text("");
-		dialogueTwo.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		dialogueTwo.setFill(Color.WHITE);
+		dialogueTwo.setId("battlePhaseDialogue");
 		dialogueThree = new Text("");
-		dialogueThree.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		dialogueThree.setFill(Color.WHITE);
+		dialogueThree.setId("battlePhaseDialogue");
 		empowered = new Text("EMPOWERED");
-		empowered.setStyle(" -fx-font: normal bold 24px 'serif' ");
-		empowered.setFill(Color.RED);
+		empowered.setId("battlePhaseEmpowered");
 		empowered.setVisible(false);
 	}
 
@@ -241,14 +228,13 @@ public class BattlePhase {
 
 		// Creating buttons for player to fight enemies
 		this.attackBtn = new Button("Attack");
-		attackBtn.setStyle("sdfsdf");
-		attackBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		attackBtn.setId("whiteBtn");
 		this.defendBtn = new Button("Defend");
-		defendBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		defendBtn.setId("battlePhaseBtn");
 		this.healBtn = new Button("Heal");
-		healBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		healBtn.setId("battlePhaseBtn");
 		this.magicAtkBtn = new Button("Magic Atk");
-		magicAtkBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		magicAtkBtn.setId("battlePhaseBtn");
 		magicAtkBtn.setVisible(false);
 		if(hero.getType().equals("Mage")) {
 			magicAtkBtn.setVisible(true);
@@ -262,13 +248,13 @@ public class BattlePhase {
 
 		// Button to choose enemy
 		this.chooseEnemyBtn = new Button("Attack");
-		chooseEnemyBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		chooseEnemyBtn.setId("battlePhaseBtn");
 		chooseEnemyBtn.setVisible(false);
 		this.chooseEnemyTwoBtn = new Button("Attack");
-		chooseEnemyTwoBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		chooseEnemyTwoBtn.setId("battlePhaseBtn");
 		chooseEnemyTwoBtn.setVisible(false);
 		this.chooseEnemyThreeBtn = new Button("Attack");
-		chooseEnemyThreeBtn.setStyle(" -fx-font: normal bold 20px 'serif' ");
+		chooseEnemyThreeBtn.setId("battlePhaseBtn");
 		chooseEnemyThreeBtn.setVisible(false);
 	}
 

@@ -75,6 +75,40 @@
 	-fx-size: 600px,400px;
 }
 
+#battlePhase {
+	-fx-fill: white;
+	-fx-font-family: serif;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+}
+
+#battlePhaseMana {
+	-fx-fill: lightblue;
+	-fx-font-family: serif;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+}
+
+#battlePhaseDialogue {
+	-fx-fill: white;
+	-fx-font-family: serif;
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+}
+#battlePhaseEmpowered {
+	-fx-fill: red;
+	-fx-font-family: serif;
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+}
+
+#battlePhaseBtn {
+	-fx-fill: black;
+	-fx-font-family: serif;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+}
+
 #floorNumberText{
 	-fx-fill: white;
 	-fx-font-family: serif;
