@@ -271,14 +271,13 @@ public class BattlePhase {
 
 		// Error message 
 		this.error = new Text("you can't see me");
-		this.error.setStyle(" -fx-font: normal bold 18px 'serif';  ");
+		error.setId("battlePhase");
 		this.error.setVisible(false);
-		this.error.setFill(Color.WHITE);
 
 		// cheap potion button
 		String btnInfo1 = hero.itemInfo(hero.getCp());	
 		Button potionBtn = new Button(btnInfo1);
-		potionBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+		potionBtn.setId("battlePhaseHealBtn");
 
 		potionBtn.setMaxWidth(200);
 		potionBtn.setOnAction(event -> {
@@ -308,7 +307,7 @@ public class BattlePhase {
 		// hyper potion button 
 		String btnInfo2 = hero.itemInfo(hero.getHp());		
 		Button hyperPotionBtn = new Button(btnInfo2);
-		hyperPotionBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+		hyperPotionBtn.setId("battlePhaseHealBtn");
 		hyperPotionBtn.setMaxWidth(200);
 		hyperPotionBtn.setOnAction(event -> {
 			hero.usePotion(hero.getHp(), this.error);
@@ -340,8 +339,8 @@ public class BattlePhase {
 		} else {
 			btnInfo3 += "0.0";
 		}
-		Button reviveBtn = new Button(btnInfo3);	
-		reviveBtn.setStyle(" -fx-font: normal bold 18px 'serif' ");
+		Button reviveBtn = new Button(btnInfo3);
+		reviveBtn.setId("battlePhaseHealBtn");
 		reviveBtn.setMaxWidth(200);
 		reviveBtn.setDisable(true);
 

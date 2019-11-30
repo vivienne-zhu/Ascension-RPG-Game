@@ -109,6 +109,14 @@
 	-fx-font-weight: bold;
 }
 
+#battlePhaseHealBtn {
+	-fx-fill: black;
+	-fx-font-family: serif;
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+}
+
+
 #floorNumberText{
 	-fx-fill: white;
 	-fx-font-family: serif;
