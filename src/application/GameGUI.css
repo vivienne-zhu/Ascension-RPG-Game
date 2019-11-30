@@ -20,7 +20,6 @@
 
 #startText {
 	-fx-fill: url("/Brick.jpeg");
-	-fx-background-repeat: repeat;
 	-fx-stroke: black;
 	-fx-stroke-width:3;
 	-fx-font-family: helvetica;
