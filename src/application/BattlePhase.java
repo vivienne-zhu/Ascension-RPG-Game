@@ -1503,6 +1503,7 @@ public class BattlePhase {
 			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, 
 			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage) { 
 		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage, false);
+		if (!healerTargetAvail || !allEnemies.get(floor).get(i).getType().equals("Healer")) {
 		Timeline heroRed = new Timeline();
 		heroRed.setCycleCount(1);
 		KeyFrame redHero = new KeyFrame(Duration.millis(1), ae -> {
@@ -1518,7 +1519,7 @@ public class BattlePhase {
 		animateHero.play());
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
-
+		}
 		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		resetInfoBar(0, staminaBar, 300, hero);
 		if (attackAmount <= 0) {
