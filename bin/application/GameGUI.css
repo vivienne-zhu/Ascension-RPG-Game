@@ -159,7 +159,7 @@
 }
 
 #yellowBtn {
-	-fx-padding: 15 15 15 15;
+	-fx-padding: 10 15 13 15;
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
@@ -185,7 +185,7 @@
 }
 
 #redBtn {
-    -fx-padding: 15 15 15 15;
+    -fx-padding: 10 15 13 15;
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
@@ -211,7 +211,7 @@
 }
 
 #whiteBtn {
-	-fx-padding: 15 15 15 15;
+	-fx-padding: 10 15 13 15;
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
@@ -237,7 +237,7 @@
 }
 
 #gameOverBtn {
-    -fx-padding: 15 15 15 15;
+    -fx-padding: 10 15 13 15;
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 6;
     -fx-background-color: 
