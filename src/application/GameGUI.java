@@ -472,8 +472,8 @@ public class GameGUI extends Application {
 		// Create grid pane
 		GridPane root = new GridPane();
 				
-		//Create black dropshadow
-		DropShadow d = new DropShadow(10, Color.BLACK);
+//		//Create black dropshadow
+//		DropShadow d = new DropShadow(10, Color.BLACK);
 
 		// Create the magic shop text
 		Text welcome = new Text("Magic Shop");
@@ -493,18 +493,19 @@ public class GameGUI extends Application {
 		Text potionList = new Text(shop.shopDisplay(hero));
 		potionList.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potionList.setFill(Color.WHITE);
-		potionList.setEffect(d);
-		potionList.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+//		potionList.setEffect(d);
+//		potionList.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 
 		// Description for cheap potion
 		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
 		potion1.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potion1.setFill(Color.WHITE);
-		potion1.setEffect(d);
-		potion1.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+//		potion1.setEffect(d);
+//		potion1.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 
 		// Input quantity for cheap potion
 		TextField quantity1 = new TextField("Quantity");
+		quantity1.setOnMouseClicked(event -> quantity1.clear());
 		quantity1.setOpacity(0.8);
 		quantity1.setMaxWidth(150);
 
@@ -518,11 +519,12 @@ public class GameGUI extends Application {
 		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
 		potion2.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		potion2.setFill(Color.WHITE);
-		potion2.setEffect(d);
-		potion2.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+//		potion2.setEffect(d);
+//		potion2.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 
 		// Input quantity for hyper potion
 		TextField quantity2 = new TextField("Quantity");
+		quantity2.setOnMouseClicked(event -> quantity2.clear());
 		quantity2.setMaxWidth(150);
 		quantity2.setOpacity(0.8);
 
@@ -537,15 +539,15 @@ public class GameGUI extends Application {
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
 		revive.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		revive.setFill(Color.WHITE);
-		revive.setEffect(d);
-		revive.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
+//		revive.setEffect(d);
+//		revive.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 		GridPane.setHalignment(revive, HPos.CENTER);
 		
 		// Description for revive quantity
 		Text reviveQuant = new Text("MAX: 1");
 		reviveQuant.setFont(Font.font("helvetica", FontWeight.BOLD, FontPosture.REGULAR, 24));
 		reviveQuant.setFill(Color.WHITE);
-		reviveQuant.setEffect(d);
+//		reviveQuant.setEffect(d);
 		reviveQuant.setStyle("-fx-stroke: black;\n" + "-fx-stroke-width: 1;");
 		GridPane.setHalignment(reviveQuant, HPos.CENTER);
 
@@ -615,7 +617,7 @@ public class GameGUI extends Application {
 		root.add(btnBuy3, 3, 4);
 		root.add(btnSell3, 3, 5);
 		root.add(potionList, 2, 8);
-		root.add(errorMsg, 2, 9);
+		root.add(errorMsg, 1, 8);
 
 		root.add(continueBtn, 4, 9);
 		
@@ -627,7 +629,7 @@ public class GameGUI extends Application {
 		revive.setTextAlignment(TextAlignment.CENTER);
 		reviveQuant.setTextAlignment(TextAlignment.CENTER);
 		potionList.setTextAlignment(TextAlignment.CENTER);
-		errorMsg.setTextAlignment(TextAlignment.CENTER);
+		errorMsg.setTextAlignment(TextAlignment.LEFT);
 		
 		hbox.setAlignment(Pos.CENTER);
 		hbox1.setAlignment(Pos.CENTER);

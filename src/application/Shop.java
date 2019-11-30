@@ -43,6 +43,11 @@ public class Shop {
 			Text display) {
 		btn.setOnAction(Event -> {
 			String text = quantity.getText();
+			if (text.isEmpty() || text.matches("0")) {
+				se.errorSound();
+				quantity.setText("INVALID QUANTITY");
+				quantity.setOnMouseClicked(event -> quantity.clear());
+			} else {			
 			if (text.matches("[0-9]*")) {
 				double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
 				if (hero.getGold() >= cost) {
@@ -51,18 +56,20 @@ public class Shop {
 					hero.setGold(hero.getGold() - cost);
 					hero.getPotionMap().put(potion,
 							hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
-					quantity.setText("");
+					quantity.clear();
 					display.setText(this.shopDisplay(hero));
 				} else {
 					se.errorSound();
-					quantity.setText("");
+					quantity.clear();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
 					errorMsg.setVisible(true);
 			}
 			} else {
 				se.errorSound();
 				quantity.setText("NUMBERS ONLY");
+				quantity.setOnMouseClicked(event -> quantity.clear());
 			}
+		};
 		});
 
 	}
@@ -82,6 +89,11 @@ public class Shop {
 	public void sellPotion(GameCharacters hero, Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
 			String text = q.getText();
+			if (text.isEmpty() || text.matches("0")) {
+				se.errorSound();
+				q.setText("INVALID QUANTITY");
+				q.setOnMouseClicked(event -> q.clear());
+			} else {		
 			if (text.matches("[0-9]*")) {
 				double quantity = Double.parseDouble(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
@@ -89,18 +101,19 @@ public class Shop {
 					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
 					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
 					display.setText(this.shopDisplay(hero));
-					q.setText("");
+					q.clear();
 				} else {
 					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 					errorMsg.setVisible(true);
-					q.setText("");
+					q.clear();
 				}
 			} else {
 				se.errorSound();
 				q.setText("NUMBERS ONLY");
-				
+				q.setOnMouseClicked(event -> q.clear());				
 			}
+		};
 		});
 	}
 
