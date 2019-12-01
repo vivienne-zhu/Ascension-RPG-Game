@@ -510,43 +510,22 @@ public class BattlePhase {
 			GridPane.setHalignment(heroMana, HPos.CENTER);
 			GridPane.setHalignment(magicAtkBtn, HPos.CENTER);
 		}
-		if (enemyCount == 1) {
-			grid.add(dialogue, 2, 5);
-			grid.add(dialogueTwo, 2, 6);
-			grid.add(dialogueThree, 2, 7);
-			grid.add(enemyName, 4, 0);
-			grid.add(enemyStam, 4, 1);
-			grid.add(enemyOneFullStamBar, 4, 2);
-			grid.add(enemyOneStamBar, 4, 2);
-			grid.add(chooseEnemyBtn, 4, 3);
-		} else if (enemyCount == 2) {
-			grid.add(dialogue, 1, 5);
-			grid.add(dialogueTwo, 1, 6);
-			grid.add(dialogueThree, 1, 7);
-			grid.add(enemyName, 4, 0);
-			grid.add(enemyStam, 4, 1);
-			grid.add(enemyOneFullStamBar, 4, 2);
-			grid.add(enemyOneStamBar, 4, 2);
-			grid.add(chooseEnemyBtn, 4, 3);
+		grid.add(dialogue, 2, 5);
+		grid.add(dialogueTwo, 2, 6);
+		grid.add(dialogueThree, 2, 7);
+		grid.add(enemyName, 4, 0);
+		grid.add(enemyStam, 4, 1);
+		grid.add(enemyOneFullStamBar, 4, 2);
+		grid.add(enemyOneStamBar, 4, 2);
+		grid.add(chooseEnemyBtn, 4, 3);
+		if (enemyCount > 1) {
 			grid.add(enemyTwoName, 3, 0);
 			grid.add(enemyTwoStam, 3, 1);
 			grid.add(enemyTwoFullStamBar, 3, 2);
 			grid.add(enemyTwoStamBar, 3, 2);
 			grid.add(chooseEnemyTwoBtn, 3, 3);
-		} else {
-			grid.add(dialogue, 2, 5);
-			grid.add(dialogueTwo, 2, 6);
-			grid.add(dialogueThree, 2, 7);
-			grid.add(enemyName, 4, 0);
-			grid.add(enemyStam, 4, 1);
-			grid.add(enemyOneFullStamBar, 4, 2);
-			grid.add(enemyOneStamBar, 4, 2);
-			grid.add(chooseEnemyBtn, 4, 3);
-			grid.add(enemyTwoName, 3, 0);
-			grid.add(enemyTwoStam, 3, 1);
-			grid.add(enemyTwoFullStamBar, 3, 2);
-			grid.add(enemyTwoStamBar, 3, 2);
-			grid.add(chooseEnemyTwoBtn, 3, 3);
+		}
+		if (enemyCount > 2) {
 			grid.add(enemyThreeName, 2, 0);
 			grid.add(enemyThreeStam, 2, 1);
 			grid.add(enemyThreeFullStamBar, 2, 2);
