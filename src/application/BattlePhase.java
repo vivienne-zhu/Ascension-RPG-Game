@@ -4,21 +4,10 @@ package application;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.ArrayList;
@@ -35,29 +24,7 @@ import java.util.HashSet;
  */
 public class BattlePhase {
 
-	private Button attackBtn;
-	private Button defendBtn;
-	private Button healBtn;
-	private Button magicAtkBtn;
-	private VBox itemBag;
-	private HBox hbBtn;
-	private Button chooseEnemyBtn;
-	private Button chooseEnemyTwoBtn;
-	private Button chooseEnemyThreeBtn;
-	private Text error;
-	private Text dialogue;
-	private Text dialogueTwo;
-	private Text dialogueThree;
-	private Text empowered;
-	private Text heroStam;
-	private Text heroMana;
-	private Text enemyStam;
-	private Text enemyTwoStam;
-	private Text enemyThreeStam;
-	private Text heroName;
-	private Text enemyName;
-	private Text enemyTwoName;
-	private Text enemyThreeName;
+//	
 	private Stage primaryStage;
 	private int floor;
 	private HashSet<Integer> dead = new HashSet<Integer>();
@@ -66,16 +33,6 @@ public class BattlePhase {
 	private Timeline animateTwo;
 	private Timeline animateThree;
 	private Timeline animateHero;
-	private Rectangle staminaBar;
-	private Rectangle manaBar;
-	private Rectangle fullStamBar;
-	private Rectangle fullManaBar;
-	private Rectangle enemyOneStamBar;
-	private Rectangle enemyTwoStamBar;
-	private Rectangle enemyThreeStamBar;
-	private Rectangle enemyOneFullStamBar;
-	private Rectangle enemyTwoFullStamBar;
-	private Rectangle enemyThreeFullStamBar;
 	private boolean magic;
 	private SoundEffect se;
 	private boolean healerTargetAvail;
@@ -88,269 +45,7 @@ public class BattlePhase {
 		setMagic(false);
 		
 	}
-	
-	/**
-	 * This method initializes the style for any types of the bars in the game.
-	 * 
-	 * @param barType
-	 * @param width
-	 * @param gm
-	 */
-	public void infoBar(Rectangle barType, double width, GameCharacters gm) {
-			barType.setArcWidth(20.0); 
-			barType.setArcHeight(15.0);  
-			barType.setStroke(Color.BLACK);	
 
-	}
-	
-	/**
-	 * This method reset the width of the bar based on game characters' stats in the game.
-	 * If type is equal to 0, it means that it is a stamina bar. 
-	 * If type is equal to 1, it means that it is a mana bar. 
-	 * 
-	 * @param type
-	 * @param barType
-	 * @param width
-	 * @param gm
-	 */
-	public void resetInfoBar(int type, Rectangle barType, double width, GameCharacters gm) {
-		if (type == 0) {
-			barType.setWidth(width * (double) gm.getCurrentStamina() / (double) gm.getStamina());
-		} else if (type == 1) {
-			barType.setWidth(width * (double) gm.getCurrentMana() / (double) gm.getMana());
-
-		}
-		
-	}
-
-	/**
-	 * This method will display relevant combat information like  player/enemy names and health
-	 * @param hero The character the player controls
-	 * @param allEnemies The hashMap of all enemies
-	 * @param floor The current floor the hero is on
-	 */
-	public void dispCombatInfo(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor) {
-		// Initialize stamina bar for hero
-		staminaBar = new Rectangle(300, 10, Color.RED);
-		infoBar(staminaBar, 300.0, hero);
-		resetInfoBar(0, staminaBar, 300, hero);
-
-		// Initialize full stamina bar for hero
-		fullStamBar = new Rectangle(300.0, 10, Color.BLACK);
-		infoBar(fullStamBar, 300.0, hero);
-
-		// Initialize stamina bar for enemy one
-		enemyOneStamBar = new Rectangle(200.0, 10, Color.RED);
-		infoBar(enemyOneStamBar, 200, allEnemies.get(floor).get(0));
-
-		// Initialize full stamina bar for enemy one
-		enemyOneFullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-		infoBar(enemyOneFullStamBar, 200, allEnemies.get(floor).get(0));
-
-		if (allEnemies.get(floor).size() > 1) {
-			// Initialize stamina bar for enemy two
-			enemyTwoStamBar = new Rectangle(200.0, 10, Color.RED);
-			infoBar(enemyTwoStamBar, 200, allEnemies.get(floor).get(1));
-
-			// Initialize full stamina bar for enemy two
-			enemyTwoFullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-			infoBar(enemyTwoFullStamBar, 200, allEnemies.get(floor).get(1));
-		}
-
-		if (allEnemies.get(floor).size() > 2) {
-			// Initialize stamina bar for enemy three
-			enemyThreeStamBar = new Rectangle(200.0, 10, Color.RED);
-			infoBar(enemyThreeStamBar, 200, allEnemies.get(floor).get(2));
-
-			// Initialize full stamina bar for enemy three
-			enemyThreeFullStamBar = new Rectangle(200.0, 10, Color.BLACK);
-			infoBar(enemyThreeFullStamBar, 200, allEnemies.get(floor).get(2));
-		}
-				
-		// To display current stamina of hero and enemy (using tester enemy[0]).
-		heroName = new Text(hero.getType() + ": " + hero.getName());
-		heroName.setId("battlePhase");
-		heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		heroStam.setId("battlePhase");
-		enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
-		enemyName.setId("battlePhase");
-		enemyStam = new Text("Stamina: " + allEnemies.get(floor).get(0).getCurrentStamina() + " / " + allEnemies.get(floor).get(0).getStamina());
-		enemyStam.setId("battlePhase");
-		if (hero.getType().equals("Mage")) {
-			heroMana = new Text("Mana: "  + hero.getCurrentMana()+ " / " + hero.getMana());
-			heroMana.setId("battlePhaseMana");
-			
-			// Initialize mana bar
-			manaBar = new Rectangle(200.0, 10, Color.BLUE);		
-			infoBar(manaBar, 200, hero);
-			manaBar.setVisible(false);
-		    
-			// Initialize full mana bar
-			fullManaBar = new Rectangle(200.0, 10, Color.BLACK);
-			infoBar(fullManaBar, 200, hero);
-		    fullManaBar.setVisible(false);
-		}
-
-		if (allEnemies.get(floor).size() > 1) {
-			enemyTwoName = new Text("Enemy Type: " + allEnemies.get(floor).get(1).getType());
-			enemyTwoName.setId("battlePhase");
-			enemyTwoStam = new Text("Stamina: " + allEnemies.get(floor).get(1).getCurrentStamina() + " / " + allEnemies.get(floor).get(1).getStamina());
-			enemyTwoStam.setId("battlePhase");
-		}
-		if (allEnemies.get(floor).size() > 2) {
-			enemyThreeName = new Text("Enemy Type: " + allEnemies.get(floor).get(2).getType());
-			enemyThreeName.setId("battlePhase");
-			enemyThreeStam = new Text("Stamina: " + allEnemies.get(floor).get(2).getCurrentStamina() + " / " + allEnemies.get(floor).get(2).getStamina());
-			enemyThreeStam.setId("battlePhase");
-		}
-	}
-
-	/**
-	 * This method will properly create and format the three dialogue boxes used for combat information
-	 */
-	public void dispDialogue() {
-		// To display dialogue and other relevant battle info
-		dialogue = new Text("");
-		dialogue.setId("battlePhaseDialogue");
-		dialogueTwo = new Text("");
-		dialogueTwo.setId("battlePhaseDialogue");
-		dialogueThree = new Text("");
-		dialogueThree.setId("battlePhaseDialogue");
-		empowered = new Text("EMPOWERED");
-		empowered.setId("battlePhaseEmpowered");
-		empowered.setVisible(false);
-	}
-
-	/**
-	 * This method will create the necessary action buttons during the battle phase
-	 */
-	public void initButtons(GameCharacters hero) {
-
-		// Creating buttons for player to fight enemies
-		this.attackBtn = new Button("Attack");
-		attackBtn.setId("whiteBtn");
-		this.defendBtn = new Button("Defend");
-		defendBtn.setId("battlePhaseBtn");
-		this.healBtn = new Button("Heal");
-		healBtn.setId("battlePhaseBtn");
-		this.magicAtkBtn = new Button("Magic Atk");
-		magicAtkBtn.setId("battlePhaseBtn");
-		magicAtkBtn.setVisible(false);
-		if(hero.getType().equals("Mage")) {
-			magicAtkBtn.setVisible(true);
-			manaBar.setVisible(true);
-			fullManaBar.setVisible(true);
-		} 		
-
-		this.hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.CENTER_LEFT);
-		hbBtn.getChildren().addAll(attackBtn, defendBtn, healBtn);
-
-		// Button to choose enemy
-		this.chooseEnemyBtn = new Button("Attack");
-		chooseEnemyBtn.setId("battlePhaseBtn");
-		chooseEnemyBtn.setVisible(false);
-		this.chooseEnemyTwoBtn = new Button("Attack");
-		chooseEnemyTwoBtn.setId("battlePhaseBtn");
-		chooseEnemyTwoBtn.setVisible(false);
-		this.chooseEnemyThreeBtn = new Button("Attack");
-		chooseEnemyThreeBtn.setId("battlePhaseBtn");
-		chooseEnemyThreeBtn.setVisible(false);
-	}
-
-
-	/**
-	 * This method handles the heal function in the battle phase. 
-	 * 
-	 * @param hero The players chosen hero
-	 * @param gc the GraphicsContext needed to display/remove images in the GUI
-	 */
-	public void healFunction(GameCharacters hero, GraphicsContext gc) {
-		this.itemBag = new VBox();		
-		itemBag.setMaxWidth(200);
-
-		// Error message 
-		this.error = new Text("you can't see me");
-		error.setId("battlePhase");
-		this.error.setVisible(false);
-
-		// cheap potion button
-		String btnInfo1 = hero.itemInfo(hero.getCp());	
-		Button potionBtn = new Button(btnInfo1);
-		potionBtn.setId("battlePhaseHealBtn");
-
-		potionBtn.setMaxWidth(200);
-		potionBtn.setOnAction(event -> {
-			hero.usePotion(hero.getCp(), this.error);
-			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-			resetInfoBar(0, staminaBar, 300, hero);
-			potionBtn.setText(hero.itemInfo(hero.getCp()));
-			if (this.error.isVisible() == false) {
-			    Timeline timeline = new Timeline(); 
-				timeline.setCycleCount(1);
-				KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
-				animateHero.stop();
-				hero.displayCharacter(gc, false, false,true);});
-				timeline.getKeyFrames().addAll(frame);
-				Timeline timeline2 = new Timeline(); 
-				timeline2.setCycleCount(1);
-				KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
-				animateHero.play());
-				timeline2.getKeyFrames().addAll(frame2);
-				SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
-				sequence.play(); 
-				//hero.displayCharacter(gc, false, false,false));
-			}
-
-		});
-
-		// hyper potion button 
-		String btnInfo2 = hero.itemInfo(hero.getHp());		
-		Button hyperPotionBtn = new Button(btnInfo2);
-		hyperPotionBtn.setId("battlePhaseHealBtn");
-		hyperPotionBtn.setMaxWidth(200);
-		hyperPotionBtn.setOnAction(event -> {
-			hero.usePotion(hero.getHp(), this.error);
-			hyperPotionBtn.setText(hero.itemInfo(hero.getHp()));
-			heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-			resetInfoBar(0, staminaBar, 300, hero);
-			if (this.error.isVisible() == false) {
-				Timeline timeline = new Timeline(); 
-				timeline.setCycleCount(1);
-				KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
-				animateHero.stop();
-				hero.displayCharacter(gc, false, false,true);});
-				timeline.getKeyFrames().addAll(frame);
-				Timeline timeline2 = new Timeline(); 
-				timeline2.setCycleCount(1);
-				KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
-				animateHero.play());
-				timeline2.getKeyFrames().addAll(frame2);
-				SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
-				sequence.play(); 
-				//hero.displayCharacter(gc, false, false,false));
-			}
-		});
-
-		// revive button 
-		String btnInfo3 = "Revive:\t";
-		if (hero.isHasRevive() == true) {
-			btnInfo3 += "1.0";
-		} else {
-			btnInfo3 += "0.0";
-		}
-		Button reviveBtn = new Button(btnInfo3);
-		reviveBtn.setId("battlePhaseHealBtn");
-		reviveBtn.setMaxWidth(200);
-		reviveBtn.setDisable(true);
-
-		// set background
-		itemBag.setStyle("-fx-background-color: gainsboro");
-		itemBag.getChildren().addAll(potionBtn, hyperPotionBtn, reviveBtn);
-		itemBag.setVisible(false);
-
-	}
-	
 	/**
 	 * This method attaches the proper events to button clicks. Namely it gives action
 	 * to the attack, defend, heal, and choose enemy buttons.
@@ -367,87 +62,91 @@ public class BattlePhase {
 	 */
 	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, 
 			GraphicsContext gc, Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, 
-			MediaPlayer battleMusic, MediaPlayer gameOverMusic , MediaPlayer youWinMusic) {
+			MediaPlayer battleMusic, MediaPlayer gameOverMusic , MediaPlayer youWinMusic,BattlePhaseDisplay display) {
 		//Event handling for when attack button is pressed
-		attackBtn.setOnAction(event -> {
-			itemBag.setVisible(false);
-			error.setVisible(false);
+		display.getAttackBtn().setOnAction(event -> {
+		    if (totalEnemyHealth !=0) {
+			display.getItemBag().setVisible(false);
+			display.getError().setVisible(false);
 			setMagic(false);
 
-			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn);
+			display.disableButtons(true);
 			hero.setIsDefending(false);
 			if (dead.contains(1) && dead.contains(2)) {
-				chooseEnemyBtn.setVisible(true);
+				display.getChooseEnemyBtn().setVisible(true);
 			} else if (dead.contains(0) && dead.contains(2)) {
-				chooseEnemyTwoBtn.setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
 			} else if (dead.contains(0) && dead.contains(1)) {
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			} else if (dead.contains(0)) {
-				chooseEnemyTwoBtn.setVisible(true);
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			} else if (dead.contains(1)) {
-				chooseEnemyBtn.setVisible(true);
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyBtn().setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			} else if (dead.contains(2)) {
-				chooseEnemyBtn.setVisible(true);
-				chooseEnemyTwoBtn.setVisible(true);
+			    	display.getChooseEnemyBtn().setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
 			} else {
-				chooseEnemyBtn.setVisible(true);
-				chooseEnemyTwoBtn.setVisible(true);
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyBtn().setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			}
-
+		    }
 		});
 
 
-		magicAtkBtn.setOnAction(event ->{
-			setMagic(true);
-			itemBag.setVisible(false);
-			error.setVisible(false);
+		display.getMagicAtkBtn().setOnAction(event ->{
+		    if(totalEnemyHealth != 0) {
+		    display.getItemBag().setVisible(false);
+		    display.getError().setVisible(false);
+		    setMagic(false);
 
-			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn);
+			display.disableButtons(true);
 			hero.setIsDefending(false);
 			if (dead.contains(1) && dead.contains(2)) {
-				chooseEnemyBtn.setVisible(true);
+				display.getChooseEnemyBtn().setVisible(true);
 			} else if (dead.contains(0) && dead.contains(2)) {
-				chooseEnemyTwoBtn.setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
 			} else if (dead.contains(0) && dead.contains(1)) {
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			} else if (dead.contains(0)) {
-				chooseEnemyTwoBtn.setVisible(true);
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			} else if (dead.contains(1)) {
-				chooseEnemyBtn.setVisible(true);
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyBtn().setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			} else if (dead.contains(2)) {
-				chooseEnemyBtn.setVisible(true);
-				chooseEnemyTwoBtn.setVisible(true);
+			    	display.getChooseEnemyBtn().setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
 			} else {
-				chooseEnemyBtn.setVisible(true);
-				chooseEnemyTwoBtn.setVisible(true);
-				chooseEnemyThreeBtn.setVisible(true);
+			    	display.getChooseEnemyBtn().setVisible(true);
+			    	display.getChooseEnemyTwoBtn().setVisible(true);
+			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			}
+		    }
 
 		});
 
 		//Event handling for when defend button is pressed
-		defendBtn.setOnAction(event -> {
-			itemBag.setVisible(false);
-			error.setVisible(false);
+		display.getDefendBtn().setOnAction(event -> {
+		   if (totalEnemyHealth != 0) {
+		    	display.getItemBag().setVisible(false);
+			display.getError().setVisible(false);
 			setMagic(false);
-
+			
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
 			gc.drawImage(defendIcon, 140, 280); //draw defend icon
-			disableButtons(true, attackBtn, healBtn, defendBtn, magicAtkBtn); //disable buttons
+			display.disableButtons(true); //disable buttons
 			hero.setIsDefending(true);
 			hero.setIsEmpowered(true);
-			empowered.setVisible(true);
-			enemyTurn(hero, allEnemies, heroStam, dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
+			display.getEmpowered().setVisible(true);
+			enemyTurn(hero, allEnemies, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic, display);
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
+			display.disableButtons(false));
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
 
@@ -458,149 +157,80 @@ public class BattlePhase {
 			gc.clearRect(140, 280, 80, 80));
 			icon.getKeyFrames().add(iconDisable);
 			icon.play();
+		}
 		});
 
 		//Event handling for when heal button is pressed
-		this.healFunction(hero, gc);
-		healBtn.setOnAction(event -> {
-			this.itemBag.setVisible(true);			
+			display.healFunctionDisplay(hero);
+		    display.getHealBtn().setOnAction(event -> {
+			if (totalEnemyHealth != 0) {
+			display.getItemBag().setVisible(true);	
+			
+			display.getPotionBtn().setOnAction(event1 -> {
+				hero.usePotion(hero.getCp(), display.getError());
+				display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+				display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
+				display.getPotionBtn().setText(hero.itemInfo(hero.getCp()));
+				if (display.getError().isVisible() == false) {
+				    Timeline timeline = new Timeline(); 
+					timeline.setCycleCount(1);
+					KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
+					animateHero.stop();
+					hero.displayCharacter(gc, false, false,true);});
+					timeline.getKeyFrames().addAll(frame);
+					Timeline timeline2 = new Timeline(); 
+					timeline2.setCycleCount(1);
+					KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
+					animateHero.play());
+					timeline2.getKeyFrames().addAll(frame2);
+					SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
+					sequence.play(); 
+					//hero.displayCharacter(gc, false, false,false));
+				}
+			});
+				
+			display.getHyperPotionBtn().setOnAction(event2 -> {
+				hero.usePotion(hero.getHp(), display.getError());
+				display.getHyperPotionBtn().setText(hero.itemInfo(hero.getHp()));
+				display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+				display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
+				if (display.getError().isVisible() == false) {
+					Timeline timeline = new Timeline(); 
+					timeline.setCycleCount(1);
+					KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
+					animateHero.stop();
+					hero.displayCharacter(gc, false, false,true);});
+					timeline.getKeyFrames().addAll(frame);
+					Timeline timeline2 = new Timeline(); 
+					timeline2.setCycleCount(1);
+					KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
+					animateHero.play());
+					timeline2.getKeyFrames().addAll(frame2);
+					SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
+					sequence.play(); 
+					//hero.displayCharacter(gc, false, false,false));
+				}
+			
+			});
+			}
 		});
-
-		// Actions to take after button to choose enemy is chosen
-		chooseEnemyBtn.setOnAction(event -> {
-			chooseEnemyBtnEvent(0, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic);
-		});
-
-		// Actions to take after button to choose enemy is chosen
-		chooseEnemyTwoBtn.setOnAction(event -> {
-			chooseEnemyBtnEvent(1, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic);
-		});
-
-		// Actions to take after button to choose enemy is chosen
-		chooseEnemyThreeBtn.setOnAction(event -> {
-			chooseEnemyBtnEvent(2, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic);
-		});
-	}
-
-	/**
-	 * This method properly formats the GridPane layout used to display most information
-	 * like character name, character health, the three dialogue boxes, and various buttons
-	 * @param enemyCount The number of enemies on the floor
-	 * @param hero The players chosen hero GameCharacters
-	 * @return The GridPane itself so it can be used in GameGUI.java
-	 */
-	public GridPane gridLayout(int enemyCount, GameCharacters hero) {
-		// Adding all nodes to grid
-		GridPane grid = new GridPane();
-
-		//Placements for various textboxes and buttons
-		grid.add(heroName, 0, 0);
-		grid.add(heroStam, 0, 1);
-		grid.add(fullStamBar, 0, 2);
-		grid.add(staminaBar, 0, 2);
-		grid.add(hbBtn, 0, 3);
-		grid.add(itemBag, 0, 4);
-		grid.add(error, 0, 5);
-		grid.add(empowered, 0, 7);
-		if(hero.getType().equals("Mage")) {
-			grid.add(heroMana, 1, 1);
-			grid.add(fullManaBar, 1, 2);
-			grid.add(manaBar, 1, 2);
-			grid.add(magicAtkBtn, 1, 3);
-			GridPane.setHalignment(heroMana, HPos.CENTER);
-			GridPane.setHalignment(magicAtkBtn, HPos.CENTER);
-		}
-		if (enemyCount == 1) {
-			grid.add(dialogue, 2, 5);
-			grid.add(dialogueTwo, 2, 6);
-			grid.add(dialogueThree, 2, 7);
-			grid.add(enemyName, 4, 0);
-			grid.add(enemyStam, 4, 1);
-			grid.add(enemyOneFullStamBar, 4, 2);
-			grid.add(enemyOneStamBar, 4, 2);
-			grid.add(chooseEnemyBtn, 4, 3);
-		} else if (enemyCount == 2) {
-			grid.add(dialogue, 1, 5);
-			grid.add(dialogueTwo, 1, 6);
-			grid.add(dialogueThree, 1, 7);
-			grid.add(enemyName, 4, 0);
-			grid.add(enemyStam, 4, 1);
-			grid.add(enemyOneFullStamBar, 4, 2);
-			grid.add(enemyOneStamBar, 4, 2);
-			grid.add(chooseEnemyBtn, 4, 3);
-			grid.add(enemyTwoName, 3, 0);
-			grid.add(enemyTwoStam, 3, 1);
-			grid.add(enemyTwoFullStamBar, 3, 2);
-			grid.add(enemyTwoStamBar, 3, 2);
-			grid.add(chooseEnemyTwoBtn, 3, 3);
-		} else {
-			grid.add(dialogue, 2, 5);
-			grid.add(dialogueTwo, 2, 6);
-			grid.add(dialogueThree, 2, 7);
-			grid.add(enemyName, 4, 0);
-			grid.add(enemyStam, 4, 1);
-			grid.add(enemyOneFullStamBar, 4, 2);
-			grid.add(enemyOneStamBar, 4, 2);
-			grid.add(chooseEnemyBtn, 4, 3);
-			grid.add(enemyTwoName, 3, 0);
-			grid.add(enemyTwoStam, 3, 1);
-			grid.add(enemyTwoFullStamBar, 3, 2);
-			grid.add(enemyTwoStamBar, 3, 2);
-			grid.add(chooseEnemyTwoBtn, 3, 3);
-			grid.add(enemyThreeName, 2, 0);
-			grid.add(enemyThreeStam, 2, 1);
-			grid.add(enemyThreeFullStamBar, 2, 2);
-			grid.add(enemyThreeStamBar, 2, 2);
-			grid.add(chooseEnemyThreeBtn, 2, 3);
-		}
-
-		//Set vertical and horizontal gap spacing
-		grid.setVgap(10);
-		grid.setHgap(30);
-		grid.setPadding(new Insets(10, 10, 10, 10));
-		grid.setAlignment(Pos.TOP_CENTER);
-
-		//Set location of grid
-		grid.setLayoutX(20);
-		grid.setLayoutY(60);
-		grid.setMinSize(1200, 700);
-
-		//Add specific size constraints to lock in formatting
-		grid.getColumnConstraints().add(new ColumnConstraints(300));
-		grid.getColumnConstraints().add(new ColumnConstraints(200));
-		grid.getColumnConstraints().add(new ColumnConstraints(200));
-		grid.getColumnConstraints().add(new ColumnConstraints(200));
-		grid.getColumnConstraints().add(new ColumnConstraints(200));
 		
-		if (enemyCount > 1) {
-			GridPane.setHalignment(enemyTwoName, HPos.CENTER);
-			GridPane.setHalignment(enemyTwoStam, HPos.CENTER);
-		}
-		if (enemyCount > 2) {
-			GridPane.setHalignment(enemyThreeName, HPos.CENTER);
-			GridPane.setHalignment(enemyThreeStam, HPos.CENTER);
-		}
+		// Actions to take after button to choose enemy is chosen
+		display.getChooseEnemyBtn().setOnAction(event -> {
+			chooseEnemyBtnEvent(0, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic, display);
+		});
 
-		//Center all text within each grid panel
-		GridPane.setHalignment(dialogue, HPos.CENTER);
-		GridPane.setHalignment(dialogueTwo, HPos.CENTER);
-		GridPane.setHalignment(dialogueThree, HPos.CENTER);
-		GridPane.setHalignment(empowered, HPos.CENTER);
-		GridPane.setHalignment(heroName, HPos.CENTER);
-		GridPane.setHalignment(heroStam, HPos.CENTER);
-		GridPane.setHalignment(enemyName, HPos.CENTER);
-		GridPane.setHalignment(enemyStam, HPos.CENTER);
-		GridPane.setHalignment(chooseEnemyBtn, HPos.CENTER);
-		GridPane.setHalignment(chooseEnemyTwoBtn, HPos.CENTER);
-		GridPane.setHalignment(chooseEnemyThreeBtn, HPos.CENTER);
-		GridPane.setHalignment(itemBag, HPos.CENTER);
-		hbBtn.setAlignment(Pos.CENTER);
+		// Actions to take after button to choose enemy is chosen
+		display.getChooseEnemyTwoBtn().setOnAction(event -> {
+			chooseEnemyBtnEvent(1, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic, display);
+		});
 
-		//Make gridlines visible - only for development phase
-		grid.setGridLinesVisible(true);
-
-		return grid;
+		// Actions to take after button to choose enemy is chosen
+		display.getChooseEnemyThreeBtn().setOnAction(event -> {
+			chooseEnemyBtnEvent(2, hero, allEnemies, transition, youWin, reviveScene, gameOverScreen, gc, battleMusic, gameOverMusic, youWinMusic, display);
+		});
 	}
+
 
 	/**
 	 * This method allows us the animate the enemy characters image
@@ -692,18 +322,17 @@ public class BattlePhase {
 	 * @param youWinMusic The music that plays when you win the game
 	 */
 	public void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
-			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc, MediaPlayer battleMusic, MediaPlayer gameOverMusic,MediaPlayer youWinMusic) {
-		empowered.setVisible(false);
+			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc, MediaPlayer battleMusic, 
+			MediaPlayer gameOverMusic,MediaPlayer youWinMusic, BattlePhaseDisplay display) {
+		display.getEmpowered().setVisible(false);
 		if (isMagic() == true) {
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> mageTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin, battleMusic , youWinMusic));
+			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> mageTurn(hero, allEnemies, enemy, gc, primaryStage, transition, youWin, battleMusic , youWinMusic, display));
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic));
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic, display));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -712,23 +341,21 @@ public class BattlePhase {
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
 			KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
+			display.disableButtons(false));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
 
-			chooseEnemyBtn.setVisible(false);
-			chooseEnemyTwoBtn.setVisible(false);
-			chooseEnemyThreeBtn.setVisible(false);
+			display.getChooseEnemyBtn().setVisible(false);
+			display.getChooseEnemyTwoBtn().setVisible(false);
+			display.getChooseEnemyThreeBtn().setVisible(false);
 		} else {
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemyStam, dialogue, 
-					dialogueTwo, dialogueThree, enemy, gc, primaryStage, transition, youWin, battleMusic, youWinMusic));
+			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(hero, allEnemies, enemy, gc, primaryStage, transition, youWin, battleMusic, youWinMusic, display));
 			timeline.getKeyFrames().add(frame);
 			Timeline timelineTwo = new Timeline();
 			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, heroStam, 
-					dialogue, dialogueTwo, dialogueThree, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic));
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn(hero, allEnemies, gc, floor, reviveScene, gameOverScreen, battleMusic, gameOverMusic, display));
 			timelineTwo.getKeyFrames().add(frameTwo);
 			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 			sequence.play();
@@ -737,13 +364,13 @@ public class BattlePhase {
 			Timeline enable = new Timeline(); 
 			enable.setCycleCount(1);
 			KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			disableButtons(false, attackBtn, healBtn, defendBtn, magicAtkBtn));
+			display.disableButtons(false));
 			enable.getKeyFrames().add(frameEnable);
 			enable.play();
 
-			chooseEnemyBtn.setVisible(false);
-			chooseEnemyTwoBtn.setVisible(false);
-			chooseEnemyThreeBtn.setVisible(false);
+			display.getChooseEnemyBtn().setVisible(false);
+			display.getChooseEnemyTwoBtn().setVisible(false);
+			display.getChooseEnemyThreeBtn().setVisible(false);
 		}
 	}
 
@@ -764,8 +391,8 @@ public class BattlePhase {
 	 * @param battleMusic Music that plays in the battle phase
 	 * @param youWinMusic Music that plays when you win the game
 	 */
-	public void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
-			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic) {
+	public void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
+		Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) {
 
 		//Move hero forward 
 		Timeline timeline = new Timeline(); 
@@ -819,7 +446,7 @@ public class BattlePhase {
 			} else {
 				animateThree.play();
 			}
-			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead, battleMusic, youWinMusic);
+			hitEnemy(hero, allEnemies, choice, gc, primaryStage, floor, transition, youWin, dead, battleMusic, youWinMusic, display);//dialogue, dialogueTwo, dialogueThree, enemyStam,
 		});
 
 		hit.getKeyFrames().add(frameTwo);
@@ -845,10 +472,6 @@ public class BattlePhase {
 	 * 
 	 * @param hero the hero chosen by the player
 	 * @param allEnemies The HashMap of all enemies 
-	 * @param enemyStam The current stamina of the enemy
-	 * @param dialogue Text that updates the player on what is currently happening.
-	 * @param dialogue2 Text that updates the player on what is currently happening.
-	 * @param dialogue3 Text that updates the player on what is currently happening.
 	 * @param choice  The enemy character the hero would like to attack (if there are multiple)
 	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
 	 * @param primaryStage the primary stage/ window of GUI
@@ -857,8 +480,8 @@ public class BattlePhase {
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param youWinMusic The music that plays when you win the game
 	 */
-	public void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text enemyStam, Text dialogue, 
-			Text dialogueTwo, Text dialogueThree, int choice, GraphicsContext gc, Stage primaryStage, Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic) {
+	public void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
+		Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) {
 
 		//Move magic blast forward
 		Timeline timeline = new Timeline(); 
@@ -903,7 +526,7 @@ public class BattlePhase {
 			} else {
 				animateThree.play();
 			}
-			hitEnemy(hero, allEnemies, choice, dialogue, dialogueTwo, dialogueThree, enemyStam, gc, primaryStage, floor, transition, youWin, dead, battleMusic, youWinMusic); 
+			hitEnemy(hero, allEnemies, choice, gc, primaryStage, floor, transition, youWin, dead, battleMusic, youWinMusic, display); //dialogue, dialogueTwo, dialogueThree, enemyStam,
 		});
 
 		hit.getKeyFrames().add(frameTwo);
@@ -925,10 +548,6 @@ public class BattlePhase {
 	 * @param hero Player controlled hero GameCharacters
 	 * @param allEnemies The HashMap of enemies
 	 * @param choice The player choice of which enemy to attack
-	 * @param dialogue The first textbox used to update battle info
-	 * @param dialogueTwo The second textbox used to update battle info
-	 * @param dialogueThree The third textbox used to update battle info
-	 * @param enemyStam The textbox used to display enemy health
 	 * @param gc GraphicsContext to clear character after death
 	 * @param primaryStage Primary stage/window t display GUI
 	 * @param floor Current floor number the hero is on
@@ -938,9 +557,10 @@ public class BattlePhase {
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param youWinMusic The music that plays when you win the game
 	 */
-	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, Text dialogue, Text dialogueTwo, Text dialogueThree,
-			Text enemyStam, GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
-			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic) {
+	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, 
+		GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
+			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) { //Text dialogue, Text dialogueTwo, Text dialogueThree,Text enemyStam,
+		
 
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = 0;
@@ -953,25 +573,25 @@ public class BattlePhase {
 				hero.setCurrentMana(hero.getCurrentMana() - 50);
 			}
 			if (hero.getCurrentMana() < 50) {
-				magicAtkBtn.setDisable(true);
+				display.getMagicAtkBtn().setDisable(true);
 			}
-			heroMana.setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
-			resetInfoBar(1, manaBar, 200, hero);
+			display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
+			display.resetInfoBar(1, display.getManaBar(), 200, hero);
 			if (choice == 0) {
-				resetInfoBar(0, enemyOneStamBar, 200, enemy);
+				display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, enemy);
 			} else if (choice == 1) {
-				resetInfoBar(0, enemyTwoStamBar, 200, enemy);
+				display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, enemy);
 			} else {
-				resetInfoBar(0, enemyThreeStamBar, 200, enemy);
+				display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
 			}
 		} else {
 			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
 			if (choice == 0) {
-				resetInfoBar(0, enemyOneStamBar, 200, enemy);
+			    	display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, enemy);
 			} else if (choice == 1) {
-				resetInfoBar(0, enemyTwoStamBar, 200, enemy);
+			    display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, enemy);
 			} else {
-				resetInfoBar(0, enemyThreeStamBar, 200, enemy);
+				display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
 			}
 		}
 
@@ -979,32 +599,32 @@ public class BattlePhase {
 		hero.setIsEmpowered(false);
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 		
-		dialogue.setText("You dealt " + attackAmount + " damage!");
-		dialogueTwo.setText("");
-		dialogueThree.setText("");
+		display.getDialogue().setText("You dealt " + attackAmount + " damage!");
+		display.getDialogueTwo().setText("");
+		display.getDialogueThree().setText("");
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() <= 0) {
 			// Add death sound effect 		
 			se.enemyDeathSound();		
 			dead.add(choice);
-			dialogueTwo.setText("You have killed the enemy."); 
+			display.getDialogueTwo().setText("You have killed the enemy."); 
 			enemy.displayCharacter(gc, true, false, false); //deleting picture
 			if (choice == 0) {
 				animateOne.stop();
-				enemyStam.setVisible(false);
-				enemyName.setVisible(false);
-				enemyOneFullStamBar.setVisible(false);
+				display.getEnemyStam().setVisible(false);
+				display.getEnemyName().setVisible(false);
+				display.getEnemyOneFullStamBar().setVisible(false);
 			} else if (choice == 1) {
 				animateTwo.stop();
-				enemyTwoStam.setVisible(false);
-				enemyTwoName.setVisible(false);
-				enemyTwoFullStamBar.setVisible(false);
+				display.getEnemyTwoStam().setVisible(false);
+				display.getEnemyTwoName().setVisible(false);
+				display.getEnemyTwoFullStamBar().setVisible(false);
 			} else {
 				animateThree.stop();
-				enemyThreeStam.setVisible(false);
-				enemyThreeName.setVisible(false);
-				enemyThreeFullStamBar.setVisible(false);
+				display.getEnemyThreeStam().setVisible(false);
+				display.getEnemyThreeName().setVisible(false);
+				display.getEnemyThreeFullStamBar().setVisible(false);
 			}
 		} else {
 			//After 0.1 seconds revert color only if not dead
@@ -1018,7 +638,7 @@ public class BattlePhase {
 		//If all enemies dead, move on to next floor
 		if (totalEnemyHealth == 0) {
 			//Transition to next screen after battle after 5 seconds
-			dialogueTwo.setText("You have killed all enemies."); 
+		    	display.getDialogueTwo().setText("You have killed all enemies."); 
 			int xp = 50 * allEnemies.get(floor).size() + floor * 10;
 			hero.setXp(hero.getXp() + xp);
 			if (hero.getXp() >= (50 + hero.getLevel() * 80)) {
@@ -1044,11 +664,11 @@ public class BattlePhase {
 		}
 
 		if (choice == 0 ) {
-			enemyStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
+		    	display.getEnemyStam().setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		} else if (choice == 1) {
-			enemyTwoStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
+		    	display.getEnemyTwoStam().setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		} else {
-			enemyThreeStam.setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
+		    	display.getEnemyThreeStam().setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		}
 	}
 
@@ -1140,10 +760,6 @@ public class BattlePhase {
 	 * 
 	 * @param hero Players chosen hero character
 	 * @param allEnemies The HashMap of all enemies 
-	 * @param heroStam The current stamina of the hero
-	 * @param dialogue Text that updates the player on what is currently happening.
-	 * @param dialogueTwo The second textbox used to update battle info
-	 * @param dialogueThree The third textbox used to update battle info
 	 * @param gc GraphicsContext to clear character after death
 	 * @param floor Current floor number the hero is on
 	 * @param reviveScene The scene giving the player the option to use a revive
@@ -1151,20 +767,20 @@ public class BattlePhase {
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param gameOverMusic The music that plays when the game is over
 	 */
-	public void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, Text heroStam, Text dialogue, Text dialogueTwo, 
-			Text dialogueThree, GraphicsContext gc, int floor, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) {
+	public void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc, int floor, 
+		Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, BattlePhaseDisplay display) {
 
 		//If enemies are still alive
 		if (totalEnemyHealth > 0) {
-			dialogue.setText("It is the enemy's turn.");
-			dialogueTwo.setText("");
-			dialogueThree.setText("");
-			singleEnemyAttacks(hero, allEnemies, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic); 
+			display.getDialogue().setText("It is the enemy's turn.");
+			display.getDialogueTwo().setText("");
+			display.getDialogueThree().setText("");
+			singleEnemyAttacks(hero, allEnemies, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, display); 
 		}
 	}
 
 	public void singleEnemyAttacks(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
-			GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) {
+			GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, BattlePhaseDisplay display) {
 		if (hero.getCurrentStamina() > 0) {
 			//	final Integer innerI = new Integer(i);
 
@@ -1184,15 +800,18 @@ public class BattlePhase {
 
 			if (!dead.contains(0)) {
 				enemyMoveTimeline(0, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, battleMusic, gameOverMusic); 
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, 
+						gameOverScreen, battleMusic, gameOverMusic, display); 
 			}
 			if (!dead.contains(1) && (allEnemies.get(floor).size() == 2 || allEnemies.get(floor).size() == 3)) {
 				enemyMoveTimeline(1, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, 
+						gameOverScreen, battleMusic, gameOverMusic, display);
 			}
 			if (!dead.contains(2) && allEnemies.get(floor).size() == 3) {
 				enemyMoveTimeline(2, allEnemies, gc, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
-						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, gameOverScreen, battleMusic, gameOverMusic);
+						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise, hero, reviveScene, 
+						gameOverScreen, battleMusic, gameOverMusic, display);
 			}
 			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAA
 				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward, posTwoForward, posTwoNoise, posTwoHit, posTwoBackward, 
@@ -1248,7 +867,7 @@ public class BattlePhase {
 	public void enemyMoveTimeline(int position, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc,
 			Timeline posOneForward, Timeline posTwoForward, Timeline posThreeForward, Timeline posOneBackward, Timeline posTwoBackward, 
 			Timeline posThreeBackward, Timeline posOneHit, Timeline posTwoHit, Timeline posThreeHit, Timeline posOneNoise, Timeline posTwoNoise, Timeline posThreeNoise,
-			GameCharacters hero, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic) {
+			GameCharacters hero, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, BattlePhaseDisplay display) {
 		//Move enemy forward and backwards
 		KeyFrame moveForward;
 		KeyFrame moveBackward;
@@ -1300,7 +919,7 @@ public class BattlePhase {
 					});	
 				}
 				heal = new KeyFrame(Duration.millis(1), ae -> {
-					enemyHeal(outerMostHurtEnemy, outerPosition, allEnemies, position, gc);
+					enemyHeal(outerMostHurtEnemy, outerPosition, allEnemies, position, gc, display);
 				});	
 				moveForward = new KeyFrame(Duration.millis(1), ae -> {
 					//do nothing
@@ -1357,12 +976,12 @@ public class BattlePhase {
 		
 		//Enemy hits hero	
 		KeyFrame frameTwo = new KeyFrame(Duration.millis(1), ae -> {
-			hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, false);
+			hitHero(hero, allEnemies, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, false, display);		
 		});
 		
 		//Boss Outrage hits hero	
 		KeyFrame bossHit = new KeyFrame(Duration.millis(1), ae -> {
-			hitHero(hero, allEnemies, dialogueTwo, dialogueThree, heroStam, position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, true);
+			hitHero(hero, allEnemies,position, gc, reviveScene, gameOverScreen, battleMusic, gameOverMusic, true, display);	
 		});
 		
 		if (position == 0) { //boss can only be this position
@@ -1416,7 +1035,7 @@ public class BattlePhase {
 	 * @param gc GraphicsContext used to draw images
 	 */
 	public void enemyHeal(GameCharacters outerMostHurtEnemy, int outerPosition, 
-			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int position, GraphicsContext gc) {
+			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int position, GraphicsContext gc, BattlePhaseDisplay display) {
 		
 		int healAmt = allEnemies.get(floor).get(position).enemyHeal(outerMostHurtEnemy);
 		totalEnemyHealth += healAmt;
@@ -1455,17 +1074,17 @@ public class BattlePhase {
 		timeline.play();
 		
 		if (outerPosition == 0) {
-			enemyStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
-			resetInfoBar(0, enemyOneStamBar, 200, outerMostHurtEnemy);
+			display.getEnemyStam().setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
+			display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, outerMostHurtEnemy);
 		} else if (outerPosition == 1) {
-			enemyTwoStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
-			resetInfoBar(0, enemyTwoStamBar, 200, outerMostHurtEnemy);
+		    display.getEnemyTwoStam().setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
+			display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, outerMostHurtEnemy);
 		} else {
-			enemyThreeStam.setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
-			resetInfoBar(0, enemyThreeStamBar, 200, outerMostHurtEnemy);
+		    display.getEnemyThreeStam().setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
+			display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, outerMostHurtEnemy);
 		}
-		dialogueTwo.setText("Healer healed " + outerMostHurtEnemy.getType() + " for " + healAmt + " health!");
-		dialogueThree.setText("");
+		display.getDialogueTwo().setText("Healer healed " + outerMostHurtEnemy.getType() + " for " + healAmt + " health!");
+		display.getDialogueThree().setText("");
 	}
 	
 	/**
@@ -1474,9 +1093,6 @@ public class BattlePhase {
 	 * 
 	 * @param hero Player controlled hero GameCharacters
 	 * @param allEnemies The HashMap of all enemies
-	 * @param dialogueTwo The second textbox used to update battle info
-	 * @param dialogueThree The third textbox used to update battle info
-	 * @param heroStam The textbox used to display hero health
 	 * @param i The counter for which enemy attacks
 	 * @param gc GraphicsContext to clear character after death
 	 * @param reviveScene Scene to show revive option
@@ -1484,9 +1100,8 @@ public class BattlePhase {
 	 * @param battleMusic Music that plays during battle phase
 	 * @param gameOverMusic Music that plays when the game is over
 	 */
-	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, 
-			Text dialogueTwo, Text dialogueThree, Text heroStam, int i, GraphicsContext gc, Scene reviveScene, 
-			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage) { 
+	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int i, GraphicsContext gc, Scene reviveScene, 
+			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage, BattlePhaseDisplay display) { 
 		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage, false);
 		if (!healerTargetAvail || !allEnemies.get(floor).get(i).getType().equals("Healer")) {
 		Timeline heroRed = new Timeline();
@@ -1505,19 +1120,19 @@ public class BattlePhase {
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
 		}
-		heroStam.setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-		resetInfoBar(0, staminaBar, 300, hero);
+		display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+		display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
 		if (attackAmount <= 0) {
-			dialogueTwo.setText("You took 0 damage!"); // You took 0 damage!
+			display.getDialogueTwo().setText("You took 0 damage!"); // You took 0 damage!
 		} else {
-		    dialogueTwo.setText(allEnemies.get(floor).get(i).getType() + " dealt " + attackAmount + " damage to you!");
+		    display.getDialogueTwo().setText(allEnemies.get(floor).get(i).getType() + " dealt " + attackAmount + " damage to you!");
 		}
 		if (attackAmount <= 0) {
-			dialogueThree.setText("The enemy's attack had no effect on you!");
+			display.getDialogueThree().setText("The enemy's attack had no effect on you!");
 
 		} else {
 			if (hero.isDefending()) {
-				dialogueThree.setText("Your defense blocked " + attackAmount + " damage!");
+				display.getDialogueThree().setText("Your defense blocked " + attackAmount + " damage!");
 			}
 			if (hero.getCurrentStamina() <= 0) {
 				hero.displayCharacter(gc, true, false,false);
@@ -1545,21 +1160,6 @@ public class BattlePhase {
 		}
 	}
 
-	/** This method disables/enables all user input buttons
-	 * 
-	 * @param disable If true, disable all buttons. Enable otherwise.
-	 * @param attackBtn Button to attack
-	 * @param healBtn Button to use item
-	 * @param defendBtn Button to defend
-	 * @param magicAtkBtn Button to do a magic attack
-	 */
-	public void disableButtons(boolean disable, Button attackBtn, Button healBtn, Button defendBtn, Button magicAtkBtn) {
-		attackBtn.setDisable(disable);
-		healBtn.setDisable(disable);
-		defendBtn.setDisable(disable);
-		magicAtkBtn.setDisable(disable);
-	}
-
 	/**
 	 * @return the magic
 	 */
@@ -1574,5 +1174,8 @@ public class BattlePhase {
 	public void setMagic(boolean magic) {
 		this.magic = magic;
 	}
+
+	
+	
 
 }
