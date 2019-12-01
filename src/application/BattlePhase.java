@@ -59,6 +59,7 @@ public class BattlePhase {
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param gameOverMusic The music that plays when the game is over
 	 * @param youWinMusic The music that plays when you win the game
+	 * @param display The display elements of needed for battle phase
 	 */
 	public void eventButtons(HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GameCharacters hero, 
 			GraphicsContext gc, Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, 
@@ -320,8 +321,9 @@ public class BattlePhase {
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param gameOverMusic The music that plays when the game is over
 	 * @param youWinMusic The music that plays when you win the game
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
+	private void chooseEnemyBtnEvent(int enemy, GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
 			Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen, GraphicsContext gc, MediaPlayer battleMusic, 
 			MediaPlayer gameOverMusic,MediaPlayer youWinMusic, BattlePhaseDisplay display) {
 		display.getEmpowered().setVisible(false);
@@ -378,11 +380,7 @@ public class BattlePhase {
 	 * This method creates display text for when it is the heroes turn to attack and updates necessary variables.
 	 * 
 	 * @param hero The players chosen character
-	 * @param allEnemies The HashMap of all enemies 
-	 * @param enemyStam The current stamina of the enemy
-	 * @param dialogue Text that updates the player on what is currently happening.
-	 * @param dialogueTwo Text that updates the player on what is currently happening.
-	 * @param dialogueThree Text that updates the player on what is currently happening.
+	 * @param allEnemies The HashMap of all enemies
 	 * @param choice  The enemy character the hero would like to attack (if there are multiple)
 	 * @param gc The GraphicalContext needed to display/remove the enemy character image in the GUI.
 	 * @param primaryStage the primary stage/ window of GUI
@@ -390,8 +388,9 @@ public class BattlePhase {
 	 * @param youWin the you win screen scene
 	 * @param battleMusic Music that plays in the battle phase
 	 * @param youWinMusic Music that plays when you win the game
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
+	private void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
 		Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) {
 
 		//Move hero forward 
@@ -479,8 +478,9 @@ public class BattlePhase {
 	 * @param youWin The screen after the player wins the game
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param youWinMusic The music that plays when you win the game
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
+	private void mageTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
 		Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) {
 
 		//Move magic blast forward
@@ -556,10 +556,11 @@ public class BattlePhase {
 	 * @param dead HashSet for dead enemies
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param youWinMusic The music that plays when you win the game
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, 
+	private void hitEnemy(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, 
 		GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
-			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) { //Text dialogue, Text dialogueTwo, Text dialogueThree,Text enemyStam,
+			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) { 
 		
 
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
@@ -677,13 +678,14 @@ public class BattlePhase {
 	 * backward for the animation of an attack. It will first clear the current picture
 	 * off the canvas, move the X axis of image either forward or backward depending 
 	 * on the boolean and repaint in the new location
+	 * 
 	 * @param character The character we are moving
 	 * @param gc The GraphicsContext used to delete and repaint
 	 * @param forward Whether we are moving forward or backward
 	 * @param allEnemies The HashMap of enemies
 	 * @param floor The current floor the hero is on
 	 */
-	public void move(GameCharacters character, GraphicsContext gc, boolean forward, 
+	private void move(GameCharacters character, GraphicsContext gc, boolean forward, 
 			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor) {
 
 		//Clear current picture
@@ -724,7 +726,7 @@ public class BattlePhase {
 	 * @param isHero Boolean to know whether character using magic is a hero
 	 * @param choice the enemy the hero has chosen to attack
 	 */
-	public void moveMagic(GameCharacters character, GameCharacters hero, GraphicsContext gc, 
+	private void moveMagic(GameCharacters character, GameCharacters hero, GraphicsContext gc, 
 			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int floor, Boolean isHero, int choice) {
 
 		//Clear current picture
@@ -766,8 +768,9 @@ public class BattlePhase {
 	 * @param gameOverScreen The screen after the player loses the game
 	 * @param battleMusic  The music that plays during the battle phase
 	 * @param gameOverMusic The music that plays when the game is over
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc, int floor, 
+	private void enemyTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc, int floor, 
 		Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, BattlePhaseDisplay display) {
 
 		//If enemies are still alive
@@ -779,7 +782,19 @@ public class BattlePhase {
 		}
 	}
 
-	public void singleEnemyAttacks(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
+	/**
+	 * This method controls the attack timeline  for each enemies 
+	 * 
+	 * @param hero@param hero Players chosen hero character
+	 * @param allEnemies The HashMap of all enemies 
+	 * @param gc GraphicsContext to clear character after death
+	 * @param reviveScene The scene giving the player the option to use a revive
+	 * @param gameOverScreen The screen after the player loses the game
+	 * @param battleMusic  The music that plays during the battle phase
+	 * @param gameOverMusic The music that plays when the game is over
+	 * @param display The display elements of needed for battle phase
+	 */
+	private void singleEnemyAttacks(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
 			GraphicsContext gc, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, BattlePhaseDisplay display) {
 		if (hero.getCurrentStamina() > 0) {
 			//	final Integer innerI = new Integer(i);
@@ -863,8 +878,9 @@ public class BattlePhase {
 	 * @param gameOverScreen Scene to show game over
 	 * @param battleMusic Music that plays during battle phase
 	 * @param gameOverMusic Music that plays when the game is over
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void enemyMoveTimeline(int position, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc,
+	private void enemyMoveTimeline(int position, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, GraphicsContext gc,
 			Timeline posOneForward, Timeline posTwoForward, Timeline posThreeForward, Timeline posOneBackward, Timeline posTwoBackward, 
 			Timeline posThreeBackward, Timeline posOneHit, Timeline posTwoHit, Timeline posThreeHit, Timeline posOneNoise, Timeline posTwoNoise, Timeline posThreeNoise,
 			GameCharacters hero, Scene reviveScene, Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, BattlePhaseDisplay display) {
@@ -1033,8 +1049,9 @@ public class BattlePhase {
 	 * @param allEnemies HashMap storing all enemies for every floor
 	 * @param position The int position of the healer
 	 * @param gc GraphicsContext used to draw images
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void enemyHeal(GameCharacters outerMostHurtEnemy, int outerPosition, 
+	private void enemyHeal(GameCharacters outerMostHurtEnemy, int outerPosition, 
 			HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int position, GraphicsContext gc, BattlePhaseDisplay display) {
 		
 		int healAmt = allEnemies.get(floor).get(position).enemyHeal(outerMostHurtEnemy);
@@ -1099,8 +1116,9 @@ public class BattlePhase {
 	 * @param gameOverScreen Scene to show game over
 	 * @param battleMusic Music that plays during battle phase
 	 * @param gameOverMusic Music that plays when the game is over
+	 * @param display The display elements of needed for battle phase
 	 */
-	public void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int i, GraphicsContext gc, Scene reviveScene, 
+	private void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int i, GraphicsContext gc, Scene reviveScene, 
 			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage, BattlePhaseDisplay display) { 
 		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage, false);
 		if (!healerTargetAvail || !allEnemies.get(floor).get(i).getType().equals("Healer")) {
