@@ -290,7 +290,7 @@ public class GameGUI extends Application {
 		submitBtn.setOnMouseClicked(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
 			se.errorSound();
-			error.setId("charNameErrorText");
+			error.setId("errorText");
 			error.setText("Please Enter A Name");
 		    } else {
 			openingMusic.stop();
@@ -476,7 +476,7 @@ public class GameGUI extends Application {
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
-		errorMsg.setId("shopText");
+		errorMsg.setId("errorText");
 		errorMsg.setVisible(false);
 
 		// Display all items currently in the hero's bag
