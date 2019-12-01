@@ -439,10 +439,10 @@ public class GameGUI extends Application {
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		BattlePhaseDisplay display = new BattlePhaseDisplay();
 		display.dispCombatInfo(hero, allEnemies, floor.getFloor());
-		battle.idleAnimate(allEnemies, gc);
-		battle.heroAnimate(hero, gc);
 		display.dispDialogue();
 		display.initButtons(hero);
+		battle.idleAnimate(allEnemies, gc);
+		battle.heroAnimate(hero, gc);
 		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage),  
 			reviveScreen(primaryStage),gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic, display);
 		GridPane grid = display.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);

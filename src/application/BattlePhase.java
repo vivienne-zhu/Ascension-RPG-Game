@@ -66,7 +66,7 @@ public class BattlePhase {
 			MediaPlayer battleMusic, MediaPlayer gameOverMusic , MediaPlayer youWinMusic,BattlePhaseDisplay display) {
 		//Event handling for when attack button is pressed
 		display.getAttackBtn().setOnAction(event -> {
-		    if (totalEnemyHealth !=0) {
+		    if(totalEnemyHealth != 0) {
 			display.getItemBag().setVisible(false);
 			display.getError().setVisible(false);
 			setMagic(false);
@@ -126,12 +126,11 @@ public class BattlePhase {
 			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			}
 		    }
-
 		});
 
 		//Event handling for when defend button is pressed
 		display.getDefendBtn().setOnAction(event -> {
-		   if (totalEnemyHealth != 0) {
+		    if(totalEnemyHealth != 0) {
 		    	display.getItemBag().setVisible(false);
 			display.getError().setVisible(false);
 			setMagic(false);
@@ -158,7 +157,7 @@ public class BattlePhase {
 			gc.clearRect(140, 280, 80, 80));
 			icon.getKeyFrames().add(iconDisable);
 			icon.play();
-		}
+		    }
 		});
 
 		//Event handling for when heal button is pressed
