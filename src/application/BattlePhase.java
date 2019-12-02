@@ -101,7 +101,7 @@ public class BattlePhase {
 		    if(totalEnemyHealth != 0) {
 		    display.getItemBag().setVisible(false);
 		    display.getError().setVisible(false);
-		    setMagic(false);
+		    setMagic(true);
 
 			display.disableButtons(true);
 			hero.setIsDefending(false);
