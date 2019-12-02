@@ -6,7 +6,7 @@ On your way, you will encounter various monsters, secret mechanics, a varied sho
 
 Best part of it is that no two plays will be the same thanks to controlled randomization of stat and minion generation.
 
-Choose from 3 classes, warrior, mage, and archer, and experience different playstyles through unique stat focuses and battle perks.
+Choose from 3 classes, warrior, mage, and rogue, and experience different playstyles through unique stat focuses and battle perks.
 
 Will you succeed?
 
