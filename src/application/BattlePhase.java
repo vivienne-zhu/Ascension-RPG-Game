@@ -125,6 +125,9 @@ public class BattlePhase {
 			    	display.getChooseEnemyTwoBtn().setVisible(true);
 			    	display.getChooseEnemyThreeBtn().setVisible(true);
 			}
+		    } else {
+			se.errorSound();
+			display.getMagicAtkBtn().setDisable(true);
 		    }
 		});
 
