@@ -1,37 +1,21 @@
 package application;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.canvas.*;
+import javafx.scene.control.*;
+import javafx.scene.effect.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.scene.media.*;
+import javafx.scene.paint.*;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 
 
@@ -290,7 +274,7 @@ public class GameGUI extends Application {
 		submitBtn.setOnMouseClicked(event -> {
 		    if (charNameBox.getText().isEmpty() == true) {
 			se.errorSound();
-			error.setId("charNameErrorText");
+			error.setId("errorText");
 			error.setText("Please Enter A Name");
 		    } else {
 			openingMusic.stop();
@@ -437,14 +421,15 @@ public class GameGUI extends Application {
 
 		//Code that controls the battle mechanics on each floor
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
-		battle.dispCombatInfo(hero, allEnemies, floor.getFloor());
+		BattlePhaseDisplay display = new BattlePhaseDisplay();
+		display.dispCombatInfo(hero, allEnemies, floor.getFloor());
+		display.dispDialogue();
+		display.initButtons(hero);
 		battle.idleAnimate(allEnemies, gc);
 		battle.heroAnimate(hero, gc);
-		battle.dispDialogue();
-		battle.initButtons(hero);
 		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage),  
-			reviveScreen(primaryStage),gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic);
-		GridPane grid = battle.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
+			reviveScreen(primaryStage),gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic, display);
+		GridPane grid = display.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(500), towerLevels);
@@ -475,7 +460,7 @@ public class GameGUI extends Application {
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
-		errorMsg.setId("shopText");
+		errorMsg.setId("errorText");
 		errorMsg.setVisible(false);
 
 		// Display all items currently in the hero's bag

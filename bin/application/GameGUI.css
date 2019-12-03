@@ -57,7 +57,7 @@
 	-fx-font-weight: bold;
 }
 
-#charNameErrorText {
+#errorText {
 	-fx-fill: white;
 	-fx-stroke: black;
 	-fx-stroke-width: 0.2;
