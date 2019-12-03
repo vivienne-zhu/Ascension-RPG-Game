@@ -322,7 +322,7 @@ public class BattlePhaseDisplay {
 	grid.add(hbBtn, 0, 3);
 	grid.add(itemBag, 0, 4);
 	grid.add(error, 0, 5);
-	grid.add(empowered, 0, 7);
+	grid.add(empowered, 0, 6);
 	if(hero.getType().equals("Mage")) {
 	    grid.add(heroMana, 1, 1);
 	    grid.add(fullManaBar, 1, 2);
