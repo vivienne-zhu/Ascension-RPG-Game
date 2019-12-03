@@ -1019,7 +1019,7 @@ public class GameGUI extends Application {
 		    userUpdate.setLayoutX(340);
 		    userUpdate.setLayoutY(180);
 		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
-			    + "! \n\t\t You regained 20% stamina! \n");
+			    + "! \n\t\t You regained 30% stamina! \n");
 		    levelUp.setId("levelUpText");
 		    xpCount = 0;
 		    next.setVisible(true);
