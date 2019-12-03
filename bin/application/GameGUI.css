@@ -95,8 +95,16 @@
 	-fx-font-size: 24px;
 	-fx-font-weight: bold;
 }
+
 #battlePhaseEmpowered {
 	-fx-fill: red;
+	-fx-font-family: serif;
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+}
+
+#battlePhaseOutraged {
+	-fx-fill: yellow;
 	-fx-font-family: serif;
 	-fx-font-size: 24px;
 	-fx-font-weight: bold;
