@@ -35,14 +35,17 @@ To play the game, please run the **GameGUI class**.
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 9 03 25 AM" src="https://user-images.githubusercontent.com/57401664/70054346-c4975900-15ad-11ea-8b2b-bcaa43ae6436.png">
 	
+	
 	>The text in the centre of the screen will update to let you know all the details of the battle!
 	>If you choose the **Defend** button, enemy attack damage will be halved, and you will be _Empowered_ and have double attack power next turn. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 58 25 AM" src="https://user-images.githubusercontent.com/57401664/70054767-88b0c380-15ae-11ea-8970-9b1be8902831.png">
 	
+	
 	 >The **Heal** button will provide a drop down to your _Item bag_ and if you have any potions you will have a chance to use them before attacking or defending. You will not lose a turn if you chose to use an item, and you can use as many as needed in one go. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 26 28 AM" src="https://user-images.githubusercontent.com/57401664/70054815-9cf4c080-15ae-11ea-80a4-f27519a55aa4.png">
+
 
 	>The **Mages** **Magic Atk** button allows them to use a powerful magic blast attack, but requires _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
 	
@@ -54,7 +57,7 @@ To play the game, please run the **GameGUI class**.
 	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a sufficient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. The stat increases gained when you level up will be shown on this screen as well. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 9 00 00 AM" src="https://user-images.githubusercontent.com/57401664/70053790-8e0d0e80-15ac-11ea-8f2d-68a36737257e.png"><img width="400" alt="Screen Shot 2019-12-03 at 9 01 25 AM" src="https://user-images.githubusercontent.com/57401664/70053986-0542a280-15ad-11ea-872b-2b25a2f6d5b3.png">
-
+ 	> Regular transition screen and transition screen on level up.
 
 5. **Magic Shop:** 
 	After clearing floors 3,6, and 9, you will be given the option on the _transition screen_ to 
@@ -62,11 +65,15 @@ To play the game, please run the **GameGUI class**.
 	**Revives** cost 250 gold and bring you back to life (i.e. renew all stamina and mana, and allow you to replay the floor on which you died). 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 28 40 AM" src="https://user-images.githubusercontent.com/57401664/70053647-42f2fb80-15ac-11ea-9c1b-8fa701c6d271.png">
+	
+	>The Magic shop!
 
 6. **Events:** 
-	Before each new floor, there is a chance of a random event occuring. Events can cause you to gain or lose gold, or even go down or up in floors. **Your luck will decide you fate!**
+	Before each new floor, there is a chance of a random event occuring. Events can cause you to gain or lose gold, or even go down or up in floors.**Your luck will decide you fate!**
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 59 06 AM" src="https://user-images.githubusercontent.com/57401664/70053707-5dc57000-15ac-11ea-95be-97ee6e34690d.png">
+	
+	>Mysterious Event Screen. 
 
-
+ 
 ------
