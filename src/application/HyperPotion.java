@@ -14,7 +14,7 @@ public class HyperPotion extends Potion {
 	 * The constructor of the hyper potion class sets the restore points and price.
 	 */
 	public HyperPotion() {
-		this.setRestorePoint(300);
+		this.setRestorePoint(350);
 		this.setPrice(150);
 	}
 
