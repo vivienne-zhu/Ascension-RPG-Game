@@ -51,7 +51,7 @@ public class Event {
 	 * @param floor The current floor the player is on.
 	 * @return new floor number
 	 */
-	public int jumpFloor(GameCharacters hero, Floor floor) {
+	private int jumpFloor(GameCharacters hero, Floor floor) {
 		Random r = new Random();
 		int newFloor = floor.getFloor() + r.nextInt(2) + 1;
 		
@@ -72,7 +72,7 @@ public class Event {
 	 * @param floor The current floor the player is on
 	 * @return new floor number
 	 */
-	public int dropFloor(Floor floor) {
+	private int dropFloor(Floor floor) {
 		floor.decrementFloor();
 		
 		return floor.getFloor();
@@ -86,9 +86,9 @@ public class Event {
 	 * @param hero The players hero
 	 * @return gold the amount of gold the user gained
 	 */
-	public Double gainGold(GameCharacters hero) { 
+	private int gainGold(GameCharacters hero) { 
 		Random r = new Random();
-		double gold = r.nextInt(200) + 1;
+		int gold = r.nextInt(200) + 1;
 		hero.setGold(hero.getGold() + gold);	
 		return gold;
 	}
@@ -101,9 +101,9 @@ public class Event {
 	 * @param floor the current floor the hero is on
 	 * @return gold the amount of gold the user lost
 	 */
-	public double loseGold(GameCharacters hero,  Floor floor) {
+	private int loseGold(GameCharacters hero,  Floor floor) {
 		Random r = new Random();
-		double lostGold = r.nextInt(100) + 1;
+		int lostGold = r.nextInt(100) + 1;
 		
 		if (hero.getGold() > lostGold) {
 			hero.setGold(hero.getGold() - lostGold);

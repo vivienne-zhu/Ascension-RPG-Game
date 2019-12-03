@@ -49,13 +49,13 @@ public class Shop {
 				quantity.setOnMouseClicked(event -> quantity.clear());
 			} else {			
 			if (text.matches("[0-9]*")) {
-				double cost = potion.getPrice() * Double.parseDouble(quantity.getText());
+				int cost =  potion.getPrice() * Integer.parseInt(quantity.getText());
 				if (hero.getGold() >= cost) {
 					se.moneySound();
 					errorMsg.setVisible(false);
 					hero.setGold(hero.getGold() - cost);
 					hero.getPotionMap().put(potion,
-							hero.getPotionMap().get(potion) + Double.parseDouble(quantity.getText()));
+							hero.getPotionMap().get(potion) + Integer.parseInt(quantity.getText()));
 					quantity.clear();
 					display.setText(this.shopDisplay(hero));
 				} else {
@@ -95,7 +95,7 @@ public class Shop {
 				q.setOnMouseClicked(event -> q.clear());
 			} else {		
 			if (text.matches("[0-9]*")) {
-				double quantity = Double.parseDouble(q.getText());
+				int quantity = Integer.parseInt(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
 					se.moneySound();
 					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
@@ -186,9 +186,9 @@ public class Shop {
 		}
 
 		if (hero.isHasRevive() == true) {
-			display += "\nRevive \t\t\tx1.0";
+			display += "\nRevive \t\t\tx1";
 		} else {
-			display += "\nRevive \t\t\tx0.0";
+			display += "\nRevive \t\t\tx0";
 		}
 
 		return display;
