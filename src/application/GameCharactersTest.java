@@ -54,29 +54,4 @@ class GameCharactersTest {
 		assertEquals(448, aragorn.getCurrentStamina());
 	}
 
-//	// This tests the methods buyRevive and sellRevive, 
-//	// and test whether gold and hasRevives update correctly
-//	@Test
-//	void buyingAndSellingRevivesTest() {
-//		Warrior link = new Warrior();
-//		link.setGold(500);
-//		link.buyRevive();
-//
-//		assertEquals(300, link.getGold());
-//		assertEquals(true, link.isHasRevive());
-//
-//		link.setGold(0);
-//		link.sellRevive();
-//
-//		assertEquals(150, link.getGold());
-//		assertEquals(false, link.isHasRevive());
-//
-//		link.setGold(0);
-//		link.buyRevive();
-//
-//		assertEquals(0, link.getGold());
-//		assertEquals(false, link.isHasRevive());
-//
-//	}
-
 }

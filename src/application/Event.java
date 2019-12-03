@@ -86,9 +86,9 @@ public class Event {
 	 * @param hero The players hero
 	 * @return gold the amount of gold the user gained
 	 */
-	private Double gainGold(GameCharacters hero) { 
+	private int gainGold(GameCharacters hero) { 
 		Random r = new Random();
-		double gold = r.nextInt(200) + 1;
+		int gold = r.nextInt(200) + 1;
 		hero.setGold(hero.getGold() + gold);	
 		return gold;
 	}
@@ -101,9 +101,9 @@ public class Event {
 	 * @param floor the current floor the hero is on
 	 * @return gold the amount of gold the user lost
 	 */
-	private double loseGold(GameCharacters hero,  Floor floor) {
+	private int loseGold(GameCharacters hero,  Floor floor) {
 		Random r = new Random();
-		double lostGold = r.nextInt(100) + 1;
+		int lostGold = r.nextInt(100) + 1;
 		
 		if (hero.getGold() > lostGold) {
 			hero.setGold(hero.getGold() - lostGold);

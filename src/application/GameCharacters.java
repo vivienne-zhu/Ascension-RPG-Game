@@ -23,7 +23,7 @@ public class GameCharacters {
     private boolean hasRevive;
     private boolean isDefending;
     private boolean isEmpowered;
-    private double gold;
+    private int gold;
     private int xp;
     private int mana;
     private int currentMana;
@@ -33,7 +33,7 @@ public class GameCharacters {
     private int staminaUp;
     private int manaUp;
     private int magicAtkUp;
-    private HashMap<Potion, Double> potionMap;
+    private HashMap<Potion, Integer> potionMap;
     private CheapPotion cp;
     private HyperPotion hp;
     private double x;
@@ -62,8 +62,8 @@ public class GameCharacters {
 	this.potionMap = new HashMap<>();
 	this.cp = new CheapPotion();
 	this.hp = new HyperPotion();
-	this.potionMap.put(cp, 0.0);
-	this.potionMap.put(hp, 0.0);
+	this.potionMap.put(cp, 0);
+	this.potionMap.put(hp, 0);
 
 	// for testing purpose, set the gold to 10000.
 	this.gold = 100;
@@ -466,15 +466,15 @@ public class GameCharacters {
     /**
      * @return The value of the gold instance variable.
      */
-    public double getGold() {
+    public int getGold() {
 	return gold;
     }
 
     /**
-     * @param gold The value to be set to the gold instance variable.
+     * @param d The value to be set to the gold instance variable.
      */
-    public void setGold(double gold) {
-	this.gold = gold;
+    public void setGold(int d) {
+	this.gold = d;
     }
 
     /**
@@ -539,14 +539,14 @@ public class GameCharacters {
     /**
      * @return the potionList
      */
-    public HashMap<Potion, Double> getPotionMap() {
+    public HashMap<Potion, Integer> getPotionMap() {
 	return potionMap;
     }
 
     /**
      * @param potionMap the potionMap to set
      */
-    public void setPotionList(HashMap<Potion, Double> potionMap) {
+    public void setPotionList(HashMap<Potion, Integer> potionMap) {
 	this.potionMap = potionMap;
     }
 
