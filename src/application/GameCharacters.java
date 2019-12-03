@@ -315,7 +315,7 @@ public class GameCharacters {
     public String itemInfo(Potion potion) {
 	String itemInfo = "";
 
-	itemInfo = potion.toString() + "\t" + this.potionMap.get(potion).toString();
+	itemInfo = potion.toString() + "\t\tx" + this.potionMap.get(potion).toString();
 	return itemInfo;
     }
 
