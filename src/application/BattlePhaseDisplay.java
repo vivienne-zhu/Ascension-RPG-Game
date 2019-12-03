@@ -10,9 +10,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
- * This class contains the diplay elements of the battle phase.
+ * This class contains the display elements of the battle phase.
  * 
- * @author Shari Sinclair and David Cai
+ * @author Shari Sinclair, David Cai and JiayuZhu
  *
  */
 public class BattlePhaseDisplay {
