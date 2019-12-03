@@ -365,7 +365,7 @@ public class BattlePhaseDisplay {
 	hbBtn.setAlignment(Pos.CENTER);
 
 	//Make gridlines visible - only for development phase
-	grid.setGridLinesVisible(true);
+	grid.setGridLinesVisible(false);
 
 	return grid;
     }
