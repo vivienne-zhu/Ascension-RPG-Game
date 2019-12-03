@@ -441,7 +441,7 @@ public class GameGUI extends Application {
 		int healerCount = 0; //keeps track of enemy healers
 		int nonHealerCount = 0; //keeps track of other enemies
 		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
-			int randEnemy = (int) (Math.random() * (3));
+			int randEnemy = (int) (Math.random() * (2));
 			if (randEnemy == 0) {
 				floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			} else {
@@ -580,7 +580,7 @@ public class GameGUI extends Application {
 		potionList.setId("shopText");
 
 		// Description for cheap potion
-		Text potion1 = new Text("+CHEAP POTION+ \n HP +150 \n PRICE: 50 GOLD");
+		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
 		potion1.setId("shopText");
 
 		// Input quantity for cheap potion
@@ -597,7 +597,7 @@ public class GameGUI extends Application {
 		
 
 		// Description for hyper potion
-		Text potion2 = new Text("+HYPER POTION+ \n HP +300 \n PRICE: 150 GOLD");
+		Text potion2 = new Text("+HYPER POTION+ \n HP +350 \n PRICE: 150 GOLD");
 		potion2.setId("shopText");
 
 
@@ -1095,7 +1095,7 @@ public class GameGUI extends Application {
 		Text mAtkUp = new Text();
 		Text manaUp = new Text();
 		
-		if (xpCount >= (25 + hero.getLevel() * 125)) {
+		if (xpCount >= (25 + hero.getLevel() * 175)) {
 		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
 		    goldGained.setId("xpAndGoldTwoText");

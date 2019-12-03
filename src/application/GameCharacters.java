@@ -66,7 +66,7 @@ public class GameCharacters {
 	this.potionMap.put(hp, 0);
 
 	// for testing purpose, set the gold to 10000.
-	this.gold = 0;
+	this.gold = 100;
 	this.xp = 0;
 	this.isDefending = false;
 	this.x = 0;
@@ -219,22 +219,22 @@ public class GameCharacters {
      */
     public void levelUp() {
 	int atk = this.getAttack();
-	int atkRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); // min 10, max 15
+	int atkRand = 10 + (int) (Math.random() * ((12 - 10) + 1)); // min 12, max 10
 	if (this instanceof Rogue) {
 		atkRand += 5;
 	}
 	setAttackUp(atkRand);
 	atk = atk + attackUp;
 	setAttack(atk); 
-	int defRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); 
+	int defRand = 8 + (int) (Math.random() * ((10 - 8) + 1)); 
 	if (this instanceof Warrior) {
-		defRand += 5;
+		defRand += 4;
 	}
 	int defense = this.getDefense();
 	setDefenseUp(defRand);
 	defense = defense + defenseUp;
 	setDefense(defense);
-	int stamRand = 50 + (int) (Math.random() * ((60 - 40) + 1)); 
+	int stamRand = 50 + (int) (Math.random() * ((60 - 50) + 1)); 
 	setStaminaUp(stamRand);
 	int stam = this.getStamina();
 	stam = stam + staminaUp;
@@ -247,7 +247,7 @@ public class GameCharacters {
 	    m = m + manaUp;
 	    setMana(m);
 	    int mAtk = this.getMagicAtk();
-	    int magicAtkRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); 
+	    int magicAtkRand = 12 + (int) (Math.random() * ((15 - 12) + 1)); 
 	    setMagicAtkUp(magicAtkRand);
 	    mAtk = mAtk + magicAtkUp;
 	    setMagicAtk(mAtk); 
