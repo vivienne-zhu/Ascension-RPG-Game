@@ -357,7 +357,7 @@ public class GameGUI extends Application {
 		int healerCount = 0; //keeps track of enemy healers
 		int nonHealerCount = 0; //keeps track of other enemies
 		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
-			int randEnemy = (int) (Math.random() * (3));
+			int randEnemy = (int) (Math.random() * (2));
 			if (randEnemy == 0) {
 				floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
 			} else {
@@ -1011,7 +1011,7 @@ public class GameGUI extends Application {
 		Text mAtkUp = new Text();
 		Text manaUp = new Text();
 		
-		if (xpCount >= (25 + hero.getLevel() * 125)) {
+		if (xpCount >= (25 + hero.getLevel() * 175)) {
 		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
 		    goldGained.setId("xpAndGoldTwoText");

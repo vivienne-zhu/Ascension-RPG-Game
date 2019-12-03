@@ -226,9 +226,9 @@ public class GameCharacters {
 	setAttackUp(atkRand);
 	atk = atk + attackUp;
 	setAttack(atk); 
-	int defRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); 
+	int defRand = 8 + (int) (Math.random() * ((12 - 8) + 1)); 
 	if (this instanceof Warrior) {
-		defRand += 5;
+		defRand += 4;
 	}
 	int defense = this.getDefense();
 	setDefenseUp(defRand);
