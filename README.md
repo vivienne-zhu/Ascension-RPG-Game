@@ -26,8 +26,15 @@ To play the game, please run the **GameGUI class**.
 
 
 2. **Floors and Enemies:** 
-	Each floor of the tower will have the same display and controls (seen controls below) but will have differing numbers of randomly generated enemies. Floor 1-3 will have 1 enemy, Floor 4-6 will have 2 enemies, and Floor 7-9 will have 3. Enemy types can either be the defensive and hard hitting **Melee enemy**, the **Ranged enemy** with its magical attacks, or the **Healer enemy** who can heal the most weakened enemy on the floor. As you climb the towers the enemies will become increasingly stronger. 
-	The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies and can do more powerful _outrage_ attacks at lower levels of stamina. 
+	Each floor of the tower will have the same display and controls (seen controls below) but will have differing numbers of randomly generated enemies. Floor 1-3 will have 1 enemy, Floor 4-6 will have 2 enemies, and Floor 7-9 will have 3. 
+	>Enemy types can either be the defensive and hard hitting **Melee enemy**, the **Ranged enemy** with its magical attacks, or the **Healer enemy** who can heal the most weakened enemy on the floor. As you climb the towers the enemies will become increasingly stronger. 
+	
+	<img width="400" alt="Screen Shot 2019-12-03 at 12 49 43 PM" src="https://user-images.githubusercontent.com/57401664/70071399-b5bf9f00-15cb-11ea-9ad5-1a0c3e5451f7.png">
+
+	>The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies and can do more powerful _outrage_ attacks at lower levels of stamina. 
+	
+	<img width="400" alt="Screen Shot 2019-12-03 at 12 50 28 PM" src="https://user-images.githubusercontent.com/57401664/70071407-b9532600-15cb-11ea-921f-b6e9c8b77e12.png">
+
 
 3. **Controls:** 
 	Each character will have an **Attack, Defend,** and **Heal** button, and **Mages** will have an additional **Magic Atk** button. 
