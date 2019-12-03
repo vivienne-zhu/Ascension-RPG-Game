@@ -15,7 +15,7 @@ public class HyperPotion extends Potion {
 	 */
 	public HyperPotion() {
 		this.setRestorePoint(250);
-		this.setPrice(100);
+		this.setPrice(150);
 	}
 
 	/**

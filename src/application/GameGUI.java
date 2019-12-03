@@ -513,7 +513,7 @@ public class GameGUI extends Application {
 		
 
 		// Description for hyper potion
-		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 100 GOLD");
+		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 150 GOLD");
 		potion2.setId("shopText");
 
 
@@ -530,7 +530,7 @@ public class GameGUI extends Application {
 		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
 		
 		// Description for revive
-		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 200 GOLD");
+		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 250 GOLD");
 		revive.setId("shopText");
 		GridPane.setHalignment(revive, HPos.CENTER);
 		
@@ -991,7 +991,7 @@ public class GameGUI extends Application {
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
-		int gold = (10 + (int)(Math.random() * ((4) + 1)) * floor.getFloor());
+		int gold = (5 * floor.getFloor()) + (allEnemies.get(floor.getFloor()).size() * 20);
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
 		goldGained.setId("xpAndGoldText");

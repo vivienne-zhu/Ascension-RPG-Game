@@ -66,7 +66,7 @@ public class GameCharacters {
 	this.potionMap.put(hp, 0);
 
 	// for testing purpose, set the gold to 10000.
-	this.gold = 100;
+	this.gold = 0;
 	this.xp = 0;
 	this.isDefending = false;
 	this.x = 0;
