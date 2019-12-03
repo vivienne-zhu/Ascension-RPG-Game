@@ -991,7 +991,7 @@ public class GameGUI extends Application {
 			
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
-		int gold = 10 + (int)(Math.random() * ((4) + 1) * floor.getFloor());
+		int gold = (10 + (int)(Math.random() * ((4) + 1)) * floor.getFloor());
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
 		goldGained.setId("xpAndGoldText");
