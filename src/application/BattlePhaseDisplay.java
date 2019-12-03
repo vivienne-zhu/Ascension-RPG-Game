@@ -33,6 +33,7 @@ public class BattlePhaseDisplay {
     private Text dialogueTwo;
     private Text dialogueThree;
     private Text empowered;
+    private Text outraged;
     private Text heroStam;
     private Text heroMana;
     private Text enemyStam;
@@ -226,6 +227,9 @@ public class BattlePhaseDisplay {
 	empowered = new Text("EMPOWERED");
 	empowered.setId("battlePhaseEmpowered");
 	empowered.setVisible(false);
+	outraged= new Text("OUTRAGED");
+	outraged.setId("battlePhaseOutraged");
+	outraged.setVisible(false);
     }
 
     /**
@@ -301,6 +305,7 @@ public class BattlePhaseDisplay {
 	grid.add(enemyOneFullStamBar, 4, 2);
 	grid.add(enemyOneStamBar, 4, 2);
 	grid.add(chooseEnemyBtn, 4, 3);
+	grid.add(outraged, 4, 5);
 	if (enemyCount > 1) {
 	    grid.add(enemyTwoName, 3, 0);
 	    grid.add(enemyTwoStam, 3, 1);
@@ -348,6 +353,7 @@ public class BattlePhaseDisplay {
 	GridPane.setHalignment(dialogueTwo, HPos.CENTER);
 	GridPane.setHalignment(dialogueThree, HPos.CENTER);
 	GridPane.setHalignment(empowered, HPos.CENTER);
+	GridPane.setHalignment(outraged, HPos.CENTER);
 	GridPane.setHalignment(heroName, HPos.CENTER);
 	GridPane.setHalignment(heroStam, HPos.CENTER);
 	GridPane.setHalignment(enemyName, HPos.CENTER);
@@ -359,7 +365,7 @@ public class BattlePhaseDisplay {
 	hbBtn.setAlignment(Pos.CENTER);
 
 	//Make gridlines visible - only for development phase
-	grid.setGridLinesVisible(true);
+	grid.setGridLinesVisible(false);
 
 	return grid;
     }
@@ -561,6 +567,20 @@ public class BattlePhaseDisplay {
 	this.dialogueThree = dialogueThree;
     }
 
+    /**
+     * @return the outraged text value
+     */
+    public Text getOutraged() {
+	return outraged;
+    }
+
+    /**
+     * @param empowered the empowered to set
+     */
+    public void setOutraged(Text outraged) {
+	this.outraged = outraged;
+    }
+    
     /**
      * @return the empowered
      */

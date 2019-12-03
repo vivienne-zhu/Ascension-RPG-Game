@@ -109,7 +109,7 @@ public class GameGUI extends Application {
 		pane.getChildren().addAll(iv,start);
 		pane.setAlignment(Pos.CENTER);
 		pane.setLayoutX(525);
-		pane.setLayoutY(470);
+		pane.setLayoutY(440);
 		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
 		});
 		
@@ -118,7 +118,7 @@ public class GameGUI extends Application {
 		Text title = new Text();
 		title.setText("Tower Challenge");
 		title.setX(250);
-		title.setY(400);
+		title.setY(350);
 		title.setId("startText");
 
 		//Adding image fill to Title text
@@ -156,8 +156,8 @@ public class GameGUI extends Application {
 		//Creating Text, positioning it and adding style and effects
 		Text charOption = new Text();
 		charOption.setText("Choose your character type");
-		charOption.setX(180);
-		charOption.setY(350);
+		charOption.setX(140);
+		charOption.setY(270);
 		charOption.setId("characterOptionText");
 		
 		//Creating buttons for user selection, positioning and adding style
@@ -212,8 +212,8 @@ public class GameGUI extends Application {
 		//Creating vertical box for buttons 
 		VBox btns = new VBox(15);
 		btns.setAlignment(Pos.CENTER);
-		btns.setLayoutX(500);
-		btns.setLayoutY(400);
+		btns.setLayoutX(525);
+		btns.setLayoutY(340);
 		btns.getChildren().addAll(magePane, warriorPane, roguePane);
 
 		//Creating Pane, adding background and then adding above nodes

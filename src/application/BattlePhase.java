@@ -558,9 +558,11 @@ public class BattlePhase {
 		GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
 			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) { 
 		
-
+		int rand = (int) (Math.random() * (3));
+		
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = 0;
+		int secondAttack = 0;
 		if (isMagic() == true) {
 			attackAmount = hero.magicAttack(enemy, hero.isEmpowered());
 			setMagic(false);
@@ -574,38 +576,47 @@ public class BattlePhase {
 			}
 			display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 			display.resetInfoBar(1, display.getManaBar(), 200, hero);
-			if (choice == 0) {
-				display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, enemy);
-			} else if (choice == 1) {
-				display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, enemy);
-			} else {
-				display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
-			}
+		} else if (hero instanceof Rogue) {
+			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
+			if (rand == 0 && enemy.getCurrentStamina() != 0) {
+				secondAttack = hero.attack(enemy, false, hero.isEmpowered()); //attacking twice
+			}	
 		} else {
 			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
-			if (choice == 0) {
-			    	display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, enemy);
-			} else if (choice == 1) {
-			    display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, enemy);
-			} else {
-				display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
-			}
+		}
+		
+		if (choice == 0) {
+		    display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, enemy);
+		} else if (choice == 1) {
+		    display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, enemy);
+		} else {
+			display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
 		}
 
-		totalEnemyHealth -= attackAmount;
+		totalEnemyHealth = totalEnemyHealth - attackAmount - secondAttack;
 		hero.setIsEmpowered(false);
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 		
-		display.getDialogue().setText("You dealt " + attackAmount + " damage!");
-		display.getDialogueTwo().setText("");
+		if (rand == 0 && secondAttack != 0) {
+			display.getDialogue().setText("Slice and Dice Triggered!");
+			display.getDialogueTwo().setText("You dealt " + attackAmount + " + " + secondAttack + " damage!");
+		} else {
+			display.getDialogue().setText("You dealt " + attackAmount + " damage!");
+			display.getDialogueTwo().setText("");
+		}
 		display.getDialogueThree().setText("");
+		
 
 		//If enemy dies, update information and delete enemy picture
-		if (enemy.getCurrentStamina() <= 0) {
+		if (enemy.getCurrentStamina() == 0) {
 			// Add death sound effect 		
 			se.enemyDeathSound();		
 			dead.add(choice);
-			display.getDialogueTwo().setText("You have killed the enemy."); 
+			if (rand == 0 && secondAttack!= 0) {
+				display.getDialogueThree().setText("You have killed the enemy."); 
+			} else {
+				display.getDialogueTwo().setText("You have killed the enemy."); 
+			}
 			enemy.displayCharacter(gc, true, false, false); //deleting picture
 			if (choice == 0) {
 				animateOne.stop();
@@ -634,8 +645,13 @@ public class BattlePhase {
 		}
 		//If all enemies dead, move on to next floor
 		if (totalEnemyHealth == 0) {
+			display.getOutraged().setVisible(false);
 			//Transition to next screen after battle after 5 seconds
-		    	display.getDialogueTwo().setText("You have killed all enemies."); 
+			if (rand == 0) {
+				display.getDialogueThree().setText("You have killed all enemies."); 
+			} else {
+				display.getDialogueTwo().setText("You have killed all enemies."); 
+			}
 			int xp = 50 * allEnemies.get(floor).size() + floor * 10;
 			hero.setXp(hero.getXp() + xp);
 			if (hero.getXp() >= (50 + hero.getLevel() * 80)) {
@@ -1009,6 +1025,7 @@ public class BattlePhase {
 			if (allEnemies.get(floor).get(0) instanceof BossEnemy && 
 					((double) allEnemies.get(floor).get(0).getCurrentStamina() / 
 							(double) allEnemies.get(floor).get(0).getStamina() < 0.34)) {
+				display.getOutraged().setVisible(true);
 				posOneHit.getKeyFrames().add(bossHit);
 			} else {
 				posOneHit.getKeyFrames().add(frameTwo);
