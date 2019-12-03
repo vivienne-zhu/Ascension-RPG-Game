@@ -380,19 +380,13 @@ public class GameGUI extends Application {
 				}
 			}
 		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
-			for (int i = 0; i < 3; i++) {
-				int randEnemy = (int) (Math.random() * (3));
-				while (randEnemy == 2 && (healerCount == 1 || nonHealerCount == 0)) { //max one healer per battle and must have at least one non-healer
-					randEnemy = (int) (Math.random() * ((2) + 1));
-				}
+			floorEnemies.add(new HealerEnemy(floor.getFloor(), 0)); //guaranteed one healer on these floors
+			for (int i = 1; i < 3; i++) {
+				int randEnemy = (int) (Math.random() * (2));
 				if (randEnemy == 0) {
 					floorEnemies.add(new MeleeEnemy(floor.getFloor(), i));
-					nonHealerCount++;
-				} else if (randEnemy == 1){
+				} else {
 					floorEnemies.add(new RangedEnemy(floor.getFloor(), i));
-					nonHealerCount++;
-				} else if (randEnemy == 2){
-					floorEnemies.add(new HealerEnemy(floor.getFloor(), i));
 				}
 			}
 		} else if (floor.getFloor() == 10) {

@@ -647,7 +647,7 @@ public class BattlePhase {
 		if (totalEnemyHealth == 0) {
 			display.getOutraged().setVisible(false);
 			//Transition to next screen after battle after 5 seconds
-			if (rand == 0) {
+			if (rand == 0 && secondAttack!= 0) {
 				display.getDialogueThree().setText("You have killed all enemies."); 
 			} else {
 				display.getDialogueTwo().setText("You have killed all enemies."); 

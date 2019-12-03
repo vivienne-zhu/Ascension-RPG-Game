@@ -17,8 +17,8 @@ public class BossEnemy extends GameCharacters {
      */
     public BossEnemy(int floor) {
 		// Stat values will be changed
-		setAttack(150 + 1 + (int) (Math.random() * ((4) + 1)) * floor);
-		setDefense(60 + 1 + (int) (Math.random() * ((2) + 1)) * floor);
+		setAttack(125 + (2 + (int) (Math.random() * (3 - 2) + 1)) * floor); //125 + (2 to 3 * floor)
+		setDefense(60 + (2 + (int) (Math.random() * (3 - 2) + 1)) * floor); //60 + (2 to 3 * floor)
 		int startStam = 500 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);

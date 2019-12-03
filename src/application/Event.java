@@ -142,12 +142,12 @@ public class Event {
 			iv.setEffect(ds1);
 		} else if (selectedEvent == 2) {
 			double gold = this.gainGold(hero);	
-			display.setText(gold + " gold in the box...You now have " + hero.getGold() + " gold.");
+			display.setText((int) gold + " gold in the box...You now have " + hero.getGold() + " gold.");
 			iv.setEffect(ds2);
 		} else if (selectedEvent  == 3) {
 			double lostGold;
 			lostGold = this.loseGold(hero, floor);		
-			display.setText("A Goblin appears and takes " + lostGold + " gold away...You now have " + hero.getGold() + " gold.");
+			display.setText("A Goblin appears and takes " + (int) lostGold + " gold away...You now have " + hero.getGold() + " gold.");
 			iv.setEffect(ds1);
 		}
 	}
