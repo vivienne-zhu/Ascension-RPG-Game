@@ -17,7 +17,6 @@ public class Mage extends GameCharacters {
 	 * image instance variables in the GUI.
 	 */
 	public Mage() {
-		// Stat values will be changed
 		setAttack(100);
 		setDefense(60);
 		setStamina(400);

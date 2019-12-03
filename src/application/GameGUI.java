@@ -978,13 +978,15 @@ public class GameGUI extends Application {
 		Button next = new Button("Next");
 		next.setId("yellowBtn");
 		next.setVisible(false);;
+		next.setLayoutX(600);
+		next.setLayoutY(580);
 
 		Button continueBtn = new Button("Next Floor");
 		continueBtn.setId("redBtn");
 		HBox hbBtn = new HBox(15);
-		hbBtn.getChildren().addAll(shopBtn, continueBtn, next);
-		hbBtn.setLayoutX(430);
-		hbBtn.setLayoutY(600);
+		hbBtn.getChildren().addAll(shopBtn, continueBtn);
+		hbBtn.setLayoutX(500);
+		hbBtn.setLayoutY(650);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 		
 		//Creating VBox and setting alignment
@@ -1026,7 +1028,7 @@ public class GameGUI extends Application {
 		    levelUp.setId("levelUpText");
 		    xpCount = 0;
 		    next.setVisible(true);
-		    next.setOnAction(event->{ next.setVisible(false);
+		    next.setOnAction(event->{ next.setDisable(true);
 		    continueBtn.setVisible(true);
 		    shopBtn.setVisible(true);
 			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
@@ -1067,7 +1069,7 @@ public class GameGUI extends Application {
 		}
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
-		if (floor.getFloor() == 1 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
+		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
 			shopBtn.setDisable(false);
 		} 		
 		shopBtn.setOnAction(event -> {
@@ -1076,7 +1078,7 @@ public class GameGUI extends Application {
 			});
 		
 		//Adding nodes to pane
-		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate);
+		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate, next);
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
