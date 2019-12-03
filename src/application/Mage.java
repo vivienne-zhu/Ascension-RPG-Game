@@ -17,13 +17,13 @@ public class Mage extends GameCharacters {
 	 * image instance variables in the GUI.
 	 */
 	public Mage() {
-		setAttack(100);
-		setDefense(60);
-		setStamina(450);
+		setAttack(125);
+		setDefense(40);
+		setStamina(700);
 		setCurrentStamina(getStamina());
-		setMana(400);
+		setMana(100);
 		setCurrentMana(getMana());
-		setMagicAtk(175);
+		setMagicAtk(225);
 		setLevel(1);
 		setX(70);
 		setY(420);

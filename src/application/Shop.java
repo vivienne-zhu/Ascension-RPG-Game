@@ -132,9 +132,9 @@ public class Shop {
 				errorMsg.setText("YOU ALDREADY HAVE THAT ITEM");
 				errorMsg.setVisible(true);
 			} else {
-				if (hero.getGold() >= 200) {
+				if (hero.getGold() >= 250) {
 					se.moneySound();
-					hero.setGold(hero.getGold() - 200);
+					hero.setGold(hero.getGold() - 250);
 					hero.setHasRevive(true);
 					display.setText(this.shopDisplay(hero));
 				} else {
