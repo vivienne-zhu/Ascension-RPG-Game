@@ -496,7 +496,7 @@ public class GameGUI extends Application {
 		potionList.setId("shopText");
 
 		// Description for cheap potion
-		Text potion1 = new Text("+CHEAP POTION+ \n HP +100 \n PRICE: 50 GOLD");
+		Text potion1 = new Text("+CHEAP POTION+ \n HP +150 \n PRICE: 50 GOLD");
 		potion1.setId("shopText");
 
 		// Input quantity for cheap potion
@@ -513,7 +513,7 @@ public class GameGUI extends Application {
 		
 
 		// Description for hyper potion
-		Text potion2 = new Text("+HYPER POTION+ \n HP +250 \n PRICE: 150 GOLD");
+		Text potion2 = new Text("+HYPER POTION+ \n HP +300 \n PRICE: 150 GOLD");
 		potion2.setId("shopText");
 
 
@@ -1011,7 +1011,7 @@ public class GameGUI extends Application {
 		Text mAtkUp = new Text();
 		Text manaUp = new Text();
 		
-		if (xpCount >= (50 + hero.getLevel() * 80)) {
+		if (xpCount >= (25 + hero.getLevel() * 125)) {
 		    continueBtn.setVisible(false);
 		    shopBtn.setVisible(false);
 		    goldGained.setId("xpAndGoldTwoText");

@@ -219,22 +219,22 @@ public class GameCharacters {
      */
     public void levelUp() {
 	int atk = this.getAttack();
-	int atkRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); // min 5, max 9
+	int atkRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); // min 10, max 15
 	if (this instanceof Rogue) {
-		atkRand += 2;
+		atkRand += 5;
 	}
 	setAttackUp(atkRand);
 	atk = atk + attackUp;
 	setAttack(atk); 
-	int defRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
+	int defRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); 
 	if (this instanceof Warrior) {
-		defRand += 2;
+		defRand += 5;
 	}
 	int defense = this.getDefense();
 	setDefenseUp(defRand);
 	defense = defense + defenseUp;
 	setDefense(defense);
-	int stamRand = 40 + (int) (Math.random() * ((60 - 40) + 1)); 
+	int stamRand = 50 + (int) (Math.random() * ((60 - 40) + 1)); 
 	setStaminaUp(stamRand);
 	int stam = this.getStamina();
 	stam = stam + staminaUp;
@@ -247,7 +247,7 @@ public class GameCharacters {
 	    m = m + manaUp;
 	    setMana(m);
 	    int mAtk = this.getMagicAtk();
-	    int magicAtkRand = 7 + (int) (Math.random() * ((9 - 7) + 1)); 
+	    int magicAtkRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); 
 	    setMagicAtkUp(magicAtkRand);
 	    mAtk = mAtk + magicAtkUp;
 	    setMagicAtk(mAtk); 
