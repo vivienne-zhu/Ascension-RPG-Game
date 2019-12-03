@@ -247,7 +247,7 @@ public class GameCharacters {
 	    m = m + manaUp;
 	    setMana(m);
 	    int mAtk = this.getMagicAtk();
-	    int magicAtkRand = 5 + (int) (Math.random() * ((9 - 5) + 1)); 
+	    int magicAtkRand = 7 + (int) (Math.random() * ((9 - 7) + 1)); 
 	    setMagicAtkUp(magicAtkRand);
 	    mAtk = mAtk + magicAtkUp;
 	    setMagicAtk(mAtk); 
