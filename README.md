@@ -18,8 +18,8 @@ To play the game, please run the **GameGUI class**.
 -------
 ## How to Play
 1. **Start:** 
-	After the Start screen, select the class of hero you would like to play with. 
-	>A **Mage** has the benefit of limited powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. Next, enter the chosen name of your hero. 
+	After the Start screen, select the class of hero you would like to play with. Next, enter the chosen name of your hero. 
+	>A **Mage** has the benefit of limited powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 25 20 AM" src="https://user-images.githubusercontent.com/57401664/70052103-f1953d00-15a8-11ea-916f-2993dd1b9510.png"><img width="400" alt="Screen Shot 2019-12-03 at 8 25 37 AM" src="https://user-images.githubusercontent.com/57401664/70052349-7bdda100-15a9-11ea-9e5d-6f6a4f1d7623.png">
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 25 53 AM" src="https://user-images.githubusercontent.com/57401664/70052412-9c0d6000-15a9-11ea-8f4d-9e478bf618c1.png">
@@ -44,7 +44,7 @@ To play the game, please run the **GameGUI class**.
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 26 28 AM" src="https://user-images.githubusercontent.com/57401664/70054815-9cf4c080-15ae-11ea-80a4-f27519a55aa4.png">
 
-	>The **Mages** **Magic Atk** button allows them to use a powerful magic blast attack, but uses _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
+	>The **Mages** **Magic Atk** button allows them to use a powerful magic blast attack, but requires _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
 	
  	<img width="400" alt="Screen Shot 2019-12-03 at 8 26 17 AM" src="https://user-images.githubusercontent.com/57401664/70054442-f6102480-15ad-11ea-9047-d75ac9308e08.png">
  
