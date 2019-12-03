@@ -23,11 +23,11 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 
 3. **Controls:** 
 	Each character will have an _Attack, Defend,_ and _Heal_ button, and **Mages** will have an additional _Magic Atk_ button. 
-	The Attack button allows you to attack the enemy of choice each turn. To choose an enemy to attack, click the _Attack_ button above the correstponding enemy. 
+	The Attack button allows you to attack the enemy of choice each turn. To choose an enemy to attack, click the _Attack_ button above the correstponding enemy.  The text in the centre of the screen will update to let you know all the details of the battle!
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 9 03 25 AM" src="https://user-images.githubusercontent.com/57401664/70054346-c4975900-15ad-11ea-8b2b-bcaa43ae6436.png">
 	
-	If you choose the _Defend_ button, enemy attacks will be partially shielded and you will be _Empowered_ and have a higher attack next turn.
+	If you choose the _Defend_ button, enemy attacks will be partially shielded and you will be _Empowered_ and have a higher attack next turn. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 58 25 AM" src="https://user-images.githubusercontent.com/57401664/70054767-88b0c380-15ae-11ea-8970-9b1be8902831.png">
 	
@@ -37,20 +37,19 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 
 	The **Mages** _Magic Atk_ button allows them to use a powerful magic blast attack, but uses _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
 	
- <img width="400" alt="Screen Shot 2019-12-03 at 8 26 17 AM" src="https://user-images.githubusercontent.com/57401664/70054442-f6102480-15ad-11ea-9047-d75ac9308e08.png">
+ 	<img width="400" alt="Screen Shot 2019-12-03 at 8 26 17 AM" src="https://user-images.githubusercontent.com/57401664/70054442-f6102480-15ad-11ea-9047-d75ac9308e08.png">
  
- The text in the centre of the screen will update to let you know all the details of the battle!
 
 
 4. **Transition**: 
-	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. The higher the floor and the more enemies you defeat, the more gold and xp gained! If you gained a suffiecient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. The stat increases gained when you level up will be shown on this screen as well. 
+	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a suffiecient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. The stat increases gained when you level up will be shown on this screen as well. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 9 00 00 AM" src="https://user-images.githubusercontent.com/57401664/70053790-8e0d0e80-15ac-11ea-8f2d-68a36737257e.png"><img width="400" alt="Screen Shot 2019-12-03 at 9 01 25 AM" src="https://user-images.githubusercontent.com/57401664/70053986-0542a280-15ad-11ea-872b-2b25a2f6d5b3.png">
 
 
 5. **Magic Shop:** 
 	After clearing floors 3,6, and 9, you will be given the option on the _transition screen_ to 
-	enter a magical shop, where you will be able to buy _potions_ and _revives_. There are two types of potions: **Cheap Potions**, which cost 50 gold and heals 100 stamina, and **Hyper Potions**, which cost 150 and heal 250 stamina.
+	enter a magical shop, where you will be able to buy _potions_ and _revives_. There are two types of potions: **Cheap Potions**, which cost 50 gold and heal 100 stamina, and **Hyper Potions**, which cost 150 and heal 250 stamina.
 	**Revives** cost 250 gold and bring you back to life (i.e. renew all stamina and mana, and allow you to replay the floor on which you died). 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 28 40 AM" src="https://user-images.githubusercontent.com/57401664/70053647-42f2fb80-15ac-11ea-9c1b-8fa701c6d271.png">
