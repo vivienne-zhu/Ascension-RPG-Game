@@ -9,9 +9,17 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 **Will you succeed?**
 
 -------
+## Getting Started
+
+This game is a JavaFX application. In order to run this game you will have to have JavaFX installed or set up within your IDE.
+
+To play the game, please run the **GameGUI class**. 
+
+-------
 ## How to Play
 1. **Start:** 
-	After the Start screen, select the class of hero you would like to play with. A **Mage** has the benefit of limited powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. Next, enter the chosen name of your hero. 
+	After the Start screen, select the class of hero you would like to play with. 
+	>A **Mage** has the benefit of limited powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. Next, enter the chosen name of your hero. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 25 20 AM" src="https://user-images.githubusercontent.com/57401664/70052103-f1953d00-15a8-11ea-916f-2993dd1b9510.png"><img width="400" alt="Screen Shot 2019-12-03 at 8 25 37 AM" src="https://user-images.githubusercontent.com/57401664/70052349-7bdda100-15a9-11ea-9e5d-6f6a4f1d7623.png">
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 25 53 AM" src="https://user-images.githubusercontent.com/57401664/70052412-9c0d6000-15a9-11ea-8f4d-9e478bf618c1.png">
@@ -22,20 +30,21 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 	The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies and can do more powerful _outrage_ attacks at lower levels of stamina. 
 
 3. **Controls:** 
-	Each character will have an _Attack, Defend,_ and _Heal_ button, and **Mages** will have an additional _Magic Atk_ button. 
-	The Attack button allows you to attack the enemy of choice each turn. To choose an enemy to attack, click the _Attack_ button above the correstponding enemy.  The text in the centre of the screen will update to let you know all the details of the battle!
+	Each character will have an **Attack, Defend,** and **Heal** button, and **Mages** will have an additional **Magic Atk** button. 
+	>The **Attack** button allows you to attack the enemy. When there are multiple enemies on a floor, choose which enemy to attack by click the **Attack** button above the correstponding enemy.  
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 9 03 25 AM" src="https://user-images.githubusercontent.com/57401664/70054346-c4975900-15ad-11ea-8b2b-bcaa43ae6436.png">
 	
-	If you choose the _Defend_ button, enemy attacks will be partially shielded and you will be _Empowered_ and have a higher attack next turn. 
+	>The text in the centre of the screen will update to let you know all the details of the battle!
+	>If you choose the **Defend** button, enemy attack damage will be halved, and you will be _Empowered_ and have double attack power next turn. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 58 25 AM" src="https://user-images.githubusercontent.com/57401664/70054767-88b0c380-15ae-11ea-8970-9b1be8902831.png">
 	
-	 The _Heal_ will provide a drop down to you _Item bag_ and if you have any potions you will have a chance to use them before attacking or defening. You will not lose a turn if you chose to use an item, and you can use as many as needed in one go. 
+	 >The **Heal** button will provide a drop down to your _Item bag_ and if you have any potions you will have a chance to use them before attacking or defending. You will not lose a turn if you chose to use an item, and you can use as many as needed in one go. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 26 28 AM" src="https://user-images.githubusercontent.com/57401664/70054815-9cf4c080-15ae-11ea-80a4-f27519a55aa4.png">
 
-	The **Mages** _Magic Atk_ button allows them to use a powerful magic blast attack, but uses _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
+	>The **Mages** **Magic Atk** button allows them to use a powerful magic blast attack, but uses _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
 	
  	<img width="400" alt="Screen Shot 2019-12-03 at 8 26 17 AM" src="https://user-images.githubusercontent.com/57401664/70054442-f6102480-15ad-11ea-9047-d75ac9308e08.png">
  
@@ -55,11 +64,9 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 28 40 AM" src="https://user-images.githubusercontent.com/57401664/70053647-42f2fb80-15ac-11ea-9c1b-8fa701c6d271.png">
 
 6. **Events:** 
-	Before each new floor, the is a chance of a random event occuring. Events can cause you to gain or lose gold, or even go down or up in floors. **Your luck will decide you fate!**
+	Before each new floor, there is a chance of a random event occuring. Events can cause you to gain or lose gold, or even go down or up in floors. **Your luck will decide you fate!**
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 8 59 06 AM" src="https://user-images.githubusercontent.com/57401664/70053707-5dc57000-15ac-11ea-95be-97ee6e34690d.png">
 
 
--------
-
-To test out GUI, run GameGUI. To check out our current test cases, run GameCharactersTest as a JUnit. We are currently building out the GUI and linking functionality with the game logic. Furthermore, we use a console-based version of our game in the Runner class in order to rapidly prototype, test features, and balance mechanics. This class will be commented out as it will be deprecated upon GUI completion and will not be incorporated into the nature of the project's design.
+------
