@@ -42,7 +42,7 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 
 
 4. **Transition**: 
-	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a suffiecient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. The stat increases gained when you level up will be shown on this screen as well. 
+	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a sufficient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. The stat increases gained when you level up will be shown on this screen as well. 
 	
 	<img width="400" alt="Screen Shot 2019-12-03 at 9 00 00 AM" src="https://user-images.githubusercontent.com/57401664/70053790-8e0d0e80-15ac-11ea-8f2d-68a36737257e.png"><img width="400" alt="Screen Shot 2019-12-03 at 9 01 25 AM" src="https://user-images.githubusercontent.com/57401664/70053986-0542a280-15ad-11ea-872b-2b25a2f6d5b3.png">
 
