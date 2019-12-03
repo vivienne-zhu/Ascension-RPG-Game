@@ -715,7 +715,8 @@ public class GameGUI extends Application {
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1500), ae -> 
 			event.openChest(hero, floor, continueBtn, grid, closedIV, openIV, openBtn, display));
-		
+		    event.setEvent(false);
+			
 			timeline.getKeyFrames().add(frame);
 			timeline.play();			
 		}); 
