@@ -92,7 +92,7 @@ public class BattlePhase {
 
 
 		display.getMagicAtkBtn().setOnAction(event ->{
-		    if(totalEnemyHealth != 0 && hero.getCurrentMana() >= 25) {
+		    if(totalEnemyHealth != 0 && hero.getCurrentMana() >= 50) {
 		    display.getItemBag().setVisible(false);
 		    display.getError().setVisible(false);
 		    setMagic(true);

@@ -17,7 +17,7 @@ public class RangedEnemy extends GameCharacters {
 	 */
 	public RangedEnemy(int floor, int position) {
 		// Stat values will be changed
-		setAttack(70 + (5 + (int) (Math.random() * (7 - 5) + 1)) * floor); //70 + (5 to 7 * floor)
+		setAttack(65 + (5 + (int) (Math.random() * (7 - 5) + 1)) * floor); //70 + (5 to 7 * floor)
 		setDefense(30 + (3 + (int) (Math.random() * (5 - 3) + 1)) * floor); //30 + (3 to 5 * floor)
 		int startStam = 175 + 20 * floor;
 		setStamina(startStam);

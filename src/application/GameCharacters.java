@@ -148,7 +148,7 @@ public class GameCharacters {
      * @return Amount of health healed
      */
     public int enemyHeal(GameCharacters character) {
-    	int healValue = this.getAttack() * 4;
+    	int healValue = this.getAttack() * 1;
     	int oldHealth = character.getCurrentStamina();
     	int newHealth = oldHealth + healValue;
     	if (newHealth < character.getStamina()) {

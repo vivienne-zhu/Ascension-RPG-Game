@@ -19,7 +19,7 @@ public class HealerEnemy extends GameCharacters {
 	public HealerEnemy(int floor, int position) {
 		// Stat values will be changed
 		setAttack(40 + (3 + (int) (Math.random() * (5 - 3) + 1)) * floor); //40 + (3 to 5 * floor)
-		setDefense(30 + (2 + (int) (Math.random() * (4 - 2) + 1)) * floor); //30 + (2 to 4 * floor)
+		setDefense(20 + (2 + (int) (Math.random() * (4 - 2) + 1)) * floor); //30 + (2 to 4 * floor)
 		int startStam = 125 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
