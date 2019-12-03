@@ -18,7 +18,7 @@ public class Rogue extends GameCharacters {
     public Rogue() {
 		setAttack(170);
 		setDefense(50);
-		setStamina(700);
+		setStamina(800);
 		setCurrentStamina(getStamina());
 		setLevel(1);
 		setX(60);
