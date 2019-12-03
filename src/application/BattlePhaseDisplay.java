@@ -53,9 +53,11 @@ public class BattlePhaseDisplay {
     private Rectangle enemyOneFullStamBar;
     private Rectangle enemyTwoFullStamBar;
     private Rectangle enemyThreeFullStamBar;
+    private VBox heroStats;
 
     public BattlePhaseDisplay() {
 	itemBag = new VBox();
+	heroStats = new VBox();
     }
 
     public void healFunctionDisplay(GameCharacters hero) {	
@@ -130,6 +132,33 @@ public class BattlePhaseDisplay {
 	}
 
     }
+    
+    /**
+     * This method generates the display of the hero stats. 
+     * 
+     * @param hero
+     */
+    public void heroStatsDisplay(GameCharacters hero) {
+    	// To initialize heroStats VBox 
+        heroStats.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
+    	Text stats = new Text("Level: " + hero.getLevel() + "\t\t" +
+    	"Gold: " + hero.getGold() + "\n" +
+        "Attack: " + hero.getAttack() + "\t" + 
+    	"Defense: " + hero.getDefense());
+    	stats.setId("heroStatsText");
+    	
+    	heroStats.getChildren().add(stats);
+    	heroStats.setVisible(false);
+    	
+    	heroName.setOnMouseEntered(event -> {
+    		heroName.setFill(Color.LIGHTSKYBLUE);
+    		heroStats.setVisible(true);		
+    	});
+    	heroName.setOnMouseExited(event -> {
+    		heroName.setFill(Color.WHITE);
+    		heroStats.setVisible(false);
+    	});    	
+    }
 
     /**
      * This method will display relevant combat information like  player/enemy names and health
@@ -175,9 +204,12 @@ public class BattlePhaseDisplay {
 	    infoBar(enemyThreeFullStamBar, 200, allEnemies.get(floor).get(2));
 	}
 
+	
 	// To display current stamina of hero and enemy (using tester enemy[0]).
 	heroName = new Text(hero.getType() + ": " + hero.getName());
 	heroName.setId("battlePhase");
+	this.heroStatsDisplay(hero);
+	
 	heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 	heroStam.setId("battlePhase");
 	enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
@@ -231,7 +263,8 @@ public class BattlePhaseDisplay {
 	outraged.setId("battlePhaseOutraged");
 	outraged.setVisible(false);
     }
-
+ 
+    
     /**
      * This method will create the necessary action buttons during the battle phase
      */
@@ -282,6 +315,7 @@ public class BattlePhaseDisplay {
 
 	//Placements for various textboxes and buttons
 	grid.add(heroName, 0, 0);
+	grid.add(heroStats, 1, 0);
 	grid.add(heroStam, 0, 1);
 	grid.add(fullStamBar, 0, 2);
 	grid.add(staminaBar, 0, 2);
