@@ -23,7 +23,7 @@ class GameCharactersTest {
 		MeleeEnemy  orc = new MeleeEnemy(2, 0);
 
 		int orcAttack = orc.getAttack();
-		int expected = 400 - (orcAttack - 60);
+		int expected = 800 - (orcAttack - 50);
 		orc.attack(legolas, false, false);
 
 		assertEquals(expected, legolas.getCurrentStamina());
@@ -38,20 +38,24 @@ class GameCharactersTest {
 		legolas.defend();
 		orc.attack(legolas, false, false);
 		int orcAttack = orc.getAttack();
-		int expected = 400 - ((orcAttack - 60)/2);
+		int expected = 800 - ((orcAttack - 50)/2);
 
 		assertEquals(expected, legolas.getCurrentStamina());
 	}
 
 	// This tests defend method with two heroes
 	@Test 
-	void defendingTestTwo() {
-		Warrior aragorn = new Warrior();
-		Warrior boromir = new Warrior();
-
-		aragorn.defend();
-		boromir.attack(aragorn, false, false);
-		assertEquals(448, aragorn.getCurrentStamina());
+	void magicAtkTest() {
+		Mage gandalf = new Mage();
+		MeleeEnemy  orc = new MeleeEnemy(8, 0);
+		
+		int orcDef = orc.getDefense();
+		int orcStam = orc.getStamina();
+		double expected = (orcStam - ((225 - orcDef) * 1.2));
+		gandalf.magicAttack(orc, false);
+		assertEquals(expected, 0.2, orc.getCurrentStamina());
 	}
+	
+	
 
 }

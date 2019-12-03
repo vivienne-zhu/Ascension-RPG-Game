@@ -201,7 +201,6 @@ public class GameGUI extends Application {
 		});
 		mage.setOnMouseEntered(event->{
 		    mage.setFill(Color.WHITE);
-		    //heroInfo = new VBox(10);
 		    heroInfoBox("Mage");
 		    heroInfo.setVisible(true);
 		});
@@ -216,7 +215,6 @@ public class GameGUI extends Application {
 		});
 		warrior.setOnMouseEntered(event->{
 		    warrior.setFill(Color.WHITE);
-		    //heroInfo = new VBox(10);
 		    heroInfoBox("Warrior");
 		    heroInfo.setVisible(true);
 		});
@@ -232,7 +230,6 @@ public class GameGUI extends Application {
 		});
 		rogue.setOnMouseEntered(event->{
 		    rogue.setFill(Color.WHITE);
-		    //heroInfo = new VBox(10);
 		    heroInfoBox("Rogue");
 		    heroInfo.setVisible(true);
 		});
@@ -276,7 +273,6 @@ public class GameGUI extends Application {
 	 */
 	private VBox heroInfoBox(String type) {
 	    heroInfo.setId("heroInfoBox");
-	    
 	    
 	    if (type.equals("Mage")) {
 		heroInfo.getChildren().clear();

@@ -214,7 +214,7 @@ public class GameCharacters {
     }
 
     /**
-     * This method increases the attack, defense, stamina and mana of the hero when
+     * This method increases the attack, defense, stamina, magic attack and mana of the hero when
      * certain conditions are met. It also sets the level as it increases.
      */
     public void levelUp() {
@@ -254,9 +254,7 @@ public class GameCharacters {
 	}
 	this.setLevel(this.getLevel() + 1);
 	int missingHealth = this.getStamina() - this.getCurrentStamina();
-	//System.out.println("Missing:" + missingHealth);
 	this.setCurrentStamina(this.getCurrentStamina() + (int) (missingHealth * 0.3));
-	//System.out.println("New stam" + this.getCurrentStamina());
     }
 
     /**
