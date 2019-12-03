@@ -367,21 +367,49 @@ public class GameGUI extends Application {
 	    //Mediaplayer for music
 	   	battleMusic.play();
 
-		//Later on, these will not all be meleeEnemys. They will be randomly generated. Will add when other enemies are balanced
-		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
+	   	ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
+		
+		int healerCount = 0; //keeps track of enemy healers
+		int nonHealerCount = 0; //keeps track of other enemies
 		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
-		    //floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
-			//floorEnemies.add(new BossEnemy(1));
-			floorEnemies.add(new HealerEnemy(floor.getFloor(), 0));
-			floorEnemies.add(new RangedEnemy(floor.getFloor(), 1));
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 2));
+			int randEnemy = (int) (Math.random() * (3));
+			if (randEnemy == 0) {
+				floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
+			} else {
+				floorEnemies.add(new RangedEnemy(floor.getFloor(), 0));
+			}
 		} else if (floor.getFloor() == 4 || floor.getFloor() == 5 || floor.getFloor() == 6) {
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 1));
+			for (int i = 0; i < 2; i++) {
+				int randEnemy = (int) (Math.random() * (3));
+				while (randEnemy == 2 && (healerCount == 1 || nonHealerCount == 0)) { //max one healer per battle and must have at least one non-healer
+					randEnemy = (int) (Math.random() * (3));
+				}
+				if (randEnemy == 0) {
+					floorEnemies.add(new MeleeEnemy(floor.getFloor(), i));
+					nonHealerCount++;
+				} else if (randEnemy == 1){
+					floorEnemies.add(new RangedEnemy(floor.getFloor(), i));
+					nonHealerCount++;
+				} else if (randEnemy == 2){
+					floorEnemies.add(new HealerEnemy(floor.getFloor(), i));
+				}
+			}
 		} else if (floor.getFloor() == 7 || floor.getFloor() == 8 || floor.getFloor() == 9) {
-			floorEnemies.add(new MeleeEnemy(floor.getFloor(), 0));
-			floorEnemies.add(new HealerEnemy(floor.getFloor(), 1));
-			floorEnemies.add(new RangedEnemy(floor.getFloor(), 2));
+			for (int i = 0; i < 3; i++) {
+				int randEnemy = (int) (Math.random() * (3));
+				while (randEnemy == 2 && (healerCount == 1 || nonHealerCount == 0)) { //max one healer per battle and must have at least one non-healer
+					randEnemy = (int) (Math.random() * ((2) + 1));
+				}
+				if (randEnemy == 0) {
+					floorEnemies.add(new MeleeEnemy(floor.getFloor(), i));
+					nonHealerCount++;
+				} else if (randEnemy == 1){
+					floorEnemies.add(new RangedEnemy(floor.getFloor(), i));
+					nonHealerCount++;
+				} else if (randEnemy == 2){
+					floorEnemies.add(new HealerEnemy(floor.getFloor(), i));
+				}
+			}
 		} else if (floor.getFloor() == 10) {
 		    	floorEnemies.add(new BossEnemy(10));
 		}
