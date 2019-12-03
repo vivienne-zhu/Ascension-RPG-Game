@@ -80,11 +80,11 @@ public class BattlePhaseDisplay {
 
 
 	// revive button 
-	String btnInfo3 = "Revive:\t";
+	String btnInfo3 = "Revive\t\t\t";
 	if (hero.isHasRevive() == true) {
-	    btnInfo3 += "1.0";
+	    btnInfo3 += "x1";
 	} else {
-	    btnInfo3 += "0.0";
+	    btnInfo3 += "x0";
 	}
 	reviveBtn = new Button(btnInfo3);
 	reviveBtn.setId("battlePhaseHealBtn");
