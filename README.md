@@ -1,4 +1,4 @@
-#Welcome to Tower Game (title TBD)
+# Welcome to Tower Game (title TBD)
 ## A project by David Cai, Shari Sinclair, and Jiayu Vivienne Zhu.
 
 This is a turn-based RPG in which the player aims to climb a 10 floor tower to reach the treasure.
@@ -11,7 +11,11 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 -------
 ## How to Play
 1. **Start:** 
-	After the Start screen, select the class of hero you would like to play with. If you hover over the class of hero hyou can see the differences in stats. A ***Mage*** has the benefit of limited powerful magic attacks, the ***Warrior*** has increased stamina and defence, and the ***Rogue*** has the advantage of a swift double attack. Next, you will enter the chosen name for your hero. 
+	After the Start screen, select the class of hero you would like to play with. A ***Mage*** has the benefit of limited powerful magic attacks, the ***Warrior*** has increased stamina and defence, and the ***Rogue*** has the advantage of a swift double attack. Next, enter the chosen name of your hero. 
+	
+	<img width="400" alt="Screen Shot 2019-12-03 at 8 25 20 AM" src="https://user-images.githubusercontent.com/57401664/70052103-f1953d00-15a8-11ea-916f-2993dd1b9510.png"><img width="400" alt="Screen Shot 2019-12-03 at 8 25 37 AM" src="https://user-images.githubusercontent.com/57401664/70052349-7bdda100-15a9-11ea-9e5d-6f6a4f1d7623.png">
+	<img width="400" alt="Screen Shot 2019-12-03 at 8 25 53 AM" src="https://user-images.githubusercontent.com/57401664/70052412-9c0d6000-15a9-11ea-8f4d-9e478bf618c1.png">
+
 
 2. **Floors and Enemies:** 
 	You will enter floor 1 of the tower. Each floor of the tower will have the same display and controls (seen below) but will have differing randomly generated enemies. Floor 1-3 will have 1 enemy, Floor 4-6 will have 2 enemies, and Floor 7-9 will have 3. Enemy types can either be the defensive and hard hitting ***Melee enemy***, the ***Ranged enemy*** with its magical attacks, or the ***Healer enemy*** who can heal the most weakened enemy on the floor. As you climb the towers the enemies will become increasingly stronger. 
@@ -23,15 +27,23 @@ Choose from 3 classes: warrior, mage, and rogue, and experience different playst
 
 
 4. **Transition**: 
-	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. If you gained a suffiecient amount of xp, you will level up and receive special stat increases depending on the type of hero. The stat gained when you level up will be shown on this screen as well. 
+	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. The higher the floor and the more enemies you defeat, the more gold and xp gained! If you gained a suffiecient amount of xp, you will level up and receive special stat increases depending on the type of hero. The stat gained when you level up will be shown on this screen as well. 
+	
+	<img width="400" alt="Screen Shot 2019-12-03 at 9 00 00 AM" src="https://user-images.githubusercontent.com/57401664/70053790-8e0d0e80-15ac-11ea-8f2d-68a36737257e.png"><img width="400" alt="Screen Shot 2019-12-03 at 9 01 25 AM" src="https://user-images.githubusercontent.com/57401664/70053986-0542a280-15ad-11ea-872b-2b25a2f6d5b3.png">
+
 
 5. **Magic Shop:** 
 	After clearing floors 3,6, and 9, you will be given the option on the _transition screen_ to 
 	enter a magical shop, where you will be able to but _potions_ and _revives_. There are two types of potions: Cheap Potions, which cost 50 gold and heals 100 stamina, and Hyper Potions, which cost 150 and heal 250 stamina.
 	-Revives cost 250 gold and bring you back to life (i.e. renew all stamina and mana, and allow you to replay the floor on which you died). 
+	
+	<img width="400" alt="Screen Shot 2019-12-03 at 8 28 40 AM" src="https://user-images.githubusercontent.com/57401664/70053647-42f2fb80-15ac-11ea-9c1b-8fa701c6d271.png">
 
 6. **Events:** 
 	Before each new floor, the is a chance of a random event occuring. Events can cause you to gain or lose gold, or even go down or up in floors. **Your luck will decide you fate!**
+	
+	<img width="400" alt="Screen Shot 2019-12-03 at 8 59 06 AM" src="https://user-images.githubusercontent.com/57401664/70053707-5dc57000-15ac-11ea-95be-97ee6e34690d.png">
+
 
 -------
 
