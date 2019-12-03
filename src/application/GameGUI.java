@@ -3,6 +3,7 @@ package application;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.*;
+import javafx.scene.CacheHint;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
@@ -423,8 +424,13 @@ public class GameGUI extends Application {
 	 *           needed for each fight inside the Tower.
 	 */
 	private Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
-	    	//Creating pane
+		//Creating pane
 		Pane towerLevels = new Pane();
+		
+		//Caching pane for performance
+		towerLevels.setCache(true);
+		towerLevels.setCacheShape(true);
+		towerLevels.setCacheHint(CacheHint.SPEED);
 
 		// To display the background for the floor
 		towerLevels.setId("insideTower");
