@@ -219,7 +219,7 @@ public class GameCharacters {
      */
     public void levelUp() {
 	int atk = this.getAttack();
-	int atkRand = 8 + (int) (Math.random() * ((10 - 8) + 1)); // min 8, max 10
+	int atkRand = 10 + (int) (Math.random() * ((12 - 10) + 1)); // min 12, max 10
 	if (this instanceof Rogue) {
 		atkRand += 5;
 	}
@@ -247,7 +247,7 @@ public class GameCharacters {
 	    m = m + manaUp;
 	    setMana(m);
 	    int mAtk = this.getMagicAtk();
-	    int magicAtkRand = 10 + (int) (Math.random() * ((15 - 10) + 1)); 
+	    int magicAtkRand = 12 + (int) (Math.random() * ((15 - 12) + 1)); 
 	    setMagicAtkUp(magicAtkRand);
 	    mAtk = mAtk + magicAtkUp;
 	    setMagicAtk(mAtk); 
