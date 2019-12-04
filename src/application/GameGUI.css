@@ -50,7 +50,20 @@
 	-fx-effect:dropshadow(gaussian, rgba(255,255,255), 5, 0.5, 0.0, 0.0); 
 }
 
-#BtnText {
+#heroInfoBox {
+	-fx-background-color:antiquewhite;
+	-fx-padding: 5,5,5,5;
+	-fx-opacity:0.9;
+	-fx-background-radius: 6;
+	-fx-text-fill: black;
+	-fx-font-family: serif;
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-max-width:100;
+	-fx-max-height:100;
+}
+
+#btnText {
 	-fx-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 30px;
@@ -351,8 +364,12 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
 
+#magePane:hover {
+	
+}
 #heroStatsText {
 	-fx-fill: black;
 	-fx-font-family: helvetica;
 	-fx-font-size: 18px;
 }
+

@@ -9,6 +9,7 @@ import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.paint.*;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.util.*;
+import com.sun.glass.ui.Robot;
 
 
 
@@ -46,6 +48,8 @@ public class GameGUI extends Application {
 	private MediaPlayer gameOverMusic;
 	private MediaPlayer youWinMusic;
 	private SoundEffect se;
+	private VBox heroInfo;
+//	private Robot robot;
 	
 
 	/**
@@ -68,8 +72,10 @@ public class GameGUI extends Application {
 		battleMusic = se.backgroundMusic();
 		gameOverMusic = se.gameOverMusic();
 		youWinMusic = se.youWinMusic();
+		heroInfo = new VBox(15);
+//		robot = com.sun.glass.ui.Application.GetApplication().createRobot();
 	}
-
+	
 	/**
 	 * This is the start method that enables us to run/display our JavaFX
 	 * application. It begins by displaying start screen and then allows us to
@@ -103,7 +109,7 @@ public class GameGUI extends Application {
 		Image btn = new Image("startButton.png", 250, 80, false, false);		
 		ImageView iv = new ImageView(btn);
 		Text start = new Text("START");
-		start.setId("BtnText");
+		start.setId("btnText");
 		
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(iv,start);
@@ -138,6 +144,11 @@ public class GameGUI extends Application {
 		
 		//Adding background image to Pane
 		root.setId("startBackground");
+		
+		//Robot for testing purposes
+//		robot.mouseMove(720, 545);
+//		robot.mousePress(1);
+//		robot.mouseRelease(1);
 
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, pane);
@@ -167,21 +178,21 @@ public class GameGUI extends Application {
 //		mageBtn.setId("woodenBtn");
 		ImageView ivMage = new ImageView(btnBackGround);
 		Text mage = new Text("Mage");
-		mage.setId("BtnText");
+		mage.setId("btnText");
 		StackPane magePane = new StackPane();
 		magePane.getChildren().addAll(ivMage,mage);
 		magePane.setAlignment(Pos.CENTER);
 		//Warrior btn
 		ImageView ivWarrior = new ImageView(btnBackGround);
 		Text warrior = new Text("Warrior");
-		warrior.setId("BtnText");
+		warrior.setId("btnText");
 		StackPane warriorPane = new StackPane();
 		warriorPane.getChildren().addAll(ivWarrior,warrior);
 		warriorPane.setAlignment(Pos.CENTER);
 		//Rogue btn
 		ImageView ivRogue = new ImageView(btnBackGround);
 		Text rogue = new Text("Rogue");
-		rogue.setId("BtnText");
+		rogue.setId("btnText");
 		StackPane roguePane = new StackPane();
 		roguePane.getChildren().addAll(ivRogue,rogue);
 		roguePane.setAlignment(Pos.CENTER);
@@ -191,24 +202,53 @@ public class GameGUI extends Application {
 		setWarrior(false);
 		setRogue(false);
 		
-
-		//Event handling for when each button pane is pressed
+		//Event handling for when each button pane is pressed/hovered over
 		magePane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setMage(true);
 			nameCharScreen(primaryStage);
+		});
+		mage.setOnMouseEntered(event->{
+		    mage.setFill(Color.WHITE);
+		    heroInfoBox("Mage");
+		    heroInfo.setVisible(true);
+		});
+		mage.setOnMouseExited(event->{
+		    mage.setFill(Color.BLACK);
+		    heroInfo.setVisible(false);    
 		});
 		warriorPane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setWarrior(true);
 			nameCharScreen(primaryStage);
 		});
+		warrior.setOnMouseEntered(event->{
+		    warrior.setFill(Color.WHITE);
+		    heroInfoBox("Warrior");
+		    heroInfo.setVisible(true);
+		});
+		warrior.setOnMouseExited(event->{
+		    warrior.setFill(Color.BLACK);
+		    heroInfo.setVisible(false);
+		    
+		});
 		roguePane.setOnMouseClicked(event -> {
 		    	se.transitionSound();
 			setRogue(true);
 			nameCharScreen(primaryStage);
 		});
-
+		rogue.setOnMouseEntered(event->{
+		    rogue.setFill(Color.WHITE);
+		    heroInfoBox("Rogue");
+		    heroInfo.setVisible(true);
+		});
+		rogue.setOnMouseExited(event->{
+		    rogue.setFill(Color.BLACK);
+		    heroInfo.setVisible(false);
+		    
+		});
+		
+		
 		//Creating vertical box for buttons 
 		VBox btns = new VBox(15);
 		btns.setAlignment(Pos.CENTER);
@@ -218,7 +258,7 @@ public class GameGUI extends Application {
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
-		display.getChildren().addAll(charOption, btns);
+		display.getChildren().addAll(charOption, btns, heroInfo) ;
 		display.setId("startBackground");
 
 		//Fade Transition
@@ -226,12 +266,72 @@ public class GameGUI extends Application {
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
+		
+		//Robot moves mouse for tests
+//		robot.mouseMove(630, 450);
+//		robot.mousePress(1);
+//		robot.mouseRelease(1);
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
 		chooseChar.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
+	}
+	
+
+	
+	/**
+	 * This method creates the VBox that appears when you hover over each character type
+	 * 
+	 * @param type String containing the type of hero
+	 * @return VBox containing basic info about each hero
+	 */
+	private VBox heroInfoBox(String type) {
+	    heroInfo.setId("heroInfoBox");
+	    
+	    if (type.equals("Mage")) {
+		heroInfo.getChildren().clear();
+		heroInfo.setLayoutX(110);
+		heroInfo.setLayoutY(330);
+		Text info = new Text();
+		GameCharacters mage = new Mage();
+		info.setText("Mages have a very powerful magic attack "+ "\n" 
+			+ "but limited mana to use magic attacks. "
+			+"\n"+ "A good choice for strategic players" + "\n" +
+			"\n" + "Attack: " + mage.getAttack() + "\n" + 
+			"Defense: " + mage.getDefense() + "\n" + 
+			"Stamina: " + mage.getStamina()+ "\n" + 
+			"Magic Atk: " + mage.getMagicAtk()+ "\n" + 
+			"Mana: " + mage.getMana());
+		heroInfo.getChildren().add(info);
+	    } else if (type.equals("Warrior")) {
+		heroInfo.getChildren().clear();
+		heroInfo.setLayoutX(110);
+		heroInfo.setLayoutY(420);
+		Text info = new Text();
+		GameCharacters warrior = new Warrior();
+		info.setText("Warriors have higher stamina and defense."
+			+"\n" + "A better choice for beginners" + "\n" +
+			 "\n" +"Attack: " + warrior.getAttack() + "\n" + 
+			"Defense: " + warrior.getDefense() + "\n" + 
+			"Stamina: " + warrior.getStamina());
+		heroInfo.getChildren().add(info);
+	    } else if (type.equals("Rogue")) {
+		heroInfo.getChildren().clear();
+		heroInfo.setLayoutX(110);
+		heroInfo.setLayoutY(520);
+		Text info = new Text();
+		GameCharacters rogue = new Rogue();
+		info.setText("Rogues have the ability to double attack on "
+			+"\n" + " certain turns. A good choice for any player."+ "\n" +
+			"\n" + "Attack: " + rogue.getAttack() + "\n" + 
+			"Defense: " + rogue.getDefense() + "\n" + 
+			"Stamina: " + rogue.getStamina());
+		heroInfo.getChildren().add(info);
+	    } 
+	   
+	    return heroInfo;
 	}
 
 	/**
@@ -315,6 +415,15 @@ public class GameGUI extends Application {
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
+		
+		//Robot enters name and presses button
+//		robot.mouseMove(600, 350);
+//		robot.mousePress(1);
+//		robot.mouseRelease(1);
+//		robot.keyPress((int) 'a');
+//		robot.mouseMove(1100, 680);
+//		robot.mousePress(1);
+//		robot.mouseRelease(1);
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
