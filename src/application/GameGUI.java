@@ -120,10 +120,7 @@ public class GameGUI extends Application {
 		openingMusic.play();
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(root);
 		
 		//Adding background image to Pane
 		root.setId("startBackground");
@@ -211,10 +208,7 @@ public class GameGUI extends Application {
 		display.setId("startBackground");
 
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(display);
 		
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
@@ -392,11 +386,7 @@ public class GameGUI extends Application {
 		display.setId("startBackground");
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
-		
+		screenFade(display);
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
@@ -543,10 +533,7 @@ public class GameGUI extends Application {
 		GridPane grid = display.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), towerLevels);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(towerLevels);
 
 		// Adding grid to Pane , adding stylesheet to pane
 		towerLevels.getChildren().addAll(heroStats, grid, floorNum);
@@ -738,10 +725,7 @@ public class GameGUI extends Application {
 		root.setId("shopBackground");
 
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(root);
 		
 		// Create the scene
 		Scene shopScene = new Scene(root, 1280, 720);
@@ -830,10 +814,7 @@ public class GameGUI extends Application {
 		grid.setId("insideTower");
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(grid);
 		
 		// Create the scene
 		Scene eventScene = new Scene(grid, 1280, 720);
@@ -841,6 +822,13 @@ public class GameGUI extends Application {
 		primaryStage.setScene(eventScene);
 		primaryStage.show();
 		
+	}
+	
+	private void screenFade(Pane p) {
+	    FadeTransition ft = new FadeTransition(Duration.millis(1000), p);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 	}
 	
 	/**
@@ -895,10 +883,7 @@ public class GameGUI extends Application {
 	    display.setId("insideTower");
 
 	    //Fade Transition
-	    FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
-	    ft.setFromValue(0);
-	    ft.setToValue(1);
-	    ft.play();
+	    screenFade(display);
 	    
 	    //Adding Pane to Scene and Scene to Stage
 	    Scene reviveScene = new Scene(display, 1280, 720);
@@ -959,10 +944,7 @@ public class GameGUI extends Application {
 		gameWon.setId("youWinBackground");
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameWon);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(gameWon);
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
@@ -1020,10 +1002,7 @@ public class GameGUI extends Application {
 		gameOver.setStyle(" -fx-background-color: black");
 
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameOver);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(gameOver);
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gOver = new Scene(gameOver, 1280, 720);
@@ -1159,10 +1138,7 @@ public class GameGUI extends Application {
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate, next);
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(display);
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);
