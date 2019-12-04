@@ -29,7 +29,7 @@ class GameCharactersTest {
 	assertEquals(expected, legolas.getCurrentStamina());
     }
 
-    // This tests the defend method with and enemy and hero
+    // This tests the defend method with an enemy and a hero
     @Test
     void defendingTest() {
 	Rogue legolas = new Rogue();
@@ -43,7 +43,7 @@ class GameCharactersTest {
 	assertEquals(expected, legolas.getCurrentStamina());
     }
 
-    // This tests magic attack method with two hero and melee enemy
+    // This tests magic attack method with a hero and melee enemy
     @Test 
     void magicAtkTest() {
 	Mage gandalf = new Mage();
@@ -70,7 +70,7 @@ class GameCharactersTest {
 	assertEquals(expected, orc.getCurrentStamina());
     }
     
- // This tests the attack method the Boss is outraged
+ // This tests the attack method when the Boss is outraged
     @Test
     void outragedAttackTest() {
 	Warrior aragorn = new Warrior();
@@ -125,6 +125,19 @@ class GameCharactersTest {
 	assertEquals(200, link.getCurrentStamina());
 	assertEquals(2, link.getPotionMap().get(cp));
     }
+    
+    
+  //This tests the use of a potion when the potionMap/item bag is empty
+    @Test 
+    void usePotionEmptyMapTest() {
+	Warrior link = new Warrior();
+	CheapPotion cp = new CheapPotion();
+	Text error = new Text("");
+	link.getPotionMap().put(cp, 0);
+	link.usePotion(cp,error);
+	
+	assertEquals("YOU DO NOT HAVE ENOUGH ITEMS",error.getText());
+    }
 
     //This tests the revive method
     @Test 
@@ -136,6 +149,17 @@ class GameCharactersTest {
 
 	assertEquals(900, link.getCurrentStamina());
 	assertEquals(false, link.isHasRevive());
+    }
+    
+    //This test the enemy heal method
+    @Test 
+    void enemyHealTest() {
+	HealerEnemy annoy = new HealerEnemy(3,0);
+	MeleeEnemy hurt = new MeleeEnemy(3,1);
+	int newStam = annoy.getAttack() + hurt.getCurrentStamina();
+	int expected = Math.min(newStam, hurt.getStamina());
+	annoy.enemyHeal(hurt);
+	assertEquals(expected, hurt.getCurrentStamina());
     }
 
 }
