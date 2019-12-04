@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.geometry.*;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 
 /**
  * This class contains the display elements of the battle phase.
@@ -39,7 +43,7 @@ public class BattlePhaseDisplay {
     private Text enemyStam;
     private Text enemyTwoStam;
     private Text enemyThreeStam;
-    private Text heroName;
+    private TextFlow heroName;
     private Text enemyName;
     private Text enemyTwoName;
     private Text enemyThreeName;
@@ -58,6 +62,7 @@ public class BattlePhaseDisplay {
     public BattlePhaseDisplay() {
 	itemBag = new VBox();
 	heroStats = new VBox();
+	heroName = new TextFlow();
     }
 
     public void healFunctionDisplay(GameCharacters hero) {	
@@ -141,18 +146,43 @@ public class BattlePhaseDisplay {
     public VBox heroStatsDisplay(GameCharacters hero) {
     	// To initialize heroStats VBox 
         heroStats.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
-    	Text stats = new Text("Level: " + hero.getLevel() + "\t\t" +
-    	"Gold: " + hero.getGold() + "\n" +
-        "Attack: " + hero.getAttack() + "\t" + 
-    	"Defense: " + hero.getDefense());
+        int levelXp = 25 + hero.getLevel() * 175;
+    	Text stats = new Text("Level: " + hero.getLevel() + "\t\tExp: " + hero.getXp() + " /" + levelXp +
+    	"\nGold: " + hero.getGold() + "\t\tAttack: " + hero.getAttack() + "\nDefense: " + hero.getDefense());
+    	
+    	if (hero.getType().equals("Mage")) {
+    		stats.setText(stats.getText() + "\tMagic Attack: " + hero.getMagicAtk());
+    	}
+    	
     	stats.setId("heroStatsText");
     	
     	heroStats.getChildren().add(stats);
     	heroStats.setVisible(false);
     	
-    	heroStats.setLayoutX(330);
-    	heroStats.setLayoutY(70);
+    	heroStats.setLayoutX(280);
+    	heroStats.setLayoutY(45);
     	return heroStats;
+    }
+    
+    public TextFlow heroName(GameCharacters hero) {
+    	Image info = new Image("infoImage.png", 30, 30, false, false);
+    	ImageView infoIV = new ImageView(info);
+    	Text name = new Text(hero.getType() + ": " + hero.getName());
+    	name.setId("battlePhase");	
+    	
+    	heroName.getChildren().addAll(infoIV, name);
+    	heroName.setTextAlignment(TextAlignment.CENTER);
+    	
+    	heroName.setOnMouseEntered(event -> {
+    		name.setFill(Color.LIGHTSKYBLUE);
+    		heroStats.setVisible(true);		
+    	});
+    	heroName.setOnMouseExited(event -> {
+    		name.setFill(Color.WHITE);
+    		heroStats.setVisible(false);
+    	});
+    	
+    	return heroName;   	
     }
 
     /**
@@ -200,18 +230,8 @@ public class BattlePhaseDisplay {
 	}
 
 	
-	// To display current stamina of hero and enemy (using tester enemy[0]).
-	heroName = new Text(hero.getType() + ": " + hero.getName());
-	heroName.setId("battlePhase");	
-	heroName.setOnMouseEntered(event -> {
-		heroName.setFill(Color.LIGHTSKYBLUE);
-		heroStats.setVisible(true);		
-	});
-	heroName.setOnMouseExited(event -> {
-		heroName.setFill(Color.WHITE);
-		heroStats.setVisible(false);
-	});
-	
+	// To display current stamina of hero and enemy (using tester enemy[0]).	
+	heroName = heroName(hero);
 	heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 	heroStam.setId("battlePhase");
 	enemyName = new Text("Enemy Type: " + allEnemies.get(floor).get(0).getType());
@@ -701,16 +721,16 @@ public class BattlePhaseDisplay {
     }
 
     /**
-     * @return the heroName
+     * @return the heroInfo
      */
-    public Text getHeroName() {
+    public TextFlow getHeroName() {
 	return heroName;
     }
 
     /**
      * @param heroName the heroName to set
      */
-    public void setHeroName(Text heroName) {
+    public void setHeroInfo(TextFlow heroName) {
 	this.heroName = heroName;
     }
 
