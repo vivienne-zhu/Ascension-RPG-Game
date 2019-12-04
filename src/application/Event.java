@@ -3,7 +3,6 @@ package application;
 
 import java.util.Random;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -41,7 +40,7 @@ public class Event {
 	 */
 	public void eventHappen() {
 		Random r = new Random();
-		int event = r.nextInt(1); // 10% chance to get an event  
+		int event = r.nextInt(5); // 20% chance to get an event  
 		if (event == 0) {
 			this.isEvent = true;			
 		}
@@ -118,7 +117,7 @@ public class Event {
 	}
 	
 	/**
-	 * This method will trigger the attack boost even.
+	 * This method will trigger the attack boost event.
 	 * The player will get a 20% boost on his attack pts.
 	 * @param hero
 	 * @param display
@@ -129,11 +128,18 @@ public class Event {
 		display.setTextAlignment(TextAlignment.CENTER);
 	}
 	
-	
-//	public void defenseBoost(GameCharacters hero, Text display) {
-//		hero.setDefense((int)(hero.getDefense() * 1.2));
-//		display.setText(""));
-//	}
+	/**
+	 * This method will trigger the defense boost event.
+	 * The player will get a 20% boost on his defense pts.
+	 * 
+	 * @param hero
+	 * @param display
+	 */
+	public void defenseBoost(GameCharacters hero, Text display) {
+		hero.setDefense((int)(hero.getDefense() * 1.2));
+		display.setText("A hidden elf gives you her blessing...You are covered by an invisible shield.\nNew defense: " + hero.getDefense());
+		display.setTextAlignment(TextAlignment.CENTER);
+	}
 	
 	
 	
@@ -147,8 +153,13 @@ public class Event {
 	 */
 	public void eventGenerator(GameCharacters hero, Floor floor, Text display, ImageView iv) {
 		Random r = new Random();
-//		int selectedEvent = r.nextInt(4);
-		int selectedEvent = 4;
+		int selectedEvent;
+		
+		if (floor.getFloor() <= 7) {
+			selectedEvent = r.nextInt(6);
+		} else {
+			selectedEvent = r.nextInt(5);
+		}
 		
 		DropShadow ds1 = new DropShadow();
 		ds1.setColor(Color.DARKRED);
@@ -156,19 +167,22 @@ public class Event {
 		ds2.setColor(Color.GOLDENROD);
 				
 		if (selectedEvent == 0) {
-			jumpFloor(hero, floor, display);
-			iv.setEffect(ds2);
-		} else if (selectedEvent == 1) {
 			dropFloor(floor, display);
 			iv.setEffect(ds1);
-		} else if (selectedEvent == 2) {
+		} else if (selectedEvent == 1) {
 			gainGold(hero, display);
 			iv.setEffect(ds2);
-		} else if (selectedEvent  == 3) {
+		} else if (selectedEvent  == 2) {
 			loseGold(hero, floor, display);
 			iv.setEffect(ds1);
-		} else if (selectedEvent == 4) {
+		} else if (selectedEvent == 3) {
 			attackBoost(hero, display);
+			iv.setEffect(ds2);
+		} else if (selectedEvent == 4) {
+			defenseBoost(hero, display);
+			iv.setEffect(ds2);
+		} else if (selectedEvent == 5) {
+			jumpFloor(hero, floor, display);
 			iv.setEffect(ds2);
 		}
 	}
