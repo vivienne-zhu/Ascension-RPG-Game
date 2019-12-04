@@ -1,13 +1,9 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.FileNotFoundException;
-
 import org.junit.jupiter.api.Test;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 
 /**
@@ -113,21 +109,5 @@ class GameCharactersTest {
 	assertEquals(900, link.getCurrentStamina());
 	assertEquals(false, link.isHasRevive());
     }
-
-//    @Test
-//    void charCreationTest() {
-//	GameGUI game = new GameGUI();
-//	Stage primaryStage = new Stage();
-//	try {
-//	    game.start(primaryStage);
-//	    
-//	    assertEquals("Mage", game.getHero().getType());
-//	    assertEquals(1, game.getFloor());
-//	    assertEquals(1, game.getHero().getName());
-//	    assertEquals(800, game.getHero().getStamina());
-//	} catch (FileNotFoundException e) {
-//	    e.printStackTrace();
-//	}
-//    }
 
 }
