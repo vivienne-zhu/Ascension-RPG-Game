@@ -9,7 +9,6 @@ import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.paint.*;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.util.*;
-import com.sun.glass.ui.Robot;
 
 
 
@@ -49,7 +47,6 @@ public class GameGUI extends Application {
 	private MediaPlayer youWinMusic;
 	private SoundEffect se;
 	private VBox heroInfo;
-//	private Robot robot;
 	
 
 	/**
@@ -73,7 +70,6 @@ public class GameGUI extends Application {
 		gameOverMusic = se.gameOverMusic();
 		youWinMusic = se.youWinMusic();
 		heroInfo = new VBox(15);
-//		robot = com.sun.glass.ui.Application.GetApplication().createRobot();
 	}
 	
 	/**
@@ -119,7 +115,6 @@ public class GameGUI extends Application {
 		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
 		});
 		
-
 		//Creating Title/ start screen text with game name, adding style and configuration
 		Text title = new Text();
 		title.setText("Tower Challenge");
@@ -127,14 +122,8 @@ public class GameGUI extends Application {
 		title.setY(350);
 		title.setId("startText");
 
-		//Adding image fill to Title text
-//		Image brick = new Image("Brick.jpeg");
-//		ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
-//		title.setFill(fill);
-		
 		//Mediaplayer for music
 		openingMusic.play();
-		
 		
 		//Fade Transition
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
@@ -145,11 +134,6 @@ public class GameGUI extends Application {
 		//Adding background image to Pane
 		root.setId("startBackground");
 		
-		//Robot for testing purposes
-//		robot.mouseMove(720, 545);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
-
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, pane);
 		Scene startScene = new Scene(root, 1280, 720);
@@ -267,10 +251,6 @@ public class GameGUI extends Application {
 		ft.setToValue(1);
 		ft.play();
 		
-		//Robot moves mouse for tests
-//		robot.mouseMove(630, 450);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
@@ -416,14 +396,6 @@ public class GameGUI extends Application {
 		ft.setToValue(1);
 		ft.play();
 		
-		//Robot enters name and presses button
-//		robot.mouseMove(600, 350);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
-//		robot.keyPress((int) 'a');
-//		robot.mouseMove(1100, 680);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
