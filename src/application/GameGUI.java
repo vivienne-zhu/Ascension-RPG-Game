@@ -187,51 +187,9 @@ public class GameGUI extends Application {
 		setRogue(false);
 		
 		//Event handling for when each button pane is pressed/hovered over
-		magePane.setOnMouseClicked(event -> {
-		    	se.transitionSound();
-			setMage(true);
-			nameCharScreen(primaryStage);
-		});
-		mage.setOnMouseEntered(event->{
-		    mage.setFill(Color.WHITE);
-		    heroInfoBox("Mage");
-		    heroInfo.setVisible(true);
-		});
-		mage.setOnMouseExited(event->{
-		    mage.setFill(Color.BLACK);
-		    heroInfo.setVisible(false);    
-		});
-		warriorPane.setOnMouseClicked(event -> {
-		    	se.transitionSound();
-			setWarrior(true);
-			nameCharScreen(primaryStage);
-		});
-		warrior.setOnMouseEntered(event->{
-		    warrior.setFill(Color.WHITE);
-		    heroInfoBox("Warrior");
-		    heroInfo.setVisible(true);
-		});
-		warrior.setOnMouseExited(event->{
-		    warrior.setFill(Color.BLACK);
-		    heroInfo.setVisible(false);
-		    
-		});
-		roguePane.setOnMouseClicked(event -> {
-		    	se.transitionSound();
-			setRogue(true);
-			nameCharScreen(primaryStage);
-		});
-		rogue.setOnMouseEntered(event->{
-		    rogue.setFill(Color.WHITE);
-		    heroInfoBox("Rogue");
-		    heroInfo.setVisible(true);
-		});
-		rogue.setOnMouseExited(event->{
-		    rogue.setFill(Color.BLACK);
-		    heroInfo.setVisible(false);
-		    
-		});
-		
+		eventHandleCharBtns(magePane, mage, "Mage", primaryStage);
+		eventHandleCharBtns(warriorPane, warrior, "Warrior", primaryStage);
+		eventHandleCharBtns(roguePane, rogue, "Rogue", primaryStage);
 		
 		//Creating vertical box for buttons 
 		VBox btns = new VBox(15);
@@ -258,7 +216,37 @@ public class GameGUI extends Application {
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
 	}
-	
+	/**
+	 * This method handles the event for when character buttons are pressed or
+	 * hovered over. 
+	 * @param pane The StackPane used to create the button
+	 * @param text The text on the pane
+	 * @param type The type of hero/character
+	 * @param primaryStage The primary GUI window
+	 */
+	private void eventHandleCharBtns(StackPane pane, Text text, String type, Stage primaryStage) {
+	    pane.setOnMouseClicked(event -> {
+		se.transitionSound();
+		if (type.equals("Mage")) {
+		    setMage(true);
+		} else if (type.equals("Warrior")) {
+		    setWarrior(true);
+		} else if (type.equals("Rogue")) {
+		    setRogue(true);
+		}
+		nameCharScreen(primaryStage);
+	    });
+	    pane.setOnMouseEntered(event->{
+		text.setFill(Color.WHITE);
+		heroInfoBox(type);
+		heroInfo.setVisible(true);
+	    });
+	    pane.setOnMouseExited(event->{
+		text.setFill(Color.BLACK);
+		heroInfo.setVisible(false);
+
+	    });
+	}
 
 	
 	/**
