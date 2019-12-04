@@ -1,4 +1,4 @@
-# Welcome to Tower Game (title TBD)
+# Welcome to Ascension!
 ## A project by David Cai, Shari Sinclair, and Jiayu Vivienne Zhu.
 
 This is a turn-based RPG in which the player aims to climb a 10 floor tower to reach the treasure.
@@ -42,7 +42,7 @@ To play the game, please run the **GameGUI class**.
 	
 	<img width="500" alt="Screen Shot 2019-12-03 at 1 00 57 PM" src="https://user-images.githubusercontent.com/57401664/70073150-bd347780-15ce-11ea-9acf-762386ecbbe3.png">
 	
-	>If you choose the **Defend** button, enemy attack damage will be halved, and you will be _Empowered_ and have double attack power next turn. The text in the centre of the screen will update to let you know all the details of the battle!
+	>If you choose the **Defend** button, enemy attack damage will 75% less, and you will be _Empowered_ and have double attack power next turn. The text in the centre of the screen will update to let you know all the details of the battle!
 	
 	<img width="500" alt="Screen Shot 2019-12-03 at 8 58 25 AM" src="https://user-images.githubusercontent.com/57401664/70054767-88b0c380-15ae-11ea-8970-9b1be8902831.png">
 	
@@ -58,7 +58,7 @@ To play the game, please run the **GameGUI class**.
  
 
 4. **Transition**: 
-	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a sufficient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. The stat increases gained when you level up will be shown on this screen as well. 
+	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a sufficient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. You also regain 30% of your stamina when you level up. The stat increases gained when you level up will be shown on this screen as well. 
 	 
 	<img width="500" alt="Screen Shot 2019-12-03 at 9 00 00 AM" src="https://user-images.githubusercontent.com/57401664/70053790-8e0d0e80-15ac-11ea-8f2d-68a36737257e.png"><img width="500" alt="Screen Shot 2019-12-03 at 9 01 25 AM" src="https://user-images.githubusercontent.com/57401664/70053986-0542a280-15ad-11ea-872b-2b25a2f6d5b3.png">
  	> Regular transition screen and transition screen on level up.
@@ -73,7 +73,7 @@ To play the game, please run the **GameGUI class**.
 	>The Magic shop!
 
 6. **Events:** 
-	Before each new floor, there is a chance of a random event occuring. Events can cause you to gain or lose gold, or even go down or up in floors.**Your luck will decide you fate!**
+	Before each new floor, there is a chance of a random event occuring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide you fate!**
 	
 	<img width="500" alt="Screen Shot 2019-12-03 at 8 59 06 AM" src="https://user-images.githubusercontent.com/57401664/70053707-5dc57000-15ac-11ea-95be-97ee6e34690d.png">
 	
