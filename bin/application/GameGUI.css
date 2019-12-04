@@ -70,6 +70,13 @@
 	-fx-font-weight: bold;
 }
 
+#whiteBtnText {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
+}
+
 #errorText {
 	-fx-fill: white;
 	-fx-stroke: black;

@@ -101,15 +101,9 @@ public class GameGUI extends Application {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
 
-//		Creating Start button, adding style and necessary configurations
-		Image btn = new Image("startButton.png", 250, 80, false, false);		
-		ImageView iv = new ImageView(btn);
-		Text start = new Text("START");
-		start.setId("btnText");
-		
+//		Creating Start button/pane, adding style event handling
 		StackPane pane = new StackPane();
-		pane.getChildren().addAll(iv,start);
-		pane.setAlignment(Pos.CENTER);
+		pane = createWoodenButtons("START");
 		pane.setLayoutX(525);
 		pane.setLayoutY(440);
 		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
@@ -142,6 +136,40 @@ public class GameGUI extends Application {
 	}
 	
 	/**
+	 * This method allows us to create the wooden buttons/pane
+	 * 
+	 * @param type The text to be place on the button/pane
+	 * @return pane The StackPane that will serve as a button
+	 */
+	public StackPane createWoodenButtons(String type) {
+	    	Image btn = new Image("startButton.png", 250, 80, false, false);		
+		ImageView iv = new ImageView(btn);
+		Text btnText = new Text();
+		
+		if (type.equals("Mage")) {
+		    btnText.setText(type);
+		} else if (type.equals("Warrior")) {
+		    btnText.setText(type);
+		} else if (type.equals("Rogue")) {
+		    btnText.setText(type);
+		} else if (type.equals("START")) {
+		    btnText.setText(type);
+		}
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(iv,btnText);
+		pane.setAlignment(Pos.CENTER);
+		pane.setId("btnText");
+		pane.setOnMouseEntered(event->{
+		    btnText.setFill(Color.WHITE);
+		   });
+		pane.setOnMouseExited(event->{
+		    btnText.setFill(Color.BLACK);
+
+		    });
+		return pane;
+	}
+	
+	/**
 	 * This method houses the code needed for the screen that allows the player to
 	 * choose their character type/fighter.
 	 * 
@@ -155,31 +183,10 @@ public class GameGUI extends Application {
 		charOption.setY(270);
 		charOption.setId("characterOptionText");
 		
-		//Creating buttons for user selection, positioning and adding style
-		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
-		//Mage btn
-//		Button mageBtn = new Button("Mage");
-//		mageBtn.setId("woodenBtn");
-		ImageView ivMage = new ImageView(btnBackGround);
-		Text mage = new Text("Mage");
-		mage.setId("btnText");
-		StackPane magePane = new StackPane();
-		magePane.getChildren().addAll(ivMage,mage);
-		magePane.setAlignment(Pos.CENTER);
-		//Warrior btn
-		ImageView ivWarrior = new ImageView(btnBackGround);
-		Text warrior = new Text("Warrior");
-		warrior.setId("btnText");
-		StackPane warriorPane = new StackPane();
-		warriorPane.getChildren().addAll(ivWarrior,warrior);
-		warriorPane.setAlignment(Pos.CENTER);
-		//Rogue btn
-		ImageView ivRogue = new ImageView(btnBackGround);
-		Text rogue = new Text("Rogue");
-		rogue.setId("btnText");
-		StackPane roguePane = new StackPane();
-		roguePane.getChildren().addAll(ivRogue,rogue);
-		roguePane.setAlignment(Pos.CENTER);
+		//Creating buttons for user selection
+		StackPane magePane = createWoodenButtons("Mage");
+		StackPane warriorPane = createWoodenButtons("Warrior");
+		StackPane roguePane = createWoodenButtons("Rogue");
 		
 		// Clear prior assigned character type
 		setMage(false);
@@ -187,9 +194,9 @@ public class GameGUI extends Application {
 		setRogue(false);
 		
 		//Event handling for when each button pane is pressed/hovered over
-		eventHandleCharBtns(magePane, mage, "Mage", primaryStage);
-		eventHandleCharBtns(warriorPane, warrior, "Warrior", primaryStage);
-		eventHandleCharBtns(roguePane, rogue, "Rogue", primaryStage);
+		eventHandleCharBtns(magePane, "Mage", primaryStage);
+		eventHandleCharBtns(warriorPane, "Warrior", primaryStage);
+		eventHandleCharBtns(roguePane, "Rogue", primaryStage);
 		
 		//Creating vertical box for buttons 
 		VBox btns = new VBox(15);
@@ -224,7 +231,7 @@ public class GameGUI extends Application {
 	 * @param type The type of hero/character
 	 * @param primaryStage The primary GUI window
 	 */
-	private void eventHandleCharBtns(StackPane pane, Text text, String type, Stage primaryStage) {
+	private void eventHandleCharBtns(StackPane pane, String type, Stage primaryStage) {
 	    pane.setOnMouseClicked(event -> {
 		se.transitionSound();
 		if (type.equals("Mage")) {
@@ -237,12 +244,12 @@ public class GameGUI extends Application {
 		nameCharScreen(primaryStage);
 	    });
 	    pane.setOnMouseEntered(event->{
-		text.setFill(Color.WHITE);
+		pane.setId("whiteBtnText");
 		heroInfoBox(type);
 		heroInfo.setVisible(true);
 	    });
 	    pane.setOnMouseExited(event->{
-		text.setFill(Color.BLACK);
+		pane.setId("btnText");
 		heroInfo.setVisible(false);
 
 	    });
