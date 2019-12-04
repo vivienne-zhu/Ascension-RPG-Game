@@ -55,7 +55,7 @@ class GameCharactersTest {
 	gandalf.magicAttack(orc, false);
 	assertEquals(expected, 0.2, orc.getCurrentStamina());
     }
- // This tests the attack method
+    // This tests the attack method when the character is empowered
     @Test
     void empoweredAttackTest() {
 	Warrior aragorn = new Warrior();
@@ -69,12 +69,40 @@ class GameCharactersTest {
 
 	assertEquals(expected, orc.getCurrentStamina());
     }
+    
+ // This tests the attack method the Boss is outraged
+    @Test
+    void outragedAttackTest() {
+	Warrior aragorn = new Warrior();
+	BossEnemy urukhai = new BossEnemy(10);
+	
+	int bossAtk = urukhai.getAttack(); 
+	int expected = 900 - ((bossAtk - 60) * 3);
+	urukhai.attack(aragorn, true, false);
+
+	assertEquals(expected, aragorn.getCurrentStamina());
+    }
+    
+    //This tests the attack method when the Boss is outraged and 
+    //attacks the hero while he is defending
+    @Test
+    void outragedAttackDefendTest() {
+	Warrior aragorn = new Warrior();
+	BossEnemy urukhai = new BossEnemy(10);
+	
+	aragorn.setIsDefending(true);
+	int bossAtk = urukhai.getAttack(); 
+	int expected = (int)(900 - Math.ceil(((bossAtk - 60) * 3) * 0.25));
+	urukhai.attack(aragorn, true, false);
+
+	assertEquals(expected, aragorn.getCurrentStamina());
+    }
+    
 
     //This tests the level up method on a mage to see 5 stat increases
     @Test 
     void levelUpTest() {
 	Mage gandalf = new Mage();
-
 	gandalf.levelUp();
 
 	assertEquals(135,2, gandalf.getAttack());
