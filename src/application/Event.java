@@ -49,20 +49,18 @@ public class Event {
 	 * This method will allow the player to jump 1-2 floors.
 	 * 
 	 * @param floor The current floor the player is on.
-	 * @return new floor number
+	 * @param hero The player hero 
+	 * @param dispaly The text display of the event
 	 */
-	private int jumpFloor(GameCharacters hero, Floor floor) {
+	private void jumpFloor(GameCharacters hero, Floor floor, Text display) {
 		Random r = new Random();
 		int newFloor = floor.getFloor() + r.nextInt(2) + 1;
+		floor.setFloor(newFloor);
 		
-		if (newFloor >= 10) {
-			floor.setFloor(9);
-			gainGold(hero);
-		} else {
-			floor.setFloor(newFloor);				
-		}
-			
-		return floor.getFloor();
+		newFloor++;
+		
+		display.setText("A map that shows a secret path to avoid the enemies..."
+				+ "You get to floor " + newFloor + "!");
 	}
 	
 	/**
@@ -70,12 +68,12 @@ public class Event {
 	 * The player will move down to the lower floor. 
 	 * 
 	 * @param floor The current floor the player is on
-	 * @return new floor number
+	 * @param display Text display of the event
 	 */
-	private int dropFloor(Floor floor) {
+	private void dropFloor(Floor floor, Text display) {
 		floor.decrementFloor();
-		
-		return floor.getFloor();
+		int newFloor = floor.getFloor() + 1;
+		display.setText("A hidden door underneath the box...you dropped to floor " + newFloor + " again!");
 	
 	}
 	
@@ -83,35 +81,38 @@ public class Event {
 	 * This method will trigger the get gold event. 
 	 * The player will receive a random amount of gold from 1-200.
 	 * 
-	 * @param hero The players hero
-	 * @return gold the amount of gold the user gained
+	 * @param hero The player hero
+	 * @param text The text display of the event
 	 */
-	private int gainGold(GameCharacters hero) { 
+	private void gainGold(GameCharacters hero, Text display) { 
 		Random r = new Random();
 		int gold = r.nextInt(200) + 1;
 		hero.setGold(hero.getGold() + gold);	
-		return gold;
+		
+		display.setText(gold + " gold in the box...You now have " + hero.getGold() + " gold.");
 	}
 	
 	/**
 	 * This method will trigger the lost gold event. 
 	 * The player will lose a random amount of gold from 0-100.
 	 * 
-	 * @param hero The players chosen hero
-	 * @param floor the current floor the hero is on
-	 * @return gold the amount of gold the user lost
+	 * @param hero The player hero
+	 * @param floor The current floor the hero is on
+	 * @param display The text display of the event
 	 */
-	private int loseGold(GameCharacters hero,  Floor floor) {
+	private void loseGold(GameCharacters hero,  Floor floor, Text display) {
 		Random r = new Random();
 		int lostGold = r.nextInt(100) + 1;
 		
 		if (hero.getGold() > lostGold) {
 			hero.setGold(hero.getGold() - lostGold);
 		} else {
+			lostGold = hero.getGold();
 			hero.setGold(0);
 			}
 		
-		return lostGold;
+		display.setText("A Goblin appears and takes " + lostGold + " gold away...You now have " + hero.getGold() + " gold.");
+		
 	}
 	
 	/**
@@ -132,22 +133,16 @@ public class Event {
 		ds2.setColor(Color.GOLDENROD);
 				
 		if (selectedEvent == 0) {
-			int newFloor2 = this.jumpFloor(hero, floor) + 1;
-			display.setText("A map that shows a secret path to avoid the enemies..."
-					+ "You get to floor " + newFloor2 + "!");
+			jumpFloor(hero, floor, display);
 			iv.setEffect(ds2);
 		} else if (selectedEvent == 1) {
-			int newFloor = this.dropFloor(floor) + 1;				
-			display.setText("A hidden door underneath the box...you dropped to floor " + newFloor + " again!");
+			dropFloor(floor, display);
 			iv.setEffect(ds1);
 		} else if (selectedEvent == 2) {
-			double gold = this.gainGold(hero);	
-			display.setText((int) gold + " gold in the box...You now have " + hero.getGold() + " gold.");
+			gainGold(hero, display);
 			iv.setEffect(ds2);
 		} else if (selectedEvent  == 3) {
-			double lostGold;
-			lostGold = this.loseGold(hero, floor);		
-			display.setText("A Goblin appears and takes " + (int) lostGold + " gold away...You now have " + hero.getGold() + " gold.");
+			loseGold(hero, floor, display);
 			iv.setEffect(ds1);
 		}
 	}
