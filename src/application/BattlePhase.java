@@ -577,12 +577,12 @@ public class BattlePhase {
 			display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 			display.resetInfoBar(1, display.getManaBar(), 200, hero);
 		} else if (hero instanceof Rogue) {
-			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
+			attackAmount = hero.attack(enemy, false, hero.isEmpowered())[0];
 			if (rand == 0 && enemy.getCurrentStamina() != 0) {
-				secondAttack = hero.attack(enemy, false, hero.isEmpowered()); //attacking twice
+				secondAttack = hero.attack(enemy, false, hero.isEmpowered())[0]; //attacking twice
 			}	
 		} else {
-			attackAmount = hero.attack(enemy, false, hero.isEmpowered());
+			attackAmount = hero.attack(enemy, false, hero.isEmpowered())[0];
 		}
 		
 		if (choice == 0) {
@@ -1133,7 +1133,7 @@ public class BattlePhase {
 	 */
 	private void hitHero(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int i, GraphicsContext gc, Scene reviveScene, 
 			Scene gameOverScreen, MediaPlayer battleMusic, MediaPlayer gameOverMusic, Boolean outrage, BattlePhaseDisplay display) { 
-		int attackAmount = allEnemies.get(floor).get(i).attack(hero, outrage, false);
+		int[] attacks = allEnemies.get(floor).get(i).attack(hero, outrage, false);
 		if (!healerTargetAvail || !allEnemies.get(floor).get(i).getType().equals("Healer")) {
 		Timeline heroRed = new Timeline();
 		heroRed.setCycleCount(1);
@@ -1153,17 +1153,17 @@ public class BattlePhase {
 		}
 		display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
-		if (attackAmount <= 0) {
+		if (attacks[0] <= 0) {
 			display.getDialogueTwo().setText("You took 0 damage!"); // You took 0 damage!
 		} else {
-		    display.getDialogueTwo().setText(allEnemies.get(floor).get(i).getType() + " dealt " + attackAmount + " damage to you!");
+		    display.getDialogueTwo().setText(allEnemies.get(floor).get(i).getType() + " dealt " + attacks[0] + " damage to you!");
 		}
-		if (attackAmount <= 0) {
+		if (attacks[0] <= 0) {
 			display.getDialogueThree().setText("The enemy's attack had no effect on you!");
 
 		} else {
 			if (hero.isDefending()) {
-				display.getDialogueThree().setText("Your defense blocked " + attackAmount + " damage!");
+				display.getDialogueThree().setText("Your defense blocked " + attacks[1] + " damage!");
 			}
 			if (hero.getCurrentStamina() <= 0) {
 				hero.displayCharacter(gc, true, false,false);

@@ -85,17 +85,19 @@ public class GameCharacters {
      * @param character The character currently being attacked.
      * @return attackValue the int value of the attack dealt
      */
-    public int attack(GameCharacters character, Boolean outrage, Boolean empowered) {
+    public int[] attack(GameCharacters character, Boolean outrage, Boolean empowered) {
 	setIsDefending(false);
 	int attackValue = this.getAttack() - character.getDefense();
+	int blockedValue = 0;
 	if (outrage) {
 		attackValue = attackValue * 3;
 	}
 	if (empowered) {
-		attackValue = attackValue * 2;
+		attackValue = (int) (attackValue * 1.5);
 	}
 	if (character.isDefending()) {
-	    attackValue = attackValue / 2;
+		blockedValue = attackValue - (int) Math.ceil(attackValue * .25);
+	    attackValue =  (int) Math.ceil(attackValue * .25);
 	}
 	int oldHealth = character.getCurrentStamina();
 	int newHealth = oldHealth - attackValue;
@@ -107,7 +109,10 @@ public class GameCharacters {
 		attackValue = oldHealth;
 	    }
 	}
-	return attackValue;
+	int[] attacks = new int[2];
+	attacks[0] = attackValue;
+	attacks[1] = blockedValue;
+	return attacks;
     }
 
     /**

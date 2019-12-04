@@ -42,7 +42,7 @@ class GameCharactersTest {
 	legolas.defend();
 	orc.attack(legolas, false, false);
 	int orcAttack = orc.getAttack();
-	int expected = 800 - ((orcAttack - 50)/2);
+	int expected = (int) (800 - Math.ceil(orcAttack - 50) * 0.25);
 
 	assertEquals(expected, legolas.getCurrentStamina());
     }
@@ -68,7 +68,7 @@ class GameCharactersTest {
 	aragorn.setIsEmpowered(true);
 	int orcDef = orc.getDefense();
 	int orcStam = orc.getStamina();
-	double expected = (orcStam - ((150 - orcDef) * 2));
+	int expected =  (orcStam - (int) ((150 - orcDef) * 1.5));
 	aragorn.attack(orc, false, true);
 
 	assertEquals(expected, orc.getCurrentStamina());
