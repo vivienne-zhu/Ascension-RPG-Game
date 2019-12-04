@@ -116,7 +116,7 @@ public class GameGUI extends Application {
 		title.setY(350);
 		title.setId("startText");
 
-		//Mediaplayer for music
+		//Media player for music
 		openingMusic.play();
 		
 		//Fade Transition
@@ -171,7 +171,7 @@ public class GameGUI extends Application {
 	
 	/**
 	 * This method houses the code needed for the screen that allows the player to
-	 * choose their character type/fighter.
+	 * choose their character type/hero.
 	 * 
 	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
 	 */
@@ -244,12 +244,18 @@ public class GameGUI extends Application {
 		nameCharScreen(primaryStage);
 	    });
 	    pane.setOnMouseEntered(event->{
-		pane.setId("whiteBtnText");
+		pane.getChildren().remove(1);
+		Text btnText = new Text(type);
+		btnText.setId("whiteBtnText");
+		pane.getChildren().add(btnText);
 		heroInfoBox(type);
 		heroInfo.setVisible(true);
 	    });
 	    pane.setOnMouseExited(event->{
-		pane.setId("btnText");
+		pane.getChildren().remove(1);
+		Text btnText = new Text(type);
+		btnText.setId("btnText");
+		pane.getChildren().add(btnText);
 		heroInfo.setVisible(false);
 
 	    });
