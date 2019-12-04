@@ -559,6 +559,7 @@ public class GameGUI extends Application {
 		//Code that controls the battle mechanics on each floor
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		BattlePhaseDisplay display = new BattlePhaseDisplay();
+		VBox heroStats = display.heroStatsDisplay(hero);
 		display.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		display.dispDialogue();
 		display.initButtons(hero);
@@ -575,7 +576,7 @@ public class GameGUI extends Application {
 		ft.play();
 
 		// Adding grid to Pane , adding stylesheet to pane
-		towerLevels.getChildren().addAll(grid, floorNum);
+		towerLevels.getChildren().addAll(heroStats, grid, floorNum);
 		towerLevels.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return towerLevels;
 	}

@@ -138,7 +138,7 @@ public class BattlePhaseDisplay {
      * 
      * @param hero
      */
-    public void heroStatsDisplay(GameCharacters hero) {
+    public VBox heroStatsDisplay(GameCharacters hero) {
     	// To initialize heroStats VBox 
         heroStats.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
     	Text stats = new Text("Level: " + hero.getLevel() + "\t\t" +
@@ -150,14 +150,9 @@ public class BattlePhaseDisplay {
     	heroStats.getChildren().add(stats);
     	heroStats.setVisible(false);
     	
-    	heroName.setOnMouseEntered(event -> {
-    		heroName.setFill(Color.LIGHTSKYBLUE);
-    		heroStats.setVisible(true);		
-    	});
-    	heroName.setOnMouseExited(event -> {
-    		heroName.setFill(Color.WHITE);
-    		heroStats.setVisible(false);
-    	});    	
+    	heroStats.setLayoutX(330);
+    	heroStats.setLayoutY(70);
+    	return heroStats;
     }
 
     /**
@@ -207,8 +202,15 @@ public class BattlePhaseDisplay {
 	
 	// To display current stamina of hero and enemy (using tester enemy[0]).
 	heroName = new Text(hero.getType() + ": " + hero.getName());
-	heroName.setId("battlePhase");
-	this.heroStatsDisplay(hero);
+	heroName.setId("battlePhase");	
+	heroName.setOnMouseEntered(event -> {
+		heroName.setFill(Color.LIGHTSKYBLUE);
+		heroStats.setVisible(true);		
+	});
+	heroName.setOnMouseExited(event -> {
+		heroName.setFill(Color.WHITE);
+		heroStats.setVisible(false);
+	});
 	
 	heroStam = new Text("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 	heroStam.setId("battlePhase");
@@ -315,7 +317,6 @@ public class BattlePhaseDisplay {
 
 	//Placements for various textboxes and buttons
 	grid.add(heroName, 0, 0);
-	grid.add(heroStats, 1, 0);
 	grid.add(heroStam, 0, 1);
 	grid.add(fullStamBar, 0, 2);
 	grid.add(staminaBar, 0, 2);
