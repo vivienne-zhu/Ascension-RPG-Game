@@ -122,7 +122,7 @@ public class GameGUI extends Application {
 			logo1.setFitWidth(600);
 			logo1.setFitHeight(540);
 			start.setId("whiteBtnText");
-			start.setLayoutX(520);
+			start.setLayoutX(535);
 			start.setLayoutY(640);
 			DropShadow ds1 = new DropShadow(20, Color.RED);
 			start.setVisible(true);
