@@ -1024,7 +1024,7 @@ public class GameGUI extends Application {
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 		clearedFloor.setId("clearedFloorText");
-		clearedFloor.setX(320);
+		clearedFloor.setX(350);
 		clearedFloor.setY(120);
 		
 		//Creating the buttons play for the player to continue on
@@ -1048,7 +1048,7 @@ public class GameGUI extends Application {
 		
 		//Creating VBox and setting alignment
 		VBox userUpdate = new VBox(20);
-		userUpdate.setLayoutX(380);
+		userUpdate.setLayoutX(340);
 		userUpdate.setLayoutY(250);
 		userUpdate.setAlignment(Pos.CENTER);
 			
@@ -1062,7 +1062,7 @@ public class GameGUI extends Application {
 		Text xpGained = new Text();
 		int xp= 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
 		xpCount += xp;
-		xpGained.setText("You gained " + xp + " xp! Xp = " + xpCount);
+		xpGained.setText("You gained " + xp + " experience points! EXP = " + xpCount);
 		xpGained.setId("xpAndGoldText");
 		
 		//Creating text for level up and the conditions to display it
