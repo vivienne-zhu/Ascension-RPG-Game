@@ -47,6 +47,7 @@ public class GameGUI extends Application {
 	private MediaPlayer youWinMusic;
 	private SoundEffect se;
 	private VBox heroInfo;
+	private VBox heroInfoTwo;
 	
 
 	/**
@@ -70,6 +71,7 @@ public class GameGUI extends Application {
 		gameOverMusic = se.gameOverMusic();
 		youWinMusic = se.youWinMusic();
 		heroInfo = new VBox(15);
+		heroInfoTwo = new VBox(15);
 	}
 	
 	/**
@@ -204,7 +206,7 @@ public class GameGUI extends Application {
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
-		display.getChildren().addAll(charOption, btns, heroInfo) ;
+		display.getChildren().addAll(charOption, btns, heroInfo, heroInfoTwo) ;
 		display.setId("startBackground");
 
 		//Fade Transition
@@ -244,6 +246,7 @@ public class GameGUI extends Application {
 		pane.getChildren().add(btnText);
 		heroInfoBox(type);
 		heroInfo.setVisible(true);
+		heroInfoTwo.setVisible(true);
 	    });
 	    pane.setOnMouseExited(event->{
 		pane.getChildren().remove(1);
@@ -251,6 +254,7 @@ public class GameGUI extends Application {
 		btnText.setId("btnText");
 		pane.getChildren().add(btnText);
 		heroInfo.setVisible(false);
+		heroInfoTwo.setVisible(false);
 
 	    });
 	}
@@ -264,46 +268,84 @@ public class GameGUI extends Application {
 	 */
 	private VBox heroInfoBox(String type) {
 	    heroInfo.setId("heroInfoBox");
+	    heroInfoTwo.setId("heroInfoBox");
 	    
 	    if (type.equals("Mage")) {
 		heroInfo.getChildren().clear();
 		heroInfo.setLayoutX(110);
 		heroInfo.setLayoutY(330);
+		heroInfoTwo.getChildren().clear();
+		heroInfoTwo.setLayoutX(860);
+		heroInfoTwo.setLayoutY(330);
+		
 		Text info = new Text();
 		GameCharacters mage = new Mage();
-		info.setText("Mages have a very powerful magic attack "+ "\n" 
-			+ "but limited mana to use magic attacks. "
-			+"\n"+ "A good choice for strategic players" + "\n" +
-			"\n" + "Attack: " + mage.getAttack() + "\n" + 
-			"Defense: " + mage.getDefense() + "\n" + 
-			"Stamina: " + mage.getStamina()+ "\n" + 
-			"Magic Atk: " + mage.getMagicAtk()+ "\n" + 
-			"Mana: " + mage.getMana());
+		info.setText("Mages have a stronger magical attack"+ "\n" 
+			+ "but are limited by mana usage. This class"
+			+"\n"+ "is recommended for strategic players." + "\n" +
+			"\n" + " Attack: " + mage.getAttack() + "   Defense: " + mage.getDefense() + "   Stamina: " + mage.getStamina() 
+			+  "\n" + "          Magic Atk: " + mage.getMagicAtk() + "	Mana: " + mage.getMana());
 		heroInfo.getChildren().add(info);
+		
+		Text infoTwo = new Text();
+		infoTwo.setText("		Special Attribute: Mana" + "\n" + 
+		"                Special Ability: Fireball" + "\n" +
+		"The mage's Fireball is a special attack that is" + "\n" + 
+		"significantly stronger than a normal attack." +
+		"\n" + "It also deals 20% more damage to Melee" + "\n" + 
+		"enemies. Fireball costs 50 mana to use.");
+		heroInfoTwo.getChildren().add(infoTwo);
+		
 	    } else if (type.equals("Warrior")) {
 		heroInfo.getChildren().clear();
 		heroInfo.setLayoutX(110);
 		heroInfo.setLayoutY(420);
+		heroInfoTwo.getChildren().clear();
+		heroInfoTwo.setLayoutX(860);
+		heroInfoTwo.setLayoutY(420);
+		
 		Text info = new Text();
 		GameCharacters warrior = new Warrior();
-		info.setText("Warriors have higher stamina and defense."
-			+"\n" + "A better choice for beginners" + "\n" +
-			 "\n" +"Attack: " + warrior.getAttack() + "\n" + 
-			"Defense: " + warrior.getDefense() + "\n" + 
-			"Stamina: " + warrior.getStamina());
+		info.setText("Warriors have high stamina and defense."
+			+"\n" + "This class is recommended for beginners." + "\n" +
+			 "\n" +"			Attack: " + warrior.getAttack() + "\n" + 
+			"			Defense: " + warrior.getDefense() + "\n" + 
+			"			Stamina: " + warrior.getStamina());
 		heroInfo.getChildren().add(info);
+		
+		Text infoTwo = new Text();
+		infoTwo.setText("		Special Attribute: Defense" + "\n" + 
+		"                   Special Ability: Sturdy" + "\n" +
+		"The warrior specializes in health and defense." + "\n" + 
+		"It gains more defense stats during level up" +
+		"\n" + "and its Sturdy ability gives it 200 more" + "\n" + 
+		"starting health than the other two classes.");
+		heroInfoTwo.getChildren().add(infoTwo);
+		
 	    } else if (type.equals("Rogue")) {
 		heroInfo.getChildren().clear();
 		heroInfo.setLayoutX(110);
 		heroInfo.setLayoutY(520);
+		heroInfoTwo.getChildren().clear();
+		heroInfoTwo.setLayoutX(860);
+		heroInfoTwo.setLayoutY(520);
+		
 		Text info = new Text();
 		GameCharacters rogue = new Rogue();
-		info.setText("Rogues have the ability to double attack on "
-			+"\n" + " certain turns. A good choice for any player."+ "\n" +
-			"\n" + "Attack: " + rogue.getAttack() + "\n" + 
-			"Defense: " + rogue.getDefense() + "\n" + 
-			"Stamina: " + rogue.getStamina());
+		info.setText("Rogues have a chance to attack twice."
+			+"\n" + "This class is recommended for everyone."+ "\n" +
+			"\n" + "			Attack: " + rogue.getAttack() + "\n" + 
+			"			Defense: " + rogue.getDefense() + "\n" + 
+			"			Stamina: " + rogue.getStamina());
 		heroInfo.getChildren().add(info);
+		
+		Text infoTwo = new Text();
+		infoTwo.setText("		  Special Attribute: Attack" + "\n" + "              Special Ability: Slice and Dice" + "\n" +
+		"The rogue specializes in burst damage and raw" + "\n" + "attack power. It gains additional attack stats" +
+		"\n" + "on level up. Its ability gives the rogue a 33%" + "\n" + 
+		"to chance to hit an enemy twice in per attack.");
+		heroInfoTwo.getChildren().add(infoTwo);
+		
 	    } 
 	   
 	    return heroInfo;
