@@ -159,7 +159,7 @@ public class BattlePhaseDisplay {
     	heroStats.getChildren().add(stats);
     	heroStats.setVisible(false);
     	
-    	heroStats.setLayoutX(280);
+    	heroStats.setLayoutX(350);
     	heroStats.setLayoutY(45);
     	return heroStats;
     }
@@ -170,7 +170,7 @@ public class BattlePhaseDisplay {
     	Text name = new Text(hero.getType() + ": " + hero.getName());
     	name.setId("battlePhase");	
     	
-    	heroName.getChildren().addAll(name, infoIV);
+    	heroName.getChildren().addAll(name, infoIV); 
     	heroName.setTextAlignment(TextAlignment.CENTER);
     	
     	heroName.setOnMouseEntered(event -> {
