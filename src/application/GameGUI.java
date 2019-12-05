@@ -22,9 +22,7 @@ import java.util.*;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
- * needed to capture user input and run the game. Game can be run to see game play up to floor 9. 
- * The design of this class may be revised before final submission 
- * (class will be made more cohesive and DRY).
+ * needed to capture user input and run the game.
  * 
  * @author Shari Sinclair, JiayuZhu and David Cai
  *
@@ -51,10 +49,8 @@ public class GameGUI extends Application {
 	
 
 	/**
-	 * The sets all booleans variables to false, and initializes the hero,
-	 *  allEnemies HashMap, the shop, events,floors, sound effects and
-	 *  all necessary media players for music. 
-	 * (Still in testing phase, some variables may be removed/added later)
+	 * The constructor sets all booleans variables to false, 
+	 * and initializes all necessary instance variables.
 	 */
 	public GameGUI() {
 		isMage = false;
@@ -81,8 +77,6 @@ public class GameGUI extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
-		//Parent root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
-		
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
 	    	
@@ -164,33 +158,29 @@ public class GameGUI extends Application {
 	 * @return pane The StackPane that will serve as a button
 	 */
 	public StackPane createWoodenButtons(String type) {
-	    	Image btn = new Image("startButton.png", 250, 80, false, false);		
-		ImageView iv = new ImageView(btn);
-		DropShadow ds = new DropShadow(3, Color.ANTIQUEWHITE);
-		iv.setEffect(ds);
-		Text btnText = new Text();
-		
-		if (type.equals("Mage")) {
-		    btnText.setText(type);
-		} else if (type.equals("Warrior")) {
-		    btnText.setText(type);
-		} else if (type.equals("Rogue")) {
-		    btnText.setText(type);
-		} else if (type.equals("START")) {
-		    btnText.setText(type);
-		}
-		StackPane pane = new StackPane();
-		pane.getChildren().addAll(iv,btnText);
-		pane.setAlignment(Pos.CENTER);
-		pane.setId("btnText");
-		pane.setOnMouseEntered(event->{
-		    btnText.setFill(Color.WHITE);
-		   });
-		pane.setOnMouseExited(event->{
-		    btnText.setFill(Color.BLACK);
+	    //Create image view and text,  add effects
+	    Image btn = new Image("startButton.png", 250, 80, false, false);		
+	    ImageView iv = new ImageView(btn);
+	    DropShadow ds = new DropShadow(3, Color.ANTIQUEWHITE);
+	    iv.setEffect(ds);
+	    Text btnText = new Text();
 
-		    });
-		return pane;
+	    //Determine Text the btn will display
+	    if (type.equals("Mage")) {
+		btnText.setText(type);
+	    } else if (type.equals("Warrior")) {
+		btnText.setText(type);
+	    } else if (type.equals("Rogue")) {
+		btnText.setText(type);
+	    } 
+	    
+	    //create pane and add nodes, and style
+	    StackPane pane = new StackPane();
+	    pane.getChildren().addAll(iv,btnText);
+	    pane.setAlignment(Pos.CENTER);
+	    pane.setId("btnText");
+	   
+	    return pane;
 	}
 	
 	/**
@@ -237,7 +227,6 @@ public class GameGUI extends Application {
 		//Fade Transition
 		screenFade(display);
 		
-
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
 		chooseChar.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
@@ -247,12 +236,14 @@ public class GameGUI extends Application {
 	/**
 	 * This method handles the event for when character buttons are pressed or
 	 * hovered over. 
+	 * 
 	 * @param pane The StackPane used to create the button
 	 * @param text The text on the pane
 	 * @param type The type of hero/character
 	 * @param primaryStage The primary GUI window
 	 */
 	private void eventHandleCharBtns(StackPane pane, String type, Stage primaryStage) {
+	    //Event handling for hen clicked, it creates corresponding hero
 	    pane.setOnMouseClicked(event -> {
 		se.transitionSound();
 		if (type.equals("Mage")) {
@@ -264,6 +255,8 @@ public class GameGUI extends Application {
 		}
 		nameCharScreen(primaryStage);
 	    });
+	    
+	    //When entered, text becomes white and two info panes are shown
 	    pane.setOnMouseEntered(event->{
 		pane.getChildren().remove(1);
 		Text btnText = new Text(type);
@@ -273,6 +266,8 @@ public class GameGUI extends Application {
 		heroInfo.setVisible(true);
 		heroInfoTwo.setVisible(true);
 	    });
+	    
+	    //When exited, text is black and panes disappear
 	    pane.setOnMouseExited(event->{
 		pane.getChildren().remove(1);
 		Text btnText = new Text(type);
