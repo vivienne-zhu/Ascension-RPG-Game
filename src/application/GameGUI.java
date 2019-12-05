@@ -101,6 +101,7 @@ public class GameGUI extends Application {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
 		
+		//Create logo and text for start screen
 		Image logo = new Image("ascension.png");
 		ImageView logo1 = new ImageView(logo);
 		logo1.setLayoutX(350);
@@ -112,6 +113,7 @@ public class GameGUI extends Application {
 		logo1.setEffect(ds);
 		Text start = new Text("Click to START!");
 		
+		//Event handling for hovering over and clicking the logo
 		logo1.setOnMouseEntered(event->{
 		    	logo1.setLayoutX(350);
 			logo1.setLayoutY(80);
