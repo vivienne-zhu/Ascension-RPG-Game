@@ -18,7 +18,7 @@ To play the game, please run the **GameGUI class**.
 -------
 ## How to Play
 1. **Start:** 
-	After the Start screen, select the class of hero you would like to play with. Next, enter the chosen name of your hero. 
+	After the Start screen, select the class of hero you would like to play with. Hover over each character type to learn more about them before choosing. Next, enter the chosen name of your hero. 
 	>A **Mage** has the benefit of limited powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. 
 	
 	![Start Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/Start.png)
@@ -38,7 +38,7 @@ To play the game, please run the **GameGUI class**.
 
 
 3. **Controls:** 
-	Each character will have an **Attack, Defend,** and **Heal** button, and **Mages** will have an additional **Magic Atk** button. 
+	Each character will have an **Attack, Defend,** and **Heal** button, and **Mages** will have an additional **Magic Atk** button. Hero stat are available in battle if you hover over the (i) beside their name.
 	>The **Attack** button allows you to attack the enemy. When there are multiple enemies on a floor, choose which enemy to attack by click the **Attack** button above the correstponding enemy.  
 	
 	![Attack Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/AtkBtns.png)
