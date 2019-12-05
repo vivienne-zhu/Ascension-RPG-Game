@@ -287,6 +287,7 @@ public class GameGUI extends Application {
 	 * @return VBox containing basic info about each hero
 	 */
 	private VBox heroInfoBox(String type) {
+	    //Setting style id for VBoxes
 	    heroInfo.setId("heroInfoBox");
 	    heroInfoTwo.setId("heroInfoBox");
 	    
@@ -298,6 +299,8 @@ public class GameGUI extends Application {
 		heroInfoTwo.setLayoutX(860);
 		heroInfoTwo.setLayoutY(270);
 		
+		//Changes text based on hero button you hover over
+		//Mage text
 		Text info = new Text();
 		GameCharacters mage = new Mage();
 		info.setText("Mages have a stronger magical attack"+ "\n" 
@@ -323,7 +326,7 @@ public class GameGUI extends Application {
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
 		heroInfoTwo.setLayoutY(380);
-		
+		//Warrior text
 		Text info = new Text();
 		GameCharacters warrior = new Warrior();
 		info.setText("Warriors have high stamina and defense."
@@ -349,7 +352,7 @@ public class GameGUI extends Application {
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
 		heroInfoTwo.setLayoutY(495);
-		
+		//Rogue text
 		Text info = new Text();
 		GameCharacters rogue = new Rogue();
 		info.setText("Rogues have a chance to attack twice."
@@ -486,6 +489,7 @@ public class GameGUI extends Application {
 	    //Mediaplayer for music
 	   	battleMusic.play();
 
+	   	//Create arrylist enemies for the floor
 	   	ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
 		
 		int healerCount = 0; //keeps track of enemy healers
@@ -531,7 +535,7 @@ public class GameGUI extends Application {
 		for (int i = 0; i < floorEnemies.size(); i++) {
 			totalEnemyHealth += floorEnemies.get(i).getCurrentStamina();
 		}
-
+		//Restore hero mana each new floor
 		hero.setCurrentMana(hero.getMana());
 		
 		// Creation of pane, and scene. Adding pane to scene, and scene to stage
