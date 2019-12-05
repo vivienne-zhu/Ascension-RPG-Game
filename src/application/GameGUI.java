@@ -100,21 +100,42 @@ public class GameGUI extends Application {
 	private Scene startScreen(Stage primaryStage) {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
-
-//		Creating Start button/pane, adding style event handling
-		StackPane pane = new StackPane();
-		pane = createWoodenButtons("START");
-		pane.setLayoutX(525);
-		pane.setLayoutY(440);
-		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+		
+		Image logo = new Image("ascension.png");
+		ImageView logo1 = new ImageView(logo);
+		logo1.setLayoutX(350);
+		logo1.setLayoutY(80);
+		logo1.setFitWidth(580);
+		logo1.setFitHeight(520);
+		logo1.setId("logo");
+		DropShadow ds = new DropShadow(20, Color.WHITE);
+		logo1.setEffect(ds);
+		Text start = new Text("Click to START!");
+		
+		logo1.setOnMouseEntered(event->{
+		    	logo1.setLayoutX(350);
+			logo1.setLayoutY(80);
+			logo1.setFitWidth(600);
+			logo1.setFitHeight(540);
+			start.setId("whiteBtnText");
+			start.setLayoutX(520);
+			start.setLayoutY(640);
+			DropShadow ds1 = new DropShadow(20, Color.RED);
+			start.setVisible(true);
+			start.setEffect(ds1);
+			ds.setColor(Color.RED);
+		});
+		logo1.setOnMouseExited(event->{
+		    	logo1.setLayoutX(350);
+			logo1.setLayoutY(80);
+			logo1.setFitWidth(580);
+			logo1.setFitHeight(520);
+			start.setVisible(false);
+			ds.setColor(Color.WHITE);
 		});
 		
-		//Creating Title/ start screen text with game name, adding style and configuration
-		Text title = new Text();
-		title.setText("Tower Challenge");
-		title.setX(250);
-		title.setY(350);
-		title.setId("startText");
+		logo1.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
+		});
 
 		//Media player for music
 		openingMusic.play();
@@ -126,7 +147,7 @@ public class GameGUI extends Application {
 		root.setId("startBackground");
 		
 		//Adding other element/nodes to Pane, then Pane to Scene
-		root.getChildren().addAll(title, pane);
+		root.getChildren().addAll(logo1, start);
 		Scene startScene = new Scene(root, 1280, 720);
 		startScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return startScene;
@@ -141,6 +162,8 @@ public class GameGUI extends Application {
 	public StackPane createWoodenButtons(String type) {
 	    	Image btn = new Image("startButton.png", 250, 80, false, false);		
 		ImageView iv = new ImageView(btn);
+		DropShadow ds = new DropShadow(3, Color.ANTIQUEWHITE);
+		iv.setEffect(ds);
 		Text btnText = new Text();
 		
 		if (type.equals("Mage")) {
@@ -205,7 +228,7 @@ public class GameGUI extends Application {
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
 		display.getChildren().addAll(charOption, btns, heroInfo) ;
-		display.setId("startBackground");
+		display.setId("startTwoBackground");
 
 		//Fade Transition
 		screenFade(display);
@@ -383,7 +406,7 @@ public class GameGUI extends Application {
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
 		display.getChildren().addAll(getName, backBtn, submitBtn);
-		display.setId("startBackground");
+		display.setId("startTwoBackground");
 		
 		//Fade Transition
 		screenFade(display);

@@ -1,4 +1,8 @@
 #startBackground {
+	-fx-background-image: url("/TowerD4.jpg");
+	-fx-background-size: cover;
+}
+#startTwoBackground {
 	-fx-background-image: url("/Tower.jpg");
 	-fx-background-size: cover;
 }
@@ -21,17 +25,6 @@
 #youWinBackground {
 	-fx-background-image: url("/youWin1a.jpg"); 
 	-fx-background-size: cover;
-}
-
-#startText {
-	-fx-fill: url("/Brick.jpeg");
-	-fx-stroke: black;
-	-fx-stroke-width:3;
-	-fx-font-family: helvetica;
-	-fx-font-size: 100px;
-	-fx-font-weight: bold;
-	-fx-font-style: italic;
-	-fx-effect:dropshadow(gaussian, rgba(210,105,30),10, 0.5, 0.0, 0.0); 
 }
 
 #characterOptionText {
