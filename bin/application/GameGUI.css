@@ -70,6 +70,13 @@
 	-fx-font-weight: bold;
 }
 
+#whiteBtnText {
+	-fx-fill: white;
+	-fx-font-family: helvetica;
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
+}
+
 #errorText {
 	-fx-fill: white;
 	-fx-stroke: black;
@@ -364,9 +371,6 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
 
-#magePane:hover {
-	
-}
 #heroStatsText {
 	-fx-fill: black;
 	-fx-font-family: helvetica;

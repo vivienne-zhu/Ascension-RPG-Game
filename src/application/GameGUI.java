@@ -9,7 +9,6 @@ import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.paint.*;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.util.*;
-import com.sun.glass.ui.Robot;
 
 
 
@@ -49,7 +47,6 @@ public class GameGUI extends Application {
 	private MediaPlayer youWinMusic;
 	private SoundEffect se;
 	private VBox heroInfo;
-//	private Robot robot;
 	
 
 	/**
@@ -73,7 +70,6 @@ public class GameGUI extends Application {
 		gameOverMusic = se.gameOverMusic();
 		youWinMusic = se.youWinMusic();
 		heroInfo = new VBox(15);
-//		robot = com.sun.glass.ui.Application.GetApplication().createRobot();
 	}
 	
 	/**
@@ -105,21 +101,14 @@ public class GameGUI extends Application {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
 
-//		Creating Start button, adding style and necessary configurations
-		Image btn = new Image("startButton.png", 250, 80, false, false);		
-		ImageView iv = new ImageView(btn);
-		Text start = new Text("START");
-		start.setId("btnText");
-		
+//		Creating Start button/pane, adding style event handling
 		StackPane pane = new StackPane();
-		pane.getChildren().addAll(iv,start);
-		pane.setAlignment(Pos.CENTER);
+		pane = createWoodenButtons("START");
 		pane.setLayoutX(525);
 		pane.setLayoutY(440);
 		pane.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
 		});
 		
-
 		//Creating Title/ start screen text with game name, adding style and configuration
 		Text title = new Text();
 		title.setText("Tower Challenge");
@@ -127,29 +116,15 @@ public class GameGUI extends Application {
 		title.setY(350);
 		title.setId("startText");
 
-		//Adding image fill to Title text
-//		Image brick = new Image("Brick.jpeg");
-//		ImagePattern fill = new ImagePattern(brick, 20, 20, 40, 40, false);
-//		title.setFill(fill);
-		
-		//Mediaplayer for music
+		//Media player for music
 		openingMusic.play();
 		
-		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(root);
 		
 		//Adding background image to Pane
 		root.setId("startBackground");
 		
-		//Robot for testing purposes
-//		robot.mouseMove(720, 545);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
-
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(title, pane);
 		Scene startScene = new Scene(root, 1280, 720);
@@ -158,8 +133,42 @@ public class GameGUI extends Application {
 	}
 	
 	/**
+	 * This method allows us to create the wooden buttons/pane
+	 * 
+	 * @param type The text to be place on the button/pane
+	 * @return pane The StackPane that will serve as a button
+	 */
+	public StackPane createWoodenButtons(String type) {
+	    	Image btn = new Image("startButton.png", 250, 80, false, false);		
+		ImageView iv = new ImageView(btn);
+		Text btnText = new Text();
+		
+		if (type.equals("Mage")) {
+		    btnText.setText(type);
+		} else if (type.equals("Warrior")) {
+		    btnText.setText(type);
+		} else if (type.equals("Rogue")) {
+		    btnText.setText(type);
+		} else if (type.equals("START")) {
+		    btnText.setText(type);
+		}
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(iv,btnText);
+		pane.setAlignment(Pos.CENTER);
+		pane.setId("btnText");
+		pane.setOnMouseEntered(event->{
+		    btnText.setFill(Color.WHITE);
+		   });
+		pane.setOnMouseExited(event->{
+		    btnText.setFill(Color.BLACK);
+
+		    });
+		return pane;
+	}
+	
+	/**
 	 * This method houses the code needed for the screen that allows the player to
-	 * choose their character type/fighter.
+	 * choose their character type/hero.
 	 * 
 	 * @param primaryStage The primary Stage object of the JavaFX application GUI.
 	 */
@@ -171,31 +180,10 @@ public class GameGUI extends Application {
 		charOption.setY(270);
 		charOption.setId("characterOptionText");
 		
-		//Creating buttons for user selection, positioning and adding style
-		Image btnBackGround = new Image("startButton.png", 250, 80, false, false);
-		//Mage btn
-//		Button mageBtn = new Button("Mage");
-//		mageBtn.setId("woodenBtn");
-		ImageView ivMage = new ImageView(btnBackGround);
-		Text mage = new Text("Mage");
-		mage.setId("btnText");
-		StackPane magePane = new StackPane();
-		magePane.getChildren().addAll(ivMage,mage);
-		magePane.setAlignment(Pos.CENTER);
-		//Warrior btn
-		ImageView ivWarrior = new ImageView(btnBackGround);
-		Text warrior = new Text("Warrior");
-		warrior.setId("btnText");
-		StackPane warriorPane = new StackPane();
-		warriorPane.getChildren().addAll(ivWarrior,warrior);
-		warriorPane.setAlignment(Pos.CENTER);
-		//Rogue btn
-		ImageView ivRogue = new ImageView(btnBackGround);
-		Text rogue = new Text("Rogue");
-		rogue.setId("btnText");
-		StackPane roguePane = new StackPane();
-		roguePane.getChildren().addAll(ivRogue,rogue);
-		roguePane.setAlignment(Pos.CENTER);
+		//Creating buttons for user selection
+		StackPane magePane = createWoodenButtons("Mage");
+		StackPane warriorPane = createWoodenButtons("Warrior");
+		StackPane roguePane = createWoodenButtons("Rogue");
 		
 		// Clear prior assigned character type
 		setMage(false);
@@ -203,51 +191,9 @@ public class GameGUI extends Application {
 		setRogue(false);
 		
 		//Event handling for when each button pane is pressed/hovered over
-		magePane.setOnMouseClicked(event -> {
-		    	se.transitionSound();
-			setMage(true);
-			nameCharScreen(primaryStage);
-		});
-		mage.setOnMouseEntered(event->{
-		    mage.setFill(Color.WHITE);
-		    heroInfoBox("Mage");
-		    heroInfo.setVisible(true);
-		});
-		mage.setOnMouseExited(event->{
-		    mage.setFill(Color.BLACK);
-		    heroInfo.setVisible(false);    
-		});
-		warriorPane.setOnMouseClicked(event -> {
-		    	se.transitionSound();
-			setWarrior(true);
-			nameCharScreen(primaryStage);
-		});
-		warrior.setOnMouseEntered(event->{
-		    warrior.setFill(Color.WHITE);
-		    heroInfoBox("Warrior");
-		    heroInfo.setVisible(true);
-		});
-		warrior.setOnMouseExited(event->{
-		    warrior.setFill(Color.BLACK);
-		    heroInfo.setVisible(false);
-		    
-		});
-		roguePane.setOnMouseClicked(event -> {
-		    	se.transitionSound();
-			setRogue(true);
-			nameCharScreen(primaryStage);
-		});
-		rogue.setOnMouseEntered(event->{
-		    rogue.setFill(Color.WHITE);
-		    heroInfoBox("Rogue");
-		    heroInfo.setVisible(true);
-		});
-		rogue.setOnMouseExited(event->{
-		    rogue.setFill(Color.BLACK);
-		    heroInfo.setVisible(false);
-		    
-		});
-		
+		eventHandleCharBtns(magePane, "Mage", primaryStage);
+		eventHandleCharBtns(warriorPane, "Warrior", primaryStage);
+		eventHandleCharBtns(roguePane, "Rogue", primaryStage);
 		
 		//Creating vertical box for buttons 
 		VBox btns = new VBox(15);
@@ -262,15 +208,8 @@ public class GameGUI extends Application {
 		display.setId("startBackground");
 
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(display);
 		
-		//Robot moves mouse for tests
-//		robot.mouseMove(630, 450);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
 
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
@@ -278,7 +217,43 @@ public class GameGUI extends Application {
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
 	}
-	
+	/**
+	 * This method handles the event for when character buttons are pressed or
+	 * hovered over. 
+	 * @param pane The StackPane used to create the button
+	 * @param text The text on the pane
+	 * @param type The type of hero/character
+	 * @param primaryStage The primary GUI window
+	 */
+	private void eventHandleCharBtns(StackPane pane, String type, Stage primaryStage) {
+	    pane.setOnMouseClicked(event -> {
+		se.transitionSound();
+		if (type.equals("Mage")) {
+		    setMage(true);
+		} else if (type.equals("Warrior")) {
+		    setWarrior(true);
+		} else if (type.equals("Rogue")) {
+		    setRogue(true);
+		}
+		nameCharScreen(primaryStage);
+	    });
+	    pane.setOnMouseEntered(event->{
+		pane.getChildren().remove(1);
+		Text btnText = new Text(type);
+		btnText.setId("whiteBtnText");
+		pane.getChildren().add(btnText);
+		heroInfoBox(type);
+		heroInfo.setVisible(true);
+	    });
+	    pane.setOnMouseExited(event->{
+		pane.getChildren().remove(1);
+		Text btnText = new Text(type);
+		btnText.setId("btnText");
+		pane.getChildren().add(btnText);
+		heroInfo.setVisible(false);
+
+	    });
+	}
 
 	
 	/**
@@ -411,19 +386,7 @@ public class GameGUI extends Application {
 		display.setId("startBackground");
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
-		
-		//Robot enters name and presses button
-//		robot.mouseMove(600, 350);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
-//		robot.keyPress((int) 'a');
-//		robot.mouseMove(1100, 680);
-//		robot.mousePress(1);
-//		robot.mouseRelease(1);
+		screenFade(display);
 
 		//Adding Scene to primary Stage and showing it.
 		Scene chooseCharName = new Scene(display, 1280, 720);
@@ -559,6 +522,7 @@ public class GameGUI extends Application {
 		//Code that controls the battle mechanics on each floor
 		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		BattlePhaseDisplay display = new BattlePhaseDisplay();
+		VBox heroStats = display.heroStatsDisplay(hero);
 		display.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		display.dispDialogue();
 		display.initButtons(hero);
@@ -569,13 +533,10 @@ public class GameGUI extends Application {
 		GridPane grid = display.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), towerLevels);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(towerLevels);
 
 		// Adding grid to Pane , adding stylesheet to pane
-		towerLevels.getChildren().addAll(grid, floorNum);
+		towerLevels.getChildren().addAll(heroStats, grid, floorNum);
 		towerLevels.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return towerLevels;
 	}
@@ -764,10 +725,7 @@ public class GameGUI extends Application {
 		root.setId("shopBackground");
 
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(root);
 		
 		// Create the scene
 		Scene shopScene = new Scene(root, 1280, 720);
@@ -856,10 +814,7 @@ public class GameGUI extends Application {
 		grid.setId("insideTower");
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(500), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(grid);
 		
 		// Create the scene
 		Scene eventScene = new Scene(grid, 1280, 720);
@@ -867,6 +822,13 @@ public class GameGUI extends Application {
 		primaryStage.setScene(eventScene);
 		primaryStage.show();
 		
+	}
+	
+	private void screenFade(Pane p) {
+	    FadeTransition ft = new FadeTransition(Duration.millis(1000), p);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 	}
 	
 	/**
@@ -921,10 +883,7 @@ public class GameGUI extends Application {
 	    display.setId("insideTower");
 
 	    //Fade Transition
-	    FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
-	    ft.setFromValue(0);
-	    ft.setToValue(1);
-	    ft.play();
+	    screenFade(display);
 	    
 	    //Adding Pane to Scene and Scene to Stage
 	    Scene reviveScene = new Scene(display, 1280, 720);
@@ -985,10 +944,7 @@ public class GameGUI extends Application {
 		gameWon.setId("youWinBackground");
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameWon);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(gameWon);
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gWon = new Scene(gameWon, 1280, 720);
@@ -1046,10 +1002,7 @@ public class GameGUI extends Application {
 		gameOver.setStyle(" -fx-background-color: black");
 
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), gameOver);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(gameOver);
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene gOver = new Scene(gameOver, 1280, 720);
@@ -1185,10 +1138,7 @@ public class GameGUI extends Application {
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate, next);
 		
 		//Fade Transition
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), display);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
+		screenFade(display);
 
 		//Adding Pane to Scene and Scene to Stage
 		Scene transition = new Scene(display, 1280, 720);

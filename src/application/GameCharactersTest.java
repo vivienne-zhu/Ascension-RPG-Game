@@ -1,13 +1,9 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.FileNotFoundException;
-
 import org.junit.jupiter.api.Test;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 
 /**
@@ -33,7 +29,7 @@ class GameCharactersTest {
 	assertEquals(expected, legolas.getCurrentStamina());
     }
 
-    // This tests the defend method with and enemy and hero
+    // This tests the defend method with an enemy and a hero
     @Test
     void defendingTest() {
 	Rogue legolas = new Rogue();
@@ -47,7 +43,7 @@ class GameCharactersTest {
 	assertEquals(expected, legolas.getCurrentStamina());
     }
 
-    // This tests magic attack method with two hero and melee enemy
+    // This tests magic attack method with a hero and melee enemy
     @Test 
     void magicAtkTest() {
 	Mage gandalf = new Mage();
@@ -59,7 +55,7 @@ class GameCharactersTest {
 	gandalf.magicAttack(orc, false);
 	assertEquals(expected, 0.2, orc.getCurrentStamina());
     }
- // This tests the attack method
+    // This tests the attack method when the character is empowered
     @Test
     void empoweredAttackTest() {
 	Warrior aragorn = new Warrior();
@@ -73,12 +69,40 @@ class GameCharactersTest {
 
 	assertEquals(expected, orc.getCurrentStamina());
     }
+    
+ // This tests the attack method when the Boss is outraged
+    @Test
+    void outragedAttackTest() {
+	Warrior aragorn = new Warrior();
+	BossEnemy urukhai = new BossEnemy(10);
+	
+	int bossAtk = urukhai.getAttack(); 
+	int expected = 900 - ((bossAtk - 60) * 3);
+	urukhai.attack(aragorn, true, false);
+
+	assertEquals(expected, aragorn.getCurrentStamina());
+    }
+    
+    //This tests the attack method when the Boss is outraged and 
+    //attacks the hero while he is defending
+    @Test
+    void outragedAttackDefendTest() {
+	Warrior aragorn = new Warrior();
+	BossEnemy urukhai = new BossEnemy(10);
+	
+	aragorn.setIsDefending(true);
+	int bossAtk = urukhai.getAttack(); 
+	int expected = (int)(900 - Math.ceil(((bossAtk - 60) * 3) * 0.25));
+	urukhai.attack(aragorn, true, false);
+
+	assertEquals(expected, aragorn.getCurrentStamina());
+    }
+    
 
     //This tests the level up method on a mage to see 5 stat increases
     @Test 
     void levelUpTest() {
 	Mage gandalf = new Mage();
-
 	gandalf.levelUp();
 
 	assertEquals(135,2, gandalf.getAttack());
@@ -101,6 +125,19 @@ class GameCharactersTest {
 	assertEquals(200, link.getCurrentStamina());
 	assertEquals(2, link.getPotionMap().get(cp));
     }
+    
+    
+  //This tests the use of a potion when the potionMap/item bag is empty
+    @Test 
+    void usePotionEmptyMapTest() {
+	Warrior link = new Warrior();
+	CheapPotion cp = new CheapPotion();
+	Text error = new Text("");
+	link.getPotionMap().put(cp, 0);
+	link.usePotion(cp,error);
+	
+	assertEquals("YOU DO NOT HAVE ENOUGH ITEMS",error.getText());
+    }
 
     //This tests the revive method
     @Test 
@@ -113,21 +150,16 @@ class GameCharactersTest {
 	assertEquals(900, link.getCurrentStamina());
 	assertEquals(false, link.isHasRevive());
     }
-
-//    @Test
-//    void charCreationTest() {
-//	GameGUI game = new GameGUI();
-//	Stage primaryStage = new Stage();
-//	try {
-//	    game.start(primaryStage);
-//	    
-//	    assertEquals("Mage", game.getHero().getType());
-//	    assertEquals(1, game.getFloor());
-//	    assertEquals(1, game.getHero().getName());
-//	    assertEquals(800, game.getHero().getStamina());
-//	} catch (FileNotFoundException e) {
-//	    e.printStackTrace();
-//	}
-//    }
+    
+    //This test the enemy heal method
+    @Test 
+    void enemyHealTest() {
+	HealerEnemy annoy = new HealerEnemy(3,0);
+	MeleeEnemy hurt = new MeleeEnemy(3,1);
+	int newStam = annoy.getAttack() + hurt.getCurrentStamina();
+	int expected = Math.min(newStam, hurt.getStamina());
+	annoy.enemyHeal(hurt);
+	assertEquals(expected, hurt.getCurrentStamina());
+    }
 
 }
