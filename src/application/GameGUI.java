@@ -433,7 +433,7 @@ public class GameGUI extends Application {
 		getName.add(charName, 0, 0);
 		getName.add(charNameBox, 0, 1);
 		getName.add(error, 0, 2);
-
+		GridPane.setHalignment(error, HPos.CENTER);
 
 		// Fixed height for rows 
 		for (int i = 0; i < 3; i++) {
@@ -443,7 +443,7 @@ public class GameGUI extends Application {
 		
 		//Configuring and style to grid and label
 		getName.setId("getNameGrid");
-		getName.setLayoutX(400);
+		getName.setLayoutX(430);
 		getName.setLayoutY(250);
 		;
 		
