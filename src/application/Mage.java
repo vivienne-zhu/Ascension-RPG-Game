@@ -35,6 +35,7 @@ public class Mage extends GameCharacters {
 		setCharacterImageHurt(new Image("redmage_gif.png",getWidth(), getHeight(), false, false));
 		setCharacterImageHeal(new Image("whitemage_gif.png",getWidth(), getHeight(), false, false));
 		setMagicAtkImage(new Image("fireblast.png",100, 50, false, false));
+		setCharacterImageSlash(new Image("slash.png", 200, 175, false, false));
 		setType("Mage");
 	}
 }
