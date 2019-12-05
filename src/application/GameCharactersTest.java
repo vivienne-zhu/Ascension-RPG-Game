@@ -77,7 +77,7 @@ class GameCharactersTest {
 	BossEnemy urukhai = new BossEnemy(10);
 	
 	int bossAtk = urukhai.getAttack(); 
-	int expected = 900 - ((bossAtk - 60) * 3);
+	int expected = 1000 - ((bossAtk - 60) * 3);
 	urukhai.attack(aragorn, true, false);
 
 	assertEquals(expected, aragorn.getCurrentStamina());
@@ -92,7 +92,7 @@ class GameCharactersTest {
 	
 	aragorn.setIsDefending(true);
 	int bossAtk = urukhai.getAttack(); 
-	int expected = (int)(900 - Math.ceil(((bossAtk - 60) * 3) * 0.25));
+	int expected = (int)(1000 - Math.ceil(((bossAtk - 60) * 3) * 0.25));
 	urukhai.attack(aragorn, true, false);
 
 	assertEquals(expected, aragorn.getCurrentStamina());
@@ -147,7 +147,7 @@ class GameCharactersTest {
 	link.setCurrentStamina(0);
 	link.revive();
 
-	assertEquals(900, link.getCurrentStamina());
+	assertEquals(1000, link.getCurrentStamina());
 	assertEquals(false, link.isHasRevive());
     }
     
