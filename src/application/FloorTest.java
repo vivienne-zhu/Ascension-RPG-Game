@@ -4,8 +4,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * This test the methods of the floor class
+ * 
+ * @author JiayuZhu
+ *
+ */
 class FloorTest {
 
+    	/**
+    	 * This test the increment floor method
+    	 */
 	@Test
 	void testIncrementFloor() {
 		Floor floor = new Floor();
@@ -15,6 +24,9 @@ class FloorTest {
 		assertEquals(floor.getFloor(), 9);
 	}
 
+	/**
+	 * This test the decrement floor method 
+	 */
 	@Test
 	void testDecrementFloor() {
 		Floor floor = new Floor();

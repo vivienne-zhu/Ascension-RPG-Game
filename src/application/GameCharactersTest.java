@@ -16,7 +16,9 @@ class GameCharactersTest {
 
     JFXPanel jfxPanel = new JFXPanel();
 
-    // This tests the attack method
+    /**
+     * This tests the attack method
+     */
     @Test
     void attackTest() {
 	Rogue legolas = new Rogue();
@@ -29,7 +31,9 @@ class GameCharactersTest {
 	assertEquals(expected, legolas.getCurrentStamina());
     }
 
-    // This tests the defend method with an enemy and a hero
+    /**
+     * This tests the defend method with an enemy and a hero
+     */
     @Test
     void defendingTest() {
 	Rogue legolas = new Rogue();
@@ -43,7 +47,9 @@ class GameCharactersTest {
 	assertEquals(expected, legolas.getCurrentStamina());
     }
 
-    // This tests magic attack method with a hero and melee enemy
+    /**
+     * This tests magic attack method with a hero and melee enemy
+     */
     @Test 
     void magicAtkTest() {
 	Mage gandalf = new Mage();
@@ -55,7 +61,10 @@ class GameCharactersTest {
 	gandalf.magicAttack(orc, false);
 	assertEquals(expected, 0.2, orc.getCurrentStamina());
     }
-    // This tests the attack method when the character is empowered
+    
+    /**
+     * This tests the attack method when the character is empowered
+     */
     @Test
     void empoweredAttackTest() {
 	Warrior aragorn = new Warrior();
@@ -70,7 +79,9 @@ class GameCharactersTest {
 	assertEquals(expected, orc.getCurrentStamina());
     }
     
- // This tests the attack method when the Boss is outraged
+    /**
+     * This tests the attack method when the Boss is outraged
+     */
     @Test
     void outragedAttackTest() {
 	Warrior aragorn = new Warrior();
@@ -83,8 +94,10 @@ class GameCharactersTest {
 	assertEquals(expected, aragorn.getCurrentStamina());
     }
     
-    //This tests the attack method when the Boss is outraged and 
-    //attacks the hero while he is defending
+    /**
+     * This tests the attack method when the Boss is outraged and 
+     * attacks the hero while he is defending
+     */
     @Test
     void outragedAttackDefendTest() {
 	Warrior aragorn = new Warrior();
@@ -99,7 +112,9 @@ class GameCharactersTest {
     }
     
 
-    //This tests the level up method on a mage to see 5 stat increases
+    /**
+     * This tests the level up method on a mage to see 5 stat increases
+     */
     @Test 
     void levelUpTest() {
 	Mage gandalf = new Mage();
@@ -112,7 +127,9 @@ class GameCharactersTest {
 	assertEquals(262,3, gandalf.getMagicAtk());
     }
 
-    //This tests the use of a potion and its removal from the potionMap
+    /**
+     * This tests the use of a potion and its removal from the potionMap
+     */
     @Test 
     void usePotionTest() {
 	Warrior link = new Warrior();
@@ -127,7 +144,9 @@ class GameCharactersTest {
     }
     
     
-  //This tests the use of a potion when the potionMap/item bag is empty
+    /**
+     * This tests the use of a potion when the potionMap/item bag is empty
+     */
     @Test 
     void usePotionEmptyMapTest() {
 	Warrior link = new Warrior();
@@ -139,7 +158,9 @@ class GameCharactersTest {
 	assertEquals("YOU DO NOT HAVE ENOUGH ITEMS",error.getText());
     }
 
-    //This tests the revive method
+    /**
+     * This tests the revive method
+     */
     @Test 
     void reviveTest() {
 	Warrior link = new Warrior();
@@ -151,7 +172,9 @@ class GameCharactersTest {
 	assertEquals(false, link.isHasRevive());
     }
     
-    //This test the enemy heal method
+    /**
+     * This test the enemy heal method
+     */
     @Test 
     void enemyHealTest() {
 	HealerEnemy annoy = new HealerEnemy(3,0);

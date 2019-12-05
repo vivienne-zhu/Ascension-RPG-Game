@@ -7,11 +7,19 @@ import org.junit.jupiter.api.Test;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.text.Text;
 
+/**
+ * This test the methods of the event class
+ * 
+ * @author JiayuZhu
+ *
+ */
 class EventTest {
 	
     JFXPanel jfxPanel = new JFXPanel();
    
-
+    /**
+     * This test the event method drop floor
+     */
 	@Test
 	void testDropFloor() {
 		Text display = new Text();
@@ -23,6 +31,9 @@ class EventTest {
 		assertEquals(floor.getFloor(), 2);
 	}
 
+	/**
+	 * this test the event method that boost the heros attack
+	 */
 	@Test
 	void testAttackBoost() {
 		GameCharacters hero = new GameCharacters();
@@ -33,7 +44,9 @@ class EventTest {
 		
 		assertEquals(hero.getAttack(), 120);
 	}
-
+	/**
+	 * This tests the event method that boost the heros defense
+	 */
 	@Test
 	void testDefenseBoost() {
 		GameCharacters hero = new GameCharacters();
