@@ -232,7 +232,7 @@ public class GameGUI extends Application {
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
 		display.getChildren().addAll(charOption, btns, heroInfo, heroInfoTwo) ;
-		display.setId("startBackground");
+		display.setId("startTwoBackground");
 
 		//Fade Transition
 		screenFade(display);
@@ -450,7 +450,7 @@ public class GameGUI extends Application {
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
 		display.getChildren().addAll(getName, backBtn, submitBtn);
-		display.setId("startBackground");
+		display.setId("startTwoBackground");
 		
 		//Fade Transition
 		screenFade(display);
