@@ -160,7 +160,7 @@ public class BattlePhaseDisplay {
     	heroStats.setVisible(false);
     	
     	heroStats.setLayoutX(350);
-    	heroStats.setLayoutY(45);
+    	heroStats.setLayoutY(55);
     	return heroStats;
     }
     
