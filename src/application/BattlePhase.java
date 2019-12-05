@@ -1117,6 +1117,7 @@ public class BattlePhase {
 		display.getDialogueThree().setText("");
 	}
 	
+	
 	/**
 	 * This method is called when an enemy hits the hero. It is unique
 	 * from the hitEnemy method due to different dialogue that appears.
@@ -1189,6 +1190,30 @@ public class BattlePhase {
 				moveOn.play();
 			}
 		}
+	}
+	/**
+	 * This method enables the mage to restore his mana 5 points every 5 seconds. 
+	 * 
+	 * @param hero
+	 * @param display
+	 */
+    public void restoreMana(GameCharacters hero, BattlePhaseDisplay display) {
+		if (hero.getType().equals("Mage")) {
+			Timeline manaRestore = new Timeline();
+			manaRestore.setCycleCount(Timeline.INDEFINITE);
+			KeyFrame frame = new KeyFrame(Duration.seconds(5), ae -> { 
+				if (hero.getCurrentMana() + 5 > hero.getMana()) {
+					hero.setCurrentMana(hero.getMana());
+				} else {
+					hero.setCurrentMana(hero.getCurrentMana() + 5);
+				}
+					display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
+					display.resetInfoBar(1, display.getManaBar(), 200, hero);					
+				}				
+			);
+		manaRestore.getKeyFrames().add(frame);
+		manaRestore.play();
+	}
 	}
 
 	/**
