@@ -133,6 +133,10 @@ public class BattlePhase {
 			setMagic(false);
 			
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
+			
+			// Restore mana for mage
+			restoreMana(hero, display);
+			
 			gc.drawImage(defendIcon, 140, 280); //draw defend icon
 			display.disableButtons(true); //disable buttons
 			hero.setIsDefending(true);
@@ -387,8 +391,8 @@ public class BattlePhase {
 	 * @param display The display elements of needed for battle phase
 	 */
 	private void heroTurn(GameCharacters hero, HashMap<Integer, ArrayList<GameCharacters>> allEnemies, int choice, GraphicsContext gc, Stage primaryStage, 
-		Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) {
-
+		Scene transition, Scene youWin, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) {		
+		
 		//Move hero forward 
 		Timeline timeline = new Timeline(); 
 		if (choice == 0) {
@@ -1199,22 +1203,16 @@ public class BattlePhase {
 	 */
     public void restoreMana(GameCharacters hero, BattlePhaseDisplay display) {
 		if (hero.getType().equals("Mage")) {
-			Timeline manaRestore = new Timeline();
-			manaRestore.setCycleCount(Timeline.INDEFINITE);
-			KeyFrame frame = new KeyFrame(Duration.seconds(5), ae -> { 
-				if (hero.getCurrentMana() + 5 > hero.getMana()) {
+				if (hero.getCurrentMana() + 10 > hero.getMana()) {
 					hero.setCurrentMana(hero.getMana());
 				} else {
-					hero.setCurrentMana(hero.getCurrentMana() + 5);
+					hero.setCurrentMana(hero.getCurrentMana() + 10);
 				}
 					display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 					display.resetInfoBar(1, display.getManaBar(), 200, hero);					
 				}				
-			);
-		manaRestore.getKeyFrames().add(frame);
-		manaRestore.play();
-	}
-	}
+    }
+
 
 	/**
 	 * @return the magic

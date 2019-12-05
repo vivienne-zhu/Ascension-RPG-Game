@@ -594,7 +594,6 @@ public class GameGUI extends Application {
 		display.dispDialogue();
 		display.initButtons(hero);
 		battle.idleAnimate(allEnemies, gc);
-		battle.restoreMana(hero, display);
 		battle.heroAnimate(hero, gc);
 		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage),  
 			reviveScreen(primaryStage),gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic, display);
