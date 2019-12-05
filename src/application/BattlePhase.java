@@ -64,6 +64,9 @@ public class BattlePhase {
 			display.getItemBag().setVisible(false);
 			display.getError().setVisible(false);
 			setMagic(false);
+			
+			// Restore mana for mage
+			 restoreMana(hero, display);
 
 			display.disableButtons(true);
 			hero.setIsDefending(false);
@@ -96,7 +99,7 @@ public class BattlePhase {
 		    display.getItemBag().setVisible(false);
 		    display.getError().setVisible(false);
 		    setMagic(true);
-
+		    
 			display.disableButtons(true);
 			hero.setIsDefending(false);
 			if (dead.contains(1) && dead.contains(2)) {
@@ -1196,17 +1199,17 @@ public class BattlePhase {
 		}
 	}
 	/**
-	 * This method enables the mage to restore his mana 5 points every 5 seconds. 
+	 * This method enables the mage to restore his mana during battle. 
 	 * 
-	 * @param hero
-	 * @param display
+	 * @param hero Player controlled hero GameCharacters
+	 * @param display The display elements of needed for battle phase
 	 */
     public void restoreMana(GameCharacters hero, BattlePhaseDisplay display) {
 		if (hero.getType().equals("Mage")) {
-				if (hero.getCurrentMana() + 10 > hero.getMana()) {
+				if (hero.getCurrentMana() + 25 > hero.getMana()) {
 					hero.setCurrentMana(hero.getMana());
 				} else {
-					hero.setCurrentMana(hero.getCurrentMana() + 10);
+					hero.setCurrentMana(hero.getCurrentMana() + 25);
 				}
 					display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 					display.resetInfoBar(1, display.getManaBar(), 200, hero);					
