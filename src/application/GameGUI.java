@@ -480,9 +480,9 @@ public class GameGUI extends Application {
 	}
 
 	/**
-	 * INCOMPLETE METHOD. This method is the central point for full game play.
-	 * It creates the Pane for each floor of fighting, restores hero mana, gets 
-	 * ArrayList of enemies for the floor from allEnemies HashMap, and plays battle music.
+	 * This method creates the battleScreen, which is the central point for all game play.
+	 * It creates the Pane for each floor of fighting, restores hero mana, 
+	 * creates ArrayList of floorEnemies, and plays battle music.
 	 * 
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
@@ -548,7 +548,7 @@ public class GameGUI extends Application {
 	}
 
 	/**
-	 * This method creates the backdrop, buttons and text needed for fighting inside
+	 * This method creates the GUI elements needed for fighting inside
 	 * the Tower.
 	 * 
 	 * @param primaryStage The primary Stage/window to display the GUI.
@@ -891,6 +891,11 @@ public class GameGUI extends Application {
 		
 	}
 	
+	/**
+	 * This method adds a fade transition to the scene
+	 * 
+	 * @param p The Pane that will be added to the scene
+	 */
 	private void screenFade(Pane p) {
 	    FadeTransition ft = new FadeTransition(Duration.millis(1000), p);
 		ft.setFromValue(0);
@@ -899,7 +904,7 @@ public class GameGUI extends Application {
 	}
 	
 	/**
-	 * This method creates a transition scene after death if the player has a revive
+	 * This method creates a scene after death if the player has a revive
 	 * 
 	 * @param primaryStage The primary stage or window of the GUI
 	 * @return reviveScene The scene giving the player the option to revive
@@ -1002,7 +1007,6 @@ public class GameGUI extends Application {
 		    	se.transitionSound();
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
-			// Temporary handling of exception, will change what happens once tested.
 			primaryStage.close();
 		}});
 
@@ -1024,7 +1028,7 @@ public class GameGUI extends Application {
 	
 
 	/**
-	 * This method creates game over screen when the player loses to the enemy
+	 * This method creates game over screen when the player dies (no revives)
 	 * 
 	 * @param primaryStage The primary stage/ window for displaying the GUI.
 	 * @return gOver The scene displayed when the player loses the game.
@@ -1059,7 +1063,6 @@ public class GameGUI extends Application {
 		    	floor.setFloor(1);
 			start(primaryStage);
 		} catch (FileNotFoundException e) { 
-			// Temporary handling of exception, will change what happens once tested.
 			primaryStage.close();
 		}});
 
@@ -1082,6 +1085,7 @@ public class GameGUI extends Application {
 	}
 	/**
 	 * This method creates the transition page after the user has cleared the floor.
+	 * It displays the things they have gained and stat details if they level up.
 	 * 
 	 * @param primaryStage The primary stage/window of the GUI.
 	 * @return transition The scene displayed after a battle to update the user 
