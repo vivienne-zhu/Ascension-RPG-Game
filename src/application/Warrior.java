@@ -19,7 +19,7 @@ public class Warrior extends GameCharacters {
 	public Warrior() {
 		setAttack(150);
 		setDefense(60);
-		setStamina(900); 
+		setStamina(1000); 
 		setCurrentStamina(getStamina());
 		setLevel(1);
 		setX(70);
