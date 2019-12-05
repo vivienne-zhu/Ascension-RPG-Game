@@ -204,7 +204,7 @@ public class GameGUI extends Application {
 		Text charOption = new Text();
 		charOption.setText("Choose your character type");
 		charOption.setX(140);
-		charOption.setY(270);
+		charOption.setY(220);
 		charOption.setId("characterOptionText");
 		
 		//Creating buttons for user selection
@@ -223,10 +223,10 @@ public class GameGUI extends Application {
 		eventHandleCharBtns(roguePane, "Rogue", primaryStage);
 		
 		//Creating vertical box for buttons 
-		VBox btns = new VBox(15);
+		VBox btns = new VBox(30);
 		btns.setAlignment(Pos.CENTER);
 		btns.setLayoutX(525);
-		btns.setLayoutY(340);
+		btns.setLayoutY(300);
 		btns.getChildren().addAll(magePane, warriorPane, roguePane);
 
 		//Creating Pane, adding background and then adding above nodes
@@ -298,10 +298,10 @@ public class GameGUI extends Application {
 	    if (type.equals("Mage")) {
 		heroInfo.getChildren().clear();
 		heroInfo.setLayoutX(110);
-		heroInfo.setLayoutY(330);
+		heroInfo.setLayoutY(270);
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
-		heroInfoTwo.setLayoutY(330);
+		heroInfoTwo.setLayoutY(270);
 		
 		Text info = new Text();
 		GameCharacters mage = new Mage();
@@ -324,10 +324,10 @@ public class GameGUI extends Application {
 	    } else if (type.equals("Warrior")) {
 		heroInfo.getChildren().clear();
 		heroInfo.setLayoutX(110);
-		heroInfo.setLayoutY(420);
+		heroInfo.setLayoutY(380);
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
-		heroInfoTwo.setLayoutY(420);
+		heroInfoTwo.setLayoutY(380);
 		
 		Text info = new Text();
 		GameCharacters warrior = new Warrior();
@@ -350,10 +350,10 @@ public class GameGUI extends Application {
 	    } else if (type.equals("Rogue")) {
 		heroInfo.getChildren().clear();
 		heroInfo.setLayoutX(110);
-		heroInfo.setLayoutY(520);
+		heroInfo.setLayoutY(495);
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
-		heroInfoTwo.setLayoutY(520);
+		heroInfoTwo.setLayoutY(495);
 		
 		Text info = new Text();
 		GameCharacters rogue = new Rogue();
