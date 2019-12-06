@@ -18,11 +18,20 @@ To play the game, please run the **GameGUI class**.
 -------
 ## How to Play
 1. **Start:** 
-	After the Start screen, select the class of hero you would like to play with. Hover over each character type to learn more about them before choosing. Next, enter the chosen name of your hero. 
-	>A **Mage** has the benefit of limited powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. 
+	Click the logo in the center of the screen to start the game!
 	
 	![Start Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/Start.png)
+	
+	After the Start screen, select the class of hero you would like to play with. Hover over each class of hero to learn more about them before choosing. 
+	>A **Mage** has the benefit of powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. 
+	
 	![Character Choice Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/ChooseChar.png)
+	![Mage info](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/mageInfo.png)
+	![Warrior info](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/warriorInfo.png)
+	![Rogue info](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/rogueinfo.png)
+	
+	Next, enter the chosen name of your hero, and click 'Enter Floor 1' button to begin playing. 
+	
 	![Character Name](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/nameChar.png)
 
 
@@ -32,13 +41,13 @@ To play the game, please run the **GameGUI class**.
 	
 	![All enemy types](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/enemies.png)
 
-	>The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies and can do more powerful _outrage_ attacks at lower levels of stamina. 
+	>The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies that can do more powerful _outrage_ attacks at lower levels of stamina. 
 	
 	![Boss enemy](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/Boss.png)
 
 
 3. **Controls:** 
-	Each character will have an **Attack, Defend,** and **Heal** button, and **Mages** will have an additional **Magic Atk** button. Hero stat are available in battle if you hover over the (i) beside their name.
+	Each character will have an **Attack, Defend,** and **Heal** button, and **Mages** will have an additional **Magic Atk** button. 
 	>The **Attack** button allows you to attack the enemy. When there are multiple enemies on a floor, choose which enemy to attack by click the **Attack** button above the correstponding enemy.  
 	
 	![Attack Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/AtkBtns.png)
@@ -55,7 +64,10 @@ To play the game, please run the **GameGUI class**.
 	>The **Mages** **Magic Atk** button allows them to use a powerful magic blast attack, but requires _Mana_ so be careful to gauge your _Mana_ use. _Mana_ is fully restored before each new floor.  
 	
  	![Magic Atk Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/magicAtkBtn.png)
- 
+ 	
+	>Hero stat are available in battle if you hover over the (i) beside their name.
+	
+	![Hero stats](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/heroStats.png)
 
 4. **Transition**: 
 	After clearing a floor you will see a _transition screen_ which lets you know how much gold and experience (xp) you received. **The higher the floor and the more enemies you defeat, the more gold and xp gained!** If you gained a sufficient amount of xp, you will level up and receive special stat increases that vary depending on the type of hero. You also regain 30% of your stamina when you level up. The stat increases gained when you level up will be shown on this screen as well. 
