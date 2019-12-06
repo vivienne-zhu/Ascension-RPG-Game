@@ -165,6 +165,16 @@
 	-fx-effect:dropshadow(gaussian, rgba(123,104,238),10, 0.5, 0.0, 0.0); 
 }
 
+#shopErrorText {
+	-fx-fill: white;
+	-fx-stroke: black;
+	-fx-stroke-width: 0.2;
+	-fx-font-family: helvetica;
+	-fx-font-size: 25px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(255,0,0),10, 0.5, 0.0, 0.0); 
+}
+
 #eventTitle {
 	-fx-fill: goldenrod;
 	-fx-font-family: helvetica;
