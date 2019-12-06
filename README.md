@@ -93,7 +93,7 @@ To play the game, please run the **GameGUI class**.
 	>The Magic shop!
 
 6. **Events:** 
-	Before each new floor, there is a 20% chance of a random event occuring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide you fate!**
+	Before each new floor, there is a 20% chance of a random event occuring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide your fate!**
 	
 	![Event Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/event.png)
 	
