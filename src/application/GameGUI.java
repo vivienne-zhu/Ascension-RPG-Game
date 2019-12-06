@@ -313,10 +313,10 @@ public class GameGUI extends Application {
 		Text infoTwo = new Text();
 		infoTwo.setText("		Special Attribute: Mana" + "\n" + 
 		"                Special Ability: Fireball" + "\n" +
-		"The mage's Fireball is a special attack that is" + "\n" + 
-		"significantly stronger than a normal attack." +
-		"\n" + "It also deals 20% more damage to Melee" + "\n" + 
-		"enemies. Fireball costs 50 mana to use.");
+		"Fireball is a special attack that is stronger" + "\n" + 
+		"than a normal attack. It also deals 20% more" + "\n" + 
+		"damage to Melee enemies. It costs 50 mana " + "\n" + 
+		"to use. Use other moves to restore 25 mana.");
 		heroInfoTwo.getChildren().add(infoTwo);
 		
 	    } else if (type.equals("Warrior")) {
