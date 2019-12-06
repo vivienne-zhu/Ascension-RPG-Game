@@ -17,7 +17,7 @@ public class Warrior extends GameCharacters {
 	 * image instance variables in the GUI.
 	 */
 	public Warrior() {
-		setAttack(150);
+		setAttack(185);
 		setDefense(60);
 		setStamina(1000); 
 		setCurrentStamina(getStamina());

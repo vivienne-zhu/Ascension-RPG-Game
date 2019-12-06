@@ -1118,7 +1118,7 @@ public class GameGUI extends Application {
 		
 		//Creating VBox and setting alignment
 		VBox userUpdate = new VBox(20);
-		userUpdate.setLayoutX(340);
+		userUpdate.setLayoutX(330);
 		userUpdate.setLayoutY(250);
 		userUpdate.setAlignment(Pos.CENTER);
 			
