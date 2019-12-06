@@ -63,6 +63,32 @@ public class BattlePhase {
 		setMagic(false);
 		
 	}
+	/**
+	 * This method shows enemy attack buttons based on which enemies are still alive
+	 */
+	private void showEnemyBtns() {
+	    if (dead.contains(1) && dead.contains(2)) {
+		display.getChooseEnemyBtn().setVisible(true);
+	} else if (dead.contains(0) && dead.contains(2)) {
+	    	display.getChooseEnemyTwoBtn().setVisible(true);
+	} else if (dead.contains(0) && dead.contains(1)) {
+	    	display.getChooseEnemyThreeBtn().setVisible(true);
+	} else if (dead.contains(0)) {
+	    	display.getChooseEnemyTwoBtn().setVisible(true);
+	    	display.getChooseEnemyThreeBtn().setVisible(true);
+	} else if (dead.contains(1)) {
+	    	display.getChooseEnemyBtn().setVisible(true);
+	    	display.getChooseEnemyThreeBtn().setVisible(true);
+	} else if (dead.contains(2)) {
+	    	display.getChooseEnemyBtn().setVisible(true);
+	    	display.getChooseEnemyTwoBtn().setVisible(true);
+	} else {
+	    	display.getChooseEnemyBtn().setVisible(true);
+	    	display.getChooseEnemyTwoBtn().setVisible(true);
+	    	display.getChooseEnemyThreeBtn().setVisible(true);
+	}
+    }
+	
 
 	/**
 	 * This method attaches the proper events to button clicks. Namely it gives action
@@ -75,33 +101,14 @@ public class BattlePhase {
 			display.getItemBag().setVisible(false);
 			display.getError().setVisible(false);
 			setMagic(false);
-			
+	
 			// Restore mana for mage
 			 restoreMana();
 
 			display.disableButtons(true);
 			hero.setIsDefending(false);
-			if (dead.contains(1) && dead.contains(2)) {
-				display.getChooseEnemyBtn().setVisible(true);
-			} else if (dead.contains(0) && dead.contains(2)) {
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			} else if (dead.contains(0) && dead.contains(1)) {
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			} else if (dead.contains(0)) {
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			} else if (dead.contains(1)) {
-			    	display.getChooseEnemyBtn().setVisible(true);
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			} else if (dead.contains(2)) {
-			    	display.getChooseEnemyBtn().setVisible(true);
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			} else {
-			    	display.getChooseEnemyBtn().setVisible(true);
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
+			showEnemyBtns();
 			}
-		    }
 		});
 
 
@@ -113,26 +120,7 @@ public class BattlePhase {
 		    
 			display.disableButtons(true);
 			hero.setIsDefending(false);
-			if (dead.contains(1) && dead.contains(2)) {
-				display.getChooseEnemyBtn().setVisible(true);
-			} else if (dead.contains(0) && dead.contains(2)) {
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			} else if (dead.contains(0) && dead.contains(1)) {
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			} else if (dead.contains(0)) {
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			} else if (dead.contains(1)) {
-			    	display.getChooseEnemyBtn().setVisible(true);
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			} else if (dead.contains(2)) {
-			    	display.getChooseEnemyBtn().setVisible(true);
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			} else {
-			    	display.getChooseEnemyBtn().setVisible(true);
-			    	display.getChooseEnemyTwoBtn().setVisible(true);
-			    	display.getChooseEnemyThreeBtn().setVisible(true);
-			}
+			showEnemyBtns();
 		    } else {
 			se.errorSound();
 			display.getMagicAtkBtn().setDisable(true);
@@ -177,7 +165,7 @@ public class BattlePhase {
 
 		//Event handling for when heal button is pressed
 			display.healFunctionDisplay(hero);
-		    display.getHealBtn().setOnAction(event -> {
+			display.getHealBtn().setOnAction(event -> {
 			if (totalEnemyHealth != 0) {
 			display.getItemBag().setVisible(true);	
 			
@@ -246,54 +234,44 @@ public class BattlePhase {
 		});
 	}
 	
+	/**
+	 * This method allows us to animate the enemy characters image
+	 * @param num The enemy index in the allEnemies array we to animate
+	 * @param animate The Time line we will use to animate the enemy
+	 */
+	private void enemyAnimate(int num, Timeline animate) { 
+	    	animate.setCycleCount(Timeline.INDEFINITE);
+		KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
+		allEnemies.get(floor).get(num).displayCharacter(gc, false, false, false));
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
+		allEnemies.get(floor).get(num).displayCharacter(gc, true, false, false));
+		KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
+		allEnemies.get(floor).get(num).displayCharacter(gc, false, false, false));
+		animate.getKeyFrames().add(frame);
+		animate.getKeyFrames().add(frameTwo);
+		animate.getKeyFrames().add(frameThree);
+		animate.play(); 
+	}
+	
 
 	/**
-	 * This method allows us the animate the enemy characters image
+	 * This method allows us the animate multiple enemy characters image
 	 */
 	public void idleAnimate() {
 		if (allEnemies.get(floor).size() > 0) {
 			animateOne = new Timeline();
-			animateOne.setCycleCount(Timeline.INDEFINITE);
-			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
-			allEnemies.get(floor).get(0).displayCharacter(gc, false, false, false));
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
-			allEnemies.get(floor).get(0).displayCharacter(gc, true, false, false));
-			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
-			allEnemies.get(floor).get(0).displayCharacter(gc, false, false, false));
-			animateOne.getKeyFrames().add(frame);
-			animateOne.getKeyFrames().add(frameTwo);
-			animateOne.getKeyFrames().add(frameThree);
-			animateOne.play();
+			enemyAnimate(0, animateOne);
+
 		}
 
 		if (allEnemies.get(floor).size() > 1) {
 			animateTwo = new Timeline();
-			animateTwo.setCycleCount(Timeline.INDEFINITE);
-			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
-			allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false));
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
-			allEnemies.get(floor).get(1).displayCharacter(gc, true, false, false));
-			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
-			allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false));
-			animateTwo.getKeyFrames().add(frame);
-			animateTwo.getKeyFrames().add(frameTwo);
-			animateTwo.getKeyFrames().add(frameThree);
-			animateTwo.play();
+			enemyAnimate(1, animateTwo);
 		}
 
 		if (allEnemies.get(floor).size() > 2) {;
-		animateThree = new Timeline();
-		animateThree.setCycleCount(Timeline.INDEFINITE);
-		KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
-		allEnemies.get(floor).get(2).displayCharacter(gc, false, false, false));
-		KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
-		allEnemies.get(floor).get(2).displayCharacter(gc, true, false, false));
-		KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
-		allEnemies.get(floor).get(2).displayCharacter(gc, false, false, false));
-		animateThree.getKeyFrames().add(frame);
-		animateThree.getKeyFrames().add(frameTwo);
-		animateThree.getKeyFrames().add(frameThree);
-		animateThree.play();
+			animateThree = new Timeline();
+			enemyAnimate(2, animateThree);
 		}
 	}
 	
@@ -314,7 +292,36 @@ public class BattlePhase {
 			animateHero.getKeyFrames().add(frameThree);
 			animateHero.play();
 		}
+	
+	/**
+	 * This method allows for a turn of battle one hero and one enemy turn
+	 * 
+	 * @param frames The Key frame for the corresponding hero attack type
+	 */
+	private void attackOrder(KeyFrame frames) {
+	    Timeline timeline = new Timeline(); 
+		timeline.setCycleCount(1);
+		KeyFrame frame = frames;
+		timeline.getKeyFrames().add(frame);
+		Timeline timelineTwo = new Timeline();
+		timelineTwo.setCycleCount(1);
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn());
+		timelineTwo.getKeyFrames().add(frameTwo);
+		SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
+		sequence.play();
 
+		//Enable buttons after 2 seconds per enemy
+		Timeline enable = new Timeline(); 
+		enable.setCycleCount(1);
+		KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
+		display.disableButtons(false));
+		enable.getKeyFrames().add(frameEnable);
+		enable.play();
+
+		display.getChooseEnemyBtn().setVisible(false);
+		display.getChooseEnemyTwoBtn().setVisible(false);
+		display.getChooseEnemyThreeBtn().setVisible(false);
+	}
 	/**
 	 * This method covers the events that occur after pressing a chooseEnemyBtn.
 	 * 
@@ -322,52 +329,12 @@ public class BattlePhase {
 	 */
 	private void chooseEnemyBtnEvent(int enemy) {
 		display.getEmpowered().setVisible(false);
+		KeyFrame frameMagic = new KeyFrame(Duration.millis(1), ae -> mageTurn(enemy));
+		KeyFrame frameAttack = new KeyFrame(Duration.millis(1), ae -> heroTurn(enemy));
 		if (isMagic() == true) {
-			Timeline timeline = new Timeline(); 
-			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> mageTurn(enemy));
-			timeline.getKeyFrames().add(frame);
-			Timeline timelineTwo = new Timeline();
-			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn());
-			timelineTwo.getKeyFrames().add(frameTwo);
-			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
-			sequence.play();
-
-			//Enable buttons after 2 seconds per enemy
-			Timeline enable = new Timeline(); 
-			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			display.disableButtons(false));
-			enable.getKeyFrames().add(frameEnable);
-			enable.play();
-
-			display.getChooseEnemyBtn().setVisible(false);
-			display.getChooseEnemyTwoBtn().setVisible(false);
-			display.getChooseEnemyThreeBtn().setVisible(false);
+		    	attackOrder(frameMagic);
 		} else {
-			Timeline timeline = new Timeline(); 
-			timeline.setCycleCount(1);
-			KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> heroTurn(enemy));
-			timeline.getKeyFrames().add(frame);
-			Timeline timelineTwo = new Timeline();
-			timelineTwo.setCycleCount(1);
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn());
-			timelineTwo.getKeyFrames().add(frameTwo);
-			SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
-			sequence.play();
-
-			//Enable buttons after 2 seconds per enemy
-			Timeline enable = new Timeline(); 
-			enable.setCycleCount(1);
-			KeyFrame frameEnable = new KeyFrame(Duration.millis(1400 * (allEnemies.get(floor).size() - dead.size())), ae -> 
-			display.disableButtons(false));
-			enable.getKeyFrames().add(frameEnable);
-			enable.play();
-
-			display.getChooseEnemyBtn().setVisible(false);
-			display.getChooseEnemyTwoBtn().setVisible(false);
-			display.getChooseEnemyThreeBtn().setVisible(false);
+			attackOrder(frameAttack);
 		}
 	}
 
@@ -626,19 +593,12 @@ public class BattlePhase {
 				
 			}
 			if (floor < 10) {
-				Timeline moveOn = new Timeline();
-				moveOn.setCycleCount(1);
-				KeyFrame frame = new KeyFrame(Duration.millis(3000), ae ->  primaryStage.setScene(transition));
-				moveOn.getKeyFrames().add(frame);
-				moveOn.play();
+			    moveOn(transition);
 			} else if (floor == 10){
 			    	battleMusic.stop(); 
 			    	youWinMusic.play();
-				Timeline moveOn = new Timeline();
-				moveOn.setCycleCount(1);
-				KeyFrame frame = new KeyFrame(Duration.millis(3000), ae -> primaryStage.setScene(youWin));
-				moveOn.getKeyFrames().add(frame);
-				moveOn.play();
+			    	moveOn(youWin);
+				
 			}
 		}
 
@@ -649,6 +609,18 @@ public class BattlePhase {
 		} else {
 		    	display.getEnemyThreeStam().setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		}
+	}
+	/**
+	 * This method creates a time line to transition to a new scene
+	 * 
+	 * @param s The scene to transition to
+	 */
+	private void moveOn(Scene s) {
+	    	Timeline moveOn = new Timeline();
+		moveOn.setCycleCount(1);
+		KeyFrame frame = new KeyFrame(Duration.millis(3000), ae ->  primaryStage.setScene(s));
+		moveOn.getKeyFrames().add(frame);
+		moveOn.play();
 	}
 
 	/**
@@ -1081,22 +1053,16 @@ public class BattlePhase {
 		if (hero.getCurrentStamina() == 0) {
 		    se.heroDeathSound();
 			if (hero.isHasRevive() == true) {
-				Timeline moveOn = new Timeline();
-				moveOn.setCycleCount(1);
-				KeyFrame frame1 = new KeyFrame(Duration.millis(2000), ae ->  primaryStage.setScene(reviveScene));
-				moveOn.getKeyFrames().add(frame1);
-				moveOn.play();
+			    moveOn(reviveScene);
 			} else {
 			    	battleMusic.stop();
 			    	gameOverMusic.play();
-				Timeline moveOn = new Timeline();
-				moveOn.setCycleCount(1);
-				KeyFrame frame1 = new KeyFrame(Duration.millis(2000), ae ->  primaryStage.setScene(gameOverScreen));
-				moveOn.getKeyFrames().add(frame1);
-				moveOn.play();
+			    	moveOn(gameOverScreen);
 			}
 		}
 	}
+	
+	
 	/**
 	 * This method enables the mage to restore his mana during battle. 
 	 * 
