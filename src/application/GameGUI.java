@@ -161,7 +161,7 @@ public class GameGUI extends Application {
 	    //Create image view and text,  add effects
 	    Image btn = new Image("startButton.png", 250, 80, false, false);		
 	    ImageView iv = new ImageView(btn);
-	    DropShadow ds = new DropShadow(3, Color.ANTIQUEWHITE);
+	    DropShadow ds = new DropShadow(10, Color.ANTIQUEWHITE);
 	    iv.setEffect(ds);
 	    Text btnText = new Text();
 
