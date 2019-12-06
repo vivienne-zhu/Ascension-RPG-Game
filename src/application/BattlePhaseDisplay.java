@@ -147,7 +147,7 @@ public class BattlePhaseDisplay {
     	// To initialize heroStats VBox 
         heroStats.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
         int levelXp = 25 + hero.getLevel() * 175;
-    	Text stats = new Text("Level: " + hero.getLevel() + "\t\tExp: " + hero.getXp() + " /" + levelXp +
+    	Text stats = new Text("Level: " + hero.getLevel() + "\t\tExp: " + hero.getXp() + " / " + levelXp +
     	"\nGold: " + hero.getGold() + "\t\tAttack: " + hero.getAttack() + "\nDefense: " + hero.getDefense());
     	
     	if (hero.getType().equals("Mage")) {
