@@ -586,16 +586,18 @@ public class GameGUI extends Application {
 		}
 
 		//Code that controls the battle mechanics on each floor
-		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth);
 		BattlePhaseDisplay display = new BattlePhaseDisplay();
+		BattlePhase battle = new BattlePhase(primaryStage, floor.getFloor(), totalEnemyHealth, allEnemies, hero, gc,
+				transitionScreen(primaryStage), youWinScreen(primaryStage), reviveScreen(primaryStage),
+				gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic, display);
+
 		VBox heroStats = display.heroStatsDisplay(hero);
 		display.dispCombatInfo(hero, allEnemies, floor.getFloor());
 		display.dispDialogue();
 		display.initButtons(hero);
-		battle.idleAnimate(allEnemies, gc);
-		battle.heroAnimate(hero, gc);
-		battle.eventButtons(allEnemies, hero, gc, transitionScreen(primaryStage), youWinScreen(primaryStage),  
-			reviveScreen(primaryStage),gameOverScreen(primaryStage), battleMusic, gameOverMusic, youWinMusic, display);
+		battle.idleAnimate();
+		battle.heroAnimate();
+		battle.eventButtons();
 		GridPane grid = display.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
 		
 		//Fade Transition
