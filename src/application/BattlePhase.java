@@ -1184,7 +1184,7 @@ public class BattlePhase {
 			if (hero.isHasRevive() == true) {
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
-				KeyFrame frame1 = new KeyFrame(Duration.millis(4000), ae ->  primaryStage.setScene(reviveScene));
+				KeyFrame frame1 = new KeyFrame(Duration.millis(2000), ae ->  primaryStage.setScene(reviveScene));
 				moveOn.getKeyFrames().add(frame1);
 				moveOn.play();
 			} else {
@@ -1192,7 +1192,7 @@ public class BattlePhase {
 			    	gameOverMusic.play();
 				Timeline moveOn = new Timeline();
 				moveOn.setCycleCount(1);
-				KeyFrame frame1 = new KeyFrame(Duration.millis(4000), ae ->  primaryStage.setScene(gameOverScreen));
+				KeyFrame frame1 = new KeyFrame(Duration.millis(2000), ae ->  primaryStage.setScene(gameOverScreen));
 				moveOn.getKeyFrames().add(frame1);
 				moveOn.play();
 			}
