@@ -167,53 +167,17 @@ public class BattlePhase {
 			display.healFunctionDisplay(hero);
 			display.getHealBtn().setOnAction(event -> {
 			if (totalEnemyHealth != 0) {
-			display.getItemBag().setVisible(true);	
+			display.getItemBag().setVisible(true);
+			Potion cp = hero.getCp();
+			Potion hp = hero.getHp();
+			
 			
 			display.getPotionBtn().setOnAction(event1 -> {
-				hero.usePotion(hero.getCp(), display.getError());
-				display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-				display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
-				display.getPotionBtn().setText(hero.itemInfo(hero.getCp()));
-				if (display.getError().isVisible() == false) {
-				    Timeline timeline = new Timeline(); 
-					timeline.setCycleCount(1);
-					KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
-					animateHero.stop();
-					hero.displayCharacter(gc, false, false,true);});
-					timeline.getKeyFrames().addAll(frame);
-					Timeline timeline2 = new Timeline(); 
-					timeline2.setCycleCount(1);
-					KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
-					animateHero.play());
-					timeline2.getKeyFrames().addAll(frame2);
-					SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
-					sequence.play(); 
-					//hero.displayCharacter(gc, false, false,false));
-				}
+			    healHero(cp);
 			});
 				
 			display.getHyperPotionBtn().setOnAction(event2 -> {
-				hero.usePotion(hero.getHp(), display.getError());
-				display.getHyperPotionBtn().setText(hero.itemInfo(hero.getHp()));
-				display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
-				display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
-				if (display.getError().isVisible() == false) {
-					Timeline timeline = new Timeline(); 
-					timeline.setCycleCount(1);
-					KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
-					animateHero.stop();
-					hero.displayCharacter(gc, false, false,true);});
-					timeline.getKeyFrames().addAll(frame);
-					Timeline timeline2 = new Timeline(); 
-					timeline2.setCycleCount(1);
-					KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
-					animateHero.play());
-					timeline2.getKeyFrames().addAll(frame2);
-					SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
-					sequence.play(); 
-					//hero.displayCharacter(gc, false, false,false));
-				}
-			
+			    healHero(hp);
 			});
 			}
 		});
@@ -233,6 +197,34 @@ public class BattlePhase {
 			chooseEnemyBtnEvent(2);
 		});
 	}
+	
+	/**
+	 * Thsi methods heals the hero and updates item based on potion btn chosen
+	 * 
+	 * @param p The type of potion used by the hero
+	 */
+	private void healHero(Potion p) {
+	    hero.usePotion(p, display.getError());
+		display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
+		display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
+		display.getPotionBtn().setText(hero.itemInfo(p));
+		if (display.getError().isVisible() == false) {
+		    Timeline timeline = new Timeline(); 
+			timeline.setCycleCount(1);
+			KeyFrame frame = new KeyFrame(Duration.millis(100), ae -> {
+			animateHero.stop();
+			hero.displayCharacter(gc, false, false,true);});
+			timeline.getKeyFrames().addAll(frame);
+			Timeline timeline2 = new Timeline(); 
+			timeline2.setCycleCount(1);
+			KeyFrame frame2 = new KeyFrame(Duration.millis(100), ae -> 
+			animateHero.play());
+			timeline2.getKeyFrames().addAll(frame2);
+			SequentialTransition sequence = new SequentialTransition(timeline, timeline2);
+			sequence.play(); 
+		}
+	}
+	
 	
 	/**
 	 * This method allows us to animate the enemy characters image
@@ -263,12 +255,10 @@ public class BattlePhase {
 			enemyAnimate(0, animateOne);
 
 		}
-
 		if (allEnemies.get(floor).size() > 1) {
 			animateTwo = new Timeline();
 			enemyAnimate(1, animateTwo);
 		}
-
 		if (allEnemies.get(floor).size() > 2) {;
 			animateThree = new Timeline();
 			enemyAnimate(2, animateThree);
@@ -1055,9 +1045,9 @@ public class BattlePhase {
 			if (hero.isHasRevive() == true) {
 			    moveOn(reviveScene);
 			} else {
-			    	battleMusic.stop();
-			    	gameOverMusic.play();
-			    	moveOn(gameOverScreen);
+			    battleMusic.stop();
+			    gameOverMusic.play();
+			    moveOn(gameOverScreen);
 			}
 		}
 	}
