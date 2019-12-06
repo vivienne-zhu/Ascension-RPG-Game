@@ -26,18 +26,48 @@ public class Shop {
 		this.reviveImage = new Image("revive.png", 150, 150, false, false);
 		this.se = new SoundEffect();
 	}
+	
+	/**
+	 * This method is responsible for buying the potion 
+	 * when the player has enough gold and enters a legitimate quantity. 
+	 * 
+	 * @param hero   	 The hero
+	 * @param potion 	 The type of potion
+	 * @param cost   	 The cost of all the potions
+	 * @param quantity   The quantity of potions
+	 */
+	
+	public void buy(GameCharacters hero, Potion potion, int cost, TextField quantity) {
+		hero.setGold(hero.getGold() - cost);
+		hero.getPotionMap().put(potion,
+				hero.getPotionMap().get(potion) + Integer.parseInt(quantity.getText()));
+	}
+	
+	/**
+	 * This method is responsible for selling the potion 
+	 * when the player has enough item and enters a legitimate quantity. 
+	 * Potions are sold at half of their bought prices. 
+	 * 
+	 * @param hero       The hero 
+	 * @param potion     The type of potion 
+	 * @param quantity   The quantity of potion 
+	 */
+	public void sell(GameCharacters hero, Potion potion, int quantity) {
+		hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
+		hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);		
+	}
 
 	/**
 	 * This method allows the player to buy the potion from the shop by clicking the
 	 * buy button
 	 * 
-	 * @param hero     the hero
-	 * @param btn      buy button
-	 * @param potion   the type of the potion the player is buying
-	 * @param quantity the quantity of the potion the player is buying
-	 * @param errorMsg an error message shows if the player does not have enough
+	 * @param hero     The hero
+	 * @param btn      Buy button
+	 * @param potion   The type of the potion the player is buying
+	 * @param quantity The quantity of the potion the player is buying
+	 * @param errorMsg An error message shows if the player does not have enough
 	 *                 money
-	 * @param display  a text showing gold and the items in the player's bag
+	 * @param display  A text showing gold and the items in the player's bag
 	 */
 	public void buyPotion(GameCharacters hero, Button btn, Potion potion, TextField quantity, Text errorMsg,
 			Text display) {
@@ -53,9 +83,7 @@ public class Shop {
 				if (hero.getGold() >= cost) {
 					se.moneySound();
 					errorMsg.setVisible(false);
-					hero.setGold(hero.getGold() - cost);
-					hero.getPotionMap().put(potion,
-							hero.getPotionMap().get(potion) + Integer.parseInt(quantity.getText()));
+					buy(hero, potion, cost, quantity);
 					quantity.clear();
 					display.setText(this.shopDisplay(hero));
 				} else {
@@ -78,13 +106,13 @@ public class Shop {
 	 * This method allows the player to sell items at the shop by clicking the sell
 	 * button
 	 * 
-	 * @param hero     the hero
-	 * @param btn      the sell button
-	 * @param potion   the type of potion the player is selling
-	 * @param q        the quantity of potion the player is selling
-	 * @param errorMsg an error message shows if the player does not have enough
+	 * @param hero     The hero
+	 * @param btn      The sell button
+	 * @param potion   The type of potion the player is selling
+	 * @param q        The quantity of potion the player is selling
+	 * @param errorMsg An error message shows if the player does not have enough
 	 *                 items
-	 * @param display  a text showing gold and the items in the player's bag
+	 * @param display  A text showing gold and the items in the player's bag
 	 */
 	public void sellPotion(GameCharacters hero, Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
@@ -98,8 +126,7 @@ public class Shop {
 				int quantity = Integer.parseInt(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
 					se.moneySound();
-					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
-					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
+					sell(hero, potion, quantity);
 					display.setText(this.shopDisplay(hero));
 					q.clear();
 				} else {

@@ -624,7 +624,7 @@ public class GameGUI extends Application {
 
 		// Error message
 		Text errorMsg = new Text("BLABLABLABLA");
-		errorMsg.setId("errorText");
+		errorMsg.setId("shopErrorText");
 		errorMsg.setVisible(false);
 
 		// Display all items currently in the hero's bag
