@@ -16,8 +16,8 @@ public class Rogue extends GameCharacters {
 	 * image instance variables in the GUI.
      */
     public Rogue() {
-		setAttack(175);
-		setDefense(50);
+		setAttack(170);
+		setDefense(45);
 		setStamina(800);
 		setCurrentStamina(getStamina());
 		setLevel(1);

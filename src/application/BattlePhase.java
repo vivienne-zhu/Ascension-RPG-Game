@@ -565,7 +565,7 @@ public class BattlePhase {
 		GraphicsContext gc, Stage primaryStage, int floor, Scene transition, Scene youWin, 
 			HashSet<Integer> dead, MediaPlayer battleMusic, MediaPlayer youWinMusic, BattlePhaseDisplay display) { 
 		
-		int rand = (int) (Math.random() * (3));
+		int rand = (int) (Math.random() * (2));
 		
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = 0;
