@@ -157,6 +157,23 @@ class GameCharactersTest {
 	
 	assertEquals("YOU DO NOT HAVE ENOUGH ITEMS",error.getText());
     }
+    
+    /**
+     * This tests the use of a potion when stamina is full
+     */
+    @Test 
+    void usePotionFullStaminaTest() {
+	Warrior link = new Warrior();
+	HyperPotion hp = new HyperPotion();
+	Text error = new Text();
+	link.setCurrentStamina(1000);
+	link.getPotionMap().put(hp, 1);
+	link.usePotion(hp,error);
+
+	assertEquals(1000, link.getCurrentStamina());
+	assertEquals("YOU HAVE REACHED THE MAX STAMINA",error.getText());
+    }
+
 
     /**
      * This tests the revive method
