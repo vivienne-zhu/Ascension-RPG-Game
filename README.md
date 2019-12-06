@@ -23,10 +23,14 @@ To play the game, please run the **GameGUI class**.
 	![Start Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/Start.png)
 	
 	
-	After the Start screen, select the class of hero you would like to play with. Hover over each class of hero to learn more about them before choosing. 
+	After the Start screen, select the class of hero you would like to play with. 
+	
 	>A **Mage** has the benefit of powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. 
 	
 	![Character Choice Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/ChooseChar.png)
+	
+	**Hover over each class of hero to learn more about them before choosing.** 
+	
 	![Mage info](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/mageInfo.png)
 	![Warrior info](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/warriorInfo.png)
 	![Rogue info](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/rogueinfo.png)
