@@ -4,9 +4,9 @@ Authors: Jiayu Vivienne Zhu, Shari Sinclair and David Cai
 Description: 
   Ascension is a turn-based RPG in which the player aims to climb a 10 floor tower to reach the treasure. 
   The player has the freedom to choose from one of the three classes, Warrior, Mage or Rogue. 
-  Through strateigc uses of the attack, defend, and heal functions, 
-  the player needs to defeat the enemies on each floor in order to proceed to a higher floor. 
-  The player can purchase potion items and revive at the magic shop and has the probabilities to run into mysterious events.     On the 10th floor, there will be a Boss enemy and the player has to defeat it in order to win the game. 
+  Through strategic uses of the attack, defend, and heal functions, the player needs to defeat the enemies on each floor in     order to proceed to a higher floor. The player can purchase potion items and revive at the magic shop and may run into         mysterious events. On the 10th floor, there will be a Boss enemy and the player has to defeat it in order to win the game.
+  
+  Ascension utilizes controlled stat and minion randomization in order to keep the game fresh. Furthermore, running through     the game with different classes can be a very different experience. Combine that with the mysterious event encounters and     you will find that no two runs are truly the same. We encourage you to try all the classes and try to reach the top!
 
 Work Breakdown:
 David Cai - 
