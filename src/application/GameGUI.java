@@ -718,18 +718,6 @@ public class GameGUI extends Application {
 		Button continueBtn = new Button("Next Floor");
 		continueBtn.setId("yellowBtn");	 
 		continueBtnHandling(continueBtn, primaryStage);
-//		this.event.eventHappen();
-//		if (this.event.isEvent() == true) {
-//		    continueBtn.setOnAction(event -> {
-//			se.transitionSound();
-//			eventScreen(primaryStage);});
-//		} else {
-//		    continueBtn.setOnAction(event -> {
-//			battleMusic.stop();
-//			se.transitionSound();
-//			floor.incrementFloor();
-//			battleScreen(primaryStage);});
-//		}
 		
 		// Add nodes to the grid pane
 		root.setHgap(60);
