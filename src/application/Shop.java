@@ -33,16 +33,14 @@ public class Shop {
 	 * This method allows the player to buy the potion from the shop by clicking the
 	 * buy button
 	 * 
-	 * @param btn      Buy button
 	 * @param potion   The type of the potion the player is buying
 	 * @param quantity The quantity of the potion the player is buying
 	 * @param errorMsg An error message shows if the player does not have enough
 	 *                 money
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
-	public void buyPotion(Button btn, Potion potion, TextField quantity, Text errorMsg,
+	public void buyPotion(Potion potion, TextField quantity, Text errorMsg,
 			Text display) {
-		btn.setOnAction(Event -> {
 			String text = quantity.getText();
 			if (text.isEmpty() || text.matches("0")) {
 				se.errorSound();
@@ -71,7 +69,6 @@ public class Shop {
 				quantity.setOnMouseClicked(event -> quantity.clear());
 			}
 		};
-		});
 
 	}
 
@@ -86,8 +83,7 @@ public class Shop {
 	 *                 items
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
-	public void sellPotion(Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
-		btn.setOnAction(Event -> {
+	public void sellPotion(Potion potion, TextField q, Text errorMsg, Text display) {
 			String text = q.getText();
 			if (text.isEmpty() || text.matches("0")) {
 				se.errorSound();
@@ -114,7 +110,6 @@ public class Shop {
 				q.setOnMouseClicked(event -> q.clear());				
 			}
 		};
-		});
 	}
 	
 	

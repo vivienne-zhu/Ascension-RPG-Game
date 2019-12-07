@@ -645,9 +645,9 @@ public class GameGUI extends Application {
 
 		// Buy and sell buttons for cheap potion
 		Button btnBuy1 = new Button("Buy");
-		shop.buyPotion(btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
+		btnBuy1.setOnAction(event -> shop.buyPotion(hero.getCp(), quantity1, errorMsg, potionList));
 		Button btnSell1 = new Button("Sell");
-		shop.sellPotion(btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
+		btnSell1.setOnAction(event -> shop.sellPotion(hero.getCp(), quantity1, errorMsg, potionList));
 		
 
 		// Description for hyper potion
@@ -663,9 +663,9 @@ public class GameGUI extends Application {
 
 		// Buy and sell buttons for hyper potion
 		Button btnBuy2 = new Button("Buy");
-		shop.buyPotion(btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
+		btnBuy2.setOnAction(event -> shop.buyPotion(hero.getHp(), quantity2, errorMsg, potionList));
 		Button btnSell2 = new Button("Sell");
-		shop.sellPotion(btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
+		btnSell2.setOnAction(event -> shop.sellPotion(hero.getHp(), quantity2, errorMsg, potionList));
 		
 		// Description for revive
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 250 GOLD");
