@@ -679,9 +679,9 @@ public class GameGUI extends Application {
 
 		// Buy and sell for revive 
 		Button btnBuy3 = new Button("Buy");
-		shop.buyRevive(btnBuy3, errorMsg, potionList);
+		btnBuy3.setOnAction(event -> shop.buyRevive(errorMsg, potionList));
 		Button btnSell3 = new Button("Sell");
-		shop.sellRevive(btnSell3, errorMsg, potionList);
+		btnSell3.setOnAction(event -> shop.sellRevive(errorMsg, potionList));
 		
 		//Setting style for shop buttons
 		btnBuy1.setId("whiteBtn");
@@ -733,7 +733,7 @@ public class GameGUI extends Application {
 		// Add nodes to the grid pane
 		root.setHgap(60);
 		root.setAlignment(Pos.CENTER);
-		root.setGridLinesVisible(false);
+		root.setGridLinesVisible(false); 
 		root.setVgap(5);
 		root.add(welcome, 2, 0);
 		root.add(hbox, 1, 1);
@@ -920,7 +920,6 @@ public class GameGUI extends Application {
 	    
 	    //Adding image of revive 
 		Shop shop = new Shop(hero);
-
 	    ImageView revive = new ImageView(shop.getReviveImage());
 	    revive.setLayoutX(550);
 	    revive.setLayoutY(300);
@@ -1289,20 +1288,6 @@ public class GameGUI extends Application {
 	public void setHeroName(String heroName) {
 		this.heroName = heroName;
 	}
-
-//	/**
-//	 * @return the shop
-//	 */
-//	public Shop getShop() {
-//		return shop;
-//	}
-//
-//	/**
-//	 * @param shop the shop to set
-//	 */
-//	public void setShop(Shop shop) {
-//		this.shop = shop;
-//	}
 
 	/**
 	 * @return the floor

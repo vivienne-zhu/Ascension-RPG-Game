@@ -28,42 +28,11 @@ public class Shop {
 		this.se = new SoundEffect();
 		this.hero = hero;
 	}
-	
-	/**
-	 * This method is responsible for buying the potion 
-	 * when the player has enough gold and enters a legitimate quantity. 
-	 * 
-	 * @param hero   	 The hero
-	 * @param potion 	 The type of potion
-	 * @param cost   	 The cost of all the potions
-	 * @param quantity   The quantity of potions
-	 */
-	
-	public void buy(Potion potion, int cost, TextField quantity) {
-		hero.setGold(hero.getGold() - cost);
-		hero.getPotionMap().put(potion,
-				hero.getPotionMap().get(potion) + Integer.parseInt(quantity.getText()));
-	}
-	
-	/**
-	 * This method is responsible for selling the potion 
-	 * when the player has enough item and enters a legitimate quantity. 
-	 * Potions are sold at half of their bought prices. 
-	 * 
-	 * @param hero       The hero 
-	 * @param potion     The type of potion 
-	 * @param quantity   The quantity of potion 
-	 */
-	public void sell(Potion potion, int quantity) {
-		hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
-		hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);		
-	}
 
 	/**
 	 * This method allows the player to buy the potion from the shop by clicking the
 	 * buy button
 	 * 
-	 * @param hero     The hero
 	 * @param btn      Buy button
 	 * @param potion   The type of the potion the player is buying
 	 * @param quantity The quantity of the potion the player is buying
@@ -85,7 +54,9 @@ public class Shop {
 				if (hero.getGold() >= cost) {
 					se.moneySound();
 					errorMsg.setVisible(false);
-					buy(potion, cost, quantity);
+					hero.setGold(hero.getGold() - cost);
+					hero.getPotionMap().put(potion,
+							hero.getPotionMap().get(potion) + Integer.parseInt(quantity.getText()));
 					quantity.clear();
 					display.setText(this.shopDisplay());
 				} else {
@@ -108,7 +79,6 @@ public class Shop {
 	 * This method allows the player to sell items at the shop by clicking the sell
 	 * button
 	 * 
-	 * @param hero     The hero
 	 * @param btn      The sell button
 	 * @param potion   The type of potion the player is selling
 	 * @param q        The quantity of potion the player is selling
@@ -128,7 +98,8 @@ public class Shop {
 				int quantity = Integer.parseInt(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
 					se.moneySound();
-					sell(potion, quantity);
+					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
+					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);	
 					display.setText(this.shopDisplay());
 					q.clear();
 				} else {
@@ -145,19 +116,18 @@ public class Shop {
 		};
 		});
 	}
-
+	
+	
 	/**
 	 * This method allows the player to buy the revive item at the shop.
 	 * 
-	 * @param hero     the hero
 	 * @param btn      the buy button
 	 * @param errorMsg an error message that shows the player fails to buy the item
 	 * @param display  a text showing gold and the items in the player's bag
 	 */
-	public void buyRevive(Button btn, Text errorMsg, Text display) {
-		btn.setOnAction(Event -> {
+	public void buyRevive(Text errorMsg, Text display) {
 			if (hero.isHasRevive() == true) {
-				se.errorSound();
+				se.errorSound(); 
 				errorMsg.setText("YOU ALDREADY HAVE THAT ITEM");
 				errorMsg.setVisible(true);
 			} else {
@@ -172,39 +142,35 @@ public class Shop {
 					errorMsg.setVisible(true);
 				}
 			}
-		});
 	}
-
+	
+	
 	/**
 	 * This method allows the player to sell a revive item at the shop.
 	 * 
-	 * @param hero     the hero
-	 * @param btn      the sell button
-	 * @param errorMsg an error messsage taht shows the player fails to sell the
+	 * @param btn      The sell button
+	 * @param errorMsg An error messsage that shows the player fails to sell the
 	 *                 item
-	 * @param display  a text showing gold and the items in the player's bag
+	 * @param display  A text showing gold and the items in the player's bag
 	 */
-	public void sellRevive(Button btn, Text errorMsg, Text display) {
-		btn.setOnAction(Event -> {
+	public void sellRevive(Text errorMsg, Text display) {
 				if (hero.isHasRevive() == true) {
 					se.moneySound();
 					hero.setGold(hero.getGold() + 150);
-					hero.setHasRevive(false);
+					hero.setHasRevive(false);	
 					display.setText(this.shopDisplay());
 				} else {
 					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
 					errorMsg.setVisible(true);
 				}
-		});
 	}
     
 	/**
 	 * This method returns a string that include player's gold and what is in his
 	 * bag.
 	 * 
-	 * @param hero the hero
-	 * @return display a string with amount of gold and what is in the player's bag
+	 * @return display A string with amount of gold and what is in the player's bag
 	 */
 	public String shopDisplay() {
 		String display = "You have: " + hero.getGold() + " GOLD \n\nITEM BAG: ";
