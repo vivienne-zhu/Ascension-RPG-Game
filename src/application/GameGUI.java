@@ -37,7 +37,6 @@ public class GameGUI extends Application {
 	private int totalEnemyHealth;
 	private int xpCount;
 	private Floor floor;
-	private Shop shop;
 	private Event event;
 	private MediaPlayer battleMusic; 
 	private MediaPlayer openingMusic;
@@ -59,7 +58,6 @@ public class GameGUI extends Application {
 		hero = new GameCharacters();
 		allEnemies = new HashMap<Integer, ArrayList<GameCharacters>>();
 		floor = new Floor();
-		shop = new Shop();
 		event = new Event();
 		se = new SoundEffect();
 		openingMusic = se.openingMusic();
@@ -68,6 +66,7 @@ public class GameGUI extends Application {
 		youWinMusic = se.youWinMusic();
 		heroInfo = new VBox(15);
 		heroInfoTwo = new VBox(15);
+
 	}
 	
 	/**
@@ -618,7 +617,8 @@ public class GameGUI extends Application {
 	public void shopScreen(Stage primaryStage) {
 		// Create grid pane
 		GridPane root = new GridPane();
-		
+		Shop shop = new Shop(hero);
+
 		// Create the magic shop text
 		Text welcome = new Text("Magic Shop");
 		welcome.setId("shopTitle");
@@ -630,7 +630,7 @@ public class GameGUI extends Application {
 		errorMsg.setVisible(false);
 
 		// Display all items currently in the hero's bag
-		Text potionList = new Text(shop.shopDisplay(hero));
+		Text potionList = new Text(shop.shopDisplay());
 		potionList.setId("shopText");
 
 		// Description for cheap potion
@@ -645,9 +645,9 @@ public class GameGUI extends Application {
 
 		// Buy and sell buttons for cheap potion
 		Button btnBuy1 = new Button("Buy");
-		this.shop.buyPotion(this.hero, btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
+		shop.buyPotion(btnBuy1, hero.getCp(), quantity1, errorMsg, potionList);
 		Button btnSell1 = new Button("Sell");
-		this.shop.sellPotion(this.hero, btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
+		shop.sellPotion(btnSell1, hero.getCp(), quantity1, errorMsg, potionList);
 		
 
 		// Description for hyper potion
@@ -663,9 +663,9 @@ public class GameGUI extends Application {
 
 		// Buy and sell buttons for hyper potion
 		Button btnBuy2 = new Button("Buy");
-		this.shop.buyPotion(this.hero, btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
+		shop.buyPotion(btnBuy2, hero.getHp(), quantity2, errorMsg, potionList);
 		Button btnSell2 = new Button("Sell");
-		this.shop.sellPotion(this.hero, btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
+		shop.sellPotion(btnSell2, hero.getHp(), quantity2, errorMsg, potionList);
 		
 		// Description for revive
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 250 GOLD");
@@ -679,9 +679,9 @@ public class GameGUI extends Application {
 
 		// Buy and sell for revive 
 		Button btnBuy3 = new Button("Buy");
-		this.shop.buyRevive(hero, btnBuy3, errorMsg, potionList);
+		shop.buyRevive(btnBuy3, errorMsg, potionList);
 		Button btnSell3 = new Button("Sell");
-		this.shop.sellRevive(hero, btnSell3, errorMsg, potionList);
+		shop.sellRevive(btnSell3, errorMsg, potionList);
 		
 		//Setting style for shop buttons
 		btnBuy1.setId("whiteBtn");
@@ -692,9 +692,9 @@ public class GameGUI extends Application {
 		btnSell3.setId("whiteBtn");
 		
 		// Create imageView for the items at the shop
-		ImageView ivPotion1 = new ImageView(this.shop.getCpImage());
-		ImageView ivPotion2 = new ImageView(this.shop.getHpImage());
-		ImageView ivRevive = new ImageView(this.shop.getReviveImage());
+		ImageView ivPotion1 = new ImageView(shop.getCpImage());
+		ImageView ivPotion2 = new ImageView(shop.getHpImage());
+		ImageView ivRevive = new ImageView(shop.getReviveImage());
 		DropShadow ds2 = new DropShadow();
 		ds2.setColor(Color.MEDIUMPURPLE);
 		ds2.setWidth(0.8);
@@ -919,6 +919,8 @@ public class GameGUI extends Application {
 	    reviveOption.setY(200);
 	    
 	    //Adding image of revive 
+		Shop shop = new Shop(hero);
+
 	    ImageView revive = new ImageView(shop.getReviveImage());
 	    revive.setLayoutX(550);
 	    revive.setLayoutY(300);
@@ -1288,19 +1290,19 @@ public class GameGUI extends Application {
 		this.heroName = heroName;
 	}
 
-	/**
-	 * @return the shop
-	 */
-	public Shop getShop() {
-		return shop;
-	}
-
-	/**
-	 * @param shop the shop to set
-	 */
-	public void setShop(Shop shop) {
-		this.shop = shop;
-	}
+//	/**
+//	 * @return the shop
+//	 */
+//	public Shop getShop() {
+//		return shop;
+//	}
+//
+//	/**
+//	 * @param shop the shop to set
+//	 */
+//	public void setShop(Shop shop) {
+//		this.shop = shop;
+//	}
 
 	/**
 	 * @return the floor

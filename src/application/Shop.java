@@ -16,15 +16,17 @@ public class Shop {
 	private Image hpImage;
 	private Image reviveImage;
 	private SoundEffect se;
+	private GameCharacters hero;
 
 	/**
 	 * Constructor of the shop class
 	 */
-	public Shop() {
+	public Shop(GameCharacters hero) {
 		this.cpImage = new Image("cheapPotion.png", 150, 150, false, false);
 		this.hpImage = new Image("hyperPotion.png", 150, 150, false, false);
 		this.reviveImage = new Image("revive.png", 150, 150, false, false);
 		this.se = new SoundEffect();
+		this.hero = hero;
 	}
 	
 	/**
@@ -37,7 +39,7 @@ public class Shop {
 	 * @param quantity   The quantity of potions
 	 */
 	
-	public void buy(GameCharacters hero, Potion potion, int cost, TextField quantity) {
+	public void buy(Potion potion, int cost, TextField quantity) {
 		hero.setGold(hero.getGold() - cost);
 		hero.getPotionMap().put(potion,
 				hero.getPotionMap().get(potion) + Integer.parseInt(quantity.getText()));
@@ -52,7 +54,7 @@ public class Shop {
 	 * @param potion     The type of potion 
 	 * @param quantity   The quantity of potion 
 	 */
-	public void sell(GameCharacters hero, Potion potion, int quantity) {
+	public void sell(Potion potion, int quantity) {
 		hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
 		hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);		
 	}
@@ -69,7 +71,7 @@ public class Shop {
 	 *                 money
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
-	public void buyPotion(GameCharacters hero, Button btn, Potion potion, TextField quantity, Text errorMsg,
+	public void buyPotion(Button btn, Potion potion, TextField quantity, Text errorMsg,
 			Text display) {
 		btn.setOnAction(Event -> {
 			String text = quantity.getText();
@@ -83,9 +85,9 @@ public class Shop {
 				if (hero.getGold() >= cost) {
 					se.moneySound();
 					errorMsg.setVisible(false);
-					buy(hero, potion, cost, quantity);
+					buy(potion, cost, quantity);
 					quantity.clear();
-					display.setText(this.shopDisplay(hero));
+					display.setText(this.shopDisplay());
 				} else {
 					se.errorSound();
 					quantity.clear();
@@ -114,7 +116,7 @@ public class Shop {
 	 *                 items
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
-	public void sellPotion(GameCharacters hero, Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
+	public void sellPotion(Button btn, Potion potion, TextField q, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
 			String text = q.getText();
 			if (text.isEmpty() || text.matches("0")) {
@@ -126,8 +128,8 @@ public class Shop {
 				int quantity = Integer.parseInt(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
 					se.moneySound();
-					sell(hero, potion, quantity);
-					display.setText(this.shopDisplay(hero));
+					sell(potion, quantity);
+					display.setText(this.shopDisplay());
 					q.clear();
 				} else {
 					se.errorSound();
@@ -152,7 +154,7 @@ public class Shop {
 	 * @param errorMsg an error message that shows the player fails to buy the item
 	 * @param display  a text showing gold and the items in the player's bag
 	 */
-	public void buyRevive(GameCharacters hero, Button btn, Text errorMsg, Text display) {
+	public void buyRevive(Button btn, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
 			if (hero.isHasRevive() == true) {
 				se.errorSound();
@@ -163,7 +165,7 @@ public class Shop {
 					se.moneySound();
 					hero.setGold(hero.getGold() - 250);
 					hero.setHasRevive(true);
-					display.setText(this.shopDisplay(hero));
+					display.setText(this.shopDisplay());
 				} else {
 					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
@@ -182,13 +184,13 @@ public class Shop {
 	 *                 item
 	 * @param display  a text showing gold and the items in the player's bag
 	 */
-	public void sellRevive(GameCharacters hero, Button btn, Text errorMsg, Text display) {
+	public void sellRevive(Button btn, Text errorMsg, Text display) {
 		btn.setOnAction(Event -> {
 				if (hero.isHasRevive() == true) {
 					se.moneySound();
 					hero.setGold(hero.getGold() + 150);
 					hero.setHasRevive(false);
-					display.setText(this.shopDisplay(hero));
+					display.setText(this.shopDisplay());
 				} else {
 					se.errorSound();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
@@ -204,7 +206,7 @@ public class Shop {
 	 * @param hero the hero
 	 * @return display a string with amount of gold and what is in the player's bag
 	 */
-	public String shopDisplay(GameCharacters hero) {
+	public String shopDisplay() {
 		String display = "You have: " + hero.getGold() + " GOLD \n\nITEM BAG: ";
 		for (Potion p : hero.getPotionMap().keySet()) {
 
