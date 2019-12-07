@@ -25,7 +25,7 @@ class GameCharactersTest {
 	MeleeEnemy  orc = new MeleeEnemy(2, 0);
 
 	int orcAttack = orc.getAttack();
-	int expected = 800 - (orcAttack - 50);
+	int expected = 800 - (orcAttack - 45);
 	orc.attack(legolas, false, false);
 
 	assertEquals(expected, legolas.getCurrentStamina());
@@ -42,7 +42,7 @@ class GameCharactersTest {
 	legolas.defend();
 	orc.attack(legolas, false, false);
 	int orcAttack = orc.getAttack();
-	int expected = (int) (800 - Math.ceil(orcAttack - 50) * 0.25);
+	int expected = (int) (800 - Math.ceil(orcAttack - 45) * 0.25);
 
 	assertEquals(expected, legolas.getCurrentStamina());
     }
