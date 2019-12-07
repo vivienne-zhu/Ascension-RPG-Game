@@ -25,7 +25,7 @@ To play the game, please run the **GameGUI class**.
 	
 	After the Start screen, select the class of hero you would like to play with. 
 	
-	>A **Mage** has the benefit of powerful magic attacks, the **Warrior** has higher stamina and defence, and the **Rogue** has the advantage of a swift double attack. 
+	>A **Mage** has the benefit of powerful magic attacks, the **Warrior** has higher stamina and defense, and the **Rogue** has the advantage of a swift double attack. 
 	
 	![Character Choice Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/ChooseChar.png)
 	
@@ -43,13 +43,17 @@ To play the game, please run the **GameGUI class**.
 
 2. **Floors and Enemies:** 
 	Each floor of the tower will have the same display and controls (seen controls below) but will have differing numbers of randomly generated enemies. Floor 1-3 will have 1 enemy, Floor 4-6 will have 2 enemies, and Floor 7-9 will have 3. 
-	>Enemy types can either be the defensive and hard hitting **Melee enemy**, the **Ranged enemy** with its magical attacks, or the **Healer enemy** who can heal the most weakened enemy on the floor. As you climb the towers the enemies will become increasingly stronger. 
+	>Enemy types can either be the defensive **Melee enemy**, the high attack **Ranged enemy**, or the **Healer enemy** who can heal the most weakened enemy on the floor. As you climb the towers the enemies will become increasingly stronger. 
 	
 	![All enemy types](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/enemies.png)
 
-	>The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies that can do more powerful _outrage_ attacks at lower levels of stamina. 
+	>The final floor, 10, will have one **Boss enemy**. This is the strongest of all enemies that can do more powerful _outrage_ attacks at lower levels of stamina. 
 	
 	![Boss enemy](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/Boss.png)
+	
+	>Enemies have random stats that are generated on the fly that scale with floor count. This is the ensure that every playthrough will be different and the player would need to adapt to kill off the most threatening of enemies first. 
+	
+	>The **Boss enemy** has a unique ability called outrage. We will leave it to the player to find out the trigger behind it!
 
 
 3. **Controls:** 
@@ -58,7 +62,7 @@ To play the game, please run the **GameGUI class**.
 	
 	![Attack Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/AtkBtns.png)
 	
-	>If you choose the **Defend** button, enemy attack damage sustained will be 75% less. You will also be _Empowered_ and have double attack power on your next turn. The text in the centre of the screen will update to let you know all the details of the battle!
+	>If you choose the **Defend** button, enemy attack damage sustained will be 75% less. You will also be _Empowered_ and have 1.5x attack power on your next turn. The text in the centre of the screen will update to let you know all the details of the battle!
 	
 	![Defend Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/defendBtn.png)
 	
@@ -71,7 +75,7 @@ To play the game, please run the **GameGUI class**.
 	
  	![Magic Atk Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/magicAtkBtn.png)
  	
-	>Hero stat are available in battle if you hover over the (i) beside their name.
+	>Hero statistics are available in battle if you hover over the (i) beside their name.
 	
 	![Hero stats](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/heroStats.png)
 
@@ -93,7 +97,7 @@ To play the game, please run the **GameGUI class**.
 	>The Magic shop!
 
 6. **Events:** 
-	Before each new floor, there is a 20% chance of a random event occuring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide your fate!**
+	Before each new floor, there is a 20% chance of a random event occurring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide your fate!**
 	
 	![Event Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/event.png)
 	
@@ -101,3 +105,5 @@ To play the game, please run the **GameGUI class**.
 
  
 ------
+
+<p align="center">We hope you enjoy our game!</p>
