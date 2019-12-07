@@ -21,7 +21,7 @@ class FloorTest {
 		floor.setFloor(8);
 		floor.incrementFloor();
 		
-		assertEquals(floor.getFloor(), 9);
+		assertEquals(9, floor.getFloor());
 	}
 
 	/**
@@ -33,7 +33,7 @@ class FloorTest {
 		floor.setFloor(8);
 		floor.decrementFloor();
 		
-		assertEquals(floor.getFloor(), 7);
+		assertEquals(7, floor.getFloor());
 	}
 
 }
