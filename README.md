@@ -47,13 +47,13 @@ To play the game, please run the **GameGUI class**.
 	
 	![All enemy types](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/enemies.png)
 
-	>The final floor, 10, will have one **Boss enemy**. This the strongest of all enemies that can do more powerful _outrage_ attacks at lower levels of stamina. 
+	>The final floor, 10, will have one **Boss enemy**. This is the strongest of all enemies that can do more powerful _outrage_ attacks at lower levels of stamina. 
 	
 	![Boss enemy](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/Boss.png)
 	
 	>Enemies have random stats that are generated on the fly that scale with floor count. This is the ensure that every playthrough will be different and the player would need to adapt to kill off the most threatening of enemies first. 
 	
-	>The **Boss enemy** has an unique ability called outrage. We will leave it to the player to find out the trigger behind it!
+	>The **Boss enemy** has a unique ability called outrage. We will leave it to the player to find out the trigger behind it!
 
 
 3. **Controls:** 
@@ -75,7 +75,7 @@ To play the game, please run the **GameGUI class**.
 	
  	![Magic Atk Button](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/magicAtkBtn.png)
  	
-	>Hero stat are available in battle if you hover over the (i) beside their name.
+	>Hero statistics are available in battle if you hover over the (i) beside their name.
 	
 	![Hero stats](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/heroStats.png)
 
@@ -97,7 +97,7 @@ To play the game, please run the **GameGUI class**.
 	>The Magic shop!
 
 6. **Events:** 
-	Before each new floor, there is a 20% chance of a random event occuring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide your fate!**
+	Before each new floor, there is a 20% chance of a random event occurring. Events can cause you to gain or lose gold, increase attack or defense stats, and even go up or down in floors.**Your luck will decide your fate!**
 	
 	![Event Screen](https://github.com/UPenn-CIT599/final-project-team31_towergame/blob/master/Screenshots/event.png)
 	
@@ -105,3 +105,5 @@ To play the game, please run the **GameGUI class**.
 
  
 ------
+
+We hope you enjoy our game!
