@@ -75,7 +75,6 @@ class GameCharactersTest {
 	int orcStam = orc.getStamina();
 	int expected =  (orcStam - (int) ((185 - orcDef) * 1.5));
 	aragorn.attack(orc, false, true, 0);
-	aragorn.attack(orc, false, true);
 
 	assertEquals(expected, orc.getCurrentStamina());
     }
