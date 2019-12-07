@@ -144,9 +144,10 @@ public class BattlePhase {
 			} else if (defendCount == 3 && hero.getType().equals("Warrior")) {
 			    display.getDefendText().setVisible(true);
 			    display.getDefendText().setText("Next attack x 2");
-			} else {
-			    display.getDefendText().setVisible(false);
-			}
+			} 
+//			    else {
+//			    display.getDefendText().setVisible(false);
+//			}
 			
 			// Restore mana for mage
 			restoreMana();
