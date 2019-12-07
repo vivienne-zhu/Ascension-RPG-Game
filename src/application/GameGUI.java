@@ -22,7 +22,7 @@ import java.util.*;
 
 /**
  * This class represents the GUI of the game and houses the instance variables
- * needed to capture user input and run the game.
+ * ,screens and GUI elements needed to run the game.
  * 
  * @author Shari Sinclair, JiayuZhu and David Cai
  *
