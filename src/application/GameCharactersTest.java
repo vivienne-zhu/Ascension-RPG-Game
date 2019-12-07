@@ -73,7 +73,7 @@ class GameCharactersTest {
 	aragorn.setIsEmpowered(true);
 	int orcDef = orc.getDefense();
 	int orcStam = orc.getStamina();
-	int expected =  (orcStam - (int) ((150 - orcDef) * 1.5));
+	int expected =  (orcStam - (int) ((185 - orcDef) * 1.5));
 	aragorn.attack(orc, false, true);
 
 	assertEquals(expected, orc.getCurrentStamina());
@@ -123,7 +123,7 @@ class GameCharactersTest {
 	assertEquals(135,2, gandalf.getAttack());
 	assertEquals(48,2, gandalf.getDefense());
 	assertEquals(850,10, gandalf.getStamina());
-	assertEquals(125, gandalf.getMana());
+	assertEquals(75, gandalf.getMana());
 	assertEquals(262,3, gandalf.getMagicAtk());
     }
 
