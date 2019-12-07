@@ -106,4 +106,4 @@ To play the game, please run the **GameGUI class**.
  
 ------
 
-We hope you enjoy our game!
+<p style="text-align: center">We hope you enjoy our game!</p>
