@@ -33,6 +33,7 @@ public class BattlePhaseDisplay {
     private Button chooseEnemyTwoBtn;
     private Button chooseEnemyThreeBtn;
     private Text error;
+    private Text defendText;
     private Text dialogue;
     private Text dialogueTwo;
     private Text dialogueThree;
@@ -63,6 +64,8 @@ public class BattlePhaseDisplay {
 	itemBag = new VBox();
 	heroStats = new VBox();
 	heroName = new TextFlow();
+	defendText = new Text();
+	defendText.setId("defendText");
     }
 
     public void healFunctionDisplay(GameCharacters hero) {	
@@ -344,6 +347,8 @@ public class BattlePhaseDisplay {
 	grid.add(itemBag, 0, 4);
 	grid.add(error, 0, 5);
 	grid.add(empowered, 0, 6);
+	grid.add(defendText, 0 ,7);
+	GridPane.setHalignment(defendText, HPos.CENTER);
 	if(hero.getType().equals("Mage")) {
 	    grid.add(heroMana, 1, 1);
 	    grid.add(fullManaBar, 1, 2);
@@ -956,6 +961,20 @@ public class BattlePhaseDisplay {
      */
     public void setReviveBtn(Button reviveBtn) {
         this.reviveBtn = reviveBtn;
+    }
+
+    /**
+     * @return the defendText
+     */
+    public Text getDefendText() {
+        return defendText;
+    }
+
+    /**
+     * @param defendText the defendText to set
+     */
+    public void setDefendText(Text defendText) {
+        this.defendText = defendText;
     }
 
     

@@ -85,12 +85,20 @@ public class GameCharacters {
      * @param character The character currently being attacked.
      * @return attackValue the int value of the attack dealt
      */
-    public int[] attack(GameCharacters character, Boolean outrage, Boolean empowered) {
+    public int[] attack(GameCharacters character, Boolean outrage, Boolean empowered, int defCount) {
 	setIsDefending(false);
 	int attackValue = this.getAttack() - character.getDefense();
 	int blockedValue = 0;
 	if (outrage) {
 		attackValue = attackValue * 3;
+	}
+	if (defCount >= 3 && this.type.equals("Warrior")) {
+	    	empowered = false;
+	    	attackValue = attackValue * 2;
+	}
+	if (defCount == 2 && this.type.equals("Warrior")) {
+	    	empowered = false;
+	    	attackValue = (int) (attackValue * 1.75);
 	}
 	if (empowered) {
 		attackValue = (int) (attackValue * 1.5);

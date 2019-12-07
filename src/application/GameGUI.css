@@ -123,6 +123,14 @@
 	-fx-font-weight: bold;
 }
 
+#defendText {
+	-fx-fill: white;
+	-fx-font-family: serif;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-effect:dropshadow(gaussian, rgba(255,0,0),10, 0.5, 0.0, 0.0); 
+}
+
 #battlePhaseBtn {
 	-fx-fill: black;
 	-fx-font-family: serif;

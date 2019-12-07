@@ -25,8 +25,8 @@ class GameCharactersTest {
 	MeleeEnemy  orc = new MeleeEnemy(2, 0);
 
 	int orcAttack = orc.getAttack();
-	int expected = 800 - (orcAttack - 50);
-	orc.attack(legolas, false, false);
+	int expected = 800 - (orcAttack - 45);
+	orc.attack(legolas, false, false, 0);
 
 	assertEquals(expected, legolas.getCurrentStamina());
     }
@@ -40,9 +40,9 @@ class GameCharactersTest {
 	MeleeEnemy  orc = new MeleeEnemy(4, 0);
 
 	legolas.defend();
-	orc.attack(legolas, false, false);
+	orc.attack(legolas, false, false, 0);
 	int orcAttack = orc.getAttack();
-	int expected = (int) (800 - Math.ceil(orcAttack - 50) * 0.25);
+	int expected = (int) (800 - Math.ceil(orcAttack - 45) * 0.25);
 
 	assertEquals(expected, legolas.getCurrentStamina());
     }
@@ -70,13 +70,29 @@ class GameCharactersTest {
 	Warrior aragorn = new Warrior();
 	MeleeEnemy  orc = new MeleeEnemy(8, 0);
 	
-	aragorn.setIsEmpowered(true);
+	//aragorn.setIsEmpowered(true);
 	int orcDef = orc.getDefense();
 	int orcStam = orc.getStamina();
-	int expected =  (orcStam - (int) ((150 - orcDef) * 1.5));
-	aragorn.attack(orc, false, true);
+	int expected =  (orcStam - (int) ((185 - orcDef) * 1.5));
+	aragorn.attack(orc, false, true, 0);
 
 	assertEquals(expected, orc.getCurrentStamina());
+    }
+    
+    /**
+     * This tests the attack method when the warrior has defended twice in a row
+     */
+    @Test
+    void warriorDefendTest() {
+	Warrior aragorn = new Warrior();
+	BossEnemy urukhai = new BossEnemy(10);
+	
+	int bossDef = urukhai.getDefense(); 
+	int bossStam = urukhai.getCurrentStamina();
+	int expected = (bossStam - (int) ((185 - bossDef) * 2));
+	aragorn.attack(urukhai, false, true, 3);
+
+	assertEquals(expected, urukhai.getCurrentStamina());
     }
     
     /**
@@ -89,7 +105,7 @@ class GameCharactersTest {
 	
 	int bossAtk = urukhai.getAttack(); 
 	int expected = 1000 - ((bossAtk - 60) * 3);
-	urukhai.attack(aragorn, true, false);
+	urukhai.attack(aragorn, true, false, 0);
 
 	assertEquals(expected, aragorn.getCurrentStamina());
     }
@@ -106,7 +122,7 @@ class GameCharactersTest {
 	aragorn.setIsDefending(true);
 	int bossAtk = urukhai.getAttack(); 
 	int expected = (int)(1000 - Math.ceil(((bossAtk - 60) * 3) * 0.25));
-	urukhai.attack(aragorn, true, false);
+	urukhai.attack(aragorn, true, false, 0);
 
 	assertEquals(expected, aragorn.getCurrentStamina());
     }
@@ -123,7 +139,7 @@ class GameCharactersTest {
 	assertEquals(135,2, gandalf.getAttack());
 	assertEquals(48,2, gandalf.getDefense());
 	assertEquals(850,10, gandalf.getStamina());
-	assertEquals(125, gandalf.getMana());
+	assertEquals(75, gandalf.getMana());
 	assertEquals(262,3, gandalf.getMagicAtk());
     }
 
