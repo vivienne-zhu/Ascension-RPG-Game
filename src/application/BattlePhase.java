@@ -41,6 +41,7 @@ public class BattlePhase {
 	private MediaPlayer gameOverMusic;
 	private MediaPlayer youWinMusic;
 	private BattlePhaseDisplay display;
+	private int defendCount;
 
 	public BattlePhase(Stage primaryStage, int floor, int totalEnemyHealth, HashMap<Integer, ArrayList<GameCharacters>> allEnemies,
 			GameCharacters hero, GraphicsContext gc, Scene transition, Scene youWin, Scene reviveScene, Scene gameOverScreen,
@@ -61,6 +62,7 @@ public class BattlePhase {
 		this.youWinMusic = youWinMusic;
 		this.display = display;
 		setMagic(false);
+		defendCount =0;
 		
 	}
 	/**
@@ -101,10 +103,10 @@ public class BattlePhase {
 			display.getItemBag().setVisible(false);
 			display.getError().setVisible(false);
 			setMagic(false);
-	
+			display.getDefendText().setVisible(false);
 			// Restore mana for mage
 			 restoreMana();
-
+			 
 			display.disableButtons(true);
 			hero.setIsDefending(false);
 			showEnemyBtns();
@@ -117,7 +119,7 @@ public class BattlePhase {
 		    display.getItemBag().setVisible(false);
 		    display.getError().setVisible(false);
 		    setMagic(true);
-		    
+		    	
 			display.disableButtons(true);
 			hero.setIsDefending(false);
 			showEnemyBtns();
@@ -134,11 +136,22 @@ public class BattlePhase {
 			display.getError().setVisible(false);
 			setMagic(false);
 			
-			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
+			//Increments defend count for warrior stacked attacked advantage
+			defendCount++;
+			if(defendCount == 2 && hero.getType().equals("Warrior")) {
+			    display.getDefendText().setVisible(true);
+			    display.getDefendText().setText("Next attack x 1.75");
+			} else if (defendCount == 3 && hero.getType().equals("Warrior")) {
+			    display.getDefendText().setVisible(true);
+			    display.getDefendText().setText("Next attack x 2");
+			} 
+//			    else {
+//			    display.getDefendText().setVisible(false);
+//			}
 			
 			// Restore mana for mage
 			restoreMana();
-			
+			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
 			gc.drawImage(defendIcon, 140, 280); //draw defend icon
 			display.disableButtons(true); //disable buttons
 			hero.setIsDefending(true);
@@ -405,7 +418,7 @@ public class BattlePhase {
 		timelineTwo.getKeyFrames().add(frameThree);
 
 		SequentialTransition sequence = new SequentialTransition(timeline, sound, slash, enemyRed, finishMove, hit, timelineTwo);
-		sequence.play();    	
+		sequence.play(); 
 	}
 
 	/**
@@ -479,8 +492,8 @@ public class BattlePhase {
 	 * 
 	 * @param choice The player choice of which enemy to attack
 	 */
-	private void hitEnemy(int choice) { 
-		
+	private void hitEnemy(int choice) { 	
+	    
 		int rand = (int) (Math.random() * (2));
 		
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
@@ -500,12 +513,12 @@ public class BattlePhase {
 			display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 			display.resetInfoBar(1, display.getManaBar(), 200, hero);
 		} else if (hero instanceof Rogue) {
-			attackAmount = hero.attack(enemy, false, hero.isEmpowered())[0];
+			attackAmount = hero.attack(enemy, false, hero.isEmpowered(), defendCount)[0];
 			if (rand == 0 && enemy.getCurrentStamina() != 0) {
-				secondAttack = hero.attack(enemy, false, hero.isEmpowered())[0]; //attacking twice
+				secondAttack = hero.attack(enemy, false, hero.isEmpowered(), defendCount)[0]; //attacking twice
 			}	
 		} else {
-			attackAmount = hero.attack(enemy, false, hero.isEmpowered())[0];
+			attackAmount = hero.attack(enemy, false, hero.isEmpowered(), defendCount)[0];
 		}
 		
 		if (choice == 0) {
@@ -515,7 +528,7 @@ public class BattlePhase {
 		} else {
 			display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
 		}
-
+		defendCount = 0;
 		totalEnemyHealth = totalEnemyHealth - attackAmount - secondAttack;
 		hero.setIsEmpowered(false);
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
@@ -1002,7 +1015,7 @@ public class BattlePhase {
 	 * @param i The counter for which enemy attacks
 	 */
 	private void hitHero(int i, Boolean outrage) { 
-		int[] attacks = allEnemies.get(floor).get(i).attack(hero, outrage, false);
+		int[] attacks = allEnemies.get(floor).get(i).attack(hero, outrage, false, defendCount);
 		if (!healerTargetAvail || !allEnemies.get(floor).get(i).getType().equals("Healer")) {
 		Timeline heroRed = new Timeline();
 		heroRed.setCycleCount(1);
