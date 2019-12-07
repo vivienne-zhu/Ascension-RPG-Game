@@ -717,18 +717,19 @@ public class GameGUI extends Application {
 		//Creating continue button and adding event handling
 		Button continueBtn = new Button("Next Floor");
 		continueBtn.setId("yellowBtn");	 
-		this.event.eventHappen();
-		if (this.event.isEvent() == true) {
-		    continueBtn.setOnAction(event -> {
-			se.transitionSound();
-			eventScreen(primaryStage);});
-		} else {
-		    continueBtn.setOnAction(event -> {
-			battleMusic.stop();
-			se.transitionSound();
-			floor.incrementFloor();
-			battleScreen(primaryStage);});
-		}
+		continueBtnHandling(continueBtn, primaryStage);
+//		this.event.eventHappen();
+//		if (this.event.isEvent() == true) {
+//		    continueBtn.setOnAction(event -> {
+//			se.transitionSound();
+//			eventScreen(primaryStage);});
+//		} else {
+//		    continueBtn.setOnAction(event -> {
+//			battleMusic.stop();
+//			se.transitionSound();
+//			floor.incrementFloor();
+//			battleScreen(primaryStage);});
+//		}
 		
 		// Add nodes to the grid pane
 		root.setHgap(60);
@@ -801,6 +802,29 @@ public class GameGUI extends Application {
 		primaryStage.setScene(shopScene);
 		primaryStage.show();
 
+	}
+	
+	/**
+	 * The method adds event handling to the continue button 
+	 * depending on whether there is an event or not
+	 * 
+	 * @param continueBtn The continue Button
+	 * @param primaryStage The primary GUI window/stage
+	 */
+	private void continueBtnHandling(Button continueBtn, Stage primaryStage) {
+	    	this.event.eventHappen();
+		if (this.event.isEvent() == true) {
+		    continueBtn.setOnAction(event -> {
+			se.transitionSound();
+			eventScreen(primaryStage);});
+		} else {
+		    continueBtn.setOnAction(event -> {
+			battleMusic.stop();
+			se.transitionSound();
+			floor.incrementFloor();
+			battleScreen(primaryStage);});
+		}
+		
 	}
 	
 	/**
@@ -931,7 +955,8 @@ public class GameGUI extends Application {
 	    //Creating buttons and adding event handling
 	    Button reviveBtn = new Button("Use revive");
 	    reviveBtn.setId("whiteBtn");
-	    reviveBtn.setOnAction(event-> {hero.revive();
+	    reviveBtn.setOnAction(event-> { 
+		hero.revive();
 	    	battleMusic.stop();
 	    	se.transitionSound();
 		battleScreen(primaryStage);
@@ -966,7 +991,38 @@ public class GameGUI extends Application {
 	    primaryStage.show();
 	    return reviveScene;	    
 	}
-
+	/**
+	 * This method adds event handling to the two buttons at the end of the game 
+	 * on the youWin or game over screen.
+	 * 
+	 * @param exitBtn The button to exit the game 
+	 * @param playAgainBtn The button to play ther game again
+	 * @param win The boolean based on whether the player won the game
+	 * @param primaryStage The primary GUI widow/stage
+	 */
+	private void endOfGameButtons(Button exitBtn, Button playAgainBtn, Boolean win, Stage primaryStage) {
+	    	exitBtn.setOnAction(event-> {primaryStage.close();;});
+	    	if (win) {
+	    	playAgainBtn.setOnAction(event-> {try {
+		    	youWinMusic.stop();
+		    	floor.setFloor(1);
+		    	se.transitionSound();
+			start(primaryStage);
+		} catch (FileNotFoundException e) { 
+			primaryStage.close();
+		}});
+	    	} else if (!win) {
+	    	playAgainBtn.setOnAction(event-> {try {
+		    	gameOverMusic.stop();
+		    	se.transitionSound();
+		    	floor.setFloor(1);
+			start(primaryStage);
+		} catch (FileNotFoundException e) { 
+			primaryStage.close();
+		}});
+	    	}
+		
+	}
 	/**
 	 * This method creates screen when the player wins the game
 	 * 
@@ -990,27 +1046,18 @@ public class GameGUI extends Application {
 		//Creating Pane 
 		Pane gameWon = new Pane();
 
-		//Creating the buttons to exit the game or play again
+		//Creating the buttons and adding event handling
 		Button exitBtn = new Button("Exit game");
 		exitBtn.setId("whiteBtn");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setId("whiteBtn");
+		endOfGameButtons(exitBtn, playAgainBtn, true, primaryStage);
 		HBox hbBtn = new HBox(10);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-		
-		//Adding eventHandling for buttons
-		exitBtn.setOnAction(event-> {primaryStage.close();;});
-		playAgainBtn.setOnAction(event-> {try {
-		    	youWinMusic.stop();
-		    	floor.setFloor(1);
-		    	se.transitionSound();
-			start(primaryStage);
-		} catch (FileNotFoundException e) { 
-			primaryStage.close();
-		}});
+	
 
 		//Adding nodes to pane and set pane background
 		gameWon.getChildren().addAll(hbBtn, youWin, thankYou);
@@ -1045,28 +1092,18 @@ public class GameGUI extends Application {
 		gameOverText2.setLayoutX(180);
 		gameOverText2.setLayoutY(10);
 
-		//Creating the buttons to exit the game or play again
+		//Creating the buttons and adding event handling
 		Button exitBtn = new Button("Exit game");
 		exitBtn.setId("gameOverBtn");
 		Button playAgainBtn = new Button("Play again");
 		playAgainBtn.setId("gameOverBtn");
+		endOfGameButtons(exitBtn, playAgainBtn, false, primaryStage);
 		HBox hbBtn = new HBox(25);
 		hbBtn.getChildren().addAll(exitBtn, playAgainBtn);
 		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(630);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
 		
-			  
-		//Adding eventHandlint for buttons
-		exitBtn.setOnAction(event-> {primaryStage.close();});
-		playAgainBtn.setOnAction(event-> {try {
-		    	gameOverMusic.stop();
-		    	se.transitionSound();
-		    	floor.setFloor(1);
-			start(primaryStage);
-		} catch (FileNotFoundException e) { 
-			primaryStage.close();
-		}});
 
 		//Creating Pane and adding nodes
 		Pane gameOver = new Pane();
@@ -1185,18 +1222,7 @@ public class GameGUI extends Application {
 		display.setId("transitionBackground");	
 
 		// Event handling for if there is a special event 
-		this.event.eventHappen();
-		if (this.event.isEvent() == true) {
-			continueBtn.setOnAction(event -> {
-			    se.transitionSound();
-			    eventScreen(primaryStage);});
-		} else {
-			continueBtn.setOnAction(event -> {
-			    battleMusic.stop();
-			    se.transitionSound();
-			    floor.incrementFloor();
-			    battleScreen(primaryStage);});
-		}
+		continueBtnHandling(continueBtn, primaryStage);
 		
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
 		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
