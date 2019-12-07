@@ -24,11 +24,11 @@ class EventTest {
 	void testDropFloor() {
 		Text display = new Text();
 		Floor floor = new Floor();
-		floor.setFloor(3);
+		floor.setFloor(3); 
 		
 		Event df = new Event();
 		df.dropFloor(floor, display);
-		assertEquals(floor.getFloor(), 2);
+		assertEquals(2, floor.getFloor());
 	}
 
 	/**
@@ -42,7 +42,7 @@ class EventTest {
 		Event ab = new Event();
 		ab.attackBoost(hero, display);
 		
-		assertEquals(hero.getAttack(), 120);
+		assertEquals(120, hero.getAttack());
 	}
 	/**
 	 * This tests the event method that boost the heros defense
@@ -55,7 +55,7 @@ class EventTest {
 		Event db = new Event();
 		db.defenseBoost(hero, display);
 		
-		assertEquals(hero.getDefense(), 120);
+		assertEquals(120, hero.getDefense());
 	}
 
 }
