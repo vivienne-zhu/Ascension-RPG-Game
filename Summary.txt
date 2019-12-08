@@ -34,11 +34,14 @@ David Cai - 1) Implemented Attack and Defend actions as well as gameplay mechani
             Most worked on classes: BattlePhase, GameCharacters, MeleeEnemy, RangedEnemy, HealerEnemy, BossEnemy
             
 Jiayu Vivienne Zhu - 1) Shop: created shop class, shop JUnit tests, and made shopScene in the gameGUI class.
-                     2) Special Event: created event class, event JUnit tests, and made eventSvene in the gameGUI class.
+                     2) Special Event: created event class, event JUnit tests, and made eventScene in the gameGUI class.
                      3) Game Items: created potion, cheap potion and hyper potion class; 
                                     heal function through use of potions for hero in the battle phase.
                      6) Floor: created floor class and floor JUnit tests.
-                     8) Battle: created stamina bar and mana bar; created hero stats display; mana restore for the mage class.                             
+		     7) Sound Effect: created sound effect class, and organized sound effects for the game.
+                     8) Battle: created stamina bar and mana bar; 
+		                created hero stats display; 
+		                mana restore for the mage class.                             
                      9) Other: balanced classes, sound effects, text and image design for GUI. 
 
 Shari Sinclair - 
