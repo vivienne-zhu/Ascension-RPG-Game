@@ -747,7 +747,6 @@ public class BattlePhase {
 		Timeline posThreeNoise = new Timeline();
 
 		if (hero.getCurrentStamina() > 0) {
-			;
 
 			// Calculates the necessary movement for each enemy depending on position
 			if (!dead.contains(0)) {
