@@ -121,8 +121,8 @@ public class Event {
 	 * This method will trigger the attack boost event. The player will get a 20%
 	 * boost on his attack pts.
 	 * 
-	 * @param hero
-	 * @param display
+	 * @param hero The player hero
+	 * @param display The text display of the event
 	 */
 	public void attackBoost(GameCharacters hero, Text display) {
 		hero.setAttack((int) (hero.getAttack() * 1.2));
@@ -135,8 +135,8 @@ public class Event {
 	 * This method will trigger the defense boost event. The player will get a 20%
 	 * boost on his defense pts.
 	 * 
-	 * @param hero
-	 * @param display
+	 * @param hero hero The player hero
+	 * @param display The text display of the event
 	 */
 	public void defenseBoost(GameCharacters hero, Text display) {
 		hero.setDefense((int) (hero.getDefense() * 1.2));
