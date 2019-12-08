@@ -129,8 +129,8 @@ public class BattlePhase {
 		display.getDefendBtn().setOnAction(event -> {
 		    if(totalEnemyHealth != 0) {
 		    	display.getItemBag().setVisible(false);
-			display.getError().setVisible(false);
-			setMagic(false);
+			    display.getError().setVisible(false);
+			    setMagic(false);
 			
 			//Increments defend count for warrior stacked attacked advantage
 			defendCount++;
@@ -209,7 +209,13 @@ public class BattlePhase {
 	    hero.usePotion(p, display.getError());
 		display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
-		display.getPotionBtn().setText(hero.itemInfo(p));
+		
+		if (p == hero.getCp()) {
+			display.getPotionBtn().setText(hero.itemInfo(p));			
+		} else if (p == hero.getHp()) {
+			display.getHyperPotionBtn().setText(hero.itemInfo(p));	
+		}
+		
 		if (display.getError().isVisible() == false) {
 		    Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
