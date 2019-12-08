@@ -42,5 +42,21 @@ Jiayu Vivienne Zhu - 1) Shop: created shop class, shop JUnit tests, and made sho
                      9) Other: balanced classes, sound effects, text and image design for GUI. 
 
 Shari Sinclair - 
+	1)Wrote code for the Warriors Stacked Attack ability, and the Mages Fireball ability, including Fireball animation and the logic for Magic Attack battle mechanics. (GameCharacters and BattlePhase classes)
+	2)Created 3 Hero classes for game play: Mage, Warrior, Rogue. Added code to animate hero images and animation w/ heal buttons during battle. 
+	3)GameGUI – built the majority of GUI elements, all screens and methods except event,shop and battle screen. 
+	4)GameGUI.css - Converted repetitive text, button and background style code across all classes to css. Created the different styles of buttons and their hover and click animations. 
+	5)Created the overall logic for the order of the various screens to ensure correct gameplay from start to finish, as well as placement/occurrence of event scene (no repetitions). Ensured no overlaps in music occurred as screens transitioned in the GUI. Worked on initial GamePlayController class which has now been deprecated. 
+	6)Improved DRYness with use of single method in SoundEffect class, methods in GameGUI for button creation and event handling, and methods in BattlePhase for multiple enemy animation and button event handling. 
+	7)Created BattlePhaseDisplay class for improved cohesion.
+	8)GameCharactersTest - Created junit tests used for methods of the GameCharacters class.
+	9)Readme – updated readme with screenshots and explanations
+	10)Shared responsibilities: balance, javadocs for various classes, added sounds to SoundEffect class, general GUI improvements, add images to other classes)
+Classes worked on: GameGUI, GameCharacters, Mage, Warrior, Rogue, GameCharactersTest, GameGUI.css, SoundEffect, BattlePhaseDisplay, BattlePhase.
+
+
+
+
+
 
 

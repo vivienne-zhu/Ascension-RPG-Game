@@ -220,7 +220,7 @@ public class GameGUI extends Application {
 
 		//Creating Pane, adding background and then adding above nodes
 		Pane display = new Pane();
-		display.getChildren().addAll(charOption, btns, heroInfo, heroInfoTwo) ;
+		display.getChildren().addAll(charOption, btns, heroInfo, heroInfoTwo);
 		display.setId("startTwoBackground");
 
 		//Fade Transition
