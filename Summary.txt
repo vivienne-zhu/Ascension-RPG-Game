@@ -15,13 +15,18 @@ Description:
   you will find that no two runs are truly the same. We encourage you to try all the classes and try to reach the top!
 
 Work Breakdown:
-David Cai - 1) Implemented Attack and Defend actions as well as gameplay mechanics relating to Defend Empower, Boss Outrage,                  and Rogue's Special Ability: Slice and Dice.
-            2) Programmed logic necessary to animate 1-3 enemies as well as their movements and attacks so that no overlap                    occurs. Ensured that enemies are animated appropriately even as other objects (player, magic attacks, enemies)                move through them.
-            3) Created timing sequence logic to ensure that all enemies attack in order, move the amount they should move (or                not move in the case of ranged enemies) such that an entire enemy turn can occur from start to finish.
+David Cai - 1) Implemented Attack and Defend actions as well as gameplay mechanics relating to Defend Empower, Boss Outrage,  
+               and Rogue's Special Ability: Slice and Dice.
+            2) Programmed logic necessary to animate 1-3 enemies as well as their movements and attacks so that no overlap 
+               occurs. Ensured that enemies are animated appropriately even as other objects (player, magic attacks, enemies) 
+               move through them.
+            3) Created timing sequence logic to ensure that all enemies attack in order, move the amount they should move (or 
+               not move in the case of ranged enemies) such that an entire enemy turn can occur from start to finish.
             4) Implemented enemy healing logic in which healer heals most hurt enemy (or attacks if all at full health).
             5) Wrote code to control stat randomization, enemy type/stat randomization, XP generation. 
             6) Added slash animations, hit sounds, hurt animations, and healing animations.
-            7) Worked on general logic of GUI in battling (outputting proper dialogue and relevant information, making sure                  proper buttons are available/disabled depending on actions of both player and enemies).
+            7) Worked on general logic of GUI in battling (outputting proper dialogue and relevant information, 
+            making sure proper buttons are available/disabled depending on actions of both player and enemies).
             8) Created Runner class (now deprecated) to simulate game logic before creation of GUI.
             9) Made all enemy classes so that enemy objects can be used in battle.
             10) (Shared responsiblity) Balanced classes to ensure all classes are equal in power level and fun.
