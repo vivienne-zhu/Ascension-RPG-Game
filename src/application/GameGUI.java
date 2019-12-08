@@ -238,7 +238,6 @@ public class GameGUI extends Application {
 	 * hovered over. 
 	 * 
 	 * @param pane The StackPane used to create the button
-	 * @param text The text on the pane
 	 * @param type The type of hero/character
 	 * @param primaryStage The primary GUI window
 	 */
@@ -381,7 +380,6 @@ public class GameGUI extends Application {
 	 * to set the hero name and create the new hero.
 	 * 
 	 * @param primaryStage The primary stage/ window to display the GUI.
-	 * @return givenName String name entered by the user.
 	 */
 	private void nameCharScreen(Stage primaryStage) {
 		//Creating grid to be used to house text and text field

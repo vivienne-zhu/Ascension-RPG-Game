@@ -48,7 +48,7 @@ class GameCharactersTest {
     }
 
     /**
-     * This tests magic attack method with a hero and melee enemy
+     * This tests magic attack method with a mage and melee enemy
      */
     @Test 
     void magicAtkTest() {
@@ -80,7 +80,7 @@ class GameCharactersTest {
     }
     
     /**
-     * This tests the attack method when the warrior has defended twice in a row
+     * This tests the attack method when the warrior has defended 3 times in a row
      */
     @Test
     void warriorDefendTest() {

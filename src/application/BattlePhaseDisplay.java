@@ -68,6 +68,12 @@ public class BattlePhaseDisplay {
 		defendText.setId("defendText");
 	}
 
+	/**
+	 * This method creates display, item bag, needed for heal functionality
+	 * during battle 
+	 * 
+	 * @param hero The player controlled hero GameCharacters
+	 */
 	public void healFunctionDisplay(GameCharacters hero) {
 		itemBag.setMaxWidth(200);
 
@@ -109,9 +115,9 @@ public class BattlePhaseDisplay {
 	/**
 	 * This method initializes the style for any types of the bars in the game.
 	 * 
-	 * @param barType
-	 * @param width
-	 * @param gm
+	 * @param barType The type of stat bar being created
+	 * @param width The with of the bar
+	 * @param gm The GameCharacter for which the bar is being displayed
 	 */
 	private void infoBar(Rectangle barType, double width, GameCharacters gm) {
 		barType.setArcWidth(20.0);
@@ -125,10 +131,10 @@ public class BattlePhaseDisplay {
 	 * game. If type is equal to 0, it means that it is a stamina bar. If type is
 	 * equal to 1, it means that it is a mana bar.
 	 * 
-	 * @param type
-	 * @param barType
-	 * @param width
-	 * @param gm
+	 * @param type  Tells what type of bar is being created
+	 * @param barType The type of stat bar being created
+	 * @param width The new with of the bar
+	 * @param gm The GameCharacter for which the bar is being displayed
 	 */
 	public void resetInfoBar(int type, Rectangle barType, double width, GameCharacters gm) {
 		if (type == 0) {
@@ -143,7 +149,7 @@ public class BattlePhaseDisplay {
 	/**
 	 * This method generates the display of the hero stats.
 	 * 
-	 * @param hero
+	 * @param hero The player controlled GameCharacters
 	 */
 	public VBox heroStatsDisplay(GameCharacters hero) {
 		// To initialize heroStats VBox
@@ -295,6 +301,8 @@ public class BattlePhaseDisplay {
 
 	/**
 	 * This method will create the necessary action buttons during the battle phase
+	 * 
+	 * @param hero      The character the player controls
 	 */
 	public void initButtons(GameCharacters hero) {
 

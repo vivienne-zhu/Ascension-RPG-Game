@@ -18,6 +18,7 @@ public class SoundEffect {
 	/**
 	 * This method adds the necessary music file to the media player 
 	 * instance variable and sets the volume
+	 * 
 	 * @param musicFile The string name of the music/sound file path
 	 * @param volume The double of the volume to be set
 	 */

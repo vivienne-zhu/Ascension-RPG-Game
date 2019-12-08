@@ -65,8 +65,6 @@ public class GameCharacters {
 		this.hp = new HyperPotion();
 		this.potionMap.put(cp, 0);
 		this.potionMap.put(hp, 0);
-
-		// for testing purpose, set the gold to 10000.
 		this.gold = 100;
 		this.xp = 0;
 		this.isDefending = false;
@@ -76,7 +74,7 @@ public class GameCharacters {
 		this.width = 0.0;
 		this.hasRevive = false;
 		this.se = new SoundEffect();
-//	this.setLeveledThisTurn(false);
+
 	}
 
 	/**
@@ -84,7 +82,10 @@ public class GameCharacters {
 	 * it is attacked by another character. Returns the value of that attack.
 	 * 
 	 * @param character The character currently being attacked.
-	 * @return attackValue the int value of the attack dealt
+	 * @param outrage Tells if the boss is outrages
+	 * @param empowered tells whether the hero is empowered
+	 * @param defCount Tells the current number of times the warrior has successively defended
+	 * @return attacks the int array with value of the attack dealt and blocked
 	 */
 	public int[] attack(GameCharacters character, Boolean outrage, Boolean empowered, int defCount) {
 		setIsDefending(false);
@@ -129,6 +130,7 @@ public class GameCharacters {
 	 * they are attacked using a magic attack.Returns the value of that attack.
 	 * 
 	 * @param character The character currently being attacked.
+	 * @param empowered tells whether the hero is empowered
 	 * @return attackValue the int value of the magic attack dealt
 	 */
 	public int magicAttack(GameCharacters character, Boolean isEmpowered) {
@@ -161,7 +163,7 @@ public class GameCharacters {
 	 * team
 	 * 
 	 * @param character GameCharacters chosen to get heal
-	 * @return Amount of health healed
+	 * @return healValue Amount of health healed
 	 */
 	public int enemyHeal(GameCharacters character) {
 		int healValue = this.getAttack() * 1;
@@ -333,6 +335,7 @@ public class GameCharacters {
 	 * This method returns a string that includes the name of the item and the
 	 * quantity of the item hero currently possesses.
 	 * 
+	 * @param potion type of potion for which info is needed
 	 * @return itemInfo name/type and amount of the item
 	 */
 	public String itemInfo(Potion potion) {
