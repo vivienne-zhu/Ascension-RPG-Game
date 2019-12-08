@@ -66,7 +66,6 @@ public class GameGUI extends Application {
 		youWinMusic = se.youWinMusic();
 		heroInfo = new VBox(15);
 		heroInfoTwo = new VBox(15);
-
 	}
 	
 	/**
@@ -180,6 +179,7 @@ public class GameGUI extends Application {
 	    pane.setId("btnText");
 	   
 	    return pane;
+	    
 	}
 	
 	/**
@@ -231,6 +231,7 @@ public class GameGUI extends Application {
 		chooseChar.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
+		
 	}
 	/**
 	 * This method handles the event for when character buttons are pressed or
@@ -274,8 +275,8 @@ public class GameGUI extends Application {
 		pane.getChildren().add(btnText);
 		heroInfo.setVisible(false);
 		heroInfoTwo.setVisible(false);
-
 	    });
+	    
 	}
 
 	
@@ -325,6 +326,7 @@ public class GameGUI extends Application {
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
 		heroInfoTwo.setLayoutY(380);
+		
 		//Warrior text
 		Text info = new Text();
 		GameCharacters warrior = new Warrior();
@@ -351,6 +353,7 @@ public class GameGUI extends Application {
 		heroInfoTwo.getChildren().clear();
 		heroInfoTwo.setLayoutX(860);
 		heroInfoTwo.setLayoutY(495);
+		
 		//Rogue text
 		Text info = new Text();
 		GameCharacters rogue = new Rogue();
@@ -369,8 +372,8 @@ public class GameGUI extends Application {
 		heroInfoTwo.getChildren().add(infoTwo);
 		
 	    } 
-	   
 	    return heroInfo;
+	    
 	}
 
 	/**
@@ -395,7 +398,6 @@ public class GameGUI extends Application {
 		submitBtn.setLayoutX(1050);
 		submitBtn.setLayoutY(600);
 		
-		
 		// Create back button, adding style
 		Button backBtn = new Button("Back");
 		backBtn.setId("yellowBtn");
@@ -407,7 +409,6 @@ public class GameGUI extends Application {
 			chooseCharacterScreen(primaryStage);
 			});
 	
-		
 		//EventHandling and error checking for empty textfield
 		Text error = new Text();
 		
@@ -1332,6 +1333,9 @@ public class GameGUI extends Application {
 	    this.battleMusic = battleMusic;
 	}
 
+	/**
+	 * @param args necessary method to launch JavaFX GUI
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
