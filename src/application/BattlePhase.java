@@ -1091,7 +1091,6 @@ public class BattlePhase {
 		}
 	}
 	
-	
 	/**
 	 * This method enables the mage to restore his mana during battle. 
 	 * 
@@ -1116,7 +1115,6 @@ public class BattlePhase {
 	public boolean isMagic() {
 		return magic;
 	}
-
 
 	/**
 	 * @param magic the magic to set
