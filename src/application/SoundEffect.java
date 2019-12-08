@@ -112,7 +112,7 @@ public class SoundEffect {
 	 */
 	public MediaPlayer openingMusic() {
 	    
-	    return createSound( "./src/startMusic.wav", 0.5);
+	    return createSound( "./src/startMusic.wav", 0.7);
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class SoundEffect {
 	 * @return mediaPlayer music media player
 	 */
 	public MediaPlayer backgroundMusic() {
-	    return createSound("./src/fightmusiccut.mp3", 0.03);
+	    return createSound("./src/fightmusiccut.mp3", 0.06);
 	}
 
 	

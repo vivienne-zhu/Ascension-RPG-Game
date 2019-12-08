@@ -853,9 +853,10 @@ public class GameGUI extends Application {
 					});
 		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
-		openBtn.setId("yellowBtn");		
+		openBtn.setId("yellowBtn");
+		openBtn.setDisable(false);
 		openBtn.setOnAction(Event -> {
-			
+			openBtn.setDisable(true);
 			// Open treasure chest sound effect 
 			se.openChestSound();
 			
