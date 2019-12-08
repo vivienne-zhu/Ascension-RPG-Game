@@ -339,12 +339,11 @@ public class GameGUI extends Application {
 		
 		Text infoTwo = new Text();
 		infoTwo.setText("		Special Attribute: Defense" + "\n" + 
-		"                   Special Ability: Stacked Attack" + "\n" +
-		"Their ability allows them to increase the power " + "\n" + 
-		"of their next attack by successive defending." +
-		"\n" + "2x in a row = 75% & 3x = 100% increase." + "\n" + 
-		"The warrior has the most health and defense, " + 
-		"\n" + " and gains more defense stats during level up.");
+		"            Special Ability: Stacked Attack" + "\n" +
+		"Stacked Attack increases damage through" + "\n" + 
+		"successive defending (2x = 75%, 3x = 100%)." + "\n" +
+		"Warriors specialize in health and defense" + "\n" +
+		"and will gain more defense stats on level up.");
 		heroInfoTwo.getChildren().add(infoTwo);
 		
 	    } else if (type.equals("Rogue")) {
