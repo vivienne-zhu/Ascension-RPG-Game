@@ -625,7 +625,7 @@ public class BattlePhase {
 	private void moveOn(Scene s) {
 		Timeline moveOn = new Timeline();
 		moveOn.setCycleCount(1);
-		KeyFrame frame = new KeyFrame(Duration.millis(3000), ae -> primaryStage.setScene(s));
+		KeyFrame frame = new KeyFrame(Duration.millis(1500), ae -> primaryStage.setScene(s));
 		moveOn.getKeyFrames().add(frame);
 		moveOn.play();
 	}
@@ -713,7 +713,7 @@ public class BattlePhase {
 	private void enemyTurn() {
 
 		// If enemies are still alive
-		if (totalEnemyHealth > 0) {
+		if (totalEnemyHealth > 0 && hero.getCurrentStamina() > 0) {
 			display.getDialogue().setText("It is the enemy's turn.");
 			display.getDialogueTwo().setText("");
 			display.getDialogueThree().setText("");
@@ -1128,6 +1128,7 @@ public class BattlePhase {
 				gameOverMusic.play();
 				moveOn(gameOverScreen);
 			}
+			
 		}
 	}
 
