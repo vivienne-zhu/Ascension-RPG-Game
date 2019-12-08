@@ -8,6 +8,12 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * This test the methods of the shop class
+ * 
+ * @author JiayuZhu
+ *
+ */
 class ShopTest {
     
     JFXPanel jfxPanel = new JFXPanel();
