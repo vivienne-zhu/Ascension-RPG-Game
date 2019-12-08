@@ -38,16 +38,15 @@ public class Shop {
 	 *                 money
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
-	public void buyPotion(Potion potion, TextField quantity, Text errorMsg,
-			Text display) {
-			String text = quantity.getText();
-			if (text.isEmpty() || text.matches("0")) {
-				se.errorSound();
-				quantity.setText("INVALID QUANTITY");
-				quantity.setOnMouseClicked(event -> quantity.clear());
-			} else {			
+	public void buyPotion(Potion potion, TextField quantity, Text errorMsg, Text display) {
+		String text = quantity.getText();
+		if (text.isEmpty() || text.matches("0")) {
+			se.errorSound();
+			quantity.setText("INVALID QUANTITY");
+			quantity.setOnMouseClicked(event -> quantity.clear());
+		} else {
 			if (text.matches("[0-9]*")) {
-				int cost =  potion.getPrice() * Integer.parseInt(quantity.getText());
+				int cost = potion.getPrice() * Integer.parseInt(quantity.getText());
 				if (hero.getGold() >= cost) {
 					se.moneySound();
 					errorMsg.setVisible(false);
@@ -61,13 +60,14 @@ public class Shop {
 					quantity.clear();
 					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
 					errorMsg.setVisible(true);
-			}
+				}
 			} else {
 				se.errorSound();
 				quantity.setText("NUMBERS ONLY");
 				quantity.setOnMouseClicked(event -> quantity.clear());
 			}
-		};
+		}
+		;
 
 	}
 
@@ -83,18 +83,18 @@ public class Shop {
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
 	public void sellPotion(Potion potion, TextField q, Text errorMsg, Text display) {
-			String text = q.getText();
-			if (text.isEmpty() || text.matches("0")) {
-				se.errorSound();
-				q.setText("INVALID QUANTITY");
-				q.setOnMouseClicked(event -> q.clear());
-			} else {		
+		String text = q.getText();
+		if (text.isEmpty() || text.matches("0")) {
+			se.errorSound();
+			q.setText("INVALID QUANTITY");
+			q.setOnMouseClicked(event -> q.clear());
+		} else {
 			if (text.matches("[0-9]*")) {
 				int quantity = Integer.parseInt(q.getText());
 				if (hero.getPotionMap().get(potion) >= quantity) {
 					se.moneySound();
 					hero.setGold(hero.getGold() + ((potion.getPrice() / 2) * quantity));
-					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);	
+					hero.getPotionMap().put(potion, hero.getPotionMap().get(potion) - quantity);
 					display.setText(this.shopDisplay());
 					q.clear();
 				} else {
@@ -106,12 +106,12 @@ public class Shop {
 			} else {
 				se.errorSound();
 				q.setText("NUMBERS ONLY");
-				q.setOnMouseClicked(event -> q.clear());				
+				q.setOnMouseClicked(event -> q.clear());
 			}
-		};
+		}
+		;
 	}
-	
-	
+
 	/**
 	 * This method allows the player to buy the revive item at the shop.
 	 * 
@@ -120,25 +120,24 @@ public class Shop {
 	 * @param display  a text showing gold and the items in the player's bag
 	 */
 	public void buyRevive(Text errorMsg, Text display) {
-			if (hero.isHasRevive() == true) {
-				se.errorSound(); 
-				errorMsg.setText("YOU ALDREADY HAVE THAT ITEM");
-				errorMsg.setVisible(true);
+		if (hero.isHasRevive() == true) {
+			se.errorSound();
+			errorMsg.setText("YOU ALDREADY HAVE THAT ITEM");
+			errorMsg.setVisible(true);
+		} else {
+			if (hero.getGold() >= 250) {
+				se.moneySound();
+				hero.setGold(hero.getGold() - 250);
+				hero.setHasRevive(true);
+				display.setText(this.shopDisplay());
 			} else {
-				if (hero.getGold() >= 250) {
-					se.moneySound();
-					hero.setGold(hero.getGold() - 250);
-					hero.setHasRevive(true);
-					display.setText(this.shopDisplay());
-				} else {
-					se.errorSound();
-					errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
-					errorMsg.setVisible(true);
-				}
+				se.errorSound();
+				errorMsg.setText("YOU DO NOT HAVE ENOUGH GOLD");
+				errorMsg.setVisible(true);
 			}
+		}
 	}
-	
-	
+
 	/**
 	 * This method allows the player to sell a revive item at the shop.
 	 * 
@@ -148,18 +147,18 @@ public class Shop {
 	 * @param display  A text showing gold and the items in the player's bag
 	 */
 	public void sellRevive(Text errorMsg, Text display) {
-				if (hero.isHasRevive() == true) {
-					se.moneySound();
-					hero.setGold(hero.getGold() + 150);
-					hero.setHasRevive(false);	
-					display.setText(this.shopDisplay());
-				} else {
-					se.errorSound();
-					errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
-					errorMsg.setVisible(true);
-				}
+		if (hero.isHasRevive() == true) {
+			se.moneySound();
+			hero.setGold(hero.getGold() + 150);
+			hero.setHasRevive(false);
+			display.setText(this.shopDisplay());
+		} else {
+			se.errorSound();
+			errorMsg.setText("YOU DO NOT HAVE ENOUGH ITEMS");
+			errorMsg.setVisible(true);
+		}
 	}
-    
+
 	/**
 	 * This method returns a string that include player's gold and what is in his
 	 * bag.
