@@ -337,11 +337,12 @@ public class GameGUI extends Application {
 		
 		Text infoTwo = new Text();
 		infoTwo.setText("		Special Attribute: Defense" + "\n" + 
-		"                   Special Ability: Sturdy" + "\n" +
-		"The warrior specializes in health and defense." + "\n" + 
-		"It gains more defense stats during level up" +
-		"\n" + "and its Sturdy ability gives it 200 more" + "\n" + 
-		"starting health than the other two classes.");
+		"                   Special Ability: Stacked Attack" + "\n" +
+		"Their ability allows them to increase the power " + "\n" + 
+		"of their next attack by successive defending." +
+		"\n" + "2x in a row = 75% & 3x = 100% increase." + "\n" + 
+		"The warrior has the most health and defense, " + 
+		"\n" + " and gains more defense stats during level up.");
 		heroInfoTwo.getChildren().add(infoTwo);
 		
 	    } else if (type.equals("Rogue")) {
