@@ -14,18 +14,18 @@ import javafx.scene.text.Text;
  *
  */
 class EventTest {
-	
-    JFXPanel jfxPanel = new JFXPanel();
-   
-    /**
-     * This test the event method drop floor
-     */
+
+	JFXPanel jfxPanel = new JFXPanel();
+
+	/**
+	 * This test the event method drop floor
+	 */
 	@Test
 	void testDropFloor() {
 		Text display = new Text();
 		Floor floor = new Floor();
-		floor.setFloor(3); 
-		
+		floor.setFloor(3);
+
 		Event df = new Event();
 		df.dropFloor(floor, display);
 		assertEquals(2, floor.getFloor());
@@ -41,9 +41,10 @@ class EventTest {
 		Text display = new Text();
 		Event ab = new Event();
 		ab.attackBoost(hero, display);
-		
+
 		assertEquals(120, hero.getAttack());
 	}
+
 	/**
 	 * This tests the event method that boost the heros defense
 	 */
@@ -54,7 +55,7 @@ class EventTest {
 		Text display = new Text();
 		Event db = new Event();
 		db.defenseBoost(hero, display);
-		
+
 		assertEquals(120, hero.getDefense());
 	}
 

@@ -17,8 +17,8 @@ public class RangedEnemy extends GameCharacters {
 	 */
 	public RangedEnemy(int floor, int position) {
 		// Stat values will be changed
-		setAttack(75 + (4 + (int) (Math.random() * (5 - 4) + 1)) * floor); //75 + (4 to 5 * floor)
-		setDefense(30 + (2 + (int) (Math.random() * (4 - 2) + 1)) * floor); //30 + (2 to 4 * floor)
+		setAttack(75 + (4 + (int) (Math.random() * (5 - 4) + 1)) * floor); // 75 + (4 to 5 * floor)
+		setDefense(30 + (2 + (int) (Math.random() * (4 - 2) + 1)) * floor); // 30 + (2 to 4 * floor)
 		int startStam = 175 + 20 * floor;
 		setStamina(startStam);
 		setCurrentStamina(startStam);
@@ -39,12 +39,12 @@ public class RangedEnemy extends GameCharacters {
 		setWidth(220);
 		setHeight(220);
 		setType("Ranged");
-		
+
 		setMagicy(520);
 		setCharacterImage(new Image("rangedEnemy.gif", getWidth(), getHeight(), false, false));
-		setCharacterImageHurt(new Image("rangedEnemyRed.png",getWidth(), getHeight(), false, false));
-		setCharacterImageHeal(new Image("rangedEnemyWhite.png",getWidth(), getHeight(), false, false));
-		setMagicAtkImage(new Image("fireblastRev.png",100, 50, false, false));
+		setCharacterImageHurt(new Image("rangedEnemyRed.png", getWidth(), getHeight(), false, false));
+		setCharacterImageHeal(new Image("rangedEnemyWhite.png", getWidth(), getHeight(), false, false));
+		setMagicAtkImage(new Image("fireblastRev.png", 100, 50, false, false));
 
 	}
 
