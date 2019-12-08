@@ -76,7 +76,7 @@ public class GameCharacters {
 		this.width = 0.0;
 		this.hasRevive = false;
 		this.se = new SoundEffect();
-//	this.setLeveledThisTurn(false);
+		//	this.setLeveledThisTurn(false);
 	}
 
 	/**

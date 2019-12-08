@@ -1066,7 +1066,7 @@ public class BattlePhase {
 			display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, outerMostHurtEnemy);
 		}
 		display.getDialogueTwo()
-				.setText("Healer healed " + outerMostHurtEnemy.getType() + " for " + healAmt + " health!");
+		.setText("Healer healed " + outerMostHurtEnemy.getType() + " for " + healAmt + " health!");
 		display.getDialogueThree().setText("");
 	}
 
@@ -1105,7 +1105,7 @@ public class BattlePhase {
 			display.getDialogueTwo().setText("You took 0 damage!"); // You took 0 damage!
 		} else {
 			display.getDialogueTwo()
-					.setText(allEnemies.get(floor).get(i).getType() + " dealt " + attacks[0] + " damage to you!");
+			.setText(allEnemies.get(floor).get(i).getType() + " dealt " + attacks[0] + " damage to you!");
 		}
 		if (attacks[0] <= 0) {
 			display.getDialogueThree().setText("The enemy's attack had no effect on you!");
@@ -1128,7 +1128,7 @@ public class BattlePhase {
 				gameOverMusic.play();
 				moveOn(gameOverScreen);
 			}
-			
+
 		}
 	}
 
