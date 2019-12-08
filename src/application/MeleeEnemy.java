@@ -17,7 +17,6 @@ public class MeleeEnemy extends GameCharacters {
 	 * variable in the GUI.
 	 */
 	public MeleeEnemy(int floor, int position) {
-		// Stat values will be changed
 		setAttack(70 + (4 + (int) (Math.random() * (4 - 3) + 1)) * floor); //70 + (4 to 3 * floor)
 		setDefense(45 + (2 + (int) (Math.random() * (4 - 2) + 1)) * floor); //45 + (2 to 4 * floor)
 		int startStam = 250 + 25 * floor;
@@ -34,7 +33,6 @@ public class MeleeEnemy extends GameCharacters {
 		setWidth(220);
 		setHeight(220);
 		setType("Melee");
-//		setCharacterImage(new Image("meleeEnemy.png", getWidth(), getHeight(), false, false));
 		setCharacterImage(new Image("meleeEnemy.gif", getWidth(), getHeight(), false, false));
 		setCharacterImageHurt(new Image("meleeEnemyRed.png",getWidth(), getHeight(), false, false));
 		setCharacterImageHeal(new Image("meleeEnemyWhite.png",getWidth(), getHeight(), false, false));

@@ -1,7 +1,7 @@
 package application;
 
 /**
- * This is the hyper potion class This potion restores 250 points of stamina to
+ * This is the hyper potion class This potion restores 350 points of stamina to
  * the character that uses it.
  * 
  * @author JiayuZhu

@@ -115,7 +115,6 @@ public class Shop {
 	/**
 	 * This method allows the player to buy the revive item at the shop.
 	 * 
-	 * @param btn      the buy button
 	 * @param errorMsg an error message that shows the player fails to buy the item
 	 * @param display  a text showing gold and the items in the player's bag
 	 */
@@ -141,7 +140,6 @@ public class Shop {
 	/**
 	 * This method allows the player to sell a revive item at the shop.
 	 * 
-	 * @param btn      The sell button
 	 * @param errorMsg An error messsage that shows the player fails to sell the
 	 *                 item
 	 * @param display  A text showing gold and the items in the player's bag
