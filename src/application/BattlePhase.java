@@ -104,22 +104,18 @@ public class BattlePhase {
 			display.getError().setVisible(false);
 			setMagic(false);
 			display.getDefendText().setVisible(false);
-			// Restore mana for mage
-			 restoreMana();
-			 
+			restoreMana(); // Restore mana for mage
 			display.disableButtons(true);
 			hero.setIsDefending(false);
 			showEnemyBtns();
 			}
 		});
 
-
 		display.getMagicAtkBtn().setOnAction(event ->{
 		    if(totalEnemyHealth != 0 && hero.getCurrentMana() >= 50) {
 		    display.getItemBag().setVisible(false);
 		    display.getError().setVisible(false);
 		    setMagic(true);
-		    	
 			display.disableButtons(true);
 			hero.setIsDefending(false);
 			showEnemyBtns();
@@ -145,12 +141,7 @@ public class BattlePhase {
 			    display.getDefendText().setVisible(true);
 			    display.getDefendText().setText("Next attack x 2");
 			} 
-//			    else {
-//			    display.getDefendText().setVisible(false);
-//			}
-			
-			// Restore mana for mage
-			restoreMana();
+			restoreMana(); 			// Restore mana for mage
 			Image defendIcon = new Image("defendIcon.png", 80, 80, false, false);
 			gc.drawImage(defendIcon, 140, 280); //draw defend icon
 			display.disableButtons(true); //disable buttons
@@ -158,6 +149,7 @@ public class BattlePhase {
 			hero.setIsEmpowered(true);
 			display.getEmpowered().setVisible(true);
 			enemyTurn();
+			
 			//Enable buttons after 1.5 secs per enemy
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
@@ -183,12 +175,9 @@ public class BattlePhase {
 			display.getItemBag().setVisible(true);
 			Potion cp = hero.getCp();
 			Potion hp = hero.getHp();
-			
-			
 			display.getPotionBtn().setOnAction(event1 -> {
 			    healHero(cp);
-			});
-				
+			});			
 			display.getHyperPotionBtn().setOnAction(event2 -> {
 			    healHero(hp);
 			});
@@ -266,7 +255,6 @@ public class BattlePhase {
 		if (allEnemies.get(floor).size() > 0) {
 			animateOne = new Timeline();
 			enemyAnimate(0, animateOne);
-
 		}
 		if (allEnemies.get(floor).size() > 1) {
 			animateTwo = new Timeline();
@@ -284,11 +272,11 @@ public class BattlePhase {
 	public void heroAnimate() {
 			animateHero = new Timeline();
 			animateHero.setCycleCount(Timeline.INDEFINITE);
-			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> 
+			KeyFrame frame = new KeyFrame(Duration.millis(5), ae -> //paint picture
 			hero.displayCharacter(gc, false, false, false));
-			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> 
+			KeyFrame frameTwo = new KeyFrame(Duration.millis(5), ae -> //delete picture
 			hero.displayCharacter(gc, true, false, false));
-			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> 
+			KeyFrame frameThree = new KeyFrame(Duration.millis(5), ae -> //paint picture again
 			hero.displayCharacter(gc, false, false, false));
 			animateHero.getKeyFrames().add(frame);
 			animateHero.getKeyFrames().add(frameTwo);
@@ -308,7 +296,7 @@ public class BattlePhase {
 		timeline.getKeyFrames().add(frame);
 		Timeline timelineTwo = new Timeline();
 		timelineTwo.setCycleCount(1);
-		KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn());
+		KeyFrame frameTwo = new KeyFrame(Duration.millis(1400), ae -> enemyTurn()); //enemy turn takes 1.4s
 		timelineTwo.getKeyFrames().add(frameTwo);
 		SequentialTransition sequence = new SequentialTransition(timeline, timelineTwo);
 		sequence.play();
@@ -321,6 +309,7 @@ public class BattlePhase {
 		enable.getKeyFrames().add(frameEnable);
 		enable.play();
 
+		//Disable all choose enemy buttons
 		display.getChooseEnemyBtn().setVisible(false);
 		display.getChooseEnemyTwoBtn().setVisible(false);
 		display.getChooseEnemyThreeBtn().setVisible(false);
@@ -351,11 +340,11 @@ public class BattlePhase {
 		//Move hero forward 
 		Timeline timeline = new Timeline(); 
 		if (choice == 0) {
-			timeline.setCycleCount(580);
+			timeline.setCycleCount(580); //hit rightmost enemy
 		} else if (choice == 1) {
-			timeline.setCycleCount(380);
+			timeline.setCycleCount(380); //hit middle enemy
 		} else {
-			timeline.setCycleCount(180);
+			timeline.setCycleCount(180); //hit leftmost enemy
 		}
 		KeyFrame frame = new KeyFrame(Duration.millis(1), ae -> move(hero, true));
 		timeline.getKeyFrames().add(frame);
@@ -365,14 +354,16 @@ public class BattlePhase {
 		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> se.swingSound());
 		sound.getKeyFrames().add(soundFrame);
 		
+		//Add slash animation upon attack
 		Timeline slash = new Timeline();
 		slash.setCycleCount(10);
 		KeyFrame slashFrame = new KeyFrame(Duration.millis(1), ae -> hero.displaySlashImage(gc, false, 
 				allEnemies.get(floor).get(choice).getX(), allEnemies.get(floor).get(choice).getY()));
 		slash.getKeyFrames().add(slashFrame);
 
+		//Turn enemy red when hurt
 		Timeline enemyRed = new Timeline();
-		KeyFrame turnRed = new KeyFrame(Duration.millis(1), ae -> {
+		KeyFrame turnRed = new KeyFrame(Duration.millis(1), ae -> { //stopping animation so red is not overwritten
 			if (choice == 0) {
 				animateOne.stop();
 			} else if (choice == 1) {
@@ -380,7 +371,7 @@ public class BattlePhase {
 			} else {
 				animateThree.stop();
 			}
-			allEnemies.get(floor).get(choice).displayCharacter(gc, false, true, false);
+			allEnemies.get(floor).get(choice).displayCharacter(gc, false, true, false); //paint red picture
 		});
 		enemyRed.getKeyFrames().add(turnRed);
 
@@ -446,7 +437,8 @@ public class BattlePhase {
 		Timeline sound = new Timeline();
 		KeyFrame soundFrame = new KeyFrame(Duration.millis(1), ae -> se.magicSound());
 		sound.getKeyFrames().add(soundFrame);
-
+		
+		//Turn enemy red on hit
 		Timeline enemyRed = new Timeline();
 		KeyFrame turnRed = new KeyFrame(Duration.millis(1), ae -> {
 			if (choice == 0) {
@@ -459,7 +451,6 @@ public class BattlePhase {
 			allEnemies.get(floor).get(choice).displayCharacter(gc, false, true, false);
 		});
 		enemyRed.getKeyFrames().add(turnRed);
-
 
 		//Magic hits enemy
 		Timeline hit = new Timeline();
@@ -481,7 +472,6 @@ public class BattlePhase {
 			hero.displayMagicAtkImage(gc, true, hero.getMagicx(),hero.getMagicy()));
 		magicClear.getKeyFrames().add(clear);
 		
-		
 		SequentialTransition sequence = new SequentialTransition(timeline, sound, enemyRed, hit, magicClear);
 		sequence.play();    	
 	}
@@ -493,13 +483,11 @@ public class BattlePhase {
 	 * @param choice The player choice of which enemy to attack
 	 */
 	private void hitEnemy(int choice) { 	
-	    
-		int rand = (int) (Math.random() * (2));
-		
+		int rand = (int) (Math.random() * (2)); //for Rogue's double attack ability
 		GameCharacters enemy = allEnemies.get(floor).get(choice);
 		int attackAmount = 0;
-		int secondAttack = 0;
-		if (isMagic() == true) {
+		int secondAttack = 0; //for Rogue only
+		if (isMagic() == true) { //if using mage magic attack
 			attackAmount = hero.magicAttack(enemy, hero.isEmpowered());
 			setMagic(false);
 			if (hero.getCurrentMana() < 0) {
@@ -512,7 +500,7 @@ public class BattlePhase {
 			}
 			display.getHeroMana().setText("Mana: " + hero.getCurrentMana() + " / " + hero.getMana());
 			display.resetInfoBar(1, display.getManaBar(), 200, hero);
-		} else if (hero instanceof Rogue) {
+		} else if (hero instanceof Rogue) { //calculating rogue attack and rogue special attack
 			attackAmount = hero.attack(enemy, false, hero.isEmpowered(), defendCount)[0];
 			if (rand == 0 && enemy.getCurrentStamina() != 0) {
 				secondAttack = hero.attack(enemy, false, hero.isEmpowered(), defendCount)[0]; //attacking twice
@@ -520,20 +508,20 @@ public class BattlePhase {
 		} else {
 			attackAmount = hero.attack(enemy, false, hero.isEmpowered(), defendCount)[0];
 		}
-		
-		if (choice == 0) {
+	
+		if (choice == 0) { //reseting info bars for enemies after attack
 		    display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, enemy);
 		} else if (choice == 1) {
 		    display.resetInfoBar(0, display.getEnemyTwoStamBar(), 200, enemy);
 		} else {
 			display.resetInfoBar(0, display.getEnemyThreeStamBar(), 200, enemy);
 		}
-		defendCount = 0;
+		defendCount = 0; //keeps track for warrior progressive defending
 		totalEnemyHealth = totalEnemyHealth - attackAmount - secondAttack;
 		hero.setIsEmpowered(false);
 		enemy.displayCharacter(gc, false, true,false); //turn enemy red on attack	
 		
-		if (rand == 0 && secondAttack != 0) {
+		if (rand == 0 && secondAttack != 0) { //Rogue's ability triggered
 			display.getDialogue().setText("Slice and Dice Triggered!");
 			display.getDialogueTwo().setText("You dealt " + attackAmount + " + " + secondAttack + " damage!");
 		} else {
@@ -541,7 +529,6 @@ public class BattlePhase {
 			display.getDialogueTwo().setText("");
 		}
 		display.getDialogueThree().setText("");
-		
 
 		//If enemy dies, update information and delete enemy picture
 		if (enemy.getCurrentStamina() == 0) {
@@ -554,6 +541,8 @@ public class BattlePhase {
 				display.getDialogueTwo().setText("You have killed the enemy."); 
 			}
 			enemy.displayCharacter(gc, true, false, false); //deleting picture
+			
+			//Stopping appropriate animations and deleting appropriate bars upon death
 			if (choice == 0) {
 				animateOne.stop();
 				display.getEnemyStam().setVisible(false);
@@ -571,6 +560,7 @@ public class BattlePhase {
 				display.getEnemyThreeFullStamBar().setVisible(false);
 			}
 		} else {
+			
 			//After 0.1 seconds revert color only if not dead
 			Timeline timeline = new Timeline(); 
 			timeline.setCycleCount(1);
@@ -579,9 +569,11 @@ public class BattlePhase {
 			timeline.getKeyFrames().add(frame);
 			timeline.play();
 		}
+		
 		//If all enemies dead, move on to next floor
 		if (totalEnemyHealth == 0) {
 			display.getOutraged().setVisible(false);
+			
 			//Transition to next screen after battle after 5 seconds
 			if (rand == 0 && secondAttack!= 0) {
 				display.getDialogueThree().setText("You have killed all enemies."); 
@@ -593,18 +585,15 @@ public class BattlePhase {
 			if (hero.getXp() >= (25 + hero.getLevel() * 175)) {
 				hero.levelUp();
 				hero.setXp(0);
-				
 			}
-			if (floor < 10) {
+			if (floor < 10) { //advance floors if not boss floor
 			    moveOn(transition);
-			} else if (floor == 10){
+			} else if (floor == 10){ //otherwise finish game
 			    	battleMusic.stop(); 
 			    	youWinMusic.play();
 			    	moveOn(youWin);
-				
 			}
 		}
-
 		if (choice == 0 ) {
 		    	display.getEnemyStam().setText("Stamina: " + enemy.getCurrentStamina() + " / " + enemy.getStamina());
 		} else if (choice == 1) {
@@ -633,9 +622,7 @@ public class BattlePhase {
 	 * on the boolean and repaint in the new location
 	 * 
 	 * @param character The character we are moving
-	 * @param gc The GraphicsContext used to delete and repaint
 	 * @param forward Whether we are moving forward or backward
-	 * @param floor The current floor the hero is on
 	 */
 	private void move(GameCharacters character, boolean forward) {
 
@@ -651,7 +638,8 @@ public class BattlePhase {
 
 		//Draw new picture
 		character.displayCharacter(gc, false, false,false);
-
+		
+		//Draws proper enemy pictures to prevent overlap during animations
 		if (allEnemies.get(floor).size() == 3) {
 			if (character.getX() + character.getWidth() >= allEnemies.get(floor).get(1).getX() && !dead.contains(1)) {
 				allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false);
@@ -688,7 +676,7 @@ public class BattlePhase {
 		
 		character.displayMagicAtkImage(gc, false, character.getMagicx(),character.getMagicy());
 
-
+		//Draws proper pictures to prevent overlap as fireball moves over enemies
 		if (allEnemies.get(floor).size() == 3) {
 			if (character.getMagicx() >= allEnemies.get(floor).get(1).getX() && !dead.contains(1)) {
 				allEnemies.get(floor).get(1).displayCharacter(gc, false, false, false);
@@ -722,20 +710,29 @@ public class BattlePhase {
 	 */
 	private void singleEnemyAttacks() {
 		
+		//For rightmost enemy
 		Timeline posOneForward = new Timeline();
 		Timeline posOneHit = new Timeline();
 		Timeline posOneBackward = new Timeline();
+		
+		//For middle enemy
 		Timeline posTwoForward = new Timeline();
 		Timeline posTwoHit = new Timeline();
 		Timeline posTwoBackward = new Timeline();
+		
+		//For leftmost enemy
 		Timeline posThreeForward = new Timeline();
 		Timeline posThreeHit = new Timeline();
 		Timeline posThreeBackward = new Timeline();
+		
+		//Hit noises
 		Timeline posOneNoise = new Timeline();
 		Timeline posTwoNoise = new Timeline();
 		Timeline posThreeNoise = new Timeline();
 		
 		if (hero.getCurrentStamina() > 0) {;
+		
+			//Calculates the necessary movement for each enemy depending on position
 			if (!dead.contains(0)) {
 				enemyMoveTimeline(0, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
 						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise);
@@ -748,11 +745,13 @@ public class BattlePhase {
 				enemyMoveTimeline(2, posOneForward, posTwoForward, posThreeForward, posOneBackward, posTwoBackward,
 						posThreeBackward, posOneHit, posTwoHit, posThreeHit, posOneNoise, posTwoNoise, posThreeNoise);
 			}
-			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAA
+			
+			//Determines what sequence of movements and attacks and sounds is appropriate depending on who is alive/dead
+			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { //AAA (alive, alive, alive going from left to right)
 				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward, posTwoForward, posTwoNoise, posTwoHit, posTwoBackward, 
 						posThreeForward, posThreeNoise, posThreeHit, posThreeBackward);
 				sequence.play();
-			} else if (!dead.contains(0) && dead.contains(1) && dead.contains(2)) { //DDA
+			} else if (!dead.contains(0) && dead.contains(1) && dead.contains(2)) { //DDA (dead, dead, alive)
 				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit, posOneBackward);
 				sequence.play();
 			} else if (dead.contains(0) && !dead.contains(1) && dead.contains(2)) { //DAD
@@ -801,9 +800,12 @@ public class BattlePhase {
 		
 		KeyFrame heal = null;
 		
-		if ((allEnemies.get(floor).get(position) instanceof MeleeEnemy ||allEnemies.get(floor).get(position) instanceof BossEnemy)) {
+		//If MeleeEnemy or BossEnemy, we have them move forward and backward as normal
+		if ((allEnemies.get(floor).get(position) instanceof MeleeEnemy || allEnemies.get(floor).get(position) instanceof BossEnemy)) {
 			moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), false));
 			moveBackward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), true));
+			
+		//RangedEnemy doesn't move so they have a unique moveForward and moveBackward keyframe
 		} else if (allEnemies.get(floor).get(position) instanceof RangedEnemy){
 			moveForward = new KeyFrame(Duration.millis(1), ae -> moveMagic(allEnemies.get(floor).get(position), false, 0));
 			moveBackward = new KeyFrame(Duration.millis(1), ae -> {
@@ -811,7 +813,9 @@ public class BattlePhase {
 						allEnemies.get(floor).get(position).getMagicy());
 				allEnemies.get(floor).get(position).setMagicx(allEnemies.get(floor).get(position).getOldMagicx()); 
 			});
-		} else { //healer enemy
+			
+		//HealerEnemy also does not move if it can heal but will move if no valid healing targets	
+		} else {
 			int maxMissingHealth = 0;
 			GameCharacters mostHurtEnemy = null;
 			int enemyPosition = 0;
@@ -826,6 +830,8 @@ public class BattlePhase {
 				}
 			}
 			GameCharacters outerMostHurtEnemy = mostHurtEnemy;
+			
+			//Healing activated, no movement necessary
 			if (mostHurtEnemy != null) {
 				healerTargetAvail = true;
 				int outerPosition = enemyPosition;
@@ -848,6 +854,8 @@ public class BattlePhase {
 				moveForward = new KeyFrame(Duration.millis(1), ae -> {
 					//do nothing
 				});	
+				
+			//All enemies at full health, healer will attack by moving	
 			} else {
 				healerTargetAvail = false;
 				moveForward = new KeyFrame(Duration.millis(1), ae -> move(allEnemies.get(floor).get(position), false));
@@ -906,9 +914,12 @@ public class BattlePhase {
 			hitHero(position, true);	
 		});
 		
+		//Right most enemy, needs to move the most
 		if (position == 0) { //boss can only be this position
 			posOneForward.setCycleCount(745);
 			posOneForward.getKeyFrames().add(moveForward);
+			
+			//Healer with valid heal does not need to move
 			if (allEnemies.get(floor).get(position) instanceof HealerEnemy && (healerTargetAvail)) {
 				posOneBackward.setCycleCount(1);
 				posOneBackward.getKeyFrames().add(heal);
@@ -916,6 +927,8 @@ public class BattlePhase {
 				posOneBackward.setCycleCount(745);
 			}
 			posOneBackward.getKeyFrames().add(moveBackward);
+			
+			//Boss is outraged, add appropraite dialogues
 			if (allEnemies.get(floor).get(0) instanceof BossEnemy && 
 					((double) allEnemies.get(floor).get(0).getCurrentStamina() / 
 							(double) allEnemies.get(floor).get(0).getStamina() < 0.34)) {
@@ -924,9 +937,13 @@ public class BattlePhase {
 			} else {
 				posOneHit.getKeyFrames().add(frameTwo);
 			}
+		
+		//Center enemy
 		} else if (position == 1) {
 			posTwoForward.setCycleCount(505);
 			posTwoForward.getKeyFrames().add(moveForward);
+			
+			//Healer with valid heal does not need to move
 			if ((allEnemies.get(floor).get(position) instanceof HealerEnemy  && (healerTargetAvail))) {
 				posTwoBackward.setCycleCount(1);
 				posTwoBackward.getKeyFrames().add(heal);
@@ -935,9 +952,13 @@ public class BattlePhase {
 			}
 			posTwoBackward.getKeyFrames().add(moveBackward);
 			posTwoHit.getKeyFrames().add(frameTwo);
+		
+		//Leftmost enemy
 		} else { 
 			posThreeForward.setCycleCount(275);
 			posThreeForward.getKeyFrames().add(moveForward);
+			
+			//Healer with valid heal does not need to move
 			if ((allEnemies.get(floor).get(position) instanceof HealerEnemy && (healerTargetAvail))) {
 				posThreeBackward.setCycleCount(1);
 				posThreeBackward.getKeyFrames().add(heal);
@@ -960,19 +981,20 @@ public class BattlePhase {
 		int healAmt = allEnemies.get(floor).get(position).enemyHeal(outerMostHurtEnemy);
 		totalEnemyHealth += healAmt;
 		outerMostHurtEnemy.displayCharacter(gc, false, false, true);
-
+		
+		//Turn enemy white upon heal
 		Timeline enemyWhite = new Timeline();
 		enemyWhite.setCycleCount(1);
 		KeyFrame whiteEnemy = new KeyFrame(Duration.millis(1), ae -> {
 			if (outerPosition == 0) {
 				animateOne.stop();
-				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn enemy white on heal
+				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn rightmost enemy white on heal
 			} else if (outerPosition == 1) {
 				animateTwo.stop();
-				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn enemy white on heal
+				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn center enemy white on heal
 			} else {
 				animateThree.stop();
-				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn enemy white on heal
+				outerMostHurtEnemy.displayCharacter(gc, false, false, true); //turn leftmostenemy white on heal
 			}
 		});
 		enemyWhite.getKeyFrames().add(whiteEnemy);
@@ -993,6 +1015,7 @@ public class BattlePhase {
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
 		
+		//Update all info bars
 		if (outerPosition == 0) {
 			display.getEnemyStam().setText("Stamina: " + outerMostHurtEnemy.getCurrentStamina() + " / " + outerMostHurtEnemy.getStamina());
 			display.resetInfoBar(0, display.getEnemyOneStamBar(), 200, outerMostHurtEnemy);
@@ -1016,8 +1039,10 @@ public class BattlePhase {
 	 */
 	private void hitHero(int i, Boolean outrage) { 
 		int[] attacks = allEnemies.get(floor).get(i).attack(hero, outrage, false, defendCount);
+		
+		//Triggers when a heal is not available or no healer enemies
 		if (!healerTargetAvail || !allEnemies.get(floor).get(i).getType().equals("Healer")) {
-		Timeline heroRed = new Timeline();
+		Timeline heroRed = new Timeline(); //turning hero red timeline
 		heroRed.setCycleCount(1);
 		KeyFrame redHero = new KeyFrame(Duration.millis(1), ae -> {
 		animateHero.stop();
@@ -1033,6 +1058,8 @@ public class BattlePhase {
 		timeline.getKeyFrames().add(frame);
 		timeline.play();
 		}
+		
+		//Updating appropriate dialogues
 		display.getHeroStam().setText("Stamina: " + hero.getCurrentStamina() + " / " + hero.getStamina());
 		display.resetInfoBar(0, display.getStaminaBar(), 300, hero);
 		if (attacks[0] <= 0) {
@@ -1042,7 +1069,6 @@ public class BattlePhase {
 		}
 		if (attacks[0] <= 0) {
 			display.getDialogueThree().setText("The enemy's attack had no effect on you!");
-
 		} else {
 			if (hero.isDefending()) {
 				display.getDialogueThree().setText("Your defense blocked " + attacks[1] + " damage!");
