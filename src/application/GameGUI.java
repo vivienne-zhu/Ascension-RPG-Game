@@ -45,7 +45,7 @@ public class GameGUI extends Application {
 	private SoundEffect se;
 	private VBox heroInfo;
 	private VBox heroInfoTwo;
-	
+
 
 	/**
 	 * The constructor sets all booleans variables to false, 
@@ -67,7 +67,7 @@ public class GameGUI extends Application {
 		heroInfo = new VBox(15);
 		heroInfoTwo = new VBox(15);
 	}
-	
+
 	/**
 	 * This is the start method that enables us to run/display our JavaFX
 	 * application. It begins by displaying start screen and then allows us to
@@ -77,7 +77,7 @@ public class GameGUI extends Application {
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		//Start Screen Scene creation
 		Scene start = startScreen(primaryStage);
-	    	
+
 		//Setting title of primary stage window, adding start scene and showing primary stage
 		primaryStage.setTitle("Tower Challenge");
 		primaryStage.setScene(start);
@@ -94,7 +94,7 @@ public class GameGUI extends Application {
 	private Scene startScreen(Stage primaryStage) {
 		//Creating Pane which will display all the elements/ nodes
 		Pane root = new Pane();
-		
+
 		//Create logo and text for start screen
 		Image logo = new Image("ascension.png");
 		ImageView logo1 = new ImageView(logo);
@@ -106,10 +106,10 @@ public class GameGUI extends Application {
 		DropShadow ds = new DropShadow(20, Color.WHITE);
 		logo1.setEffect(ds);
 		Text start = new Text("Click to START!");
-		
+
 		//Event handling for hovering over and clicking the logo
 		logo1.setOnMouseEntered(event->{
-		    	logo1.setLayoutX(350);
+			logo1.setLayoutX(350);
 			logo1.setLayoutY(80);
 			logo1.setFitWidth(600);
 			logo1.setFitHeight(540);
@@ -122,33 +122,33 @@ public class GameGUI extends Application {
 			ds.setColor(Color.RED);
 		});
 		logo1.setOnMouseExited(event->{
-		    	logo1.setLayoutX(350);
+			logo1.setLayoutX(350);
 			logo1.setLayoutY(80);
 			logo1.setFitWidth(580);
 			logo1.setFitHeight(520);
 			start.setVisible(false);
 			ds.setColor(Color.WHITE);
 		});
-		
+
 		logo1.setOnMouseClicked(event-> {se.transitionSound(); chooseCharacterScreen(primaryStage);
 		});
 
 		//Media player for music
 		openingMusic.play();
-		
+
 		//Fade Transition
 		screenFade(root);
-		
+
 		//Adding background image to Pane
 		root.setId("startBackground");
-		
+
 		//Adding other element/nodes to Pane, then Pane to Scene
 		root.getChildren().addAll(logo1, start);
 		Scene startScene = new Scene(root, 1280, 720);
 		startScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		return startScene;
 	}
-	
+
 	/**
 	 * This method allows us to create the wooden buttons/pane
 	 * 
@@ -156,32 +156,32 @@ public class GameGUI extends Application {
 	 * @return pane The StackPane that will serve as a button
 	 */
 	public StackPane createWoodenButtons(String type) {
-	    //Create image view and text,  add effects
-	    Image btn = new Image("startButton.png", 250, 80, false, false);		
-	    ImageView iv = new ImageView(btn);
-	    DropShadow ds = new DropShadow(10, Color.ANTIQUEWHITE);
-	    iv.setEffect(ds);
-	    Text btnText = new Text();
+		//Create image view and text,  add effects
+		Image btn = new Image("startButton.png", 250, 80, false, false);		
+		ImageView iv = new ImageView(btn);
+		DropShadow ds = new DropShadow(10, Color.ANTIQUEWHITE);
+		iv.setEffect(ds);
+		Text btnText = new Text();
 
-	    //Determine Text the btn will display
-	    if (type.equals("Mage")) {
-		btnText.setText(type);
-	    } else if (type.equals("Warrior")) {
-		btnText.setText(type);
-	    } else if (type.equals("Rogue")) {
-		btnText.setText(type);
-	    } 
-	    
-	    //create pane and add nodes, and style
-	    StackPane pane = new StackPane();
-	    pane.getChildren().addAll(iv,btnText);
-	    pane.setAlignment(Pos.CENTER);
-	    pane.setId("btnText");
-	   
-	    return pane;
-	    
+		//Determine Text the btn will display
+		if (type.equals("Mage")) {
+			btnText.setText(type);
+		} else if (type.equals("Warrior")) {
+			btnText.setText(type);
+		} else if (type.equals("Rogue")) {
+			btnText.setText(type);
+		} 
+
+		//create pane and add nodes, and style
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(iv,btnText);
+		pane.setAlignment(Pos.CENTER);
+		pane.setId("btnText");
+
+		return pane;
+
 	}
-	
+
 	/**
 	 * This method houses the code needed for the screen that allows the player to
 	 * choose their character type/hero.
@@ -195,22 +195,22 @@ public class GameGUI extends Application {
 		charOption.setX(140);
 		charOption.setY(220);
 		charOption.setId("characterOptionText");
-		
+
 		//Creating buttons for user selection
 		StackPane magePane = createWoodenButtons("Mage");
 		StackPane warriorPane = createWoodenButtons("Warrior");
 		StackPane roguePane = createWoodenButtons("Rogue");
-		
+
 		// Clear prior assigned character type
 		setMage(false);
 		setWarrior(false);
 		setRogue(false);
-		
+
 		//Event handling for when each button pane is pressed/hovered over
 		eventHandleCharBtns(magePane, "Mage", primaryStage);
 		eventHandleCharBtns(warriorPane, "Warrior", primaryStage);
 		eventHandleCharBtns(roguePane, "Rogue", primaryStage);
-		
+
 		//Creating vertical box for buttons 
 		VBox btns = new VBox(30);
 		btns.setAlignment(Pos.CENTER);
@@ -225,13 +225,13 @@ public class GameGUI extends Application {
 
 		//Fade Transition
 		screenFade(display);
-		
+
 		//Adding Pane to Scene and then Scene to primary stage and then showing
 		Scene chooseChar = new Scene(display, 1280, 720);
 		chooseChar.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(chooseChar);
 		primaryStage.show();
-		
+
 	}
 	/**
 	 * This method handles the event for when character buttons are pressed or
@@ -242,43 +242,43 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary GUI window
 	 */
 	private void eventHandleCharBtns(StackPane pane, String type, Stage primaryStage) {
-	    //Event handling for hen clicked, it creates corresponding hero
-	    pane.setOnMouseClicked(event -> {
-		se.transitionSound();
-		if (type.equals("Mage")) {
-		    setMage(true);
-		} else if (type.equals("Warrior")) {
-		    setWarrior(true);
-		} else if (type.equals("Rogue")) {
-		    setRogue(true);
-		}
-		nameCharScreen(primaryStage);
-	    });
-	    
-	    //When entered, text becomes white and two info panes are shown
-	    pane.setOnMouseEntered(event->{
-		pane.getChildren().remove(1);
-		Text btnText = new Text(type);
-		btnText.setId("whiteBtnText");
-		pane.getChildren().add(btnText);
-		heroInfoBox(type);
-		heroInfo.setVisible(true);
-		heroInfoTwo.setVisible(true);
-	    });
-	    
-	    //When exited, text is black and panes disappear
-	    pane.setOnMouseExited(event->{
-		pane.getChildren().remove(1);
-		Text btnText = new Text(type);
-		btnText.setId("btnText");
-		pane.getChildren().add(btnText);
-		heroInfo.setVisible(false);
-		heroInfoTwo.setVisible(false);
-	    });
-	    
+		//Event handling for hen clicked, it creates corresponding hero
+		pane.setOnMouseClicked(event -> {
+			se.transitionSound();
+			if (type.equals("Mage")) {
+				setMage(true);
+			} else if (type.equals("Warrior")) {
+				setWarrior(true);
+			} else if (type.equals("Rogue")) {
+				setRogue(true);
+			}
+			nameCharScreen(primaryStage);
+		});
+
+		//When entered, text becomes white and two info panes are shown
+		pane.setOnMouseEntered(event->{
+			pane.getChildren().remove(1);
+			Text btnText = new Text(type);
+			btnText.setId("whiteBtnText");
+			pane.getChildren().add(btnText);
+			heroInfoBox(type);
+			heroInfo.setVisible(true);
+			heroInfoTwo.setVisible(true);
+		});
+
+		//When exited, text is black and panes disappear
+		pane.setOnMouseExited(event->{
+			pane.getChildren().remove(1);
+			Text btnText = new Text(type);
+			btnText.setId("btnText");
+			pane.getChildren().add(btnText);
+			heroInfo.setVisible(false);
+			heroInfoTwo.setVisible(false);
+		});
+
 	}
 
-	
+
 	/**
 	 * This method creates the VBox that appears when you hover over each character type
 	 * 
@@ -286,93 +286,93 @@ public class GameGUI extends Application {
 	 * @return VBox containing basic info about each hero
 	 */
 	private VBox heroInfoBox(String type) {
-	    //Setting style id for VBoxes
-	    heroInfo.setId("heroInfoBox");
-	    heroInfoTwo.setId("heroInfoBox");
-	    
-	    if (type.equals("Mage")) {
-		heroInfo.getChildren().clear();
-		heroInfo.setLayoutX(110);
-		heroInfo.setLayoutY(270);
-		heroInfoTwo.getChildren().clear();
-		heroInfoTwo.setLayoutX(860);
-		heroInfoTwo.setLayoutY(270);
-		
-		//Changes text based on hero button you hover over
-		//Mage text
-		Text info = new Text();
-		GameCharacters mage = new Mage();
-		info.setText("Mages have a stronger magical attack"+ "\n" 
-			+ "but are limited by mana usage. This class"
-			+"\n"+ "is recommended for strategic players." + "\n" +
-			"\n" + " Attack: " + mage.getAttack() + "   Defense: " + mage.getDefense() + "   Stamina: " + mage.getStamina() 
-			+  "\n" + "          Magic Atk: " + mage.getMagicAtk() + "	Mana: " + mage.getMana());
-		heroInfo.getChildren().add(info);
-		
-		Text infoTwo = new Text();
-		infoTwo.setText("		Special Attribute: Mana" + "\n" + 
-		"                Special Ability: Fireball" + "\n" +
-		"Fireball is a special attack that is stronger" + "\n" + 
-		"than a normal attack. It also deals 20% more" + "\n" + 
-		"damage to Melee enemies. It costs 50 mana " + "\n" + 
-		"to use. Use other moves to restore 25 mana.");
-		heroInfoTwo.getChildren().add(infoTwo);
-		
-	    } else if (type.equals("Warrior")) {
-		heroInfo.getChildren().clear();
-		heroInfo.setLayoutX(110);
-		heroInfo.setLayoutY(380);
-		heroInfoTwo.getChildren().clear();
-		heroInfoTwo.setLayoutX(860);
-		heroInfoTwo.setLayoutY(380);
-		
-		//Warrior text
-		Text info = new Text();
-		GameCharacters warrior = new Warrior();
-		info.setText("Warriors have high stamina and defense."
-			+"\n" + "This class is recommended for beginners." + "\n" +
-			 "\n" +"			Attack: " + warrior.getAttack() + "\n" + 
-			"			Defense: " + warrior.getDefense() + "\n" + 
-			"			Stamina: " + warrior.getStamina());
-		heroInfo.getChildren().add(info);
-		
-		Text infoTwo = new Text();
-		infoTwo.setText("		Special Attribute: Defense" + "\n" + 
-		"            Special Ability: Stacked Attack" + "\n" +
-		"Stacked Attack increases damage through" + "\n" + 
-		"successive defending (2x = 75%, 3x = 100%)." + "\n" +
-		"Warriors specialize in health and defense" + "\n" +
-		"and will gain more defense stats on level up.");
-		heroInfoTwo.getChildren().add(infoTwo);
-		
-	    } else if (type.equals("Rogue")) {
-		heroInfo.getChildren().clear();
-		heroInfo.setLayoutX(110);
-		heroInfo.setLayoutY(495);
-		heroInfoTwo.getChildren().clear();
-		heroInfoTwo.setLayoutX(860);
-		heroInfoTwo.setLayoutY(495);
-		
-		//Rogue text
-		Text info = new Text();
-		GameCharacters rogue = new Rogue();
-		info.setText("Rogues have a chance to attack twice."
-			+"\n" + "This class is recommended for everyone."+ "\n" +
-			"\n" + "			Attack: " + rogue.getAttack() + "\n" + 
-			"			Defense: " + rogue.getDefense() + "\n" + 
-			"			Stamina: " + rogue.getStamina());
-		heroInfo.getChildren().add(info);
-		
-		Text infoTwo = new Text();
-		infoTwo.setText("		  Special Attribute: Attack" + "\n" + "              Special Ability: Slice and Dice" + "\n" +
-		"The rogue specializes in burst damage and raw" + "\n" + "attack power. It gains additional attack stats" +
-		"\n" + "on level up. Its ability gives the rogue a 33%" + "\n" + 
-		"to chance to hit an enemy twice in per attack.");
-		heroInfoTwo.getChildren().add(infoTwo);
-		
-	    } 
-	    return heroInfo;
-	    
+		//Setting style id for VBoxes
+		heroInfo.setId("heroInfoBox");
+		heroInfoTwo.setId("heroInfoBox");
+
+		if (type.equals("Mage")) {
+			heroInfo.getChildren().clear();
+			heroInfo.setLayoutX(110);
+			heroInfo.setLayoutY(270);
+			heroInfoTwo.getChildren().clear();
+			heroInfoTwo.setLayoutX(860);
+			heroInfoTwo.setLayoutY(270);
+
+			//Changes text based on hero button you hover over
+			//Mage text
+			Text info = new Text();
+			GameCharacters mage = new Mage();
+			info.setText("Mages have a stronger magical attack"+ "\n" 
+					+ "but are limited by mana usage. This class"
+					+"\n"+ "is recommended for strategic players." + "\n" +
+					"\n" + " Attack: " + mage.getAttack() + "   Defense: " + mage.getDefense() + "   Stamina: " + mage.getStamina() 
+					+  "\n" + "          Magic Atk: " + mage.getMagicAtk() + "	Mana: " + mage.getMana());
+			heroInfo.getChildren().add(info);
+
+			Text infoTwo = new Text();
+			infoTwo.setText("		Special Attribute: Mana" + "\n" + 
+					"                Special Ability: Fireball" + "\n" +
+					"Fireball is a special attack that is stronger" + "\n" + 
+					"than a normal attack. It also deals 20% more" + "\n" + 
+					"damage to Melee enemies. It costs 50 mana " + "\n" + 
+					"to use. Use other moves to restore 25 mana.");
+			heroInfoTwo.getChildren().add(infoTwo);
+
+		} else if (type.equals("Warrior")) {
+			heroInfo.getChildren().clear();
+			heroInfo.setLayoutX(110);
+			heroInfo.setLayoutY(380);
+			heroInfoTwo.getChildren().clear();
+			heroInfoTwo.setLayoutX(860);
+			heroInfoTwo.setLayoutY(380);
+
+			//Warrior text
+			Text info = new Text();
+			GameCharacters warrior = new Warrior();
+			info.setText("Warriors have high stamina and defense."
+					+"\n" + "This class is recommended for beginners." + "\n" +
+					"\n" +"			Attack: " + warrior.getAttack() + "\n" + 
+					"			Defense: " + warrior.getDefense() + "\n" + 
+					"			Stamina: " + warrior.getStamina());
+			heroInfo.getChildren().add(info);
+
+			Text infoTwo = new Text();
+			infoTwo.setText("		Special Attribute: Defense" + "\n" + 
+					"            Special Ability: Stacked Attack" + "\n" +
+					"Stacked Attack increases damage through" + "\n" + 
+					"successive defending (2x = 75%, 3x = 100%)." + "\n" +
+					"Warriors specialize in health and defense" + "\n" +
+					"and will gain more defense stats on level up.");
+			heroInfoTwo.getChildren().add(infoTwo);
+
+		} else if (type.equals("Rogue")) {
+			heroInfo.getChildren().clear();
+			heroInfo.setLayoutX(110);
+			heroInfo.setLayoutY(495);
+			heroInfoTwo.getChildren().clear();
+			heroInfoTwo.setLayoutX(860);
+			heroInfoTwo.setLayoutY(495);
+
+			//Rogue text
+			Text info = new Text();
+			GameCharacters rogue = new Rogue();
+			info.setText("Rogues have a chance to attack twice."
+					+"\n" + "This class is recommended for everyone."+ "\n" +
+					"\n" + "			Attack: " + rogue.getAttack() + "\n" + 
+					"			Defense: " + rogue.getDefense() + "\n" + 
+					"			Stamina: " + rogue.getStamina());
+			heroInfo.getChildren().add(info);
+
+			Text infoTwo = new Text();
+			infoTwo.setText("		  Special Attribute: Attack" + "\n" + "              Special Ability: Slice and Dice" + "\n" +
+					"The rogue specializes in burst damage and raw" + "\n" + "attack power. It gains additional attack stats" +
+					"\n" + "on level up. Its ability gives the rogue a 33%" + "\n" + 
+					"to chance to hit an enemy twice in per attack.");
+			heroInfoTwo.getChildren().add(infoTwo);
+
+		} 
+		return heroInfo;
+
 	}
 
 	/**
@@ -395,36 +395,36 @@ public class GameGUI extends Application {
 		submitBtn.setId("yellowBtn");
 		submitBtn.setLayoutX(1050);
 		submitBtn.setLayoutY(600);
-		
+
 		// Create back button, adding style
 		Button backBtn = new Button("Back");
 		backBtn.setId("yellowBtn");
 		backBtn.setLayoutX(100);
 		backBtn.setLayoutY(600);
-		
+
 		// Event handling to back button 
 		backBtn.setOnAction(event -> {se.transitionSound();
-			chooseCharacterScreen(primaryStage);
-			});
-	
+		chooseCharacterScreen(primaryStage);
+		});
+
 		//EventHandling and error checking for empty textfield
 		Text error = new Text();
-		
+
 		submitBtn.setOnMouseClicked(event -> {
-		    if (charNameBox.getText().isEmpty() == true) {
-			se.errorSound();
-			error.setId("errorText");
-			error.setText("Please Enter A Name");
-		    } else {
-			openingMusic.stop();
-			String name = charNameBox.getText();
-			setHeroName(name);
-			createHero();
-			se.transitionSound();
-			battleScreen(primaryStage);
-		    }
+			if (charNameBox.getText().isEmpty() == true) {
+				se.errorSound();
+				error.setId("errorText");
+				error.setText("Please Enter A Name");
+			} else {
+				openingMusic.stop();
+				String name = charNameBox.getText();
+				setHeroName(name);
+				createHero();
+				se.transitionSound();
+				battleScreen(primaryStage);
+			}
 		});
-		
+
 		//Adding label and text field to grid
 		getName.add(charName, 0, 0);
 		getName.add(charNameBox, 0, 1);
@@ -436,18 +436,18 @@ public class GameGUI extends Application {
 			RowConstraints row = new RowConstraints(40);
 			getName.getRowConstraints().add(row);
 		}
-		
+
 		//Configuring and style to grid and label
 		getName.setId("getNameGrid");
 		getName.setLayoutX(430);
 		getName.setLayoutY(250);
 		;
-		
+
 		//Creating Pane, adding above nodes and background to Pane
 		Pane display = new Pane();
 		display.getChildren().addAll(getName, backBtn, submitBtn);
 		display.setId("startTwoBackground");
-		
+
 		//Fade Transition
 		screenFade(display);
 
@@ -483,13 +483,13 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary stage/window of the JavaFX GUI.
 	 */
 	public void battleScreen(Stage primaryStage) {
-		
-	    //Mediaplayer for music
-	   	battleMusic.play();
 
-	   	//Create arrylist enemies for the floor
-	   	ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
-		
+		//Mediaplayer for music
+		battleMusic.play();
+
+		//Create arrylist enemies for the floor
+		ArrayList<GameCharacters> floorEnemies = new ArrayList<GameCharacters>();
+
 		int healerCount = 0; //keeps track of enemy healers
 		int nonHealerCount = 0; //keeps track of other enemies
 		if (floor.getFloor() == 1 || floor.getFloor() == 2 || floor.getFloor() == 3) {
@@ -526,7 +526,7 @@ public class GameGUI extends Application {
 				}
 			}
 		} else if (floor.getFloor() == 10) {
-		    	floorEnemies.add(new BossEnemy(10));
+			floorEnemies.add(new BossEnemy(10));
 		}
 		allEnemies.put(floor.getFloor(), floorEnemies);
 		totalEnemyHealth = 0;
@@ -535,7 +535,7 @@ public class GameGUI extends Application {
 		}
 		//Restore hero mana each new floor
 		hero.setCurrentMana(hero.getMana());
-		
+
 		// Creation of pane, and scene. Adding pane to scene, and scene to stage
 		Pane towerLevel = createTowerLevels(primaryStage, allEnemies.get(floor.getFloor()));
 		Scene insideTower = new Scene(towerLevel, 1280, 720);
@@ -556,7 +556,7 @@ public class GameGUI extends Application {
 	private Pane createTowerLevels(Stage primaryStage, ArrayList<GameCharacters> floorCopy) {
 		//Creating pane
 		Pane towerLevels = new Pane();
-		
+
 		//Caching pane for performance
 		towerLevels.setCache(true);
 		towerLevels.setCacheShape(true);
@@ -564,7 +564,7 @@ public class GameGUI extends Application {
 
 		// To display the background for the floor
 		towerLevels.setId("insideTower");
-		
+
 		Canvas canvas = new Canvas(1280, 720);
 		towerLevels.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -578,7 +578,7 @@ public class GameGUI extends Application {
 
 		// Adding hero and enemy images
 		hero.displayCharacter(gc, false, false, false);
-		
+
 		for (int i = 0; i < floorCopy.size(); i++) {
 			floorCopy.get(i).displayCharacter(gc, false, false, false);
 		}
@@ -597,7 +597,7 @@ public class GameGUI extends Application {
 		battle.heroAnimate();
 		battle.eventButtons();
 		GridPane grid = display.gridLayout(allEnemies.get(floor.getFloor()).size(), hero);
-		
+
 		//Fade Transition
 		screenFade(towerLevels);
 
@@ -647,7 +647,7 @@ public class GameGUI extends Application {
 		btnBuy1.setOnAction(event -> shop.buyPotion(hero.getCp(), quantity1, errorMsg, potionList));
 		Button btnSell1 = new Button("Sell");
 		btnSell1.setOnAction(event -> shop.sellPotion(hero.getCp(), quantity1, errorMsg, potionList));
-		
+
 
 		// Description for hyper potion
 		Text potion2 = new Text("+HYPER POTION+ \n HP +350 \n PRICE: 150 GOLD");
@@ -665,12 +665,12 @@ public class GameGUI extends Application {
 		btnBuy2.setOnAction(event -> shop.buyPotion(hero.getHp(), quantity2, errorMsg, potionList));
 		Button btnSell2 = new Button("Sell");
 		btnSell2.setOnAction(event -> shop.sellPotion(hero.getHp(), quantity2, errorMsg, potionList));
-		
+
 		// Description for revive
 		Text revive = new Text("+REVIVE POTION+ \n COME BACK TO LIFE \n PRICE: 250 GOLD");
 		revive.setId("shopText");
 		GridPane.setHalignment(revive, HPos.CENTER);
-		
+
 		// Description for revive quantity
 		Text reviveQuant = new Text("MAX: 1");
 		reviveQuant.setId("shopText");
@@ -681,7 +681,7 @@ public class GameGUI extends Application {
 		btnBuy3.setOnAction(event -> shop.buyRevive(errorMsg, potionList));
 		Button btnSell3 = new Button("Sell");
 		btnSell3.setOnAction(event -> shop.sellRevive(errorMsg, potionList));
-		
+
 		//Setting style for shop buttons
 		btnBuy1.setId("whiteBtn");
 		btnSell1.setId("whiteBtn");
@@ -689,7 +689,7 @@ public class GameGUI extends Application {
 		btnSell2.setId("whiteBtn");
 		btnBuy3.setId("whiteBtn");
 		btnSell3.setId("whiteBtn");
-		
+
 		// Create imageView for the items at the shop
 		ImageView ivPotion1 = new ImageView(shop.getCpImage());
 		ImageView ivPotion2 = new ImageView(shop.getHpImage());
@@ -717,7 +717,7 @@ public class GameGUI extends Application {
 		Button continueBtn = new Button("Next Floor");
 		continueBtn.setId("yellowBtn");	 
 		continueBtnHandling(continueBtn, primaryStage);
-		
+
 		// Add nodes to the grid pane
 		root.setHgap(60);
 		root.setAlignment(Pos.CENTER);
@@ -743,7 +743,7 @@ public class GameGUI extends Application {
 		root.add(errorMsg, 1, 8);
 
 		root.add(continueBtn, 4, 9);
-		
+
 		welcome.setTextAlignment(TextAlignment.CENTER);
 		potion1.setTextAlignment(TextAlignment.CENTER);
 		quantity1.setAlignment(Pos.CENTER);
@@ -753,11 +753,11 @@ public class GameGUI extends Application {
 		reviveQuant.setTextAlignment(TextAlignment.CENTER);
 		potionList.setTextAlignment(TextAlignment.CENTER);
 		errorMsg.setTextAlignment(TextAlignment.LEFT);
-		
+
 		hbox.setAlignment(Pos.CENTER);
 		hbox1.setAlignment(Pos.CENTER);
 		hbox2.setAlignment(Pos.CENTER);
-		
+
 		GridPane.setHalignment(welcome, HPos.CENTER);
 		GridPane.setHalignment(potion1, HPos.CENTER);
 		GridPane.setHalignment(quantity1, HPos.CENTER);
@@ -766,7 +766,7 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(revive, HPos.CENTER);
 		GridPane.setHalignment(potionList, HPos.CENTER);
 		GridPane.setHalignment(errorMsg, HPos.CENTER);
-		
+
 		GridPane.setHalignment(btnBuy1, HPos.CENTER);
 		GridPane.setHalignment(btnSell1, HPos.CENTER);
 		GridPane.setHalignment(btnBuy2, HPos.CENTER);
@@ -774,7 +774,7 @@ public class GameGUI extends Application {
 		GridPane.setHalignment(btnBuy3, HPos.CENTER);
 		GridPane.setHalignment(btnSell3, HPos.CENTER);
 		GridPane.setHalignment(continueBtn, HPos.LEFT);
-		
+
 		errorMsg.setWrappingWidth(200);
 
 		// Set background		
@@ -782,7 +782,7 @@ public class GameGUI extends Application {
 
 		//Fade Transition
 		screenFade(root);
-		
+
 		// Create the scene
 		Scene shopScene = new Scene(root, 1280, 720);
 		shopScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
@@ -790,7 +790,7 @@ public class GameGUI extends Application {
 		primaryStage.show();
 
 	}
-	
+
 	/**
 	 * The method adds event handling to the continue button 
 	 * depending on whether there is an event or not
@@ -799,44 +799,44 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary GUI window/stage
 	 */
 	private void continueBtnHandling(Button continueBtn, Stage primaryStage) {
-	    	this.event.eventHappen();
+		this.event.eventHappen();
 		if (this.event.isEvent() == true) {
-		    continueBtn.setOnAction(event -> {
-			se.transitionSound();
-			eventScreen(primaryStage);});
+			continueBtn.setOnAction(event -> {
+				se.transitionSound();
+				eventScreen(primaryStage);});
 		} else {
-		    continueBtn.setOnAction(event -> {
-			battleMusic.stop();
-			se.transitionSound();
-			floor.incrementFloor();
-			battleScreen(primaryStage);});
+			continueBtn.setOnAction(event -> {
+				battleMusic.stop();
+				se.transitionSound();
+				floor.incrementFloor();
+				battleScreen(primaryStage);});
 		}
-		
+
 	}
-	
+
 	/**
 	 * This method creates the screen when a special event occurs. 
 	 * 
 	 * @param primaryStage The primary stage/window to display the GUI.
 	 */
 	public void eventScreen(Stage primaryStage) {
-	    	// Creating the grid
+		// Creating the grid
 		GridPane grid = new GridPane();
-		
+
 		// Text for the event 
 		Text txtEvent = new Text("A MYSTERIOUS BOX...");
 		txtEvent.setId("eventTitle");
-		
+
 		// Text for the description of the triggered event 
 		Text display = new Text("");
 		display.maxWidth(300);
 		display.setId("eventText");
 		GridPane.setHalignment(display, HPos.CENTER);
-		
+
 		// Image for the treasure chest 
 		ImageView closedIV = new ImageView(event.getClosedBox());		
 		ImageView openIV = new ImageView(event.getOpenBox());
-		
+
 		// Creating continue button and adding event handling
 		Button continueBtn = new Button("NEXT FLOOR");
 		continueBtn.setDisable(true);
@@ -844,11 +844,11 @@ public class GameGUI extends Application {
 		continueBtn.setLayoutY(700);
 		continueBtn.setId("redBtn");	
 		continueBtn.setOnAction(event -> {
-		    	battleMusic.stop();
-		    	se.transitionSound();
+			battleMusic.stop();
+			se.transitionSound();
 			floor.incrementFloor();
 			battleScreen(primaryStage);
-					});
+		});
 		// Create 'Open' Button and event handling
 		Button openBtn = new Button("OPEN");
 		openBtn.setId("yellowBtn");
@@ -857,23 +857,23 @@ public class GameGUI extends Application {
 			openBtn.setDisable(true);
 			// Open treasure chest sound effect 
 			se.openChestSound();
-			
+
 			Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			KeyFrame frame = new KeyFrame(Duration.millis(1500), ae -> 
 			event.openChest(hero, floor, continueBtn, grid, closedIV, openIV, openBtn, display));
-		    event.setEvent(false);
-			
+			event.setEvent(false);
+
 			timeline.getKeyFrames().add(frame);
 			timeline.play();			
 		}); 
-				
+
 		// Fixed width for columns
 		for (int i = 0; i < 5; i++) {
 			ColumnConstraints column = new ColumnConstraints(250);
 			grid.getColumnConstraints().add(column);
 		}		
-			
+
 		// Add nodes to the grid
 		grid.setGridLinesVisible(true);
 
@@ -889,33 +889,33 @@ public class GameGUI extends Application {
 		grid.add(continueBtn, 4, 6);
 		grid.setVgap(20); 
 		grid.setHgap(20); 
-		
+
 		// Set background 
 		grid.setId("insideTower");
-		
+
 		//Fade Transition
 		screenFade(grid);
-		
+
 		// Create the scene
 		Scene eventScene = new Scene(grid, 1280, 720);
 		eventScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
 		primaryStage.setScene(eventScene);
 		primaryStage.show();
-		
+
 	}
-	
+
 	/**
 	 * This method adds a fade transition to the scene
 	 * 
 	 * @param p The Pane that will be added to the scene
 	 */
 	private void screenFade(Pane p) {
-	    FadeTransition ft = new FadeTransition(Duration.millis(1000), p);
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), p);
 		ft.setFromValue(0);
 		ft.setToValue(1);
 		ft.play();
 	}
-	
+
 	/**
 	 * This method creates a scene after death if the player has a revive
 	 * 
@@ -923,61 +923,61 @@ public class GameGUI extends Application {
 	 * @return reviveScene The scene giving the player the option to revive
 	 */
 	public Scene reviveScreen(Stage primaryStage) {
-	    //Creating text for the page
-	    Text reviveOption = new Text();
-	    reviveOption.setText("Would you like to use a revive?");
-	    reviveOption.setId("revive");
-	    reviveOption.setX(100);
-	    reviveOption.setY(200);
-	    
-	    //Adding image of revive 
-		Shop shop = new Shop(hero);
-	    ImageView revive = new ImageView(shop.getReviveImage());
-	    revive.setLayoutX(550);
-	    revive.setLayoutY(300);
-	    DropShadow ds1 = new DropShadow();
-	    ds1.setColor(Color.MEDIUMSPRINGGREEN);
-	    revive.setEffect(ds1);
-	    
-	    
-	    //Creating buttons and adding event handling
-	    Button reviveBtn = new Button("Use revive");
-	    reviveBtn.setId("whiteBtn");
-	    reviveBtn.setOnAction(event-> { 
-		hero.revive();
-	    	battleMusic.stop();
-	    	se.transitionSound();
-		battleScreen(primaryStage);
-		});
-	    
-	    Button exitBtn = new Button("Don't use revive");
-	    exitBtn.setId("whiteBtn");
-	    exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
-		});
-	    
-	    //Creating HBox, adding nodes and style
-	    HBox hbBtn = new HBox(40);
-	    hbBtn.getChildren().addAll(reviveBtn, exitBtn);
-	    hbBtn.setLayoutX(470);
-	    hbBtn.setLayoutY(550);
-	    hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-	    
-	    //Creating Pane, adding nodes and style
-	    Pane display = new Pane();
-	    display.getChildren().addAll(reviveOption, hbBtn, revive);
-	
-	    // Set background 
-	    display.setId("insideTower");
+		//Creating text for the page
+		Text reviveOption = new Text();
+		reviveOption.setText("Would you like to use a revive?");
+		reviveOption.setId("revive");
+		reviveOption.setX(100);
+		reviveOption.setY(200);
 
-	    //Fade Transition
-	    screenFade(display);
-	    
-	    //Adding Pane to Scene and Scene to Stage
-	    Scene reviveScene = new Scene(display, 1280, 720);
-	    reviveScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
-	    primaryStage.setScene(reviveScene);
-	    primaryStage.show();
-	    return reviveScene;	    
+		//Adding image of revive 
+		Shop shop = new Shop(hero);
+		ImageView revive = new ImageView(shop.getReviveImage());
+		revive.setLayoutX(550);
+		revive.setLayoutY(300);
+		DropShadow ds1 = new DropShadow();
+		ds1.setColor(Color.MEDIUMSPRINGGREEN);
+		revive.setEffect(ds1);
+
+
+		//Creating buttons and adding event handling
+		Button reviveBtn = new Button("Use revive");
+		reviveBtn.setId("whiteBtn");
+		reviveBtn.setOnAction(event-> { 
+			hero.revive();
+			battleMusic.stop();
+			se.transitionSound();
+			battleScreen(primaryStage);
+		});
+
+		Button exitBtn = new Button("Don't use revive");
+		exitBtn.setId("whiteBtn");
+		exitBtn.setOnAction(event-> {gameOverScreen(primaryStage);
+		});
+
+		//Creating HBox, adding nodes and style
+		HBox hbBtn = new HBox(40);
+		hbBtn.getChildren().addAll(reviveBtn, exitBtn);
+		hbBtn.setLayoutX(470);
+		hbBtn.setLayoutY(550);
+		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+
+		//Creating Pane, adding nodes and style
+		Pane display = new Pane();
+		display.getChildren().addAll(reviveOption, hbBtn, revive);
+
+		// Set background 
+		display.setId("insideTower");
+
+		//Fade Transition
+		screenFade(display);
+
+		//Adding Pane to Scene and Scene to Stage
+		Scene reviveScene = new Scene(display, 1280, 720);
+		reviveScene.getStylesheets().add(getClass().getResource("GameGUI.css").toExternalForm());
+		primaryStage.setScene(reviveScene);
+		primaryStage.show();
+		return reviveScene;	    
 	}
 	/**
 	 * This method adds event handling to the two buttons at the end of the game 
@@ -989,27 +989,27 @@ public class GameGUI extends Application {
 	 * @param primaryStage The primary GUI widow/stage
 	 */
 	private void endOfGameButtons(Button exitBtn, Button playAgainBtn, Boolean win, Stage primaryStage) {
-	    	exitBtn.setOnAction(event-> {primaryStage.close();;});
-	    	if (win) {
-	    	playAgainBtn.setOnAction(event-> {try {
-		    	youWinMusic.stop();
-		    	floor.setFloor(1);
-		    	se.transitionSound();
-			start(primaryStage);
-		} catch (FileNotFoundException e) { 
-			primaryStage.close();
-		}});
-	    	} else if (!win) {
-	    	playAgainBtn.setOnAction(event-> {try {
-		    	gameOverMusic.stop();
-		    	se.transitionSound();
-		    	floor.setFloor(1);
-			start(primaryStage);
-		} catch (FileNotFoundException e) { 
-			primaryStage.close();
-		}});
-	    	}
-		
+		exitBtn.setOnAction(event-> {primaryStage.close();;});
+		if (win) {
+			playAgainBtn.setOnAction(event-> {try {
+				youWinMusic.stop();
+				floor.setFloor(1);
+				se.transitionSound();
+				start(primaryStage);
+			} catch (FileNotFoundException e) { 
+				primaryStage.close();
+			}});
+		} else if (!win) {
+			playAgainBtn.setOnAction(event-> {try {
+				gameOverMusic.stop();
+				se.transitionSound();
+				floor.setFloor(1);
+				start(primaryStage);
+			} catch (FileNotFoundException e) { 
+				primaryStage.close();
+			}});
+		}
+
 	}
 	/**
 	 * This method creates screen when the player wins the game
@@ -1018,7 +1018,7 @@ public class GameGUI extends Application {
 	 * @return gWon The scene that is displayed of the player wins the game.
 	 */
 	public Scene youWinScreen(Stage primaryStage) {
-	    
+
 		//Adding text to Pane
 		Text youWin = new Text();
 		youWin.setText("Congratulations. YOU WON!");
@@ -1045,12 +1045,12 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(600);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-	
+
 
 		//Adding nodes to pane and set pane background
 		gameWon.getChildren().addAll(hbBtn, youWin, thankYou);
 		gameWon.setId("youWinBackground");
-		
+
 		//Fade Transition
 		screenFade(gameWon);
 
@@ -1062,7 +1062,7 @@ public class GameGUI extends Application {
 		return gWon;
 
 	}
-	
+
 
 	/**
 	 * This method creates game over screen when the player dies (no revives)
@@ -1091,7 +1091,7 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(630);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-		
+
 
 		//Creating Pane and adding nodes
 		Pane gameOver = new Pane();
@@ -1118,18 +1118,18 @@ public class GameGUI extends Application {
 	 * @return transition The scene displayed after a battle to update the user 
 	 */
 	public Scene transitionScreen(Stage primaryStage) {
-	    	//Creating text for the page
+		//Creating text for the page
 		Text clearedFloor = new Text();
 		clearedFloor.setText("You cleared floor " + floor.getFloor() + "!");
 		clearedFloor.setId("clearedFloorText");
 		clearedFloor.setX(350);
 		clearedFloor.setY(120);
-		
+
 		//Creating the buttons play for the player to continue on
 		Button shopBtn = new Button("Magic Shop");
 		shopBtn.setId("yellowBtn");
 		shopBtn.setDisable(true);
-		
+
 		Button next = new Button("Next");
 		next.setId("yellowBtn");
 		next.setVisible(false);;
@@ -1143,26 +1143,26 @@ public class GameGUI extends Application {
 		hbBtn.setLayoutX(500);
 		hbBtn.setLayoutY(650);
 		hbBtn.setAlignment(Pos.BOTTOM_CENTER);
-		
+
 		//Creating VBox and setting alignment
 		VBox userUpdate = new VBox(20);
 		userUpdate.setLayoutX(330);
 		userUpdate.setLayoutY(250);
 		userUpdate.setAlignment(Pos.CENTER);
-			
+
 		//Creating text for gold and xp gained
 		Text goldGained = new Text();
 		int gold = (5 * floor.getFloor()) + (allEnemies.get(floor.getFloor()).size() * 10);
 		hero.setGold(hero.getGold() +  gold);
 		goldGained.setText("You gained " + (int)gold + " gold! Gold = " + hero.getGold());
 		goldGained.setId("xpAndGoldText");
-		
+
 		Text xpGained = new Text();
 		int xp= 50 * allEnemies.get(floor.getFloor()).size() + floor.getFloor() * 10;
 		xpCount += xp;
 		xpGained.setText("You gained " + xp + " experience points! EXP = " + xpCount);
 		xpGained.setId("xpAndGoldText");
-		
+
 		//Creating text for level up and the conditions to display it
 		Text levelUp = new Text();
 		Text atkUp = new Text();
@@ -1170,48 +1170,48 @@ public class GameGUI extends Application {
 		Text defUp = new Text();
 		Text mAtkUp = new Text();
 		Text manaUp = new Text();
-		
+
 		if (xpCount >= (25 + hero.getLevel() * 175)) {
-		    continueBtn.setVisible(false);
-		    shopBtn.setVisible(false);
-		    goldGained.setId("xpAndGoldTwoText");
-		    xpGained.setId("xpAndGoldTwoText");
-		    userUpdate.setLayoutX(340);
-		    userUpdate.setLayoutY(180);
-		    levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
-			    + "! \n\t\t You regained 30% stamina! \n");
-		    levelUp.setId("levelUpText");
-		    xpCount = 0;
-		    next.setVisible(true);
-		    next.setOnAction(event->{ next.setDisable(true);
-		    continueBtn.setVisible(true);
-		    shopBtn.setVisible(true);
+			continueBtn.setVisible(false);
+			shopBtn.setVisible(false);
+			goldGained.setId("xpAndGoldTwoText");
+			xpGained.setId("xpAndGoldTwoText");
+			userUpdate.setLayoutX(340);
+			userUpdate.setLayoutY(180);
+			levelUp.setText("YOU GAINED A LEVEL! You are now Level " + (hero.getLevel() + 1) 
+					+ "! \n\t\t You regained 30% stamina! \n");
+			levelUp.setId("levelUpText");
+			xpCount = 0;
+			next.setVisible(true);
+			next.setOnAction(event->{ next.setDisable(true);
+			continueBtn.setVisible(true);
+			shopBtn.setVisible(true);
 			atkUp.setText("Your attack went up by " + hero.getAttackUp() + ". Attack =  " + hero.getAttack());
 			atkUp.setId("staminaLevelUpdates");
 			stamUp.setText("Your stamina went up by " + hero.getStaminaUp() + ". Stamina =  " + hero.getStamina());
 			stamUp.setId("staminaLevelUpdates");
 			defUp.setText("Your defense went up by " + hero.getDefenseUp() + ". Defense =  " + hero.getDefense());
 			defUp.setId("staminaLevelUpdates");
-		    
+
 			if(hero.getType().contentEquals("Mage")) {
-			    mAtkUp.setText("Your  magic attack went up by " + hero.getMagicAtkUp() + ". Magic Attack =  " + hero.getMagicAtk());
-			    mAtkUp.setId("staminaLevelUpdates");
-			    manaUp.setText("Your attack went up by " + hero.getManaUp() + ". Mana =  " + hero.getMana());
-			    manaUp.setId("staminaLevelUpdates");
+				mAtkUp.setText("Your  magic attack went up by " + hero.getMagicAtkUp() + ". Magic Attack =  " + hero.getMagicAtk());
+				mAtkUp.setId("staminaLevelUpdates");
+				manaUp.setText("Your attack went up by " + hero.getManaUp() + ". Mana =  " + hero.getMana());
+				manaUp.setId("staminaLevelUpdates");
 			};});
-		   	    
+
 		}
-		
+
 		//Adding nodes to VBox
 		userUpdate.getChildren().addAll(goldGained, xpGained, levelUp, atkUp, stamUp, defUp, mAtkUp, manaUp);
-	
+
 		//Creating Pane and setting background
 		Pane display = new Pane();
 		display.setId("transitionBackground");	
 
 		// Event handling for if there is a special event 
 		continueBtnHandling(continueBtn, primaryStage);
-		
+
 		// Event handling for shop, only available on 3rd, 6th and 9th floor 
 		if (floor.getFloor() == 3 ||  floor.getFloor() == 6 || floor.getFloor() == 9) {
 			shopBtn.setDisable(false);
@@ -1219,11 +1219,11 @@ public class GameGUI extends Application {
 		shopBtn.setOnAction(event -> {
 			se.shopSound();
 			shopScreen(primaryStage);
-			});
-		
+		});
+
 		//Adding nodes to pane
 		display.getChildren().addAll(hbBtn, clearedFloor, userUpdate, next);
-		
+
 		//Fade Transition
 		screenFade(display);
 
@@ -1316,20 +1316,19 @@ public class GameGUI extends Application {
 	public void setFloor(Floor floor) {
 		this.floor = floor;
 	}
-	
 
 	/**
 	 * @return the battleMusic
 	 */
 	public MediaPlayer getBattleMusic() {
-	    return battleMusic;
+		return battleMusic;
 	}
 
 	/**
 	 * @param battleMusic the battleMusic to set
 	 */
 	public void setBattleMusic(MediaPlayer battleMusic) {
-	    this.battleMusic = battleMusic;
+		this.battleMusic = battleMusic;
 	}
 
 	/**
