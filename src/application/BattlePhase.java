@@ -764,8 +764,9 @@ public class BattlePhase {
 
 			// Determines what sequence of movements and attacks and sounds is appropriate
 			// depending on who is alive/dead
-			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { // AAA (alive, alive, alive going from
-																				// left to right)
+
+			// AAA (alive, alive, alive going from left to right)
+			if (!dead.contains(0) && !dead.contains(1) && !dead.contains(2)) { 
 				SequentialTransition sequence = new SequentialTransition(posOneForward, posOneNoise, posOneHit,
 						posOneBackward, posTwoForward, posTwoNoise, posTwoHit, posTwoBackward, posThreeForward,
 						posThreeNoise, posThreeHit, posThreeBackward);
